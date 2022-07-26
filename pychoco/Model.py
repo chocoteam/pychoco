@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
 
+from pychoco.Solver import Solver
+
 
 class Model(ABC):
     """
@@ -12,6 +14,13 @@ class Model(ABC):
     def get_name(self):
         """
         :return: The name of the model.
+        """
+        pass
+
+    @abstractmethod
+    def get_solver(self) -> Solver:
+        """
+        :return: The solver associated with this model.
         """
         pass
 

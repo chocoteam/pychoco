@@ -3683,32 +3683,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_allDifferent(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  void *arg1 = (void *) 0 ;
-  void *arg2 = (void *) 0 ;
-  int res1 ;
-  int res2 ;
-  PyObject *swig_obj[2] ;
-  void *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "allDifferent", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "allDifferent" "', argument " "1"" of type '" "void *""'"); 
-  }
-  res2 = SWIG_ConvertPtr(swig_obj[1],SWIG_as_voidptrptr(&arg2), 0, 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "allDifferent" "', argument " "2"" of type '" "void *""'"); 
-  }
-  result = (void *)allDifferent(arg1,arg2);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_mod_iv_i_i(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   void *arg1 = (void *) 0 ;
@@ -4663,6 +4637,26 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_chocosolver_handles_destroy(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  int res1 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "chocosolver_handles_destroy" "', argument " "1"" of type '" "void *""'"); 
+  }
+  chocosolver_handles_destroy(arg1);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 static PyMethodDef SwigMethods[] = {
 	 { "SWIG_PyInstanceMethod_New", SWIG_PyInstanceMethod_New, METH_O, NULL},
 	 { "chocosolver_init", _wrap_chocosolver_init, METH_NOARGS, NULL},
@@ -4688,7 +4682,6 @@ static PyMethodDef SwigMethods[] = {
 	 { "arithm_iv_iv_iv", _wrap_arithm_iv_iv_iv, METH_VARARGS, NULL},
 	 { "member_iv_iarray", _wrap_member_iv_iarray, METH_VARARGS, NULL},
 	 { "member_iv_i_i", _wrap_member_iv_i_i, METH_VARARGS, NULL},
-	 { "allDifferent", _wrap_allDifferent, METH_VARARGS, NULL},
 	 { "mod_iv_i_i", _wrap_mod_iv_i_i, METH_VARARGS, NULL},
 	 { "mod_iv_i_iv", _wrap_mod_iv_i_iv, METH_VARARGS, NULL},
 	 { "mod_iv_iv_iv", _wrap_mod_iv_iv_iv, METH_VARARGS, NULL},
@@ -4716,6 +4709,7 @@ static PyMethodDef SwigMethods[] = {
 	 { "create_int_array", _wrap_create_int_array, METH_O, NULL},
 	 { "int_array_length", _wrap_int_array_length, METH_O, NULL},
 	 { "int_array_set", _wrap_int_array_set, METH_VARARGS, NULL},
+	 { "chocosolver_handles_destroy", _wrap_chocosolver_handles_destroy, METH_O, NULL},
 	 { NULL, NULL, 0, NULL }
 };
 

@@ -131,9 +131,6 @@ def member_iv_iarray(arg1: "void *", arg2: "void *", arg3: "void *") -> "void *"
 def member_iv_i_i(arg1: "void *", arg2: "void *", arg3: "int", arg4: "int") -> "void *":
     return _backend.member_iv_i_i(arg1, arg2, arg3, arg4)
 
-def allDifferent(arg1: "void *", arg2: "void *") -> "void *":
-    return _backend.allDifferent(arg1, arg2)
-
 def mod_iv_i_i(arg1: "void *", arg2: "void *", arg3: "int", arg4: "int") -> "void *":
     return _backend.mod_iv_i_i(arg1, arg2, arg3, arg4)
 
@@ -214,5 +211,8 @@ def int_array_length(arg1: "void *") -> "int":
 
 def int_array_set(arg1: "void *", arg2: "int", arg3: "int") -> "void":
     return _backend.int_array_set(arg1, arg2, arg3)
+
+def chocosolver_handles_destroy(arg1: "void *") -> "void":
+    return _backend.chocosolver_handles_destroy(arg1)
 
 

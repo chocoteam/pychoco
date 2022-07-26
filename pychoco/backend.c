@@ -161,7 +161,7 @@ void* member_iv_i_i(void* modelHandle, void* intVarHandle, int lb, int ub) {
     return Java_org_chocosolver_capi_ConstraintApi_member_iv_i_i(thread, modelHandle, intVarHandle, lb, ub);
 }
 
-void* allDifferent(void* modelHandle, void* intVarArrayHandle) {
+void* all_different(void* modelHandle, void* intVarArrayHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ConstraintApi_allDifferent(thread, modelHandle, intVarArrayHandle);
 }
@@ -297,3 +297,11 @@ void int_array_set(void* intArrayHandle, int element, int index) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ArrayApi_int_set(thread, intArrayHandle, element, index);
 }
+
+// Handle API
+
+void chocosolver_handles_destroy(void* handle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_HandlesApi_destroy(thread, handle);
+}
+

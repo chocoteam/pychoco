@@ -63,7 +63,7 @@ void* member_iv_iarray(void*, void*, void*);
 
 void* member_iv_i_i(void*, void*, int, int);
 
-void* allDifferent(void*, void*);
+void* all_different(void*, void*);
 
 void* mod_iv_i_i(void*, void*, int, int);
 
@@ -105,8 +105,6 @@ void* min_iv_iv_iv(void*, void*, void*, void*);
 
 void* min_iv_ivarray(void*, void*, void*);
 
-void* all_different(void*, void*);
-
 // Array API
 
 void* create_intvar_array(int);
@@ -121,7 +119,9 @@ int int_array_length(void*);
 
 void int_array_set(void*, int, int);
 
-//
+// Handle API
+
+void chocosolver_handles_destroy(void*);
 
 #if defined(__cplusplus)
 }

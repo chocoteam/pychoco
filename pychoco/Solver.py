@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
 
+from pychoco.Solution import Solution
+
 
 class Solver(ABC):
     """
@@ -8,7 +10,7 @@ class Solver(ABC):
     """
 
     @abstractmethod
-    def find_solution(self):
+    def find_solution(self) -> Solution:
         """
         Finds a solution and retrieve it.
         :return: The first solution found.

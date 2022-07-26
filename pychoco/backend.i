@@ -102,8 +102,6 @@ void* member_iv_iarray(void*, void*, void*);
 
 void* member_iv_i_i(void*, void*, int, int);
 
-void* allDifferent(void*, void*);
-
 void* mod_iv_i_i(void*, void*, int, int);
 
 void* mod_iv_i_iv(void*, void*, int, void*);
@@ -159,3 +157,7 @@ void* create_int_array(int);
 int int_array_length(void*);
 
 void int_array_set(void*, int, int);
+
+// Handle API
+
+void chocosolver_handles_destroy(void*);
