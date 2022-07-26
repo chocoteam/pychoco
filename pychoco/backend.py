@@ -77,6 +77,21 @@ def create_model(arg1: "char *") -> "void *":
 def get_model_name(arg1: "void *") -> "char *":
     return _backend.get_model_name(arg1)
 
+def get_solver(arg1: "void *") -> "void *":
+    return _backend.get_solver(arg1)
+
+def find_solution(arg1: "void *") -> "void *":
+    return _backend.find_solution(arg1)
+
+def show_statistics(arg1: "void *") -> "void":
+    return _backend.show_statistics(arg1)
+
+def show_short_statistics(arg1: "void *") -> "void":
+    return _backend.show_short_statistics(arg1)
+
+def get_int_val(arg1: "void *", arg2: "void *") -> "int":
+    return _backend.get_int_val(arg1, arg2)
+
 def intvar_sii(arg1: "void *", arg2: "char *", arg3: "int", arg4: "int") -> "void *":
     return _backend.intvar_sii(arg1, arg2, arg3, arg4)
 
@@ -95,14 +110,92 @@ def get_intvar_ub(arg1: "void *") -> "int":
 def get_constraint_name(arg1: "void *") -> "char *":
     return _backend.get_constraint_name(arg1)
 
-def all_different(arg1: "void *", arg2: "void *") -> "void *":
-    return _backend.all_different(arg1, arg2)
-
 def post(arg1: "void *") -> "void":
     return _backend.post(arg1)
 
-def solve(arg1: "void *") -> "void":
-    return _backend.solve(arg1)
+def arithm_iv_cst(arg1: "void *", arg2: "void *", arg3: "char *", arg4: "int") -> "void *":
+    return _backend.arithm_iv_cst(arg1, arg2, arg3, arg4)
+
+def arithm_iv_iv(arg1: "void *", arg2: "void *", arg3: "char *", arg4: "void *") -> "void *":
+    return _backend.arithm_iv_iv(arg1, arg2, arg3, arg4)
+
+def arithm_iv_iv_cst(arg1: "void *", arg2: "void *", arg3: "char *", arg4: "void *", arg5: "char *", arg6: "int") -> "void *":
+    return _backend.arithm_iv_iv_cst(arg1, arg2, arg3, arg4, arg5, arg6)
+
+def arithm_iv_iv_iv(arg1: "void *", arg2: "void *", arg3: "char *", arg4: "void *", arg5: "char *", arg6: "void *") -> "void *":
+    return _backend.arithm_iv_iv_iv(arg1, arg2, arg3, arg4, arg5, arg6)
+
+def member_iv_iarray(arg1: "void *", arg2: "void *", arg3: "void *") -> "void *":
+    return _backend.member_iv_iarray(arg1, arg2, arg3)
+
+def member_iv_i_i(arg1: "void *", arg2: "void *", arg3: "int", arg4: "int") -> "void *":
+    return _backend.member_iv_i_i(arg1, arg2, arg3, arg4)
+
+def allDifferent(arg1: "void *", arg2: "void *") -> "void *":
+    return _backend.allDifferent(arg1, arg2)
+
+def mod_iv_i_i(arg1: "void *", arg2: "void *", arg3: "int", arg4: "int") -> "void *":
+    return _backend.mod_iv_i_i(arg1, arg2, arg3, arg4)
+
+def mod_iv_i_iv(arg1: "void *", arg2: "void *", arg3: "int", arg4: "void *") -> "void *":
+    return _backend.mod_iv_i_iv(arg1, arg2, arg3, arg4)
+
+def mod_iv_iv_iv(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *") -> "void *":
+    return _backend.mod_iv_iv_iv(arg1, arg2, arg3, arg4)
+
+def _not(arg1: "void *", arg2: "void *") -> "void *":
+    return _backend._not(arg1, arg2)
+
+def not_member_iv_iarray(arg1: "void *", arg2: "void *", arg3: "void *") -> "void *":
+    return _backend.not_member_iv_iarray(arg1, arg2, arg3)
+
+def not_member_iv_i_i(arg1: "void *", arg2: "void *", arg3: "int", arg4: "int") -> "void *":
+    return _backend.not_member_iv_i_i(arg1, arg2, arg3, arg4)
+
+def absolute(arg1: "void *", arg2: "void *", arg3: "void *") -> "void *":
+    return _backend.absolute(arg1, arg2, arg3)
+
+def distance_iv_iv_i(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "char *", arg5: "int") -> "void *":
+    return _backend.distance_iv_iv_i(arg1, arg2, arg3, arg4, arg5)
+
+def distance_iv_iv_iv(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "char *", arg5: "void *") -> "void *":
+    return _backend.distance_iv_iv_iv(arg1, arg2, arg3, arg4, arg5)
+
+def element_iv_iarray_iv_i(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *", arg5: "int") -> "void *":
+    return _backend.element_iv_iarray_iv_i(arg1, arg2, arg3, arg4, arg5)
+
+def element_iv_ivarray_iv_i(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *", arg5: "int") -> "void *":
+    return _backend.element_iv_ivarray_iv_i(arg1, arg2, arg3, arg4, arg5)
+
+def square(arg1: "void *", arg2: "void *", arg3: "void *") -> "void *":
+    return _backend.square(arg1, arg2, arg3)
+
+def times_iv_i_iv(arg1: "void *", arg2: "void *", arg3: "int", arg4: "void *") -> "void *":
+    return _backend.times_iv_i_iv(arg1, arg2, arg3, arg4)
+
+def times_iv_iv_i(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "int") -> "void *":
+    return _backend.times_iv_iv_i(arg1, arg2, arg3, arg4)
+
+def times_iv_iv_iv(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *") -> "void *":
+    return _backend.times_iv_iv_iv(arg1, arg2, arg3, arg4)
+
+def div_(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *") -> "void *":
+    return _backend.div_(arg1, arg2, arg3, arg4)
+
+def max_iv_iv_iv(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *") -> "void *":
+    return _backend.max_iv_iv_iv(arg1, arg2, arg3, arg4)
+
+def max_iv_ivarray(arg1: "void *", arg2: "void *", arg3: "void *") -> "void *":
+    return _backend.max_iv_ivarray(arg1, arg2, arg3)
+
+def min_iv_iv_iv(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *") -> "void *":
+    return _backend.min_iv_iv_iv(arg1, arg2, arg3, arg4)
+
+def min_iv_ivarray(arg1: "void *", arg2: "void *", arg3: "void *") -> "void *":
+    return _backend.min_iv_ivarray(arg1, arg2, arg3)
+
+def all_different(arg1: "void *", arg2: "void *") -> "void *":
+    return _backend.all_different(arg1, arg2)
 
 def create_intvar_array(arg1: "int") -> "void *":
     return _backend.create_intvar_array(arg1)
@@ -112,5 +205,14 @@ def intvar_array_length(arg1: "void *") -> "int":
 
 def intvar_array_set(arg1: "void *", arg2: "void *", arg3: "int") -> "void":
     return _backend.intvar_array_set(arg1, arg2, arg3)
+
+def create_int_array(arg1: "int") -> "void *":
+    return _backend.create_int_array(arg1)
+
+def int_array_length(arg1: "void *") -> "int":
+    return _backend.int_array_length(arg1)
+
+def int_array_set(arg1: "void *", arg2: "int", arg3: "int") -> "void":
+    return _backend.int_array_set(arg1, arg2, arg3)
 
 
