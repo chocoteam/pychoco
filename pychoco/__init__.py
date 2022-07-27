@@ -7,7 +7,7 @@ pychoco - Python API for the Choco Constraint Programming solver
 import atexit
 
 from . import backend
-from ._internals._Model import _create_model
+from ._internals._model import _create_model
 
 backend.chocosolver_init()
 del backend

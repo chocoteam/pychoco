@@ -1,13 +1,13 @@
 from typing import Union, List
 
 from pychoco import backend
-from pychoco.Model import Model
-from pychoco._internals._Constraint import _Constraint
-from pychoco._internals._HandleWrapper import _HandleWrapper
-from pychoco._internals._IntVar import _IntVar
-from pychoco._internals._Solver import _Solver
-from pychoco._internals._Utils import make_int_var_array, make_int_array
+from pychoco._internals._constraint import _Constraint
+from pychoco._internals._handle_wrapper import _HandleWrapper
+from pychoco._internals._intvar import _IntVar
+from pychoco._internals._solver import _Solver
+from pychoco._internals._utils import make_int_var_array, make_int_array
 from pychoco.constraints.IntConstraintFactory import IntConstraintFactory
+from pychoco.model import Model
 from pychoco.variables.IntVar import IntVar
 from pychoco.variables.VariableFactory import VariableFactory
 
@@ -25,9 +25,9 @@ class _Model(Model, VariableFactory, IntConstraintFactory, _HandleWrapper):
     def get_name(self):
         return backend.get_model_name(self.handle)
 
-    def get_solver(self) -> _Solver:
+    def get_solver(self):
         solver_handler = backend.get_solver(self.handle)
-        return _Solver(solver_handler)
+        return _Solver(solver_handler, self)
 
     # VariableFactory methods implementation
 

@@ -23,7 +23,13 @@ void* get_solver(void*);
 
 // Solver API
 
-void* find_solution(void*);
+void* find_solution(void*, void*);
+
+void* find_all_solutions(void*, void*);
+
+void* find_optimal_solution(void*, void*, _Bool, void*);
+
+void* find_all_optimal_solutions(void*, void*, _Bool, void*);
 
 void show_statistics(void*);
 
@@ -32,6 +38,20 @@ void show_short_statistics(void*);
 // Solution API
 
 int get_int_val(void*, void*);
+
+// Criterion API
+
+void* time_counter(void*, long);
+
+void* solution_counter(void*, long);
+
+void* node_counter(void*, long);
+
+void* fail_counter(void*, long);
+
+void* restart_counter(void*, long);
+
+void* backtrack_counter(void*, long);
 
 // Intvars
 
@@ -107,17 +127,37 @@ void* min_iv_ivarray(void*, void*, void*);
 
 // Array API
 
+// IntVar
+
 void* create_intvar_array(int);
 
 int intvar_array_length(void*);
 
 void intvar_array_set(void*, void*, int);
 
+// int
+
 void* create_int_array(int);
 
 int int_array_length(void*);
 
 void int_array_set(void*, int, int);
+
+// Criterion
+
+void* create_criterion_array(int);
+
+void criterion_array_set(void*, void*, int);
+
+int array_length(void*);
+
+// List API
+
+int list_size(void*);
+
+// Solution
+
+void* list_solution_get(void*, int);
 
 // Handle API
 

@@ -1,7 +1,7 @@
 from pychoco import backend
-from pychoco.Solution import Solution
-from pychoco._internals._HandleWrapper import _HandleWrapper
-from pychoco._internals._IntVar import _IntVar
+from pychoco._internals._handle_wrapper import _HandleWrapper
+from pychoco._internals._intvar import _IntVar
+from pychoco.solution import Solution
 
 
 class _Solution(Solution, _HandleWrapper):

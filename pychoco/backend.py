@@ -80,14 +80,41 @@ def get_model_name(arg1: "void *") -> "char *":
 def get_solver(arg1: "void *") -> "void *":
     return _backend.get_solver(arg1)
 
-def find_solution(arg1: "void *") -> "void *":
-    return _backend.find_solution(arg1)
+def find_solution(arg1: "void *", arg2: "void *") -> "void *":
+    return _backend.find_solution(arg1, arg2)
+
+def find_all_solutions(arg1: "void *", arg2: "void *") -> "void *":
+    return _backend.find_all_solutions(arg1, arg2)
+
+def find_optimal_solution(arg1: "void *", arg2: "void *", arg3: "_Bool", arg4: "void *") -> "void *":
+    return _backend.find_optimal_solution(arg1, arg2, arg3, arg4)
+
+def find_all_optimal_solutions(arg1: "void *", arg2: "void *", arg3: "_Bool", arg4: "void *") -> "void *":
+    return _backend.find_all_optimal_solutions(arg1, arg2, arg3, arg4)
 
 def show_statistics(arg1: "void *") -> "void":
     return _backend.show_statistics(arg1)
 
 def show_short_statistics(arg1: "void *") -> "void":
     return _backend.show_short_statistics(arg1)
+
+def time_counter(arg1: "void *", arg2: "long") -> "void *":
+    return _backend.time_counter(arg1, arg2)
+
+def solution_counter(arg1: "void *", arg2: "long") -> "void *":
+    return _backend.solution_counter(arg1, arg2)
+
+def node_counter(arg1: "void *", arg2: "long") -> "void *":
+    return _backend.node_counter(arg1, arg2)
+
+def fail_counter(arg1: "void *", arg2: "long") -> "void *":
+    return _backend.fail_counter(arg1, arg2)
+
+def restart_counter(arg1: "void *", arg2: "long") -> "void *":
+    return _backend.restart_counter(arg1, arg2)
+
+def backtrack_counter(arg1: "void *", arg2: "long") -> "void *":
+    return _backend.backtrack_counter(arg1, arg2)
 
 def get_int_val(arg1: "void *", arg2: "void *") -> "int":
     return _backend.get_int_val(arg1, arg2)
@@ -211,6 +238,21 @@ def int_array_length(arg1: "void *") -> "int":
 
 def int_array_set(arg1: "void *", arg2: "int", arg3: "int") -> "void":
     return _backend.int_array_set(arg1, arg2, arg3)
+
+def create_criterion_array(arg1: "int") -> "void *":
+    return _backend.create_criterion_array(arg1)
+
+def criterion_array_set(arg1: "void *", arg2: "void *", arg3: "int") -> "void":
+    return _backend.criterion_array_set(arg1, arg2, arg3)
+
+def array_length(arg1: "void *") -> "int":
+    return _backend.array_length(arg1)
+
+def list_size(arg1: "void *") -> "int":
+    return _backend.list_size(arg1)
+
+def list_solution_get(arg1: "void *", arg2: "int") -> "void *":
+    return _backend.list_solution_get(arg1, arg2)
 
 def chocosolver_handles_destroy(arg1: "void *") -> "void":
     return _backend.chocosolver_handles_destroy(arg1)
