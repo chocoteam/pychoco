@@ -166,6 +166,28 @@ int get_intvar_ub(void* varHandle) {
     return Java_org_chocosolver_capi_IntVarApi_getUB(thread, varHandle);
 }
 
+// Boolvars
+
+void* boolvar_s(void* modelHandle, char* name) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_BoolVarApi_boolVar_s(thread, modelHandle, name);
+}
+
+void* boolvar(void* modelHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_BoolVarApi_boolVar(thread, modelHandle);
+}
+
+void* boolvar_b(void* modelHandle, _Bool value) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_BoolVarApi_boolVar_b(thread, modelHandle, value);
+}
+
+void* boolvar_sb(void* modelHandle, char* name, _Bool value) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_BoolVarApi_boolVar_sb(thread, modelHandle, name, value);
+}
+
 // Constraints
 
 char* get_constraint_name(void* constraintHandle) {
@@ -176,6 +198,16 @@ char* get_constraint_name(void* constraintHandle) {
 void post(void* constraintHandle) {
     LAZY_THREAD_ATTACH
     Java_org_chocosolver_capi_ConstraintApi_post(thread, constraintHandle);
+}
+
+void* reify(void* constraintHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_reify(thread, constraintHandle);
+}
+
+int is_satisfied(void* constraintHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_is_satisfied(thread, constraintHandle);
 }
 
 void* arithm_iv_cst(void* modelHandle, void* intVarHandle, char* op, int constant) {
@@ -378,6 +410,68 @@ int list_size(void* listHandle) {
 void* list_solution_get(void* listHandle, int index) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ListApi_solution_get(thread, listHandle, index);
+}
+
+// Search
+
+void set_random_search(void* solverHandle, void* intVarArrayHandle, long seed) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_SearchApi_set_random_search(thread, solverHandle, intVarArrayHandle, seed);
+}
+
+void set_dom_over_w_deg_search(void* solverHandle, void* intVarArrayHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_SearchApi_set_dom_over_w_deg_search(thread, solverHandle, intVarArrayHandle);
+}
+
+void set_dom_over_w_deg_ref_search(void* solverHandle, void* intVarArrayHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_SearchApi_set_dom_over_w_deg_ref_search(thread, solverHandle, intVarArrayHandle);
+}
+
+void set_activity_based_search(void* solverHandle, void* intVarArrayHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_SearchApi_set_activity_based_search(thread, solverHandle, intVarArrayHandle);
+}
+
+void set_min_dom_lb_search(void* solverHandle, void* intVarArrayHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_SearchApi_set_min_dom_lb_search(thread, solverHandle, intVarArrayHandle);
+}
+
+void set_min_dom_ub_search(void* solverHandle, void* intVarArrayHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_SearchApi_set_min_dom_ub_search(thread, solverHandle, intVarArrayHandle);
+}
+
+void set_conflict_history_search(void* solverHandle, void* intVarArrayHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_SearchApi_set_conflict_history_search(thread, solverHandle, intVarArrayHandle);
+}
+
+void set_default_search(void* solverHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_SearchApi_set_default_search(thread, solverHandle);
+}
+
+void set_input_order_lb_search(void* solverHandle, void* intVarArrayHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_SearchApi_set_input_order_lb_search(thread, solverHandle, intVarArrayHandle);
+}
+
+void set_input_order_ub_search(void* solverHandle, void* intVarArrayHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_SearchApi_set_input_order_ub_search(thread, solverHandle, intVarArrayHandle);
+}
+
+void set_failure_length_based_search(void* solverHandle, void* intVarArrayHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_SearchApi_set_failure_length_based_search(thread, solverHandle, intVarArrayHandle);
+}
+
+void set_failure_rate_based_search(void* solverHandle, void* intVarArrayHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_SearchApi_set_failure_rate_based_search(thread, solverHandle, intVarArrayHandle);
 }
 
 // Handle API

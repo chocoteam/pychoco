@@ -1,20 +1,15 @@
-from abc import ABC, abstractmethod
+from abc import abstractmethod, ABC
+
+from pychoco.variables.variable import Variable
 
 
-class IntVar(ABC):
+class IntVar(Variable, ABC):
     """
     An integer variable (IntVar) is an unknown whose value should be an integer.
     Therefore, the domain of an integer variable is a set of integers (representing
     possible values). This set of integers can be either represented by an interval
     (with a lower bound and an upper bound), or enumerated.
     """
-
-    @abstractmethod
-    def get_name(self):
-        """
-        :return: The name of the variable.
-        """
-        pass
 
     @abstractmethod
     def get_lb(self):
@@ -27,13 +22,6 @@ class IntVar(ABC):
     def get_ub(self):
         """
         :return: The upper bound of the variable.
-        """
-        pass
-
-    @abstractmethod
-    def get_model(self):
-        """
-        :return: The model in which the variable was declared.
         """
         pass
 

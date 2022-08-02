@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import Union, List
 
-from pychoco.constraints.Constraint import Constraint
-from pychoco.variables.IntVar import IntVar
+from pychoco.constraints.constraint import Constraint
+from pychoco.variables.intvar import IntVar
 
 
 class IntConstraintFactory(ABC):

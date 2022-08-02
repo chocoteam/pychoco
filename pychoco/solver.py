@@ -1,11 +1,12 @@
 from abc import ABC, abstractmethod
 from typing import Union, List
 
+from pychoco.search.search_strategies import SearchStrategies
 from pychoco.solution import Solution
-from pychoco.variables.IntVar import IntVar
+from pychoco.variables.intvar import IntVar
 
 
-class Solver(ABC):
+class Solver(SearchStrategies, ABC):
     """
     The Solver is in charge of alternating constraint-propagation with search, and possibly learning,
     in order to compute solutions. This object may be configured in various ways.

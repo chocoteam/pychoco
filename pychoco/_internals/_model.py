@@ -1,18 +1,17 @@
 from typing import Union, List
 
 from pychoco import backend
+from pychoco._internals._boolvar import _BoolVar
 from pychoco._internals._constraint import _Constraint
 from pychoco._internals._handle_wrapper import _HandleWrapper
 from pychoco._internals._intvar import _IntVar
 from pychoco._internals._solver import _Solver
 from pychoco._internals._utils import make_int_var_array, make_int_array
-from pychoco.constraints.IntConstraintFactory import IntConstraintFactory
 from pychoco.model import Model
-from pychoco.variables.IntVar import IntVar
-from pychoco.variables.VariableFactory import VariableFactory
+from pychoco.variables.intvar import IntVar
 
 
-class _Model(Model, VariableFactory, IntConstraintFactory, _HandleWrapper):
+class _Model(Model, _HandleWrapper):
     """
     Internal class to represent a choco model.
     """
@@ -22,7 +21,8 @@ class _Model(Model, VariableFactory, IntConstraintFactory, _HandleWrapper):
 
     # Model methods implementation
 
-    def get_name(self):
+    @property
+    def name(self):
         return backend.get_model_name(self.handle)
 
     def get_solver(self):
@@ -38,6 +38,19 @@ class _Model(Model, VariableFactory, IntConstraintFactory, _HandleWrapper):
             var_handle = backend.intvar_sii(self.handle, name, lb, ub)
         return _IntVar(var_handle, self)
 
+    def boolvar(self, value: Union[bool, None] = None, name: Union[str, None] = None):
+        if name is not None:
+            if value is not None:
+                var_handle = backend.boolvar_sb(self.handle, name, value)
+            else:
+                var_handle = backend.boolvar_s(self.handle, name)
+        else:
+            if value is not None:
+                var_handle = backend.boolvar_b(self.handle, value)
+            else:
+                var_handle = backend.boolvar(self.handle)
+        return _BoolVar(var_handle, self)
+
     # IntConstraintFactor methods implementation
 
     def arithm(self, x: _IntVar, op1: str, y: Union[int, _IntVar],
@@ -52,7 +65,7 @@ class _Model(Model, VariableFactory, IntConstraintFactory, _HandleWrapper):
             constraint_handle = backend.arithm_iv_iv_cst(self.handle, x.handle, op1, y.handle, op2, z)
         if isinstance(y, IntVar) and op2 is not None and isinstance(z, IntVar):
             constraint_handle = backend.arithm_iv_iv_iv(self.handle, x.handle, op1, y.handle, op2, z.handle)
-        return _Constraint(constraint_handle)
+        return _Constraint(constraint_handle, self)
 
     def member(self, x: _IntVar, table: Union[list, tuple, None] = None,
                lb: Union[None, int] = None, ub: Union[None, int] = None):
@@ -61,7 +74,7 @@ class _Model(Model, VariableFactory, IntConstraintFactory, _HandleWrapper):
             constraint_handle = backend.member_iv_iarray(self.handle, x.handle, ints_array)
         else:
             constraint_handle = backend.member_iv_i_i(self.handle, x.handle, lb, ub)
-        return _Constraint(constraint_handle)
+        return _Constraint(constraint_handle, self)
 
     def not_member(self, x: _IntVar, table: Union[list, tuple, None] = None,
                    lb: Union[None, int] = None, ub: Union[None, int] = None):
@@ -70,7 +83,7 @@ class _Model(Model, VariableFactory, IntConstraintFactory, _HandleWrapper):
             constraint_handle = backend.not_member_iv_iarray(self.handle, x.handle, ints_array)
         else:
             constraint_handle = backend.not_member_iv_i_i(self.handle, x.handle, lb, ub)
-        return _Constraint(constraint_handle)
+        return _Constraint(constraint_handle, self)
 
     def mod(self, x, mod: Union[int, _IntVar], res: Union[int, _IntVar]):
         constraint_handle = None
@@ -80,22 +93,22 @@ class _Model(Model, VariableFactory, IntConstraintFactory, _HandleWrapper):
             constraint_handle = backend.mod_iv_i_iv(self.handle, x.handle, mod, res.handle)
         if isinstance(mod, IntVar) and isinstance(res, IntVar):
             constraint_handle = backend.mod_iv_iv_iv(self.handle, x.handle, mod.handle, res.handle)
-        return _Constraint(constraint_handle)
+        return _Constraint(constraint_handle, self)
 
     def not_(self, constraint: _Constraint):
         constraint_handle = backend._not(self.handle, constraint.handle)
-        return _Constraint(constraint_handle)
+        return _Constraint(constraint_handle, self)
 
     def absolute(self, x: _IntVar, y: _IntVar):
         constraint_handle = backend.absolute(self.handle, x.handle, y.handle)
-        return _Constraint(constraint_handle)
+        return _Constraint(constraint_handle, self)
 
     def distance(self, x: _IntVar, y: _IntVar, op: str, z: Union[int, _IntVar]):
         if isinstance(z, int):
             constraint_handle = backend.distance_iv_iv_i(self.handle, x.handle, y.handle, z)
         else:
             constraint_handle = backend.distance_iv_iv_iv(self.handle, x.handle, y.handle, z.handle)
-        return _Constraint(constraint_handle)
+        return _Constraint(constraint_handle, self)
 
     def element(self, x: _IntVar, table: Union[List[int], List[_IntVar]], index: _IntVar, offset: int = 0):
         if len(table) == 0:
@@ -108,11 +121,11 @@ class _Model(Model, VariableFactory, IntConstraintFactory, _HandleWrapper):
             int_var_array_handle = make_int_var_array(*table)
             constraint_handle = backend.element_iv_ivarray_iv_i(self.handle, x.handle, int_var_array_handle,
                                                                 index.handle, offset)
-        return _Constraint(constraint_handle)
+        return _Constraint(constraint_handle, self)
 
     def square(self, x: _IntVar, y: _IntVar):
         constraint_handle = backend.square(self.handle, x.handle, y.handle)
-        return _Constraint(constraint_handle)
+        return _Constraint(constraint_handle, self)
 
     def times(self, x: _IntVar, y: Union[int, _IntVar], z: Union[int, _IntVar]):
         constraint_handle = None
@@ -122,26 +135,26 @@ class _Model(Model, VariableFactory, IntConstraintFactory, _HandleWrapper):
             constraint_handle = backend.times_iv_iv_i(self.handle, x.handle, y.handle, z)
         if isinstance(y, IntVar) and isinstance(z, IntVar):
             constraint_handle = backend.times_iv_iv_iv(self.handle, x.handle, y.handle, z.handle)
-        return _Constraint(constraint_handle)
+        return _Constraint(constraint_handle, self)
 
     def div(self, dividend: _IntVar, divisor: _IntVar, result: _IntVar):
         constraint_handle = backend.div_(self.handle, dividend.handle, divisor.handle, result.handle)
-        return _Constraint(constraint_handle)
+        return _Constraint(constraint_handle, self)
 
     def max(self, x: _IntVar, *intvars: List[_IntVar]):
         int_var_array_handle = make_int_var_array(*intvars)
         constraint_hande = backend.max_iv_ivarray(self.handle, x.handle, int_var_array_handle)
-        return _Constraint(constraint_hande)
+        return _Constraint(constraint_hande, self)
 
     def min(self, x: IntVar, *intvars: List[IntVar]):
         int_var_array_handle = make_int_var_array(*intvars)
         constraint_hande = backend.min_iv_ivarray(self.handle, x.handle, int_var_array_handle)
-        return _Constraint(constraint_hande)
+        return _Constraint(constraint_hande, self)
 
     def all_different(self, *intvars: List[IntVar]):
         vars_array = make_int_var_array(*intvars)
         constraint_handle = backend.all_different(self.handle, vars_array)
-        return _Constraint(constraint_handle)
+        return _Constraint(constraint_handle, self)
 
 
 def _create_model(name):

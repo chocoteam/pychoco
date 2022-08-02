@@ -3,7 +3,7 @@ from typing import List
 from pychoco import backend
 from pychoco._internals._solution import _Solution
 from pychoco.solution import Solution
-from pychoco.variables.IntVar import IntVar
+from pychoco.variables.intvar import IntVar
 
 
 def make_int_array(*ints: List[int]):

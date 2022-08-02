@@ -20,6 +20,7 @@ class VariableFactory(ABC):
         """
         pass
 
+    @abstractmethod
     def boolvar(self, value: Union[bool, None] = None, name: Union[str, None] = None):
         """
         Creates a boolvar, possibly with a fixed value.
@@ -27,3 +28,4 @@ class VariableFactory(ABC):
         :param name: The name of the variable (optional).
         :return: A boolvar.
         """
+        pass

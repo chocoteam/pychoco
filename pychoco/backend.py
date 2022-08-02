@@ -134,11 +134,29 @@ def get_intvar_lb(arg1: "void *") -> "int":
 def get_intvar_ub(arg1: "void *") -> "int":
     return _backend.get_intvar_ub(arg1)
 
+def boolvar_s(arg1: "void *", arg2: "char *") -> "void *":
+    return _backend.boolvar_s(arg1, arg2)
+
+def boolvar(arg1: "void *") -> "void *":
+    return _backend.boolvar(arg1)
+
+def boolvar_b(arg1: "void *", arg2: "_Bool") -> "void *":
+    return _backend.boolvar_b(arg1, arg2)
+
+def boolvar_sb(arg1: "void *", arg2: "char *", arg3: "_Bool") -> "void *":
+    return _backend.boolvar_sb(arg1, arg2, arg3)
+
 def get_constraint_name(arg1: "void *") -> "char *":
     return _backend.get_constraint_name(arg1)
 
 def post(arg1: "void *") -> "void":
     return _backend.post(arg1)
+
+def reify(arg1: "void *") -> "void *":
+    return _backend.reify(arg1)
+
+def is_satisfied(arg1: "void *") -> "int":
+    return _backend.is_satisfied(arg1)
 
 def arithm_iv_cst(arg1: "void *", arg2: "void *", arg3: "char *", arg4: "int") -> "void *":
     return _backend.arithm_iv_cst(arg1, arg2, arg3, arg4)
@@ -253,6 +271,42 @@ def list_size(arg1: "void *") -> "int":
 
 def list_solution_get(arg1: "void *", arg2: "int") -> "void *":
     return _backend.list_solution_get(arg1, arg2)
+
+def set_random_search(arg1: "void *", arg2: "void *", arg3: "long") -> "void":
+    return _backend.set_random_search(arg1, arg2, arg3)
+
+def set_dom_over_w_deg_search(arg1: "void *", arg2: "void *") -> "void":
+    return _backend.set_dom_over_w_deg_search(arg1, arg2)
+
+def set_dom_over_w_deg_ref_search(arg1: "void *", arg2: "void *") -> "void":
+    return _backend.set_dom_over_w_deg_ref_search(arg1, arg2)
+
+def set_activity_based_search(arg1: "void *", arg2: "void *") -> "void":
+    return _backend.set_activity_based_search(arg1, arg2)
+
+def set_min_dom_lb_search(arg1: "void *", arg2: "void *") -> "void":
+    return _backend.set_min_dom_lb_search(arg1, arg2)
+
+def set_min_dom_ub_search(arg1: "void *", arg2: "void *") -> "void":
+    return _backend.set_min_dom_ub_search(arg1, arg2)
+
+def set_conflict_history_search(arg1: "void *", arg2: "void *") -> "void":
+    return _backend.set_conflict_history_search(arg1, arg2)
+
+def set_default_search(arg1: "void *") -> "void":
+    return _backend.set_default_search(arg1)
+
+def set_input_order_lb_search(arg1: "void *", arg2: "void *") -> "void":
+    return _backend.set_input_order_lb_search(arg1, arg2)
+
+def set_input_order_ub_search(arg1: "void *", arg2: "void *") -> "void":
+    return _backend.set_input_order_ub_search(arg1, arg2)
+
+def set_failure_length_based_search(arg1: "void *", arg2: "void *") -> "void":
+    return _backend.set_failure_length_based_search(arg1, arg2)
+
+def set_failure_rate_based_search(arg1: "void *", arg2: "void *") -> "void":
+    return _backend.set_failure_rate_based_search(arg1, arg2)
 
 def chocosolver_handles_destroy(arg1: "void *") -> "void":
     return _backend.chocosolver_handles_destroy(arg1)

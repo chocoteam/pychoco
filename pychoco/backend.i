@@ -104,11 +104,25 @@ int get_intvar_lb(void*);
 
 int get_intvar_ub(void*);
 
+// Boolvars
+
+void* boolvar_s(void*, char*);
+
+void* boolvar(void*);
+
+void* boolvar_b(void*, _Bool);
+
+void* boolvar_sb(void*, char*, _Bool);
+
 // Constraints
 
 char* get_constraint_name(void*);
 
 void post(void*);
+
+void* reify(void*);
+
+int is_satisfied(void*);
 
 void* arithm_iv_cst(void*, void*, char*, int);
 
@@ -197,6 +211,32 @@ int list_size(void*);
 // Solution
 
 void* list_solution_get(void*, int);
+
+// Search
+
+void set_random_search(void*, void*, long);
+
+void set_dom_over_w_deg_search(void*, void*);
+
+void set_dom_over_w_deg_ref_search(void*, void*);
+
+void set_activity_based_search(void*, void*);
+
+void set_min_dom_lb_search(void*, void*);
+
+void set_min_dom_ub_search(void*, void*);
+
+void set_conflict_history_search(void*, void*);
+
+void set_default_search(void*);
+
+void set_input_order_lb_search(void*, void*);
+
+void set_input_order_ub_search(void*, void*);
+
+void set_failure_length_based_search(void*, void*);
+
+void set_failure_rate_based_search(void*, void*);
 
 // Handle API
 

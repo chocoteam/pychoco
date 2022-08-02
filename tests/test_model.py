@@ -7,4 +7,4 @@ class TestModel(unittest.TestCase):
 
     def test_create_model(self):
         model = create_model("MyModel")
-        self.assertEqual(model.get_name(), "MyModel")
+        self.assertEqual(model.name(), "MyModel")

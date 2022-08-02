@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from pychoco.variables.IntVar import IntVar
+from pychoco.variables.intvar import IntVar
 
 
 class Solution(ABC):

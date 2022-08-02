@@ -6,7 +6,7 @@ from pychoco.solution import Solution
 
 class _Solution(Solution, _HandleWrapper):
     """
-    Internal class to represent a choco solver.
+    Internal class to represent a choco solution.
     """
 
     def __init__(self, handle):

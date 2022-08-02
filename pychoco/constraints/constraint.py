@@ -20,10 +20,37 @@ class Constraint(ABC):
         """
         pass
 
+    @property
+    @abstractmethod
+    def model(self):
+        """
+        :return: The model associated with this constraint.
+        """
+        pass
+
     @abstractmethod
     def post(self):
         """
         :return: Post the constraint.
+        """
+        pass
+
+    @abstractmethod
+    def reify(self):
+        """
+        :return: Reifies the constraint, i.e. return a boolvar whose instantiation in a solution
+        correspond to the satisfaction state of the constraint in this solution.
+        """
+        pass
+
+    @abstractmethod
+    def is_satisfied(self):
+        """
+        Check whether the constraint is satisfied (ESat.TRUE), not satisfied (ESat.FALSE),
+        or if it is not yet possible to define whether it is satisfied or not (ESat.UNDEFINED).
+        **Note:** this method is used internally by Choco, but it can be useful to verify whether
+        a constraint is satisfied (or not) regardless of the variables' instantiation.
+        :return: The satisfaction state of the constraint.
         """
         pass
 

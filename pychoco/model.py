@@ -1,15 +1,19 @@
 from abc import ABC, abstractmethod
 
+from pychoco.constraints.int_constraint_factory import IntConstraintFactory
+from pychoco.variables.variable_factory import VariableFactory
 
-class Model(ABC):
+
+class Model(VariableFactory, IntConstraintFactory, ABC):
     """
     The Model is the header component of Constraint Programming. It embeds the list of
     Variable (and their Domain), the Constraint's network, and a propagation engine to
     pilot the propagation.
     """
 
+    @property
     @abstractmethod
-    def get_name(self):
+    def name(self):
         """
         :return: The name of the model.
         """
@@ -23,4 +27,4 @@ class Model(ABC):
         pass
 
     def __repr__(self):
-        return "Choco Model ('" + self.get_name() + "')"
+        return "Choco Model ('" + self.name() + "')"
