@@ -22,10 +22,10 @@ atexit.register(_module_cleanup_function)
 del atexit
 
 
-def create_model(name):
+def create_model(name: str = None):
     """
     Create a Choco model.
-    :param name: The name of the model.
+    :param name: The name of the model (optional)
     :return: A Choco model.
     """
     return _create_model(name)

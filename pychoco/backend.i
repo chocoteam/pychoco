@@ -54,7 +54,9 @@ int chocosolver_is_initialized();
 
 // Model API
 
-void* create_model(char*);
+void* create_model();
+
+void* create_model_s(char*);
 
 char* get_model_name(void*);
 
@@ -97,6 +99,10 @@ int get_int_val(void*, void*);
 void* intvar_sii(void*, char*, int, int);
 
 void* intvar_ii(void*, int, int);
+
+void* intvar_i(void*, int);
+
+void* intvar_si(void*, char*, int);
 
 char* get_intvar_name(void*);
 

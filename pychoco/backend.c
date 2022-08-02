@@ -53,9 +53,14 @@ int chocosolver_is_initialized() {
 
 // Model API
 
-void* create_model(char* name) {
+void* create_model_s(char* name) {
     LAZY_THREAD_ATTACH
-    return Java_org_chocosolver_capi_ModelApi_createModel(thread, name);
+    return Java_org_chocosolver_capi_ModelApi_createModel_s(thread, name);
+}
+
+void* create_model() {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ModelApi_createModel(thread);
 }
 
 char* get_model_name(void* modelHandle) {
@@ -149,6 +154,16 @@ void* intvar_sii(void* modelHandle, char* name, int lb, int ub) {
 void* intvar_ii(void* modelHandle, int lb, int ub) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_IntVarApi_intVar_ii(thread, modelHandle, lb, ub);
+}
+
+void* intvar_i(void* modelHandle, int value) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_IntVarApi_intVar_i(thread, modelHandle, value);
+}
+
+void* intvar_si(void* modelHandle, char* name, int value) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_IntVarApi_intVar_si(thread, modelHandle, name, value);
 }
 
 char* get_intvar_name(void* varHandle) {

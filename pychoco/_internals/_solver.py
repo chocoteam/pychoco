@@ -37,6 +37,8 @@ class _Solver(Solver, _HandleWrapper):
             criterion.append(backend.backtrack_counter(self.handle, restart_limit))
         stop = make_criterion_var_array(*criterion)
         solution_handle = backend.find_solution(self.handle, stop)
+        if solution_handle is None:
+            return None
         return _Solution(solution_handle)
 
     def find_all_solutions(self,
@@ -87,6 +89,8 @@ class _Solver(Solver, _HandleWrapper):
             criterion.append(backend.backtrack_counter(self.handle, restart_limit))
         stop = make_criterion_var_array(*criterion)
         solution_handle = backend.find_optimal_solution(self.handle, objective.handle, maximize, stop)
+        if solution_handle is None:
+            return None
         return _Solution(solution_handle)
 
     def find_all_optimal_solutions(self,

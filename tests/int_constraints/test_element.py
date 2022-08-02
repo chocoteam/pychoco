@@ -1,6 +1,7 @@
 import unittest
 
 from pychoco import create_model
+from pychoco.utils import ESat
 
 
 class TestElement(unittest.TestCase):
@@ -23,3 +24,27 @@ class TestElement(unittest.TestCase):
         index = m.intvar(-3, 10)
         var = m.intvar(-20, 20)
         self.genericTest(m, var, index, values, 0, 5)
+
+    def testNeg(self):
+        m = create_model("m")
+        values = [1, 2, 0, 4, ]
+        index = m.intvar(-3, 10)
+        var = m.intvar(-20, 20);
+        m.element(var, values, index).reify()
+        m.get_solver().find_all_solutions()
+
+    def testProp1(self):
+        m = create_model()
+        values = [1, 2, 0, 4, 3]
+        index = m.intvar(0)
+        var = m.intvar(1)
+        c = m.element(var, values, index)
+        self.assertEqual(ESat.TRUE, c.is_satisfied())
+
+    def testProp2(self):
+        m = create_model()
+        values = [1, 2, 0, 4, 3]
+        index = m.intvar(0)
+        var = m.intvar(2)
+        c = m.element(var, values, index);
+        self.assertEqual(ESat.FALSE, c.is_satisfied())

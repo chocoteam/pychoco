@@ -26,7 +26,7 @@ class _Constraint(Constraint, _HandleWrapper):
 
     def reify(self):
         var_handle = backend.reify(self.handle)
-        return _BoolVar(var_handle)
+        return _BoolVar(var_handle, self.model)
 
     def is_satisfied(self):
         state = backend.is_satisfied(self.handle)

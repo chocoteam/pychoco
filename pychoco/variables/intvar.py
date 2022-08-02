@@ -26,4 +26,4 @@ class IntVar(Variable, ABC):
         pass
 
     def __repr__(self):
-        return "Choco IntVar ('" + self.get_name() + "')"
+        return "Choco IntVar ('" + self.name + "')"

@@ -71,8 +71,11 @@ def chocosolver_cleanup() -> "void":
 def chocosolver_is_initialized() -> "int":
     return _backend.chocosolver_is_initialized()
 
-def create_model(arg1: "char *") -> "void *":
-    return _backend.create_model(arg1)
+def create_model() -> "void *":
+    return _backend.create_model()
+
+def create_model_s(arg1: "char *") -> "void *":
+    return _backend.create_model_s(arg1)
 
 def get_model_name(arg1: "void *") -> "char *":
     return _backend.get_model_name(arg1)
@@ -124,6 +127,12 @@ def intvar_sii(arg1: "void *", arg2: "char *", arg3: "int", arg4: "int") -> "voi
 
 def intvar_ii(arg1: "void *", arg2: "int", arg3: "int") -> "void *":
     return _backend.intvar_ii(arg1, arg2, arg3)
+
+def intvar_i(arg1: "void *", arg2: "int") -> "void *":
+    return _backend.intvar_i(arg1, arg2)
+
+def intvar_si(arg1: "void *", arg2: "char *", arg3: "int") -> "void *":
+    return _backend.intvar_si(arg1, arg2, arg3)
 
 def get_intvar_name(arg1: "void *") -> "char *":
     return _backend.get_intvar_name(arg1)

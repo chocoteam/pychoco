@@ -31,12 +31,25 @@ class _Model(Model, _HandleWrapper):
 
     # VariableFactory methods implementation
 
-    def intvar(self, lb, ub, name=None):
+    def intvar(self, lb: int, ub: Union[int, None] = None, name: Union[str, None] = None):
         if name is None:
-            var_handle = backend.intvar_ii(self.handle, lb, ub)
+            if ub is None:
+                var_handle = backend.intvar_i(self.handle, lb)
+            else:
+                var_handle = backend.intvar_ii(self.handle, lb, ub)
         else:
-            var_handle = backend.intvar_sii(self.handle, name, lb, ub)
+            if ub is None:
+                var_handle = backend.intvar_si(self.handle, name, lb)
+            else:
+                var_handle = backend.intvar_sii(self.handle, name, lb, ub)
         return _IntVar(var_handle, self)
+
+    def intvars(self, size: int, lb: int, ub: Union[int, None] = None, name: Union[str, None] = None):
+        if isinstance(lb, list):
+            assert len(lb) == size
+            return [self.intvar(lb[i], None, name) for i in range(0, size)]
+        else:
+            return [self.intvar(lb, ub, name) for i in range(0, size)]
 
     def boolvar(self, value: Union[bool, None] = None, name: Union[str, None] = None):
         if name is not None:
@@ -50,6 +63,13 @@ class _Model(Model, _HandleWrapper):
             else:
                 var_handle = backend.boolvar(self.handle)
         return _BoolVar(var_handle, self)
+
+    def boolvars(self, size: int, value: Union[List[bool], bool, None] = None, name: Union[str, None] = None):
+        if isinstance(value, list):
+            assert len(value) == size
+            return [self.boolvar(value[i], name) for i in range(0, size)]
+        else:
+            return [self.boolvar(value, name) for i in range(0, size)]
 
     # IntConstraintFactor methods implementation
 
@@ -157,6 +177,9 @@ class _Model(Model, _HandleWrapper):
         return _Constraint(constraint_handle, self)
 
 
-def _create_model(name):
-    handle = backend.create_model(name)
+def _create_model(name=None):
+    if name is not None:
+        handle = backend.create_model_s(name)
+    else:
+        handle = backend.create_model()
     return _Model(handle)

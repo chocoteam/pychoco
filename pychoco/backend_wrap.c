@@ -3060,6 +3060,19 @@ fail:
 
 SWIGINTERN PyObject *_wrap_create_model(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
+  void *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "create_model", 0, 0, 0)) SWIG_fail;
+  result = (void *)create_model();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_create_model_s(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
   char *arg1 = (char *) 0 ;
   int res1 ;
   char *buf1 = 0 ;
@@ -3071,10 +3084,10 @@ SWIGINTERN PyObject *_wrap_create_model(PyObject *SWIGUNUSEDPARM(self), PyObject
   swig_obj[0] = args;
   res1 = SWIG_AsCharPtrAndSize(swig_obj[0], &buf1, NULL, &alloc1);
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "create_model" "', argument " "1"" of type '" "char *""'");
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "create_model_s" "', argument " "1"" of type '" "char *""'");
   }
   arg1 = (char *)(buf1);
-  result = (void *)create_model(arg1);
+  result = (void *)create_model_s(arg1);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
   if (alloc1 == SWIG_NEWOBJ) free((char*)buf1);
   return resultobj;
@@ -3583,6 +3596,73 @@ SWIGINTERN PyObject *_wrap_intvar_ii(PyObject *SWIGUNUSEDPARM(self), PyObject *a
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
   return resultobj;
 fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_intvar_i(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  int arg2 ;
+  int res1 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  void *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "intvar_i", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "intvar_i" "', argument " "1"" of type '" "void *""'"); 
+  }
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "intvar_i" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = (int)(val2);
+  result = (void *)intvar_i(arg1,arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_intvar_si(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  int res1 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  void *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "intvar_si", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "intvar_si" "', argument " "1"" of type '" "void *""'"); 
+  }
+  res2 = SWIG_AsCharPtrAndSize(swig_obj[1], &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "intvar_si" "', argument " "2"" of type '" "char *""'");
+  }
+  arg2 = (char *)(buf2);
+  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "intvar_si" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = (int)(val3);
+  result = (void *)intvar_si(arg1,arg2,arg3);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
+  if (alloc2 == SWIG_NEWOBJ) free((char*)buf2);
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) free((char*)buf2);
   return NULL;
 }
 
@@ -5556,7 +5636,8 @@ static PyMethodDef SwigMethods[] = {
 	 { "chocosolver_init", _wrap_chocosolver_init, METH_NOARGS, NULL},
 	 { "chocosolver_cleanup", _wrap_chocosolver_cleanup, METH_NOARGS, NULL},
 	 { "chocosolver_is_initialized", _wrap_chocosolver_is_initialized, METH_NOARGS, NULL},
-	 { "create_model", _wrap_create_model, METH_O, NULL},
+	 { "create_model", _wrap_create_model, METH_NOARGS, NULL},
+	 { "create_model_s", _wrap_create_model_s, METH_O, NULL},
 	 { "get_model_name", _wrap_get_model_name, METH_O, NULL},
 	 { "get_solver", _wrap_get_solver, METH_O, NULL},
 	 { "find_solution", _wrap_find_solution, METH_VARARGS, NULL},
@@ -5574,6 +5655,8 @@ static PyMethodDef SwigMethods[] = {
 	 { "get_int_val", _wrap_get_int_val, METH_VARARGS, NULL},
 	 { "intvar_sii", _wrap_intvar_sii, METH_VARARGS, NULL},
 	 { "intvar_ii", _wrap_intvar_ii, METH_VARARGS, NULL},
+	 { "intvar_i", _wrap_intvar_i, METH_VARARGS, NULL},
+	 { "intvar_si", _wrap_intvar_si, METH_VARARGS, NULL},
 	 { "get_intvar_name", _wrap_get_intvar_name, METH_O, NULL},
 	 { "get_intvar_lb", _wrap_get_intvar_lb, METH_O, NULL},
 	 { "get_intvar_ub", _wrap_get_intvar_ub, METH_O, NULL},
