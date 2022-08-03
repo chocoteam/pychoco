@@ -76,15 +76,29 @@ class _Model(Model, _HandleWrapper):
     def arithm(self, x: _IntVar, op1: str, y: Union[int, _IntVar],
                op2: Union[None, str] = None, z: Union[None, int, _IntVar] = None):
         constraint_handle = None
+        eq_operators = ["=", "!=", ">", "<", ">=", "<="]
+        alg_operators = ["+", "-", "*", "/"]
+        if op2 is None:
+            assert op1 in eq_operators
+        else:
+            assert (op1 in eq_operators and op2 in alg_operators) or (op1 in alg_operators and op2 in eq_operators)
         # Case 1
         if isinstance(y, int) and op2 is None and z is None:
             constraint_handle = backend.arithm_iv_cst(self.handle, x.handle, op1, y)
+        if isinstance(y, int) and op2 is not None and z is not None:
+            yy = self.intvar(y)
+            if isinstance(z, int):
+                constraint_handle = backend.arithm_iv_iv_cst(self.handle, x.handle, op1, yy.handle, op2, z)
+            else:
+                constraint_handle = backend.arithm_iv_iv_iv(self.handle, x.handle, op1, yy.handle, op2, z)
         if isinstance(y, IntVar) and op2 is None and z is None:
             constraint_handle = backend.arithm_iv_iv(self.handle, x.handle, op1, y.handle)
         if isinstance(y, IntVar) and op2 is not None and isinstance(z, int):
             constraint_handle = backend.arithm_iv_iv_cst(self.handle, x.handle, op1, y.handle, op2, z)
         if isinstance(y, IntVar) and op2 is not None and isinstance(z, IntVar):
             constraint_handle = backend.arithm_iv_iv_iv(self.handle, x.handle, op1, y.handle, op2, z.handle)
+        if constraint_handle is None:
+            raise AttributeError("Invalid parameters combination for arithm constraint. Please refer to the doc")
         return _Constraint(constraint_handle, self)
 
     def member(self, x: _IntVar, table: Union[list, tuple, None] = None,

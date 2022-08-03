@@ -15,3 +15,10 @@ class TestAllDifferent(unittest.TestCase):
             self.assertNotEqual(s.get_int_val(variables[0]), s.get_int_val(variables[1]))
             self.assertNotEqual(s.get_int_val(variables[0]), s.get_int_val(variables[2]))
             self.assertNotEqual(s.get_int_val(variables[1]), s.get_int_val(variables[2]))
+
+    def testAllDifferentFail(self):
+        m = create_model()
+        variables = m.intvars(3, 0, 1)
+        m.all_different(*variables).post()
+        solution = m.get_solver().find_solution()
+        self.assertIsNone(solution)
