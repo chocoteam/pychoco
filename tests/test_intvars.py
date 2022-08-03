@@ -9,7 +9,7 @@ class TestIntVar(unittest.TestCase):
         model = create_model("MyModel")
         a = model.intvar(0, 10, "a")
         b = model.intvar(1, 2)
-        self.assertEqual(a.name(), "a")
+        self.assertEqual(a.name, "a")
         self.assertEqual(a.get_lb(), 0)
         self.assertEqual(a.get_ub(), 10)
         self.assertEqual(b.get_lb(), 1)
