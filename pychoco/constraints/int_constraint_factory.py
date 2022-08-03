@@ -14,20 +14,25 @@ class IntConstraintFactory(ABC):
     def arithm(self, x: IntVar, op1: str, y: Union[int, IntVar],
                op2: Union[None, str] = None, z: Union[None, int, IntVar] = None):
         """
-        Creates an arithmetic constraint, where operators are in in {"=", "!=", ">","<",">=","<="}.
+        Creates an arithmetic constraint, where operators are in {"=", "!=", ">","<",">=","<="}
+        and {"+", "-", "*", "/"}.
         Four options are possible:
             - `x <op1> y`,
                     x -> IntVar; y -> constant; op2 and z -> None.
+                    op1 in {"=", "!=", ">","<",">=","<="}
             - `x <op1> y`,
                     x and y -> IntVar; operator3 and z -> None.
+                    op1 in {"=", "!=", ">","<",">=","<="}
             - `x <op1> y <op2> z`,
                     x and y -> IntVar, z -> constant.
+                    op1 in {"=", "!=", ">","<",">=","<="} and op2 in {"+", "-", "*", "/"}, or vice-versa.
             - `x <op1> y <op2> z`,
                     x, y, and z -> IntVar.
+                    op1 in {"=", "!=", ">","<",">=","<="} and op2 in {"+", "-", "*", "/"}, or vice-versa.
         :param x: An IntVar object.
-        :param op1: An str in {"=", "!=", ">","<",">=","<="}.
+        :param op1: An str in {"=", "!=", ">","<",">=","<="} or {"+", "-", "*", "/"}.
         :param y: An IntVar object or a constant (integer).
-        :param op2: An str in {"=", "!=", ">","<",">=","<="}, or None.
+        :param op2: An str in {"=", "!=", ">","<",">=","<="} or {"+", "-", "*", "/"}, or None.
         :param z: An IntVar object, a constant (integer), or None.
         :return: An arithmetic constraint.
         """
@@ -108,11 +113,14 @@ class IntConstraintFactory(ABC):
     def distance(self, x: IntVar, y: IntVar, op: str, z: Union[int, IntVar]):
         """
         Creates a distance constraint : |x-y| op z,
-        where op can take its value among {"=", ">", "<", "!="}.
+        where op can take its value among:
+            - {"=", ">", "<", "!="} if z is a constant
+            - {"=", ">", "<"} if z is an IntVar
         :param x: An IntVar.
         :param y: An IntVar.
-        :param op: An operator (str), which can take its value among {"=", ">", "<", "!="}.
-        :param z: An IntVar or a constant (integer).
+        :param op: An operator (str), which can take its value among {"=", ">", "<", "!="} if z is a constant or
+                   {"=", ">", "<"} if z is an IntVar.
+        :param z: An IntVar or a constant (int).
         :return: A distance constraint.
         """
         pass

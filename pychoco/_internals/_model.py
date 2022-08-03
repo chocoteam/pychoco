@@ -138,10 +138,14 @@ class _Model(Model, _HandleWrapper):
         return _Constraint(constraint_handle, self)
 
     def distance(self, x: _IntVar, y: _IntVar, op: str, z: Union[int, _IntVar]):
-        if isinstance(z, int):
-            constraint_handle = backend.distance_iv_iv_i(self.handle, x.handle, y.handle, z)
+        if isinstance(z, IntVar):
+            assert op in {"=", ">", "<"}
         else:
-            constraint_handle = backend.distance_iv_iv_iv(self.handle, x.handle, y.handle, z.handle)
+            assert op in {"=", "!=", ">", "<"}
+        if isinstance(z, int):
+            constraint_handle = backend.distance_iv_iv_i(self.handle, x.handle, y.handle, op, z)
+        else:
+            constraint_handle = backend.distance_iv_iv_iv(self.handle, x.handle, y.handle, op, z.handle)
         return _Constraint(constraint_handle, self)
 
     def element(self, x: _IntVar, table: Union[List[int], List[_IntVar]], index: _IntVar, offset: int = 0):
