@@ -5,7 +5,7 @@ from pychoco import backend
 from pychoco._internals._handle_wrapper import _HandleWrapper
 from pychoco._internals._intvar import _IntVar
 from pychoco._internals._solution import _Solution
-from pychoco._internals._utils import make_criterion_var_array, extract_solutions, make_int_var_array
+from pychoco._internals._utils import make_criterion_var_array, extract_solutions, make_intvar_array
 from pychoco.solver import Solver
 
 
@@ -135,45 +135,45 @@ class _Solver(Solver, _HandleWrapper):
         backend.set_default_search(self.handle)
 
     def set_dom_over_w_deg_search(self, *intvars):
-        var_array_handle = make_int_var_array(*intvars)
+        var_array_handle = make_intvar_array(*intvars)
         backend.set_dom_over_w_deg_search(self.handle, var_array_handle)
 
     def set_dom_over_w_deg_ref_search(self, *intvars):
-        var_array_handle = make_int_var_array(*intvars)
+        var_array_handle = make_intvar_array(*intvars)
         backend.set_dom_over_w_deg_ref_search(self.handle, var_array_handle)
 
     def set_activity_based_search(self, *intvars):
-        var_array_handle = make_int_var_array(*intvars)
+        var_array_handle = make_intvar_array(*intvars)
         backend.set_activity_based_search(self.handle, var_array_handle)
 
     def set_min_dom_lb_search(self, *intvars):
-        var_array_handle = make_int_var_array(*intvars)
+        var_array_handle = make_intvar_array(*intvars)
         backend.set_min_dom_lb_search(self.handle, var_array_handle)
 
     def set_min_dom_ub_search(self, *intvars):
-        var_array_handle = make_int_var_array(*intvars)
+        var_array_handle = make_intvar_array(*intvars)
         backend.set_min_dom_ub_search(self.handle, var_array_handle)
 
     def set_random_search(self, seed: int = random.seed(), *intvars):
-        var_array_handle = make_int_var_array(*intvars)
+        var_array_handle = make_intvar_array(*intvars)
         backend.set_random_search(self.handle, var_array_handle, seed)
 
     def set_conflict_history_search(self, *intvars):
-        var_array_handle = make_int_var_array(*intvars)
+        var_array_handle = make_intvar_array(*intvars)
         backend.set_conflict_history_search(self.handle, var_array_handle)
 
     def set_input_order_lb_search(self, *intvars):
-        var_array_handle = make_int_var_array(*intvars)
+        var_array_handle = make_intvar_array(*intvars)
         backend.set_input_order_lb_search(self.handle, var_array_handle)
 
     def set_input_order_ub_search(self, *intvars):
-        var_array_handle = make_int_var_array(*intvars)
+        var_array_handle = make_intvar_array(*intvars)
         backend.set_input_order_ub_search(self.handle, var_array_handle)
 
     def set_failure_length_based_search(self, *intvars):
-        var_array_handle = make_int_var_array(*intvars)
+        var_array_handle = make_intvar_array(*intvars)
         backend.set_failure_length_based_search(self.handle, var_array_handle)
 
     def set_failure_rate_based_search(self, *intvars):
-        var_array_handle = make_int_var_array(*intvars)
+        var_array_handle = make_intvar_array(*intvars)
         backend.set_failure_rate_based_search(self.handle, var_array_handle)

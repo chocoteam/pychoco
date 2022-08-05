@@ -75,6 +75,11 @@ void* get_solver(void* modelHandle) {
 
 // Solver API
 
+_Bool solve(void* solverHandle, void* stopArrayHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SolverApi_solve(thread, solverHandle, stopArrayHandle);
+}
+
 void* find_solution(void* solverHandle, void* stopArrayHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_SolverApi_findSolution(thread, solverHandle, stopArrayHandle);
@@ -144,6 +149,18 @@ int get_int_val(void* solutionHandle, void* intVarHandle) {
     return Java_org_chocosolver_capi_SolutionApi_getIntVal(thread, solutionHandle, intVarHandle);
 }
 
+// Variable (generic)
+
+char* get_variable_name(void* varHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_VariableApi_getName(thread, varHandle);
+}
+
+_Bool is_instantiated(void* varHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_VariableApi_isInstantiated(thread, varHandle);
+}
+
 // Intvars
 
 void* intvar_sii(void* modelHandle, char* name, int lb, int ub) {
@@ -180,6 +197,12 @@ int get_intvar_ub(void* varHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_IntVarApi_getUB(thread, varHandle);
 }
+
+int get_intvar_value(void* varHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_IntVarApi_getValue(thread, varHandle);
+}
+
 
 // Boolvars
 
@@ -275,7 +298,7 @@ void* mod_iv_iv_iv(void* modelHandle, void* intVarHandle1, void* intVarHandle2, 
     return Java_org_chocosolver_capi_ConstraintApi_mod_iv_iv_iv(thread, modelHandle, intVarHandle1, intVarHandle2, intVarHandle3);
 }
 
-void* not(void* modelHandle, void* constraintHandle) {
+void* not_(void* modelHandle, void* constraintHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ConstraintApi_not(thread, modelHandle, constraintHandle);
 }
@@ -360,6 +383,32 @@ void* min_iv_ivarray(void* modelHandle, void* intVarHandle, void* intVarArrayHan
     return Java_org_chocosolver_capi_ConstraintApi_min_iv_ivarray(thread, modelHandle, intVarHandle, intVarArrayHandle);
 }
 
+void* all_equal(void* modelHandle, void* intVarArrayHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_all_equal(thread, modelHandle, intVarArrayHandle);
+}
+
+void* not_all_equal(void* modelHandle, void* intVarArrayHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_not_all_equal(thread, modelHandle, intVarArrayHandle);
+}
+
+void* among(void* modelHandle, void* nbVarHandle, void* intVarArrayHandle, void* valuesHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_among(thread, modelHandle, nbVarHandle,
+                                                         intVarArrayHandle, valuesHandle);
+}
+
+void* and_bv_bv(void* modelHandle, void* boolVarArrayHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_and_bv_bv(thread, modelHandle, boolVarArrayHandle);
+}
+
+void* and_cs_cs(void* modelHandle, void* constraintArrayHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_and_cs_cs(thread, modelHandle, constraintArrayHandle);
+}
+
 // Array API
 
 // IntVar
@@ -369,14 +418,38 @@ void* create_intvar_array(int size) {
     return Java_org_chocosolver_capi_ArrayApi_intVar_create(thread, size);
 }
 
-int intvar_array_length(void* arrayHande) {
+int intvar_array_length(void* arrayHandle) {
     LAZY_THREAD_ATTACH
-    return Java_org_chocosolver_capi_ArrayApi_intVar_length(thread, arrayHande);
+    return Java_org_chocosolver_capi_ArrayApi_intVar_length(thread, arrayHandle);
 }
 
-void intvar_array_set(void* arrayHande, void* intVarHandle, int index) {
+void intvar_array_set(void* arrayHandle, void* intVarHandle, int index) {
     LAZY_THREAD_ATTACH
-    Java_org_chocosolver_capi_ArrayApi_intVar_set(thread, arrayHande, intVarHandle, index);
+    Java_org_chocosolver_capi_ArrayApi_intVar_set(thread, arrayHandle, intVarHandle, index);
+}
+
+// BoolVar
+
+void* create_boolvar_array(int size) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_boolVar_create(thread, size);
+}
+
+void boolvar_array_set(void* arrayHandle, void* boolVarHandle, int index) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_boolVar_set(thread, arrayHandle, boolVarHandle, index);
+}
+
+// Constraint
+
+void* create_constraint_array(int size) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_constraint_create(thread, size);
+}
+
+void constraint_array_set(void* arrayHandle, void* constraintHandle, int index) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_constraint_set(thread, arrayHandle, constraintHandle, index);
 }
 
 // int

@@ -83,6 +83,9 @@ def get_model_name(arg1: "void *") -> "char *":
 def get_solver(arg1: "void *") -> "void *":
     return _backend.get_solver(arg1)
 
+def solve(arg1: "void *", arg2: "void *") -> "_Bool":
+    return _backend.solve(arg1, arg2)
+
 def find_solution(arg1: "void *", arg2: "void *") -> "void *":
     return _backend.find_solution(arg1, arg2)
 
@@ -122,6 +125,12 @@ def backtrack_counter(arg1: "void *", arg2: "long") -> "void *":
 def get_int_val(arg1: "void *", arg2: "void *") -> "int":
     return _backend.get_int_val(arg1, arg2)
 
+def get_variable_name(arg1: "void *") -> "char *":
+    return _backend.get_variable_name(arg1)
+
+def is_instantiated(arg1: "void *") -> "_Bool":
+    return _backend.is_instantiated(arg1)
+
 def intvar_sii(arg1: "void *", arg2: "char *", arg3: "int", arg4: "int") -> "void *":
     return _backend.intvar_sii(arg1, arg2, arg3, arg4)
 
@@ -142,6 +151,9 @@ def get_intvar_lb(arg1: "void *") -> "int":
 
 def get_intvar_ub(arg1: "void *") -> "int":
     return _backend.get_intvar_ub(arg1)
+
+def get_intvar_value(arg1: "void *") -> "int":
+    return _backend.get_intvar_value(arg1)
 
 def boolvar_s(arg1: "void *", arg2: "char *") -> "void *":
     return _backend.boolvar_s(arg1, arg2)
@@ -194,8 +206,8 @@ def mod_iv_i_iv(arg1: "void *", arg2: "void *", arg3: "int", arg4: "void *") -> 
 def mod_iv_iv_iv(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *") -> "void *":
     return _backend.mod_iv_iv_iv(arg1, arg2, arg3, arg4)
 
-def _not(arg1: "void *", arg2: "void *") -> "void *":
-    return _backend._not(arg1, arg2)
+def not_(arg1: "void *", arg2: "void *") -> "void *":
+    return _backend.not_(arg1, arg2)
 
 def not_member_iv_iarray(arg1: "void *", arg2: "void *", arg3: "void *") -> "void *":
     return _backend.not_member_iv_iarray(arg1, arg2, arg3)
@@ -248,6 +260,21 @@ def min_iv_ivarray(arg1: "void *", arg2: "void *", arg3: "void *") -> "void *":
 def all_different(arg1: "void *", arg2: "void *") -> "void *":
     return _backend.all_different(arg1, arg2)
 
+def all_equal(arg1: "void *", arg2: "void *") -> "void *":
+    return _backend.all_equal(arg1, arg2)
+
+def not_all_equal(arg1: "void *", arg2: "void *") -> "void *":
+    return _backend.not_all_equal(arg1, arg2)
+
+def among(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *") -> "void *":
+    return _backend.among(arg1, arg2, arg3, arg4)
+
+def and_bv_bv(arg1: "void *", arg2: "void *") -> "void *":
+    return _backend.and_bv_bv(arg1, arg2)
+
+def and_cs_cs(arg1: "void *", arg2: "void *") -> "void *":
+    return _backend.and_cs_cs(arg1, arg2)
+
 def create_intvar_array(arg1: "int") -> "void *":
     return _backend.create_intvar_array(arg1)
 
@@ -256,6 +283,18 @@ def intvar_array_length(arg1: "void *") -> "int":
 
 def intvar_array_set(arg1: "void *", arg2: "void *", arg3: "int") -> "void":
     return _backend.intvar_array_set(arg1, arg2, arg3)
+
+def create_boolvar_array(arg1: "int") -> "void *":
+    return _backend.create_boolvar_array(arg1)
+
+def boolvar_array_set(arg1: "void *", arg2: "void *", arg3: "int") -> "void":
+    return _backend.boolvar_array_set(arg1, arg2, arg3)
+
+def create_constraint_array(arg1: "int") -> "void *":
+    return _backend.create_constraint_array(arg1)
+
+def constraint_array_set(arg1: "void *", arg2: "void *", arg3: "int") -> "void":
+    return _backend.constraint_array_set(arg1, arg2, arg3)
 
 def create_int_array(arg1: "int") -> "void *":
     return _backend.create_int_array(arg1)

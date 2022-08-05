@@ -25,5 +25,11 @@ class IntVar(Variable, ABC):
         """
         pass
 
+    @abstractmethod
+    def get_value(self):
+        """
+        :return: The value of the variable (only valid if it is instantiated).
+        """
+
     def __repr__(self):
         return "Choco IntVar ('" + self.name + "')"

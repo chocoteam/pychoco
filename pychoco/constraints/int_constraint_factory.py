@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from typing import Union, List
 
 from pychoco.constraints.constraint import Constraint
+from pychoco.variables.boolvar import BoolVar
 from pychoco.variables.intvar import IntVar
 
 
@@ -188,5 +189,53 @@ class IntConstraintFactory(ABC):
         :param x: An IntVar.
         :param intvars: A list of IntVars.
         :return: A min constraint.
+        """
+        pass
+
+    # TODO Test from here
+
+    @abstractmethod
+    def all_equal(self, *intvars: List[IntVar]):
+        """
+        Creates an all_equal constraint.
+        Ensures that all variables from vars take the same value
+        :param intvars: A list of IntVars.
+        :return: An all_equal constraint.
+        """
+        pass
+
+    @abstractmethod
+    def not_all_equal(self, *intvars: List[IntVar]):
+        """
+        Creates a not_all_equal constraint.
+        Ensures that not all variables from vars take the same value
+        :param intvars: A list of IntVars.
+        :return: A not_all_equal constraint.
+        """
+        pass
+
+    @abstractmethod
+    def among(self, nb_var: IntVar, intvars: List[IntVar], values: List[int]):
+        """
+        Creates an among constraint.
+        `nb_var` is the number of variables of the collection `intvars` that take their value in `values`.
+        Propagator :
+        C. Bessiere, E. Hebrard, B. Hnich, Z. Kiziltan, T. Walsh,
+        Among, common and disjoint Constraints
+        CP-2005
+        :param nb_var: An IntVar.
+        :param intvars: A list of IntVars.
+        :param values: A list of ints.
+        :return: An among constraint.
+        """
+        pass
+
+    @abstractmethod
+    def and_(self, bools_or_constraints: Union[List[BoolVar], List[Constraint]]):
+        """
+        Creates an and constraint that is satisfied if all boolean variables or constraint in
+        `bools_or_constraints` are respectively true or satisfied.
+        :param bools_or_constraints: Either a list of BoolVars or a list of Constraints.
+        :return: An and constraint.
         """
         pass

@@ -2,7 +2,9 @@ from typing import List
 
 from pychoco import backend
 from pychoco._internals._solution import _Solution
+from pychoco.constraints.constraint import Constraint
 from pychoco.solution import Solution
+from pychoco.variables.boolvar import BoolVar
 from pychoco.variables.intvar import IntVar
 
 
@@ -18,7 +20,7 @@ def make_int_array(*ints: List[int]):
     return ints_array
 
 
-def make_int_var_array(*intvars: List[IntVar]):
+def make_intvar_array(*intvars: List[IntVar]):
     """
     Creates a Java IntVar[] handle from a list of Python IntVars
     :param intvars: A list of Python IntVars
@@ -28,6 +30,30 @@ def make_int_var_array(*intvars: List[IntVar]):
     for i in range(0, len(intvars)):
         backend.intvar_array_set(vars_array, intvars[i].handle, i)
     return vars_array
+
+
+def make_boolvar_array(*boolvars: List[BoolVar]):
+    """
+    Creates a Java BoolVar[] handle from a list of Python BoolVars
+    :param intvars: A list of Python BoolVars
+    :return: A Java BoolVars[] handle.
+    """
+    vars_array = backend.create_boolvar_array(len(boolvars))
+    for i in range(0, len(boolvars)):
+        backend.boolvar_array_set(vars_array, boolvars[i].handle, i)
+    return vars_array
+
+
+def make_constraint_array(*constraints: List[Constraint]):
+    """
+    Creates a Java Constraint[] handle from a list of Python Constraint
+    :param intvars: A list of Python Constraint
+    :return: A Java Constraint[] handle.
+    """
+    cons_array = backend.create_constraint_array(len(constraints))
+    for i in range(0, len(constraints)):
+        backend.constraint_array_set(cons_array, constraints[i].handle, i)
+    return cons_array
 
 
 def make_criterion_var_array(*criterion):

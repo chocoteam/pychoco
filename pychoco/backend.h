@@ -25,6 +25,8 @@ void* get_solver(void*);
 
 // Solver API
 
+_Bool solve(void*, void*);
+
 void* find_solution(void*, void*);
 
 void* find_all_solutions(void*, void*);
@@ -55,6 +57,12 @@ void* restart_counter(void*, long);
 
 void* backtrack_counter(void*, long);
 
+// Variable (generic)
+
+char* get_variable_name(void*);
+
+_Bool is_instantiated(void*);
+
 // Intvars
 
 void* intvar_sii(void*, char*, int, int);
@@ -70,6 +78,8 @@ char* get_intvar_name(void*);
 int get_intvar_lb(void*);
 
 int get_intvar_ub(void*);
+
+int get_intvar_value(void*);
 
 // Boolvars
 
@@ -111,7 +121,7 @@ void* mod_iv_i_iv(void*, void*, int, void*);
 
 void* mod_iv_iv_iv(void*, void*, void*, void*);
 
-void* not(void*, void*);
+void* not_(void*, void*);
 
 void* not_member_iv_iarray(void*, void*, void*);
 
@@ -145,6 +155,16 @@ void* min_iv_iv_iv(void*, void*, void*, void*);
 
 void* min_iv_ivarray(void*, void*, void*);
 
+void* all_equal(void*, void*);
+
+void* not_all_equal(void*, void*);
+
+void* among(void*, void*, void*, void*);
+
+void* and_bv_bv(void*, void*);
+
+void* and_cs_cs(void*, void*);
+
 // Array API
 
 // IntVar
@@ -154,6 +174,18 @@ void* create_intvar_array(int);
 int intvar_array_length(void*);
 
 void intvar_array_set(void*, void*, int);
+
+// BoolVar
+
+void* create_boolvar_array(int);
+
+void boolvar_array_set(void*, void*, int);
+
+// Constraint
+
+void* create_constraint_array(int);
+
+void constraint_array_set(void*, void*, int);
 
 // int
 

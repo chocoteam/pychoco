@@ -6,8 +6,10 @@ from pychoco._internals._constraint import _Constraint
 from pychoco._internals._handle_wrapper import _HandleWrapper
 from pychoco._internals._intvar import _IntVar
 from pychoco._internals._solver import _Solver
-from pychoco._internals._utils import make_int_var_array, make_int_array
+from pychoco._internals._utils import make_intvar_array, make_int_array, make_boolvar_array, make_constraint_array
+from pychoco.constraints.constraint import Constraint
 from pychoco.model import Model
+from pychoco.variables.boolvar import BoolVar
 from pychoco.variables.intvar import IntVar
 
 
@@ -130,7 +132,7 @@ class _Model(Model, _HandleWrapper):
         return _Constraint(constraint_handle, self)
 
     def not_(self, constraint: _Constraint):
-        constraint_handle = backend._not(self.handle, constraint.handle)
+        constraint_handle = backend.not_(self.handle, constraint.handle)
         return _Constraint(constraint_handle, self)
 
     def absolute(self, x: _IntVar, y: _IntVar):
@@ -156,7 +158,7 @@ class _Model(Model, _HandleWrapper):
             constraint_handle = backend.element_iv_iarray_iv_i(self.handle, x.handle, ints_array_handle,
                                                                index.handle, offset)
         else:
-            int_var_array_handle = make_int_var_array(*table)
+            int_var_array_handle = make_intvar_array(*table)
             constraint_handle = backend.element_iv_ivarray_iv_i(self.handle, x.handle, int_var_array_handle,
                                                                 index.handle, offset)
         return _Constraint(constraint_handle, self)
@@ -180,18 +182,44 @@ class _Model(Model, _HandleWrapper):
         return _Constraint(constraint_handle, self)
 
     def max(self, x: _IntVar, *intvars: List[_IntVar]):
-        int_var_array_handle = make_int_var_array(*intvars)
+        int_var_array_handle = make_intvar_array(*intvars)
         constraint_hande = backend.max_iv_ivarray(self.handle, x.handle, int_var_array_handle)
         return _Constraint(constraint_hande, self)
 
     def min(self, x: IntVar, *intvars: List[IntVar]):
-        int_var_array_handle = make_int_var_array(*intvars)
+        int_var_array_handle = make_intvar_array(*intvars)
         constraint_hande = backend.min_iv_ivarray(self.handle, x.handle, int_var_array_handle)
         return _Constraint(constraint_hande, self)
 
     def all_different(self, *intvars: List[IntVar]):
-        vars_array = make_int_var_array(*intvars)
+        vars_array = make_intvar_array(*intvars)
         constraint_handle = backend.all_different(self.handle, vars_array)
+        return _Constraint(constraint_handle, self)
+
+    def all_equal(self, *intvars: List[IntVar]):
+        vars_array = make_intvar_array(*intvars)
+        constraint_handle = backend.all_equal(self.handle, vars_array)
+        return _Constraint(constraint_handle, self)
+
+    def not_all_equal(self, *intvars: List[IntVar]):
+        vars_array = make_intvar_array(*intvars)
+        constraint_handle = backend.not_all_equal(self.handle, vars_array)
+        return _Constraint(constraint_handle, self)
+
+    def among(self, nb_var: IntVar, intvars: List[IntVar], values: List[int]):
+        vars_array = make_intvar_array(*intvars)
+        values_array = make_int_array(*values)
+        constraint_handle = backend.among(self.handle, nb_var.handle, vars_array, values_array)
+        return _Constraint(constraint_handle, self)
+
+    def and_(self, bools_or_constraints: Union[List[BoolVar], List[Constraint]]):
+        assert len(bools_or_constraints) >= 1
+        if isinstance(bools_or_constraints[0], BoolVar):
+            vars_array = make_boolvar_array(*bools_or_constraints)
+            constraint_handle = backend.and_bv_bv(self.handle, vars_array)
+        else:
+            cons_array = make_constraint_array(*bools_or_constraints)
+            constraint_handle = backend.and_cs_cs(self.handle, cons_array)
         return _Constraint(constraint_handle, self)
 
 

@@ -23,5 +23,12 @@ class Variable(ABC):
         """
         pass
 
+    @abstractmethod
+    def is_instantiated(self):
+        """
+        :return: True if the variable is instantiated.
+        """
+        pass
+
     def __repr__(self):
         return "Choco Variable ('" + self.name() + "')"
