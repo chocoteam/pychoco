@@ -409,6 +409,158 @@ void* and_cs_cs(void* modelHandle, void* constraintArrayHandle) {
     return Java_org_chocosolver_capi_ConstraintApi_and_cs_cs(thread, modelHandle, constraintArrayHandle);
 }
 
+void* at_least_n_values(void* modelHandle, void* intVarArrayHandle, void* nValuesHandle, _Bool AC) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_atLeastNValues(
+        thread,
+        modelHandle,
+        intVarArrayHandle,
+        nValuesHandle,
+        AC
+    );
+}
+
+void* at_most_n_values(void* modelHandle, void* intVarArrayHandle, void* nValuesHandle, _Bool STRONG) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_atMostNValues(
+        thread,
+        modelHandle,
+        intVarArrayHandle,
+        nValuesHandle,
+        STRONG
+    );
+}
+
+void* bin_packing(void* modelHandle, void* itemBinHandle, void* itemSizeHandle, void* binLoadHandle, int offset) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_binPacking(
+        thread,
+        modelHandle,
+        itemBinHandle,
+        itemSizeHandle,
+        binLoadHandle,
+        offset
+    );
+}
+
+void* bools_int_channeling(void* modelHandle, void* boolVarArrayHandle, void* intVarHandle, int offset) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_boolsIntChanneling(
+        thread,
+        modelHandle,
+        boolVarArrayHandle,
+        intVarHandle,
+        offset
+    );
+}
+
+void* bits_int_channeling(void* modelHandle, void* boolVarArrayHandle, void* intVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_bitsIntChanneling(
+        thread,
+        modelHandle,
+        boolVarArrayHandle,
+        intVarHandle
+    );
+}
+
+void* clauses_int_channeling(void* modelHandle, void* intVarHandle, void* eVarsHandle, void* lVarsHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_clausesIntChanneling(
+        thread,
+        modelHandle,
+        intVarHandle,
+        eVarsHandle,
+        lVarsHandle
+    );
+}
+
+void* circuit(void* modelHandle, void* intVarArrayHandle, int offset, char* conf) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_circuit(
+        thread,
+        modelHandle,
+        intVarArrayHandle,
+        offset,
+        conf
+    );
+}
+
+void* count_i(void* modelHandle, int value, void* intVarArrayHandle, void* limitHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_count_i(
+        thread,
+        modelHandle,
+        value,
+        intVarArrayHandle,
+        limitHandle
+    );
+}
+
+void* count_iv(void* modelHandle, void* valueHandle, void* intVarArrayHandle, void* limitHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_count_iv(
+        thread,
+        modelHandle,
+        valueHandle,
+        intVarArrayHandle,
+        limitHandle
+    );
+}
+
+void* diff_n(void* modelHandle, void* XHandle, void* YHandle, void* widthHandle, void* heightHandle,
+             _Bool addCumulativeReasoning) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_diffN(
+        thread,
+        modelHandle,
+        XHandle,
+        YHandle,
+        widthHandle,
+        heightHandle,
+        addCumulativeReasoning
+    );
+}
+
+void* global_cardinality(void* modelHandle, void* intVarArrayHandle, void* valuesHandle,
+                         void* occurrencesHandle, _Bool closed) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_globalCardinality(
+        thread,
+        modelHandle,
+        intVarArrayHandle,
+        valuesHandle,
+        occurrencesHandle,
+        closed
+    );
+}
+
+void* inverse_channeling(void* modelHandle, void* intVarArrayHandle1, void* intVarArrayHandle2,
+                         int offset1, int offset2, _Bool ac) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_inverseChanneling(
+        thread,
+        modelHandle,
+        intVarArrayHandle1,
+        intVarArrayHandle2,
+        offset1,
+        offset2,
+        ac
+    );
+}
+
+
+
+void* or_bv_bv(void* modelHandle, void* boolVarArrayHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_or_bv_bv(thread, modelHandle, boolVarArrayHandle);
+}
+
+void* or_cs_cs(void* modelHandle, void* constraintArrayHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_or_cs_cs(thread, modelHandle, constraintArrayHandle);
+}
+
 // Array API
 
 // IntVar

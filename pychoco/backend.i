@@ -204,6 +204,36 @@ void* and_bv_bv(void*, void*);
 
 void* and_cs_cs(void*, void*);
 
+void* at_least_n_values(void*, void*, void*, _Bool);
+
+void* at_most_n_values(void*, void*, void*, _Bool);
+
+void* bin_packing(void*, void*, void*, void*, int);
+
+void* bools_int_channeling(void*, void*, void*, int);
+
+void* bits_int_channeling(void*, void*, void*);
+
+void* clauses_int_channeling(void*, void*, void*, void*);
+
+void* circuit(void*, void*, int, char*);
+
+void* count_i(void*, int, void*, void*);
+
+void* count_iv(void*, void*, void*, void*);
+
+void* diff_n(void*, void*, void*, void*, void*, _Bool);
+
+void* global_cardinality(void*, void*, void*, void*, _Bool);
+
+void* inverse_channeling(void*, void*, void*, int, int, _Bool);
+
+
+
+void* or_bv_bv(void*, void*);
+
+void* or_cs_cs(void*, void*);
+
 // Array API
 
 // IntVar

@@ -275,6 +275,48 @@ def and_bv_bv(arg1: "void *", arg2: "void *") -> "void *":
 def and_cs_cs(arg1: "void *", arg2: "void *") -> "void *":
     return _backend.and_cs_cs(arg1, arg2)
 
+def at_least_n_values(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "_Bool") -> "void *":
+    return _backend.at_least_n_values(arg1, arg2, arg3, arg4)
+
+def at_most_n_values(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "_Bool") -> "void *":
+    return _backend.at_most_n_values(arg1, arg2, arg3, arg4)
+
+def bin_packing(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *", arg5: "int") -> "void *":
+    return _backend.bin_packing(arg1, arg2, arg3, arg4, arg5)
+
+def bools_int_channeling(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "int") -> "void *":
+    return _backend.bools_int_channeling(arg1, arg2, arg3, arg4)
+
+def bits_int_channeling(arg1: "void *", arg2: "void *", arg3: "void *") -> "void *":
+    return _backend.bits_int_channeling(arg1, arg2, arg3)
+
+def clauses_int_channeling(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *") -> "void *":
+    return _backend.clauses_int_channeling(arg1, arg2, arg3, arg4)
+
+def circuit(arg1: "void *", arg2: "void *", arg3: "int", arg4: "char *") -> "void *":
+    return _backend.circuit(arg1, arg2, arg3, arg4)
+
+def count_i(arg1: "void *", arg2: "int", arg3: "void *", arg4: "void *") -> "void *":
+    return _backend.count_i(arg1, arg2, arg3, arg4)
+
+def count_iv(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *") -> "void *":
+    return _backend.count_iv(arg1, arg2, arg3, arg4)
+
+def diff_n(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *", arg5: "void *", arg6: "_Bool") -> "void *":
+    return _backend.diff_n(arg1, arg2, arg3, arg4, arg5, arg6)
+
+def global_cardinality(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *", arg5: "_Bool") -> "void *":
+    return _backend.global_cardinality(arg1, arg2, arg3, arg4, arg5)
+
+def inverse_channeling(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "int", arg5: "int", arg6: "_Bool") -> "void *":
+    return _backend.inverse_channeling(arg1, arg2, arg3, arg4, arg5, arg6)
+
+def or_bv_bv(arg1: "void *", arg2: "void *") -> "void *":
+    return _backend.or_bv_bv(arg1, arg2)
+
+def or_cs_cs(arg1: "void *", arg2: "void *") -> "void *":
+    return _backend.or_cs_cs(arg1, arg2)
+
 def create_intvar_array(arg1: "int") -> "void *":
     return _backend.create_intvar_array(arg1)
 

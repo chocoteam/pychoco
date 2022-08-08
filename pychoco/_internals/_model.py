@@ -222,6 +222,90 @@ class _Model(Model, _HandleWrapper):
             constraint_handle = backend.and_cs_cs(self.handle, cons_array)
         return _Constraint(constraint_handle, self)
 
+    def at_least_n_values(self, intvars: List[IntVar], n_values: IntVar, ac: bool = False):
+        vars_array = make_intvar_array(intvars)
+        constraint_handle = backend.at_least_n_values(self.handle, vars_array, n_values.handle, ac)
+        return _Constraint(constraint_handle, self)
+
+    def at_most_n_values(self, intvars: List[IntVar], n_values: IntVar, strong: bool = False):
+        vars_array = make_intvar_array(intvars)
+        constraint_handle = backend.at_most_n_values(self.handle, vars_array, n_values.handle, strong)
+        return _Constraint(constraint_handle, self)
+
+    def bin_packing(self, item_bin: List[IntVar], item_size: List[int], bin_load: List[IntVar], offset: int):
+        item_bin_handle = make_intvar_array(item_bin)
+        item_size_handle = make_int_array(item_size)
+        bin_load_handle = make_intvar_array(bin_load)
+        constraint_handle = backend.bin_packing(self.handle, item_bin_handle, item_size_handle,
+                                                bin_load_handle, offset)
+        return _Constraint(constraint_handle, self)
+
+    def bools_int_channeling(self, boolvars: List[BoolVar], intvar: IntVar, offset: int = 0):
+        boolvars_handle = make_boolvar_array(boolvars)
+        constraint_handle = backend.bools_int_channeling(self.handle, boolvars_handle, intvar.handle, offset)
+        return _Constraint(constraint_handle, self)
+
+    def bits_int_channeling(self, bits: List[BoolVar], intvar: IntVar):
+        bits_handle = make_boolvar_array(bits)
+        constraint_handle = backend.bits_int_channeling(self.handle, bits_handle, intvar.handle)
+        return _Constraint(constraint_handle, self)
+
+    def clauses_int_channeling(self, intvar: IntVar, e_vars: List[BoolVar], l_vars: List[BoolVar]):
+        e_vars_handle = make_boolvar_array(e_vars)
+        l_vars_handle = make_boolvar_array(l_vars)
+        constraint_handle = backend.clauses_int_channeling(self.handle, intvar.handle, e_vars_handle, l_vars_handle)
+        return _Constraint(constraint_handle, self)
+
+    def circuit(self, intvars: List[IntVar], offset: int = 0, conf: str = "RD"):
+        intvars_handle = make_intvar_array(intvars)
+        assert conf in ["LIGHT", "FIRST", "RD", "ALL"]
+        constraint_handle = backend.circuit(self.handle, intvars_handle, offset, conf)
+        return _Constraint(constraint_handle, self)
+
+    def count(self, value: Union[int, IntVar], intvars: List[IntVar], limit: IntVar):
+        intvars_handle = make_intvar_array(intvars)
+        if isinstance(value, int):
+            constraint_handle = backend.count_i(self.handle, value, intvars_handle, limit.handle)
+        else:
+            constraint_handle = backend.count_iv(self.handle, value.handle, intvars_handle, limit.handle)
+        return _Constraint(constraint_handle, self)
+
+    def diff_n(self, x: List[IntVar], y: List[IntVar], width: List[IntVar], height: List[IntVar],
+               add_cumulative_reasoning: bool = True):
+        x_handle = make_intvar_array(x)
+        y_handle = make_intvar_array(y)
+        width_handle = make_intvar_array(width)
+        height_handle = make_intvar_array(height)
+        constraint_handle = backend.diff_n(self.handle, x_handle, y_handle, width_handle, height_handle,
+                                           add_cumulative_reasoning)
+        return _Constraint(constraint_handle, self)
+
+    def global_cardinality(self, intvars: List[IntVar], values: List[int], occurrences: List[IntVar], closed: bool):
+        intvars_handle = make_intvar_array(intvars)
+        values_handle = make_int_array(values)
+        occurrences_handle = make_intvar_array(occurrences)
+        constraint_handle = backend.global_cardinality(self.handle, intvars_handle, values_handle, occurrences_handle,
+                                                       closed)
+        return _Constraint(constraint_handle, self)
+
+    def inverse_channeling(self, intvars1: List[IntVar], intvars2: List[IntVar], offset1: int = 0, offset2: int = 0,
+                           ac: bool = False):
+        intvars1_handle = make_intvar_array(intvars1)
+        intvars2_handle = make_intvar_array(intvars2)
+        constraint_handle = backend.inverse_channeling(self.handle, intvars1_handle, intvars2_handle,
+                                                       offset1, offset2, ac)
+        return _Constraint(constraint_handle, self)
+
+    def or_(self, bools_or_constraints: Union[List[BoolVar], List[Constraint]]):
+        assert len(bools_or_constraints) >= 1
+        if isinstance(bools_or_constraints[0], BoolVar):
+            vars_array = make_boolvar_array(*bools_or_constraints)
+            constraint_handle = backend.or_bv_bv(self.handle, vars_array)
+        else:
+            cons_array = make_constraint_array(*bools_or_constraints)
+            constraint_handle = backend.or_cs_cs(self.handle, cons_array)
+        return _Constraint(constraint_handle, self)
+
 
 def _create_model(name=None):
     if name is not None:
