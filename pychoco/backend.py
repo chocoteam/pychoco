@@ -83,7 +83,7 @@ def get_model_name(arg1: "void *") -> "char *":
 def get_solver(arg1: "void *") -> "void *":
     return _backend.get_solver(arg1)
 
-def solve(arg1: "void *", arg2: "void *") -> "_Bool":
+def solve(arg1: "void *", arg2: "void *") -> "int":
     return _backend.solve(arg1, arg2)
 
 def find_solution(arg1: "void *", arg2: "void *") -> "void *":
@@ -92,10 +92,10 @@ def find_solution(arg1: "void *", arg2: "void *") -> "void *":
 def find_all_solutions(arg1: "void *", arg2: "void *") -> "void *":
     return _backend.find_all_solutions(arg1, arg2)
 
-def find_optimal_solution(arg1: "void *", arg2: "void *", arg3: "_Bool", arg4: "void *") -> "void *":
+def find_optimal_solution(arg1: "void *", arg2: "void *", arg3: "int", arg4: "void *") -> "void *":
     return _backend.find_optimal_solution(arg1, arg2, arg3, arg4)
 
-def find_all_optimal_solutions(arg1: "void *", arg2: "void *", arg3: "_Bool", arg4: "void *") -> "void *":
+def find_all_optimal_solutions(arg1: "void *", arg2: "void *", arg3: "int", arg4: "void *") -> "void *":
     return _backend.find_all_optimal_solutions(arg1, arg2, arg3, arg4)
 
 def show_statistics(arg1: "void *") -> "void":
@@ -103,6 +103,9 @@ def show_statistics(arg1: "void *") -> "void":
 
 def show_short_statistics(arg1: "void *") -> "void":
     return _backend.show_short_statistics(arg1)
+
+def get_solution_count(arg1: "void *") -> "long":
+    return _backend.get_solution_count(arg1)
 
 def time_counter(arg1: "void *", arg2: "long") -> "void *":
     return _backend.time_counter(arg1, arg2)
@@ -128,7 +131,7 @@ def get_int_val(arg1: "void *", arg2: "void *") -> "int":
 def get_variable_name(arg1: "void *") -> "char *":
     return _backend.get_variable_name(arg1)
 
-def is_instantiated(arg1: "void *") -> "_Bool":
+def is_instantiated(arg1: "void *") -> "int":
     return _backend.is_instantiated(arg1)
 
 def intvar_sii(arg1: "void *", arg2: "char *", arg3: "int", arg4: "int") -> "void *":
@@ -161,10 +164,10 @@ def boolvar_s(arg1: "void *", arg2: "char *") -> "void *":
 def boolvar(arg1: "void *") -> "void *":
     return _backend.boolvar(arg1)
 
-def boolvar_b(arg1: "void *", arg2: "_Bool") -> "void *":
+def boolvar_b(arg1: "void *", arg2: "int") -> "void *":
     return _backend.boolvar_b(arg1, arg2)
 
-def boolvar_sb(arg1: "void *", arg2: "char *", arg3: "_Bool") -> "void *":
+def boolvar_sb(arg1: "void *", arg2: "char *", arg3: "int") -> "void *":
     return _backend.boolvar_sb(arg1, arg2, arg3)
 
 def get_constraint_name(arg1: "void *") -> "char *":
@@ -275,10 +278,10 @@ def and_bv_bv(arg1: "void *", arg2: "void *") -> "void *":
 def and_cs_cs(arg1: "void *", arg2: "void *") -> "void *":
     return _backend.and_cs_cs(arg1, arg2)
 
-def at_least_n_values(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "_Bool") -> "void *":
+def at_least_n_values(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "int") -> "void *":
     return _backend.at_least_n_values(arg1, arg2, arg3, arg4)
 
-def at_most_n_values(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "_Bool") -> "void *":
+def at_most_n_values(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "int") -> "void *":
     return _backend.at_most_n_values(arg1, arg2, arg3, arg4)
 
 def bin_packing(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *", arg5: "int") -> "void *":
@@ -302,13 +305,13 @@ def count_i(arg1: "void *", arg2: "int", arg3: "void *", arg4: "void *") -> "voi
 def count_iv(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *") -> "void *":
     return _backend.count_iv(arg1, arg2, arg3, arg4)
 
-def diff_n(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *", arg5: "void *", arg6: "_Bool") -> "void *":
+def diff_n(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *", arg5: "void *", arg6: "int") -> "void *":
     return _backend.diff_n(arg1, arg2, arg3, arg4, arg5, arg6)
 
-def global_cardinality(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *", arg5: "_Bool") -> "void *":
+def global_cardinality(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *", arg5: "int") -> "void *":
     return _backend.global_cardinality(arg1, arg2, arg3, arg4, arg5)
 
-def inverse_channeling(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "int", arg5: "int", arg6: "_Bool") -> "void *":
+def inverse_channeling(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "int", arg5: "int", arg6: "int") -> "void *":
     return _backend.inverse_channeling(arg1, arg2, arg3, arg4, arg5, arg6)
 
 def int_value_precede_chain(arg1: "void *", arg2: "void *", arg3: "void *") -> "void *":

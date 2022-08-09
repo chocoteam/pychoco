@@ -13,6 +13,29 @@ class Solver(SearchStrategies, ABC):
     """
 
     @abstractmethod
+    def solve(self,
+              time_limit: Union[None, int] = None,
+              node_limit: Union[None, int] = None,
+              fail_limit: Union[None, int] = None,
+              restart_limit: Union[None, int] = None,
+              backtrack_limit: Union[None, int] = None) -> bool:
+        """
+        Executes the solver as it is configured.
+        Default configuration:
+        - SATISFACTION : Computes a feasible solution. Use while(solve()) to enumerate all solutions.
+        - OPTIMISATION : Computes a feasible solution, wrt to the objective defined. Use while solve(): to find the
+                         optimal solution. Indeed, each new solution improves the objective. If no new solution is
+                         found (and no stop criterion encountered), the last one is guaranteed to be the optimal one.
+        :param time_limit: Time limit for search, None => no time limit.
+        :param node_limit: Number of nodes limit for search, None => no node limit.
+        :param fail_limit: Number of fails limit for search, None => no fail limit.
+        :param restart_limit: Number of restarts limit for search, None => no restart limit.
+        :param backtrack_limit: Number of backtracks limit for search, None => no backtracks limit.
+        :return: True if a solution was found.
+        """
+        pass
+
+    @abstractmethod
     def find_solution(self,
                       time_limit: Union[None, int] = None,
                       node_limit: Union[None, int] = None,
@@ -114,6 +137,14 @@ class Solver(SearchStrategies, ABC):
         """
         Configure the solver to show short statistics during solving.
         """
+        pass
+
+    @abstractmethod
+    def get_solution_count(self) -> int:
+        """
+        :return: The number of solution found so far.
+        """
+        pass
 
     @property
     @abstractmethod

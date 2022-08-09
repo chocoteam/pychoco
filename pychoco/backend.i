@@ -8,7 +8,6 @@
 
 %include <typemaps.i>
 
-
 // custom typemap to append void** types to the result
 %typemap(in,numinputs=0,noblock=1) void **OUTPUT ($*1_ltype temp) {
     $1 = &temp;
@@ -64,19 +63,21 @@ void* get_solver(void*);
 
 // Solver API
 
-_Bool solve(void*, void*);
+int solve(void*, void*);
 
 void* find_solution(void*, void*);
 
 void* find_all_solutions(void*, void*);
 
-void* find_optimal_solution(void*, void*, _Bool, void*);
+void* find_optimal_solution(void*, void*, int, void*);
 
-void* find_all_optimal_solutions(void*, void*, _Bool, void*);
+void* find_all_optimal_solutions(void*, void*, int, void*);
 
 void show_statistics(void*);
 
 void show_short_statistics(void*);
+
+long get_solution_count(void*);
 
 // Criterion API
 
@@ -100,7 +101,7 @@ int get_int_val(void*, void*);
 
 char* get_variable_name(void*);
 
-_Bool is_instantiated(void*);
+int is_instantiated(void*);
 
 // Intvars
 
@@ -126,9 +127,9 @@ void* boolvar_s(void*, char*);
 
 void* boolvar(void*);
 
-void* boolvar_b(void*, _Bool);
+void* boolvar_b(void*, int);
 
-void* boolvar_sb(void*, char*, _Bool);
+void* boolvar_sb(void*, char*, int);
 
 // Constraints
 
@@ -204,9 +205,9 @@ void* and_bv_bv(void*, void*);
 
 void* and_cs_cs(void*, void*);
 
-void* at_least_n_values(void*, void*, void*, _Bool);
+void* at_least_n_values(void*, void*, void*, int);
 
-void* at_most_n_values(void*, void*, void*, _Bool);
+void* at_most_n_values(void*, void*, void*, int);
 
 void* bin_packing(void*, void*, void*, void*, int);
 
@@ -222,11 +223,11 @@ void* count_i(void*, int, void*, void*);
 
 void* count_iv(void*, void*, void*, void*);
 
-void* diff_n(void*, void*, void*, void*, void*, _Bool);
+void* diff_n(void*, void*, void*, void*, void*, int);
 
-void* global_cardinality(void*, void*, void*, void*, _Bool);
+void* global_cardinality(void*, void*, void*, void*, int);
 
-void* inverse_channeling(void*, void*, void*, int, int, _Bool);
+void* inverse_channeling(void*, void*, void*, int, int, int);
 
 void* int_value_precede_chain(void*, void*, void*);
 

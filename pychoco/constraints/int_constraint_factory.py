@@ -231,7 +231,7 @@ class IntConstraintFactory(ABC):
         pass
 
     @abstractmethod
-    def and_(self, bools_or_constraints: Union[List[BoolVar], List[Constraint]]):
+    def and_(self, *bools_or_constraints: Union[List[BoolVar], List[Constraint]]):
         """
         Creates an and constraint that is satisfied if all boolean variables or constraint in
         `bools_or_constraints` are respectively true or satisfied.
@@ -385,7 +385,8 @@ class IntConstraintFactory(ABC):
         pass
 
     @abstractmethod
-    def global_cardinality(self, intvars: List[IntVar], values: List[int], occurrences: List[IntVar], closed: bool):
+    def global_cardinality(self, intvars: List[IntVar], values: List[int], occurrences: List[IntVar],
+                           closed: bool = False):
         """
         Creates a global cardinality constraint (GCC):
         Each value values[i] should be taken by exactly occurrences[i] variables of intvars.
@@ -418,7 +419,7 @@ class IntConstraintFactory(ABC):
         pass
 
     @abstractmethod
-    def int_value_precede_chain(self, intvars: List[IntVar], values: List[int]):
+    def int_value_precede_chain(self, intvars: List[IntVar], *values: List[int]):
         """
         Creates an int_value_precede_chain constraint.
         Ensure that, for each pair of values[k] and values[l], such that k < l,
@@ -460,7 +461,7 @@ class IntConstraintFactory(ABC):
         pass
 
     @abstractmethod
-    def lex_chain_less(self, intvars: List[IntVar]):
+    def lex_chain_less(self, *intvars: List[IntVar]):
         """
         Creates a lex_chain_less constraint.
         For each pair of consecutive vectors intvars<sub>i</sub> and intvars<sub>i+1</sub> of the intvars collection
@@ -471,7 +472,7 @@ class IntConstraintFactory(ABC):
         pass
 
     @abstractmethod
-    def lex_chain_less_eq(self, intvars: List[IntVar]):
+    def lex_chain_less_eq(self, *intvars: List[IntVar]):
         """
         Creates a lex_chain_less_eq constraint.
         For each pair of consecutive vectors intvars<sub>i</sub> and intvars<sub>i+1</sub> of the intvars collection
@@ -540,7 +541,7 @@ class IntConstraintFactory(ABC):
         pass
 
     @abstractmethod
-    def or_(self, bools_or_constraints: Union[List[BoolVar], List[Constraint]]):
+    def or_(self, *bools_or_constraints: Union[List[BoolVar], List[Constraint]]):
         """
         Creates a or constraint that is satisfied if at least one boolean variable or constraint in
         `bools_or_constraints` is respectively true or satisfied.
@@ -550,7 +551,7 @@ class IntConstraintFactory(ABC):
         pass
 
     @abstractmethod
-    def path(self, intvars: List[IntVar], start: IntVar, end: IntVar, offset: int):
+    def path(self, intvars: List[IntVar], start: IntVar, end: IntVar, offset: int = 0):
         """
         Creates a path constraint which ensures that
         <p/> the elements of intvars define a covering path from start to end
@@ -631,7 +632,7 @@ class IntConstraintFactory(ABC):
         pass
 
     @abstractmethod
-    def sum(self, intvars_or_boolvars: Union[List[IntVar, BoolVar]], operator: str,
+    def sum(self, intvars_or_boolvars: Union[List[IntVar], List[BoolVar]], operator: str,
             sum_result: Union[int, IntVar, List[IntVar]]):
         """
         Creates a sum constraint.

@@ -1,4 +1,4 @@
-import random
+import time
 from typing import Union, List
 
 from pychoco import backend
@@ -17,6 +17,26 @@ class _Solver(Solver, _HandleWrapper):
     def __init__(self, handle, model):
         super().__init__(handle)
         self._model = model
+
+    def solve(self,
+              time_limit: Union[None, int] = None,
+              node_limit: Union[None, int] = None,
+              fail_limit: Union[None, int] = None,
+              restart_limit: Union[None, int] = None,
+              backtrack_limit: Union[None, int] = None) -> bool:
+        criterion = list()
+        if time_limit is not None:
+            criterion.append(backend.time_counter(self.model.handle, time_limit))
+        if node_limit is not None:
+            criterion.append(backend.node_counter(self.model.handle, node_limit))
+        if fail_limit is not None:
+            criterion.append(backend.fail_counter(self.model.handle, fail_limit))
+        if restart_limit is not None:
+            criterion.append(backend.restart_counter(self.handle, restart_limit))
+        if backtrack_limit is not None:
+            criterion.append(backend.backtrack_counter(self.handle, restart_limit))
+        stop = make_criterion_var_array(*criterion)
+        return bool(backend.solve(self.handle, stop))
 
     def find_solution(self,
                       time_limit: Union[None, int] = None,
@@ -125,6 +145,9 @@ class _Solver(Solver, _HandleWrapper):
     def show_short_statistics(self):
         backend.show_short_statistics(self.handle)
 
+    def get_solution_count(self) -> int:
+        return backend.get_solution_count(self.handle)
+
     @property
     def model(self):
         return self._model
@@ -154,7 +177,7 @@ class _Solver(Solver, _HandleWrapper):
         var_array_handle = make_intvar_array(*intvars)
         backend.set_min_dom_ub_search(self.handle, var_array_handle)
 
-    def set_random_search(self, seed: int = random.seed(), *intvars):
+    def set_random_search(self, *intvars, seed: int = round(time.time() * 1000)):
         var_array_handle = make_intvar_array(*intvars)
         backend.set_random_search(self.handle, var_array_handle, seed)
 

@@ -1,0 +1,17 @@
+import unittest
+
+from pychoco import create_model
+
+
+class TestTree(unittest.TestCase):
+
+    def testTree1(self):
+        model = create_model()
+        vs = model.intvars(6, -1, 6)
+        nt = model.intvar(2, 3)
+        tree = model.tree(vs, nt)
+        tree.post()
+        model.get_solver().set_random_search(*vs)
+        while model.get_solver().solve():
+            self.assertTrue(tree.is_satisfied())
+        self.assertTrue(model.get_solver().get_solution_count() > 0)

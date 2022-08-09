@@ -2665,11 +2665,10 @@ SWIGINTERN PyObject *SWIG_PyStaticMethod_New(PyObject *SWIGUNUSEDPARM(self), PyO
 
 /* -------- TYPES TABLE (BEGIN) -------- */
 
-#define SWIGTYPE_p__Bool swig_types[0]
-#define SWIGTYPE_p_char swig_types[1]
-#define SWIGTYPE_p_void swig_types[2]
-static swig_type_info *swig_types[4];
-static swig_module_info swig_module = {swig_types, 3, 0, 0, 0, 0};
+#define SWIGTYPE_p_char swig_types[0]
+#define SWIGTYPE_p_void swig_types[1]
+static swig_type_info *swig_types[3];
+static swig_module_info swig_module = {swig_types, 2, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -2868,6 +2867,16 @@ SWIG_FromCharPtr(const char *cptr)
 }
 
 
+#include <limits.h>
+#if !defined(SWIG_NO_LLONG_MAX)
+# if !defined(LLONG_MAX) && defined(__GNUC__) && defined (__LONG_LONG_MAX__)
+#   define LLONG_MAX __LONG_LONG_MAX__
+#   define LLONG_MIN (-LLONG_MAX - 1LL)
+#   define ULLONG_MAX (LLONG_MAX * 2ULL + 1ULL)
+# endif
+#endif
+
+
 SWIGINTERN int
 SWIG_AsVal_double (PyObject *obj, double *val)
 {
@@ -2993,16 +3002,6 @@ SWIG_AsVal_long (PyObject *obj, long* val)
 }
 
 
-#include <limits.h>
-#if !defined(SWIG_NO_LLONG_MAX)
-# if !defined(LLONG_MAX) && defined(__GNUC__) && defined (__LONG_LONG_MAX__)
-#   define LLONG_MAX __LONG_LONG_MAX__
-#   define LLONG_MIN (-LLONG_MAX - 1LL)
-#   define ULLONG_MAX (LLONG_MAX * 2ULL + 1ULL)
-# endif
-#endif
-
-
 SWIGINTERN int
 SWIG_AsVal_int (PyObject * obj, int *val)
 {
@@ -3017,6 +3016,9 @@ SWIG_AsVal_int (PyObject * obj, int *val)
   }  
   return res;
 }
+
+
+  #define SWIG_From_long   PyInt_FromLong 
 
 #ifdef __cplusplus
 extern "C" {
@@ -3146,7 +3148,7 @@ SWIGINTERN PyObject *_wrap_solve(PyObject *SWIGUNUSEDPARM(self), PyObject *args)
   int res1 ;
   int res2 ;
   PyObject *swig_obj[2] ;
-  _Bool result;
+  int result;
   
   if (!SWIG_Python_UnpackTuple(args, "solve", 2, 2, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
@@ -3157,8 +3159,8 @@ SWIGINTERN PyObject *_wrap_solve(PyObject *SWIGUNUSEDPARM(self), PyObject *args)
   if (!SWIG_IsOK(res2)) {
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "solve" "', argument " "2"" of type '" "void *""'"); 
   }
-  result = solve(arg1,arg2);
-  resultobj = SWIG_NewPointerObj((_Bool *)memcpy((_Bool *)calloc(1,sizeof(_Bool)),&result,sizeof(_Bool)), SWIGTYPE_p__Bool, SWIG_POINTER_OWN |  0 );
+  result = (int)solve(arg1,arg2);
+  resultobj = SWIG_From_int((int)(result));
   return resultobj;
 fail:
   return NULL;
@@ -3221,12 +3223,12 @@ SWIGINTERN PyObject *_wrap_find_optimal_solution(PyObject *SWIGUNUSEDPARM(self),
   PyObject *resultobj = 0;
   void *arg1 = (void *) 0 ;
   void *arg2 = (void *) 0 ;
-  _Bool arg3 ;
+  int arg3 ;
   void *arg4 = (void *) 0 ;
   int res1 ;
   int res2 ;
-  void *argp3 ;
-  int res3 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
   int res4 ;
   PyObject *swig_obj[4] ;
   void *result = 0 ;
@@ -3240,17 +3242,11 @@ SWIGINTERN PyObject *_wrap_find_optimal_solution(PyObject *SWIGUNUSEDPARM(self),
   if (!SWIG_IsOK(res2)) {
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "find_optimal_solution" "', argument " "2"" of type '" "void *""'"); 
   }
-  {
-    res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p__Bool,  0 );
-    if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "find_optimal_solution" "', argument " "3"" of type '" "_Bool""'"); 
-    }  
-    if (!argp3) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "find_optimal_solution" "', argument " "3"" of type '" "_Bool""'");
-    } else {
-      arg3 = *((_Bool *)(argp3));
-    }
-  }
+  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "find_optimal_solution" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = (int)(val3);
   res4 = SWIG_ConvertPtr(swig_obj[3],SWIG_as_voidptrptr(&arg4), 0, 0);
   if (!SWIG_IsOK(res4)) {
     SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "find_optimal_solution" "', argument " "4"" of type '" "void *""'"); 
@@ -3267,12 +3263,12 @@ SWIGINTERN PyObject *_wrap_find_all_optimal_solutions(PyObject *SWIGUNUSEDPARM(s
   PyObject *resultobj = 0;
   void *arg1 = (void *) 0 ;
   void *arg2 = (void *) 0 ;
-  _Bool arg3 ;
+  int arg3 ;
   void *arg4 = (void *) 0 ;
   int res1 ;
   int res2 ;
-  void *argp3 ;
-  int res3 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
   int res4 ;
   PyObject *swig_obj[4] ;
   void *result = 0 ;
@@ -3286,17 +3282,11 @@ SWIGINTERN PyObject *_wrap_find_all_optimal_solutions(PyObject *SWIGUNUSEDPARM(s
   if (!SWIG_IsOK(res2)) {
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "find_all_optimal_solutions" "', argument " "2"" of type '" "void *""'"); 
   }
-  {
-    res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p__Bool,  0 );
-    if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "find_all_optimal_solutions" "', argument " "3"" of type '" "_Bool""'"); 
-    }  
-    if (!argp3) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "find_all_optimal_solutions" "', argument " "3"" of type '" "_Bool""'");
-    } else {
-      arg3 = *((_Bool *)(argp3));
-    }
-  }
+  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "find_all_optimal_solutions" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = (int)(val3);
   res4 = SWIG_ConvertPtr(swig_obj[3],SWIG_as_voidptrptr(&arg4), 0, 0);
   if (!SWIG_IsOK(res4)) {
     SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "find_all_optimal_solutions" "', argument " "4"" of type '" "void *""'"); 
@@ -3343,6 +3333,27 @@ SWIGINTERN PyObject *_wrap_show_short_statistics(PyObject *SWIGUNUSEDPARM(self),
   }
   show_short_statistics(arg1);
   resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_get_solution_count(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  int res1 ;
+  PyObject *swig_obj[1] ;
+  long result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "get_solution_count" "', argument " "1"" of type '" "void *""'"); 
+  }
+  result = (long)get_solution_count(arg1);
+  resultobj = SWIG_From_long((long)(result));
   return resultobj;
 fail:
   return NULL;
@@ -3569,7 +3580,7 @@ SWIGINTERN PyObject *_wrap_is_instantiated(PyObject *SWIGUNUSEDPARM(self), PyObj
   void *arg1 = (void *) 0 ;
   int res1 ;
   PyObject *swig_obj[1] ;
-  _Bool result;
+  int result;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -3577,8 +3588,8 @@ SWIGINTERN PyObject *_wrap_is_instantiated(PyObject *SWIGUNUSEDPARM(self), PyObj
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "is_instantiated" "', argument " "1"" of type '" "void *""'"); 
   }
-  result = is_instantiated(arg1);
-  resultobj = SWIG_NewPointerObj((_Bool *)memcpy((_Bool *)calloc(1,sizeof(_Bool)),&result,sizeof(_Bool)), SWIGTYPE_p__Bool, SWIG_POINTER_OWN |  0 );
+  result = (int)is_instantiated(arg1);
+  resultobj = SWIG_From_int((int)(result));
   return resultobj;
 fail:
   return NULL;
@@ -3874,10 +3885,10 @@ fail:
 SWIGINTERN PyObject *_wrap_boolvar_b(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   void *arg1 = (void *) 0 ;
-  _Bool arg2 ;
+  int arg2 ;
   int res1 ;
-  void *argp2 ;
-  int res2 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
   PyObject *swig_obj[2] ;
   void *result = 0 ;
   
@@ -3886,17 +3897,11 @@ SWIGINTERN PyObject *_wrap_boolvar_b(PyObject *SWIGUNUSEDPARM(self), PyObject *a
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "boolvar_b" "', argument " "1"" of type '" "void *""'"); 
   }
-  {
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p__Bool,  0 );
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "boolvar_b" "', argument " "2"" of type '" "_Bool""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "boolvar_b" "', argument " "2"" of type '" "_Bool""'");
-    } else {
-      arg2 = *((_Bool *)(argp2));
-    }
-  }
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "boolvar_b" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = (int)(val2);
   result = (void *)boolvar_b(arg1,arg2);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
   return resultobj;
@@ -3909,13 +3914,13 @@ SWIGINTERN PyObject *_wrap_boolvar_sb(PyObject *SWIGUNUSEDPARM(self), PyObject *
   PyObject *resultobj = 0;
   void *arg1 = (void *) 0 ;
   char *arg2 = (char *) 0 ;
-  _Bool arg3 ;
+  int arg3 ;
   int res1 ;
   int res2 ;
   char *buf2 = 0 ;
   int alloc2 = 0 ;
-  void *argp3 ;
-  int res3 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
   PyObject *swig_obj[3] ;
   void *result = 0 ;
   
@@ -3929,17 +3934,11 @@ SWIGINTERN PyObject *_wrap_boolvar_sb(PyObject *SWIGUNUSEDPARM(self), PyObject *
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "boolvar_sb" "', argument " "2"" of type '" "char *""'");
   }
   arg2 = (char *)(buf2);
-  {
-    res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p__Bool,  0 );
-    if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "boolvar_sb" "', argument " "3"" of type '" "_Bool""'"); 
-    }  
-    if (!argp3) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "boolvar_sb" "', argument " "3"" of type '" "_Bool""'");
-    } else {
-      arg3 = *((_Bool *)(argp3));
-    }
-  }
+  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "boolvar_sb" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = (int)(val3);
   result = (void *)boolvar_sb(arg1,arg2,arg3);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
   if (alloc2 == SWIG_NEWOBJ) free((char*)buf2);
@@ -5262,12 +5261,12 @@ SWIGINTERN PyObject *_wrap_at_least_n_values(PyObject *SWIGUNUSEDPARM(self), PyO
   void *arg1 = (void *) 0 ;
   void *arg2 = (void *) 0 ;
   void *arg3 = (void *) 0 ;
-  _Bool arg4 ;
+  int arg4 ;
   int res1 ;
   int res2 ;
   int res3 ;
-  void *argp4 ;
-  int res4 = 0 ;
+  int val4 ;
+  int ecode4 = 0 ;
   PyObject *swig_obj[4] ;
   void *result = 0 ;
   
@@ -5284,17 +5283,11 @@ SWIGINTERN PyObject *_wrap_at_least_n_values(PyObject *SWIGUNUSEDPARM(self), PyO
   if (!SWIG_IsOK(res3)) {
     SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "at_least_n_values" "', argument " "3"" of type '" "void *""'"); 
   }
-  {
-    res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p__Bool,  0 );
-    if (!SWIG_IsOK(res4)) {
-      SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "at_least_n_values" "', argument " "4"" of type '" "_Bool""'"); 
-    }  
-    if (!argp4) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "at_least_n_values" "', argument " "4"" of type '" "_Bool""'");
-    } else {
-      arg4 = *((_Bool *)(argp4));
-    }
-  }
+  ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "at_least_n_values" "', argument " "4"" of type '" "int""'");
+  } 
+  arg4 = (int)(val4);
   result = (void *)at_least_n_values(arg1,arg2,arg3,arg4);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
   return resultobj;
@@ -5308,12 +5301,12 @@ SWIGINTERN PyObject *_wrap_at_most_n_values(PyObject *SWIGUNUSEDPARM(self), PyOb
   void *arg1 = (void *) 0 ;
   void *arg2 = (void *) 0 ;
   void *arg3 = (void *) 0 ;
-  _Bool arg4 ;
+  int arg4 ;
   int res1 ;
   int res2 ;
   int res3 ;
-  void *argp4 ;
-  int res4 = 0 ;
+  int val4 ;
+  int ecode4 = 0 ;
   PyObject *swig_obj[4] ;
   void *result = 0 ;
   
@@ -5330,17 +5323,11 @@ SWIGINTERN PyObject *_wrap_at_most_n_values(PyObject *SWIGUNUSEDPARM(self), PyOb
   if (!SWIG_IsOK(res3)) {
     SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "at_most_n_values" "', argument " "3"" of type '" "void *""'"); 
   }
-  {
-    res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p__Bool,  0 );
-    if (!SWIG_IsOK(res4)) {
-      SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "at_most_n_values" "', argument " "4"" of type '" "_Bool""'"); 
-    }  
-    if (!argp4) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "at_most_n_values" "', argument " "4"" of type '" "_Bool""'");
-    } else {
-      arg4 = *((_Bool *)(argp4));
-    }
-  }
+  ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "at_most_n_values" "', argument " "4"" of type '" "int""'");
+  } 
+  arg4 = (int)(val4);
   result = (void *)at_most_n_values(arg1,arg2,arg3,arg4);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
   return resultobj;
@@ -5635,14 +5622,14 @@ SWIGINTERN PyObject *_wrap_diff_n(PyObject *SWIGUNUSEDPARM(self), PyObject *args
   void *arg3 = (void *) 0 ;
   void *arg4 = (void *) 0 ;
   void *arg5 = (void *) 0 ;
-  _Bool arg6 ;
+  int arg6 ;
   int res1 ;
   int res2 ;
   int res3 ;
   int res4 ;
   int res5 ;
-  void *argp6 ;
-  int res6 = 0 ;
+  int val6 ;
+  int ecode6 = 0 ;
   PyObject *swig_obj[6] ;
   void *result = 0 ;
   
@@ -5667,17 +5654,11 @@ SWIGINTERN PyObject *_wrap_diff_n(PyObject *SWIGUNUSEDPARM(self), PyObject *args
   if (!SWIG_IsOK(res5)) {
     SWIG_exception_fail(SWIG_ArgError(res5), "in method '" "diff_n" "', argument " "5"" of type '" "void *""'"); 
   }
-  {
-    res6 = SWIG_ConvertPtr(swig_obj[5], &argp6, SWIGTYPE_p__Bool,  0 );
-    if (!SWIG_IsOK(res6)) {
-      SWIG_exception_fail(SWIG_ArgError(res6), "in method '" "diff_n" "', argument " "6"" of type '" "_Bool""'"); 
-    }  
-    if (!argp6) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "diff_n" "', argument " "6"" of type '" "_Bool""'");
-    } else {
-      arg6 = *((_Bool *)(argp6));
-    }
-  }
+  ecode6 = SWIG_AsVal_int(swig_obj[5], &val6);
+  if (!SWIG_IsOK(ecode6)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode6), "in method '" "diff_n" "', argument " "6"" of type '" "int""'");
+  } 
+  arg6 = (int)(val6);
   result = (void *)diff_n(arg1,arg2,arg3,arg4,arg5,arg6);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
   return resultobj;
@@ -5692,13 +5673,13 @@ SWIGINTERN PyObject *_wrap_global_cardinality(PyObject *SWIGUNUSEDPARM(self), Py
   void *arg2 = (void *) 0 ;
   void *arg3 = (void *) 0 ;
   void *arg4 = (void *) 0 ;
-  _Bool arg5 ;
+  int arg5 ;
   int res1 ;
   int res2 ;
   int res3 ;
   int res4 ;
-  void *argp5 ;
-  int res5 = 0 ;
+  int val5 ;
+  int ecode5 = 0 ;
   PyObject *swig_obj[5] ;
   void *result = 0 ;
   
@@ -5719,17 +5700,11 @@ SWIGINTERN PyObject *_wrap_global_cardinality(PyObject *SWIGUNUSEDPARM(self), Py
   if (!SWIG_IsOK(res4)) {
     SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "global_cardinality" "', argument " "4"" of type '" "void *""'"); 
   }
-  {
-    res5 = SWIG_ConvertPtr(swig_obj[4], &argp5, SWIGTYPE_p__Bool,  0 );
-    if (!SWIG_IsOK(res5)) {
-      SWIG_exception_fail(SWIG_ArgError(res5), "in method '" "global_cardinality" "', argument " "5"" of type '" "_Bool""'"); 
-    }  
-    if (!argp5) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "global_cardinality" "', argument " "5"" of type '" "_Bool""'");
-    } else {
-      arg5 = *((_Bool *)(argp5));
-    }
-  }
+  ecode5 = SWIG_AsVal_int(swig_obj[4], &val5);
+  if (!SWIG_IsOK(ecode5)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "global_cardinality" "', argument " "5"" of type '" "int""'");
+  } 
+  arg5 = (int)(val5);
   result = (void *)global_cardinality(arg1,arg2,arg3,arg4,arg5);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
   return resultobj;
@@ -5745,7 +5720,7 @@ SWIGINTERN PyObject *_wrap_inverse_channeling(PyObject *SWIGUNUSEDPARM(self), Py
   void *arg3 = (void *) 0 ;
   int arg4 ;
   int arg5 ;
-  _Bool arg6 ;
+  int arg6 ;
   int res1 ;
   int res2 ;
   int res3 ;
@@ -5753,8 +5728,8 @@ SWIGINTERN PyObject *_wrap_inverse_channeling(PyObject *SWIGUNUSEDPARM(self), Py
   int ecode4 = 0 ;
   int val5 ;
   int ecode5 = 0 ;
-  void *argp6 ;
-  int res6 = 0 ;
+  int val6 ;
+  int ecode6 = 0 ;
   PyObject *swig_obj[6] ;
   void *result = 0 ;
   
@@ -5781,17 +5756,11 @@ SWIGINTERN PyObject *_wrap_inverse_channeling(PyObject *SWIGUNUSEDPARM(self), Py
     SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "inverse_channeling" "', argument " "5"" of type '" "int""'");
   } 
   arg5 = (int)(val5);
-  {
-    res6 = SWIG_ConvertPtr(swig_obj[5], &argp6, SWIGTYPE_p__Bool,  0 );
-    if (!SWIG_IsOK(res6)) {
-      SWIG_exception_fail(SWIG_ArgError(res6), "in method '" "inverse_channeling" "', argument " "6"" of type '" "_Bool""'"); 
-    }  
-    if (!argp6) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "inverse_channeling" "', argument " "6"" of type '" "_Bool""'");
-    } else {
-      arg6 = *((_Bool *)(argp6));
-    }
-  }
+  ecode6 = SWIG_AsVal_int(swig_obj[5], &val6);
+  if (!SWIG_IsOK(ecode6)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode6), "in method '" "inverse_channeling" "', argument " "6"" of type '" "int""'");
+  } 
+  arg6 = (int)(val6);
   result = (void *)inverse_channeling(arg1,arg2,arg3,arg4,arg5,arg6);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
   return resultobj;
@@ -7424,6 +7393,7 @@ static PyMethodDef SwigMethods[] = {
 	 { "find_all_optimal_solutions", _wrap_find_all_optimal_solutions, METH_VARARGS, NULL},
 	 { "show_statistics", _wrap_show_statistics, METH_O, NULL},
 	 { "show_short_statistics", _wrap_show_short_statistics, METH_O, NULL},
+	 { "get_solution_count", _wrap_get_solution_count, METH_O, NULL},
 	 { "time_counter", _wrap_time_counter, METH_VARARGS, NULL},
 	 { "solution_counter", _wrap_solution_counter, METH_VARARGS, NULL},
 	 { "node_counter", _wrap_node_counter, METH_VARARGS, NULL},
@@ -7554,22 +7524,18 @@ static PyMethodDef SwigMethods_proxydocs[] = {
 
 /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (BEGIN) -------- */
 
-static swig_type_info _swigt__p__Bool = {"_p__Bool", "_Bool *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_void = {"_p_void", "void *", 0, 0, (void*)0, 0};
 
 static swig_type_info *swig_type_initial[] = {
-  &_swigt__p__Bool,
   &_swigt__p_char,
   &_swigt__p_void,
 };
 
-static swig_cast_info _swigc__p__Bool[] = {  {&_swigt__p__Bool, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_void[] = {  {&_swigt__p_void, 0, 0, 0},{0, 0, 0, 0}};
 
 static swig_cast_info *swig_cast_initial[] = {
-  _swigc__p__Bool,
   _swigc__p_char,
   _swigc__p_void,
 };

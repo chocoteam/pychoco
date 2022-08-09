@@ -75,7 +75,7 @@ void* get_solver(void* modelHandle) {
 
 // Solver API
 
-_Bool solve(void* solverHandle, void* stopArrayHandle) {
+int solve(void* solverHandle, void* stopArrayHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_SolverApi_solve(thread, solverHandle, stopArrayHandle);
 }
@@ -90,12 +90,12 @@ void* find_all_solutions(void* solverHandle, void* stopArrayHandle) {
     return Java_org_chocosolver_capi_SolverApi_findAllSolutions(thread, solverHandle, stopArrayHandle);
 }
 
-void* find_optimal_solution(void* solverHandle, void* objectiveVarHandle, _Bool maximize, void* stop) {
+void* find_optimal_solution(void* solverHandle, void* objectiveVarHandle, int maximize, void* stop) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_SolverApi_findOptimalSolution(thread, solverHandle, objectiveVarHandle, maximize, stop);
 }
 
-void* find_all_optimal_solutions(void* solverHandle, void* objectiveVarHandle, _Bool maximize, void* stop) {
+void* find_all_optimal_solutions(void* solverHandle, void* objectiveVarHandle, int maximize, void* stop) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_SolverApi_findAllOptimalSolutions(thread, solverHandle, objectiveVarHandle, maximize, stop);
 }
@@ -108,6 +108,11 @@ void show_statistics(void* solverHandle) {
 void show_short_statistics(void* solverHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_SolverApi_showShortStatistics(thread, solverHandle);
+}
+
+long get_solution_count(void* solverHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SolverApi_getSolutionCount(thread, solverHandle);
 }
 
 // Criterion API
@@ -156,7 +161,7 @@ char* get_variable_name(void* varHandle) {
     return Java_org_chocosolver_capi_VariableApi_getName(thread, varHandle);
 }
 
-_Bool is_instantiated(void* varHandle) {
+int is_instantiated(void* varHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_VariableApi_isInstantiated(thread, varHandle);
 }
@@ -216,12 +221,12 @@ void* boolvar(void* modelHandle) {
     return Java_org_chocosolver_capi_BoolVarApi_boolVar(thread, modelHandle);
 }
 
-void* boolvar_b(void* modelHandle, _Bool value) {
+void* boolvar_b(void* modelHandle, int value) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_BoolVarApi_boolVar_b(thread, modelHandle, value);
 }
 
-void* boolvar_sb(void* modelHandle, char* name, _Bool value) {
+void* boolvar_sb(void* modelHandle, char* name, int value) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_BoolVarApi_boolVar_sb(thread, modelHandle, name, value);
 }
@@ -409,7 +414,7 @@ void* and_cs_cs(void* modelHandle, void* constraintArrayHandle) {
     return Java_org_chocosolver_capi_ConstraintApi_and_cs_cs(thread, modelHandle, constraintArrayHandle);
 }
 
-void* at_least_n_values(void* modelHandle, void* intVarArrayHandle, void* nValuesHandle, _Bool AC) {
+void* at_least_n_values(void* modelHandle, void* intVarArrayHandle, void* nValuesHandle, int AC) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ConstraintApi_atLeastNValues(
         thread,
@@ -420,7 +425,7 @@ void* at_least_n_values(void* modelHandle, void* intVarArrayHandle, void* nValue
     );
 }
 
-void* at_most_n_values(void* modelHandle, void* intVarArrayHandle, void* nValuesHandle, _Bool STRONG) {
+void* at_most_n_values(void* modelHandle, void* intVarArrayHandle, void* nValuesHandle, int STRONG) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ConstraintApi_atMostNValues(
         thread,
@@ -509,7 +514,7 @@ void* count_iv(void* modelHandle, void* valueHandle, void* intVarArrayHandle, vo
 }
 
 void* diff_n(void* modelHandle, void* XHandle, void* YHandle, void* widthHandle, void* heightHandle,
-             _Bool addCumulativeReasoning) {
+             int addCumulativeReasoning) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ConstraintApi_diffN(
         thread,
@@ -523,7 +528,7 @@ void* diff_n(void* modelHandle, void* XHandle, void* YHandle, void* widthHandle,
 }
 
 void* global_cardinality(void* modelHandle, void* intVarArrayHandle, void* valuesHandle,
-                         void* occurrencesHandle, _Bool closed) {
+                         void* occurrencesHandle, int closed) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ConstraintApi_globalCardinality(
         thread,
@@ -536,7 +541,7 @@ void* global_cardinality(void* modelHandle, void* intVarArrayHandle, void* value
 }
 
 void* inverse_channeling(void* modelHandle, void* intVarArrayHandle1, void* intVarArrayHandle2,
-                         int offset1, int offset2, _Bool ac) {
+                         int offset1, int offset2, int ac) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ConstraintApi_inverseChanneling(
         thread,
@@ -657,8 +662,8 @@ void* path(void* modelHandle, void* intVarsHandle, void* startHandle, void* endH
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ConstraintApi_path(
         thread,
-        intVarsHandle,
         modelHandle,
+        intVarsHandle,
         startHandle,
         endHandle,
         offset
