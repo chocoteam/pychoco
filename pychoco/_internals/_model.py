@@ -296,6 +296,58 @@ class _Model(Model, _HandleWrapper):
                                                        offset1, offset2, ac)
         return _Constraint(constraint_handle, self)
 
+    def int_value_precede_chain(self, intvars: List[IntVar], values: List[int]):
+        intvars_handle = make_intvar_array(intvars)
+        values_handle = make_int_array(values)
+        constraint_handle = backend.int_value_precede_chain(self.handle, intvars_handle, values_handle)
+        return _Constraint(constraint_handle, self)
+
+    def knapsack(self, occurrences: List[IntVar], weight_sum: IntVar, energy_sum: IntVar, weight: List[int],
+                 energy: List[int]):
+        occ_handle = make_intvar_array(occurrences)
+        weight_handle = make_int_array(weight)
+        energy_handle = make_int_array(energy)
+        constraint_handle = backend.knapsack(self.handle, occ_handle, weight_sum.handle, energy_sum.handle,
+                                             weight_handle, energy_handle)
+        return _Constraint(constraint_handle, self)
+
+    def lex_chain_less(self, intvars: List[IntVar]):
+        intvars_handle = make_intvar_array(intvars)
+        constraint_handle = backend.lex_chain_less(self.handle, intvars_handle)
+        return _Constraint(constraint_handle, self)
+
+    def lex_chain_less_eq(self, intvars: List[IntVar]):
+        intvars_handle = make_intvar_array(intvars)
+        constraint_handle = backend.lex_chain_less_eq(self.handle, intvars_handle)
+        return _Constraint(constraint_handle, self)
+
+    def lex_less(self, intvars1: List[IntVar], intvars2: List[IntVar]):
+        intvars_handle1 = make_intvar_array(intvars1)
+        intvars_handle2 = make_intvar_array(intvars2)
+        constraint_handle = backend.lex_less(self.handle, intvars_handle1, intvars_handle2)
+        return _Constraint(constraint_handle, self)
+
+    def lex_less_eq(self, intvars1: List[IntVar], intvars2: List[IntVar]):
+        intvars_handle1 = make_intvar_array(intvars1)
+        intvars_handle2 = make_intvar_array(intvars2)
+        constraint_handle = backend.lex_less_eq(self.handle, intvars_handle1, intvars_handle2)
+        return _Constraint(constraint_handle, self)
+
+    def argmax(self, intvar: IntVar, offset: int, intvars: List[IntVar]):
+        intvars_handle = make_intvar_array(intvars)
+        constraint_handle = backend.argmax(self.handle, intvar.handle, offset, intvars_handle)
+        return _Constraint(constraint_handle, self)
+
+    def argmin(self, intvar: IntVar, offset: int, intvars: List[IntVar]):
+        intvars_handle = make_intvar_array(intvars)
+        constraint_handle = backend.argmin(self.handle, intvar.handle, offset, intvars_handle)
+        return _Constraint(constraint_handle, self)
+
+    def n_values(self, intvars: List[IntVar], n_values: IntVar):
+        intvars_handle = make_intvar_array(intvars)
+        constraint_handle = backend.n_values(self.handle, intvars_handle, n_values.handle)
+        return _Constraint(constraint_handle, self)
+
     def or_(self, bools_or_constraints: Union[List[BoolVar], List[Constraint]]):
         assert len(bools_or_constraints) >= 1
         if isinstance(bools_or_constraints[0], BoolVar):
@@ -304,6 +356,69 @@ class _Model(Model, _HandleWrapper):
         else:
             cons_array = make_constraint_array(*bools_or_constraints)
             constraint_handle = backend.or_cs_cs(self.handle, cons_array)
+        return _Constraint(constraint_handle, self)
+
+    def path(self, intvars: List[IntVar], start: IntVar, end: IntVar, offset: int):
+        intvars_handle = make_intvar_array(intvars)
+        constraint_handle = backend.path(self.handle, intvars_handle, start.handle, end.handle, offset)
+        return _Constraint(constraint_handle, self)
+
+    def scalar(self, intvars: List[IntVar], coeffs: List[int], operator: str, scalar: Union[int, IntVar]):
+        assert len(intvars) == len(coeffs)
+        assert operator in ["=", "!=", ">", "<", ">=", "<="]
+        intvars_handle = make_intvar_array(intvars)
+        coeffs_handle = make_int_array(coeffs)
+        if isinstance(scalar, IntVar):
+            constraint_handle = backend.scalar_iv(self.handle, intvars_handle, coeffs_handle, operator, scalar.handle)
+        else:
+            constraint_handle = backend.scalar_i(self.handle, intvars_handle, coeffs_handle, operator, scalar)
+        return _Constraint(constraint_handle, self)
+
+    def sort(self, intvars: List[IntVar], sorted_intvars: List[IntVar]):
+        intvars_handle = make_intvar_array(intvars)
+        sorted_intvars_handle = make_intvar_array(sorted_intvars)
+        constraint_handle = backend.sort(self.handle, intvars_handle, sorted_intvars_handle)
+        return _Constraint(constraint_handle, self)
+
+    def sub_circuit(self, intvars: List[IntVar], offset: int, sub_circuit_length: IntVar):
+        intvars_handle = make_intvar_array(intvars)
+        constraint_handle = backend.sub_circuit(self.handle, intvars_handle, offset, sub_circuit_length.handle)
+        return _Constraint(constraint_handle, self)
+
+    def sub_path(self, intvars: List[IntVar], start: IntVar, end: IntVar, offset: int, sub_path_length: IntVar):
+        assert len(intvars) > 0
+        intvars_handle = make_intvar_array(intvars)
+        constraint_handle = backend.sub_path(self.handle, intvars_handle, start.handle, end.handle, offset,
+                                             sub_path_length.handle)
+        return _Constraint(constraint_handle, self)
+
+    def sum(self, intvars_or_boolvars: Union[List[IntVar, BoolVar]], operator: str,
+            sum_result: Union[int, IntVar, List[IntVar]]):
+        assert len(intvars_or_boolvars) > 0
+        assert operator in ["=", "!=", ">", "<", ">=", "<="]
+        if isinstance(intvars_or_boolvars[0], IntVar):
+            vars_handle = make_intvar_array(intvars_or_boolvars)
+            if isinstance(sum_result, int):
+                constraint_handle = backend.sum_iv_i(self.handle, vars_handle, operator, sum_result)
+            elif isinstance(sum_result, IntVar):
+                constraint_handle = backend.sum_iv_iv(self.handle, vars_handle, operator, sum_result.handle)
+            else:
+                sum_result_handle = make_intvar_array(sum_result)
+                constraint_handle = backend.sum_ivarray_ivarry(self.handle, vars_handle, operator, sum_result_handle)
+        else:
+            vars_handle = make_boolvar_array(intvars_or_boolvars)
+            if isinstance(sum_result, int):
+                constraint_handle = backend.sum_bv_i(self.handle, vars_handle, operator, sum_result)
+            elif isinstance(sum_result, IntVar):
+                constraint_handle = backend.sum_bv_iv(self.handle, vars_handle, operator, sum_result.handle)
+            else:
+                sum_result_handle = make_intvar_array(sum_result)
+                constraint_handle = backend.sum_ivarray_ivarry(self.handle, vars_handle, operator, sum_result_handle)
+        return _Constraint(constraint_handle, self)
+
+    def tree(self, successors: List[IntVar], nb_trees: IntVar, offset: int = 0):
+        successors_handle = make_intvar_array(successors)
+        constraint_handle = backend.tree(self.handle, successors_handle, nb_trees.handle, offset)
         return _Constraint(constraint_handle, self)
 
 

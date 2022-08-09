@@ -311,11 +311,74 @@ def global_cardinality(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "vo
 def inverse_channeling(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "int", arg5: "int", arg6: "_Bool") -> "void *":
     return _backend.inverse_channeling(arg1, arg2, arg3, arg4, arg5, arg6)
 
+def int_value_precede_chain(arg1: "void *", arg2: "void *", arg3: "void *") -> "void *":
+    return _backend.int_value_precede_chain(arg1, arg2, arg3)
+
+def knapsack(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *", arg5: "void *", arg6: "void *") -> "void *":
+    return _backend.knapsack(arg1, arg2, arg3, arg4, arg5, arg6)
+
+def lex_chain_less(arg1: "void *", arg2: "void *") -> "void *":
+    return _backend.lex_chain_less(arg1, arg2)
+
+def lex_chain_less_eq(arg1: "void *", arg2: "void *") -> "void *":
+    return _backend.lex_chain_less_eq(arg1, arg2)
+
+def lex_less(arg1: "void *", arg2: "void *", arg3: "void *") -> "void *":
+    return _backend.lex_less(arg1, arg2, arg3)
+
+def lex_less_eq(arg1: "void *", arg2: "void *", arg3: "void *") -> "void *":
+    return _backend.lex_less_eq(arg1, arg2, arg3)
+
+def argmax(arg1: "void *", arg2: "void *", arg3: "int", arg4: "void *") -> "void *":
+    return _backend.argmax(arg1, arg2, arg3, arg4)
+
+def argmin(arg1: "void *", arg2: "void *", arg3: "int", arg4: "void *") -> "void *":
+    return _backend.argmin(arg1, arg2, arg3, arg4)
+
+def n_values(arg1: "void *", arg2: "void *", arg3: "void *") -> "void *":
+    return _backend.n_values(arg1, arg2, arg3)
+
 def or_bv_bv(arg1: "void *", arg2: "void *") -> "void *":
     return _backend.or_bv_bv(arg1, arg2)
 
 def or_cs_cs(arg1: "void *", arg2: "void *") -> "void *":
     return _backend.or_cs_cs(arg1, arg2)
+
+def path(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *", arg5: "int") -> "void *":
+    return _backend.path(arg1, arg2, arg3, arg4, arg5)
+
+def scalar_i(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "char *", arg5: "int") -> "void *":
+    return _backend.scalar_i(arg1, arg2, arg3, arg4, arg5)
+
+def scalar_iv(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "char *", arg5: "void *") -> "void *":
+    return _backend.scalar_iv(arg1, arg2, arg3, arg4, arg5)
+
+def sort(arg1: "void *", arg2: "void *", arg3: "void *") -> "void *":
+    return _backend.sort(arg1, arg2, arg3)
+
+def sub_circuit(arg1: "void *", arg2: "void *", arg3: "int", arg4: "void *") -> "void *":
+    return _backend.sub_circuit(arg1, arg2, arg3, arg4)
+
+def sub_path(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *", arg5: "int", arg6: "void *") -> "void *":
+    return _backend.sub_path(arg1, arg2, arg3, arg4, arg5, arg6)
+
+def sum_iv_i(arg1: "void *", arg2: "void *", arg3: "char *", arg4: "int") -> "void *":
+    return _backend.sum_iv_i(arg1, arg2, arg3, arg4)
+
+def sum_iv_iv(arg1: "void *", arg2: "void *", arg3: "char *", arg4: "void *") -> "void *":
+    return _backend.sum_iv_iv(arg1, arg2, arg3, arg4)
+
+def sum_ivarray_ivarray(arg1: "void *", arg2: "void *", arg3: "char *", arg4: "void *") -> "void *":
+    return _backend.sum_ivarray_ivarray(arg1, arg2, arg3, arg4)
+
+def sum_bv_i(arg1: "void *", arg2: "void *", arg3: "char *", arg4: "int") -> "void *":
+    return _backend.sum_bv_i(arg1, arg2, arg3, arg4)
+
+def sum_bv_iv(arg1: "void *", arg2: "void *", arg3: "char *", arg4: "void *") -> "void *":
+    return _backend.sum_bv_iv(arg1, arg2, arg3, arg4)
+
+def tree(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "int") -> "void *":
+    return _backend.tree(arg1, arg2, arg3, arg4)
 
 def create_intvar_array(arg1: "int") -> "void *":
     return _backend.create_intvar_array(arg1)

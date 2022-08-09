@@ -549,7 +549,99 @@ void* inverse_channeling(void* modelHandle, void* intVarArrayHandle1, void* intV
     );
 }
 
+void* int_value_precede_chain(void* modelHandle, void* intVarsHandle, void* VHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_intValuePrecedeChain(
+        thread,
+        modelHandle,
+        intVarsHandle,
+        VHandle
+    );
+}
 
+void* knapsack(void* modelHandle, void* occurrencesHandle, void* weightSumHandle, void* energySumHandle,
+               void* weightHandle, void* energyHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_knapsack(
+        thread,
+        modelHandle,
+        occurrencesHandle,
+        weightSumHandle,
+        energySumHandle,
+        weightHandle,
+        energyHandle
+    );
+}
+
+void* lex_chain_less(void* modelHandle, void* intVarsHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_lexChainLess(
+        thread,
+        modelHandle,
+        intVarsHandle
+    );
+}
+
+void* lex_chain_less_eq(void* modelHandle, void* intVarsHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_lexChainLessEq(
+        thread,
+        modelHandle,
+        intVarsHandle
+    );
+}
+
+void* lex_less(void* modelHandle, void* intVarsHandle1, void* intVarsHandle2) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_lexLess(
+        thread,
+        modelHandle,
+        intVarsHandle1,
+        intVarsHandle2
+    );
+}
+
+void* lex_less_eq(void* modelHandle, void* intVarsHandle1, void* intVarsHandle2) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_lexLessEq(
+        thread,
+        modelHandle,
+        intVarsHandle1,
+        intVarsHandle2
+    );
+}
+
+void* argmax(void* modelHandle, void* intVarHandle, int offset, void* intVarsHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_argmax(
+        thread,
+        modelHandle,
+        intVarHandle,
+        offset,
+        intVarsHandle
+    );
+}
+
+void* argmin(void* modelHandle, void* intVarHandle, int offset, void* intVarsHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_argmin(
+        thread,
+        modelHandle,
+        intVarHandle,
+        offset,
+        intVarsHandle
+    );
+}
+
+void* n_values(void* modelHandle, void* intVarsHandle, void* nValuesHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_nValues(
+        thread,
+        modelHandle,
+        intVarsHandle,
+        nValuesHandle
+    );
+}
 
 void* or_bv_bv(void* modelHandle, void* boolVarArrayHandle) {
     LAZY_THREAD_ATTACH
@@ -559,6 +651,142 @@ void* or_bv_bv(void* modelHandle, void* boolVarArrayHandle) {
 void* or_cs_cs(void* modelHandle, void* constraintArrayHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ConstraintApi_or_cs_cs(thread, modelHandle, constraintArrayHandle);
+}
+
+void* path(void* modelHandle, void* intVarsHandle, void* startHandle, void* endHandle, int offset) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_path(
+        thread,
+        intVarsHandle,
+        modelHandle,
+        startHandle,
+        endHandle,
+        offset
+    );
+}
+
+void* scalar_i(void* modelHandle, void* intVarsHandle, void* coeffsHandle, char* op, int scalar) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_scalar_i(
+        thread,
+        modelHandle,
+        intVarsHandle,
+        coeffsHandle,
+        op,
+        scalar
+    );
+}
+
+void* scalar_iv(void* modelHandle, void* intVarsHandle, void* coeffsHandle, char* op, void* scalarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_scalar_iv(
+        thread,
+        modelHandle,
+        intVarsHandle,
+        coeffsHandle,
+        op,
+        scalarHandle
+    );
+}
+
+void* sort(void* modelHandle, void* intVarsHandle, void* sortedIntVarsHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_sort(
+        thread,
+        modelHandle,
+        intVarsHandle,
+        sortedIntVarsHandle
+    );
+}
+
+void* sub_circuit(void* modelHandle, void* intVarsHandle, int offset, void* subCircuitLengthHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_subCircuit(
+        thread,
+        modelHandle,
+        intVarsHandle,
+        offset,
+        subCircuitLengthHandle
+    );
+}
+
+void* sub_path(void* modelHandle, void* intVarsHandle, void* startHandle, void* endHandle, int offset, void* lengthHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_subPath(
+        thread,
+        modelHandle,
+        intVarsHandle,
+        startHandle,
+        endHandle,
+        offset,
+        lengthHandle
+    );
+}
+
+void* sum_iv_i(void* modelHandle, void* intVarsHandle, char* op, int sum) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_sum_iv_i(
+        thread,
+        modelHandle,
+        intVarsHandle,
+        op,
+        sum
+    );
+}
+
+void* sum_iv_iv(void* modelHandle, void* intVarsHandle, char* op, void* sumHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_sum_iv_iv(
+        thread,
+        modelHandle,
+        intVarsHandle,
+        op,
+        sumHandle
+    );
+}
+
+void* sum_ivarray_ivarray(void* modelHandle, void* intVarsHandle1, char* op, void* intVarsHandle2) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_sum_ivarray_ivarray(
+        thread,
+        modelHandle,
+        intVarsHandle1,
+        op,
+        intVarsHandle2
+    );
+}
+
+void* sum_bv_i(void* modelHandle, void* boolVarsHandle, char* op, int sum) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_sum_bv_i(
+        thread,
+        modelHandle,
+        boolVarsHandle,
+        op,
+        sum
+    );
+}
+
+void* sum_bv_iv(void* modelHandle, void* boolVarsHandle, char* op, void* sumHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_sum_bv_iv(
+        thread,
+        modelHandle,
+        boolVarsHandle,
+        op,
+        sumHandle
+    );
+}
+
+void* tree(void* modelHandle, void* successorsHandle, void* nbTreeHandle , int offset) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_tree(
+        thread,
+        modelHandle,
+        successorsHandle,
+        nbTreeHandle,
+        offset
+    );
 }
 
 // Array API

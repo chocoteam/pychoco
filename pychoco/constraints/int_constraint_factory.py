@@ -418,11 +418,243 @@ class IntConstraintFactory(ABC):
         pass
 
     @abstractmethod
+    def int_value_precede_chain(self, intvars: List[IntVar], values: List[int]):
+        """
+        Creates an int_value_precede_chain constraint.
+        Ensure that, for each pair of values[k] and values[l], such that k < l,
+        if there exists <code>j</code> such that intvars[j] = intvars[l], then, there must exist
+        <code>i</code> <<code>j</code> such that intvars[i] = intvars[k].
+        :param intvars: A list of IntVars.
+        :param values: A list of distinct ints.
+        :return: An int_value_precede_chain constraint.
+        """
+        pass
+
+    @abstractmethod
+    def knapsack(self, occurrences: List[IntVar], weight_sum: IntVar, energy_sum: IntVar, weight: List[int],
+                 energy: List[int]):
+        """
+        Creates a knapsack constraint.
+        Ensures that :
+        <br/>- occurrences[i] * weight[i] = weight_sum
+        <br/>- occurrences[i] * energy[i] = energy_sum
+        <br/>and maximizing the value of energy_sum.
+        A knapsack constraint
+        <a href="http://en.wikipedia.org/wiki/Knapsack_problem">wikipedia</a>:<br/>
+        "Given a set of items, each with a weight and an energy value,
+        determine the count of each item to include in a collection so that
+        the total weight is less than or equal to a given limit and the total value is as large as possible.
+        It derives its name from the problem faced by someone who is constrained by a fixed-size knapsack
+        and must fill it with the most useful items."
+        The limit over weightSum has to be specified either in its domain or with an additional constraint:
+        <pre>
+            model.arithm(weight_sum, "<=", limit).post()
+        </pre>
+        :param occurrences: A list of IntVars.
+        :param weight_sum: An IntVar.
+        :param energy_sum: An IntVar.
+        :param weight: A list of ints.
+        :param energy: A list of ints.
+        :return: A knapsack constraint.
+        """
+        pass
+
+    @abstractmethod
+    def lex_chain_less(self, intvars: List[IntVar]):
+        """
+        Creates a lex_chain_less constraint.
+        For each pair of consecutive vectors intvars<sub>i</sub> and intvars<sub>i+1</sub> of the intvars collection
+        intvars<sub>i</sub> is lexicographically strictly less than intvars<sub>i+1</sub>
+        :param intvars: A list of IntVars.
+        :return: A lex_chain_less constraint.
+        """
+        pass
+
+    @abstractmethod
+    def lex_chain_less_eq(self, intvars: List[IntVar]):
+        """
+        Creates a lex_chain_less_eq constraint.
+        For each pair of consecutive vectors intvars<sub>i</sub> and intvars<sub>i+1</sub> of the intvars collection
+        intvars<sub>i</sub> is lexicographically less or equal than intvars<sub>i+1</sub>
+        :param intvars: A list of IntVars.
+        :return: A lex_chain_less_eq constraint.
+        """
+        pass
+
+    @abstractmethod
+    def lex_less(self, intvars1: List[IntVar], intvars2: List[IntVar]):
+        """
+        Creates a lex_less constraint.
+        Ensures that intvars1 is lexicographically strictly less than intvars2.
+        :param intvars1: A list of IntVars.
+        :param intvars2: A list of IntVars.
+        :return: A lex_less constraint.
+        """
+        pass
+
+    @abstractmethod
+    def lex_less_eq(self, intvars1: List[IntVar], intvars2: List[IntVar]):
+        """
+        Creates a lex_less_eq constraint.
+        Ensures that intvars1 is lexicographically strictly less or equal than intvars2.
+        :param intvars1: A list of IntVars.
+        :param intvars2: A list of IntVars.
+        :return: A lex_less_eq constraint.
+        """
+        pass
+
+    @abstractmethod
+    def argmax(self, intvar: IntVar, offset: int, intvars: List[IntVar]):
+        """
+        Creates an argmax constraint.
+        intvar is the index of the maximum value of the collection of domain variables intvars.
+        :param intvar: An IntVar.
+        :param offset: an int.
+        :param intvars: A list of IntVars.
+        :return: An argmax constraint.
+        """
+        pass
+
+    @abstractmethod
+    def argmin(self, intvar: IntVar, offset: int, intvars: List[IntVar]):
+        """
+        Creates an argmin constraint.
+        intvar is the index of the minimum value of the collection of domain variables intvars.
+        :param intvar: An IntVar.
+        :param offset: an int.
+        :param intvars: A list of IntVars.
+        :return: An argmin constraint.
+        """
+        pass
+
+    @abstractmethod
+    def n_values(self, intvars: List[IntVar], n_values: IntVar):
+        """
+        Creates an n_values constraint.
+        Let N be the number of distinct values assigned to the variables of the intvars collection.
+        Enforce condition N = n_values to hold.
+        :param intvars: A list of IntVars.
+        :param n_values: An IntVar.
+        :return: An n_values constraint.
+        """
+        pass
+
+    @abstractmethod
     def or_(self, bools_or_constraints: Union[List[BoolVar], List[Constraint]]):
         """
         Creates a or constraint that is satisfied if at least one boolean variable or constraint in
         `bools_or_constraints` is respectively true or satisfied.
         :param bools_or_constraints: Either a list of BoolVars or a list of Constraints.
         :return: An or constraint.
+        """
+        pass
+
+    @abstractmethod
+    def path(self, intvars: List[IntVar], start: IntVar, end: IntVar, offset: int):
+        """
+        Creates a path constraint which ensures that
+        <p/> the elements of intvars define a covering path from start to end
+        <p/> where intvars[i] = j means that j is the successor of i.
+        <p/> Moreover, intvars[end] = |intvars|
+        <p/> Requires : |intvars|>0
+        Filtering algorithms: see circuit constraint
+        :param intvars: A list of IntVars.
+        :param start: An IntVar.
+        :param end: An IntVar.
+        :param offset: An int.
+        :return: A path constraint.
+        """
+        pass
+
+    @abstractmethod
+    def scalar(self, intvars: List[IntVar], coeffs: List[int], operator: str, scalar: Union[int, IntVar]):
+        """
+        Creates a scalar constraint which ensures that Sum(intvars[i] * coeffs[i]) operator scalar.
+        :param intvars: A list of IntVars.
+        :param coeffs: A list of ints, such that |intvars| = |coeffs|.
+        :param operator: A str in ["=", "!=", ">","<",">=","<="].
+        :param scalar: An int or an IntVar.
+        :return: A scalar constraint.
+        """
+        pass
+
+    @abstractmethod
+    def sort(self, intvars: List[IntVar], sorted_intvars: List[IntVar]):
+        """
+        Creates a sort constraint which ensures that the variables of sorted_intvars correspond to the variables
+        of intvars according to a permutation. The variables of sorted_intvars are also sorted in increasing order.
+        For example:
+        - X= (4,2,1,3)
+        - Y= (1,2,3,4)
+        :param intvars: A list of IntVars.
+        :param sorted_intvars: A list of IntVars.
+        :return: A sort constraint.
+        """
+        pass
+
+    @abstractmethod
+    def sub_circuit(self, intvars: List[IntVar], offset: int, sub_circuit_length: IntVar):
+        """
+        Creates a sub_circuit constraint which ensures that
+        <p/> the elements of intvars define a single circuit of sub_circuit_length nodes where
+        <p/> intvars[i] = offset + j means that j is the successor of i.
+        <p/> and intvars[i] = offset + i means that i is not part of the circuit
+        <p/> the constraint ensures that |{intvars[i] =/= offset + i}| = sub_circuit_length
+        <p/> Filtering algorithms:
+        <p/> subtour elimination : Caseau & Laburthe (ICLP'97)
+        <p/> allDifferent GAC algorithm: R&eacute;gin (AAAI'94)
+        <p/> dominator-based filtering: Fages & Lorca (CP'11) (adaptive scheme by default, see implementation)
+        :param intvars: A list of IntVars.
+        :param offset: An int.
+        :param sub_circuit_length: An IntVar.
+        :return: A sub_circuit constraint.
+        """
+        pass
+
+    @abstractmethod
+    def sub_path(self, intvars: List[IntVar], start: IntVar, end: IntVar, offset: int, sub_path_length: IntVar):
+        """
+        Creates a sub_path constraint which ensures that
+        <p/> the elements of intvars define a path of sub_path_length vertices, leading from start to end
+        <p/> where intvars[i] = offset + j means that j is the successor of i.
+        <p/> where intvars[i] = offset + i means that vertex i is excluded from the path.
+        <p/> Moreover, intvars[end - offset] = |intvars| + offset
+        <p/> Requires : |vars|>0
+        Filtering algorithms: see subCircuit constraint
+        :param intvars: A list of IntVars.
+        :param start: An IntVar.
+        :param end: An IntVar.
+        :param offset: An int.
+        :param sub_path_length: An IntVar.
+        :return: A sub_path constraint.
+        """
+        pass
+
+    @abstractmethod
+    def sum(self, intvars_or_boolvars: Union[List[IntVar, BoolVar]], operator: str,
+            sum_result: Union[int, IntVar, List[IntVar]]):
+        """
+        Creates a sum constraint.
+        Enforces that Sum<sub>i in |intvars_or_boolvars|</sub>intvars_or_boolvars<sub>i</sub> operator sum_result.
+        :param intvars_or_boolvars: Either a list of IntVars or a list of BoolVars.
+        :param operator: A str in ["=", "!=", ">","<",">=","<="].
+        :param sum_result: Either an int, an IntVar, or a list of IntVars.
+        :return: A sum constraint.
+        """
+        pass
+
+    @abstractmethod
+    def tree(self, successors: List[IntVar], nb_trees: IntVar, offset: int = 0):
+        """
+        Creates a tree constraint.
+        Partition successors variables into nb_trees (anti) arborescence.
+        <p/> successors[i] = offset + j means that j is the successor of i.
+        <p/> and successors[i] = offset + i means that i is a root.
+        <p/> dominator-based filtering: Fages & Lorca (CP'11).
+        <p/> However, the filtering over nbTrees is quite light here.
+        :param successors: A list of IntVars.
+        :param nb_trees: An IntVar.
+        :param offset: An int.
+        :return: A tree constraint.
         """
         pass

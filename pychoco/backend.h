@@ -189,11 +189,51 @@ void* global_cardinality(void*, void*, void*, void*, _Bool);
 
 void* inverse_channeling(void*, void*, void*, int, int, _Bool);
 
+void* int_value_precede_chain(void*, void*, void*);
 
+void* knapsack(void*, void*, void*, void*, void*, void*);
+
+void* lex_chain_less(void*, void*);
+
+void* lex_chain_less_eq(void*, void*);
+
+void* lex_less(void*, void*, void*);
+
+void* lex_less_eq(void*, void*, void*);
+
+void* argmax(void*, void*, int, void*);
+
+void* argmin(void*, void*, int, void*);
+
+void* n_values(void*, void*, void*);
 
 void* or_bv_bv(void*, void*);
 
 void* or_cs_cs(void*, void*);
+
+void* path(void*, void*, void*, void*, int);
+
+void* scalar_i(void*, void*, void*, char*, int);
+
+void* scalar_iv(void*, void*, void*, char*, void*);
+
+void* sort(void*, void*, void*);
+
+void* sub_circuit(void*, void*, int, void*);
+
+void* sub_path(void*, void*, void*, void*, int, void*);
+
+void* sum_iv_i(void*, void*, char*, int);
+
+void* sum_iv_iv(void*, void*, char*, void*);
+
+void* sum_ivarray_ivarray(void*, void*, char*, void*);
+
+void* sum_bv_i(void*, void*, char*, int);
+
+void* sum_bv_iv(void*, void*, char*, void*);
+
+void* tree(void*, void*, void*, int);
 
 // Array API
 
