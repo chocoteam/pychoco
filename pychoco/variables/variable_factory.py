@@ -36,6 +36,7 @@ class VariableFactory(ABC):
     def boolvar(self, value: Union[bool, None] = None, name: Union[str, None] = None):
         """
         Creates a boolvar.
+
         :param value: If not None, a fixed value for the variable (which is thus a constant).
         :param name: The name of the variable (optional).
         :return: A boolvar.
@@ -46,9 +47,10 @@ class VariableFactory(ABC):
     def boolvars(self, size: int, value: Union[List[bool], bool, None] = None, name: Union[str, None] = None):
         """
         Creates a list of boolvars.
+
         :param size: Number of boolvars.
         :param value: If not None, a fixed value for the variables (which is thus a constant). This value is either
-                      the same for all variables (bool), or given as a list of bools.
+            the same for all variables (bool), or given as a list of bools.
         :param name: The name of the variable (optional).
         :return: A list of boolvars.
         """

@@ -38,8 +38,10 @@ class Constraint(ABC):
     @abstractmethod
     def reify(self):
         """
-        :return: Reifies the constraint, i.e. return a boolvar whose instantiation in a solution
+        Reifies the constraint, i.e. return a boolvar whose instantiation in a solution
         correspond to the satisfaction state of the constraint in this solution.
+
+        :return: A BoolVar.
         """
         pass
 

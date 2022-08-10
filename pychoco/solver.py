@@ -24,8 +24,8 @@ class Solver(SearchStrategies, ABC):
         Default configuration:
         - SATISFACTION : Computes a feasible solution. Use while(solve()) to enumerate all solutions.
         - OPTIMISATION : Computes a feasible solution, wrt to the objective defined. Use while solve(): to find the
-                         optimal solution. Indeed, each new solution improves the objective. If no new solution is
-                         found (and no stop criterion encountered), the last one is guaranteed to be the optimal one.
+        optimal solution. Indeed, each new solution improves the objective. If no new solution is
+        found (and no stop criterion encountered), the last one is guaranteed to be the optimal one.
         :param time_limit: Time limit for search, None => no time limit.
         :param node_limit: Number of nodes limit for search, None => no node limit.
         :param fail_limit: Number of fails limit for search, None => no fail limit.
