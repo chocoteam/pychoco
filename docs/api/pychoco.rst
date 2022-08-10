@@ -22,6 +22,14 @@ pychoco.backend module
    :undoc-members:
    :show-inheritance:
 
+pychoco.libchoco\_capi module
+-----------------------------
+
+.. automodule:: pychoco.libchoco_capi
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 pychoco.model module
 --------------------
 
