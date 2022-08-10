@@ -27,4 +27,4 @@ class Model(VariableFactory, IntConstraintFactory, ABC):
         pass
 
     def __repr__(self):
-        return "Choco Model ('" + self.name() + "')"
+        return "Choco Model ('" + self.name + "')"

@@ -10,4 +10,4 @@ class BoolVar(IntVar, ABC):
     """
 
     def __repr__(self):
-        return "Choco BoolVar ('" + self.get_name() + "')"
+        return "Choco BoolVar ('" + self.get_name + "')"

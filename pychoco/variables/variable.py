@@ -31,4 +31,4 @@ class Variable(ABC):
         pass
 
     def __repr__(self):
-        return "Choco Variable ('" + self.name() + "')"
+        return "Choco Variable ('" + self.name + "')"

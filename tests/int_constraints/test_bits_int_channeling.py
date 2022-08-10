@@ -17,7 +17,7 @@ class TestBitsIntChanneling(unittest.TestCase):
         intvar = model.intvar(0, 100)
         model.bits_int_channeling(bits, intvar).post()
         self.assertTrue(model.get_solver().solve())
-        self.assertEquals(intvar.get_value(), 10)
+        self.assertEqual(intvar.get_value(), 10)
         self.assertFalse(model.get_solver().solve())
 
     def testBitsIntChanneling2(self):

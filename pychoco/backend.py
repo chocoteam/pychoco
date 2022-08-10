@@ -62,409 +62,409 @@ class _SwigNonDynamicMeta(type):
 
 
 
-def chocosolver_init() -> "void":
+def chocosolver_init():
     return _backend.chocosolver_init()
 
-def chocosolver_cleanup() -> "void":
+def chocosolver_cleanup():
     return _backend.chocosolver_cleanup()
 
-def chocosolver_is_initialized() -> "int":
+def chocosolver_is_initialized():
     return _backend.chocosolver_is_initialized()
 
-def create_model() -> "void *":
+def create_model():
     return _backend.create_model()
 
-def create_model_s(arg1: "char *") -> "void *":
+def create_model_s(arg1):
     return _backend.create_model_s(arg1)
 
-def get_model_name(arg1: "void *") -> "char *":
+def get_model_name(arg1):
     return _backend.get_model_name(arg1)
 
-def get_solver(arg1: "void *") -> "void *":
+def get_solver(arg1):
     return _backend.get_solver(arg1)
 
-def solve(arg1: "void *", arg2: "void *") -> "int":
+def solve(arg1, arg2):
     return _backend.solve(arg1, arg2)
 
-def find_solution(arg1: "void *", arg2: "void *") -> "void *":
+def find_solution(arg1, arg2):
     return _backend.find_solution(arg1, arg2)
 
-def find_all_solutions(arg1: "void *", arg2: "void *") -> "void *":
+def find_all_solutions(arg1, arg2):
     return _backend.find_all_solutions(arg1, arg2)
 
-def find_optimal_solution(arg1: "void *", arg2: "void *", arg3: "int", arg4: "void *") -> "void *":
+def find_optimal_solution(arg1, arg2, arg3, arg4):
     return _backend.find_optimal_solution(arg1, arg2, arg3, arg4)
 
-def find_all_optimal_solutions(arg1: "void *", arg2: "void *", arg3: "int", arg4: "void *") -> "void *":
+def find_all_optimal_solutions(arg1, arg2, arg3, arg4):
     return _backend.find_all_optimal_solutions(arg1, arg2, arg3, arg4)
 
-def show_statistics(arg1: "void *") -> "void":
+def show_statistics(arg1):
     return _backend.show_statistics(arg1)
 
-def show_short_statistics(arg1: "void *") -> "void":
+def show_short_statistics(arg1):
     return _backend.show_short_statistics(arg1)
 
-def get_solution_count(arg1: "void *") -> "long":
+def get_solution_count(arg1):
     return _backend.get_solution_count(arg1)
 
-def time_counter(arg1: "void *", arg2: "long") -> "void *":
+def time_counter(arg1, arg2):
     return _backend.time_counter(arg1, arg2)
 
-def solution_counter(arg1: "void *", arg2: "long") -> "void *":
+def solution_counter(arg1, arg2):
     return _backend.solution_counter(arg1, arg2)
 
-def node_counter(arg1: "void *", arg2: "long") -> "void *":
+def node_counter(arg1, arg2):
     return _backend.node_counter(arg1, arg2)
 
-def fail_counter(arg1: "void *", arg2: "long") -> "void *":
+def fail_counter(arg1, arg2):
     return _backend.fail_counter(arg1, arg2)
 
-def restart_counter(arg1: "void *", arg2: "long") -> "void *":
+def restart_counter(arg1, arg2):
     return _backend.restart_counter(arg1, arg2)
 
-def backtrack_counter(arg1: "void *", arg2: "long") -> "void *":
+def backtrack_counter(arg1, arg2):
     return _backend.backtrack_counter(arg1, arg2)
 
-def get_int_val(arg1: "void *", arg2: "void *") -> "int":
+def get_int_val(arg1, arg2):
     return _backend.get_int_val(arg1, arg2)
 
-def get_variable_name(arg1: "void *") -> "char *":
+def get_variable_name(arg1):
     return _backend.get_variable_name(arg1)
 
-def is_instantiated(arg1: "void *") -> "int":
+def is_instantiated(arg1):
     return _backend.is_instantiated(arg1)
 
-def intvar_sii(arg1: "void *", arg2: "char *", arg3: "int", arg4: "int") -> "void *":
+def intvar_sii(arg1, arg2, arg3, arg4):
     return _backend.intvar_sii(arg1, arg2, arg3, arg4)
 
-def intvar_ii(arg1: "void *", arg2: "int", arg3: "int") -> "void *":
+def intvar_ii(arg1, arg2, arg3):
     return _backend.intvar_ii(arg1, arg2, arg3)
 
-def intvar_i(arg1: "void *", arg2: "int") -> "void *":
+def intvar_i(arg1, arg2):
     return _backend.intvar_i(arg1, arg2)
 
-def intvar_si(arg1: "void *", arg2: "char *", arg3: "int") -> "void *":
+def intvar_si(arg1, arg2, arg3):
     return _backend.intvar_si(arg1, arg2, arg3)
 
-def get_intvar_name(arg1: "void *") -> "char *":
+def get_intvar_name(arg1):
     return _backend.get_intvar_name(arg1)
 
-def get_intvar_lb(arg1: "void *") -> "int":
+def get_intvar_lb(arg1):
     return _backend.get_intvar_lb(arg1)
 
-def get_intvar_ub(arg1: "void *") -> "int":
+def get_intvar_ub(arg1):
     return _backend.get_intvar_ub(arg1)
 
-def get_intvar_value(arg1: "void *") -> "int":
+def get_intvar_value(arg1):
     return _backend.get_intvar_value(arg1)
 
-def boolvar_s(arg1: "void *", arg2: "char *") -> "void *":
+def boolvar_s(arg1, arg2):
     return _backend.boolvar_s(arg1, arg2)
 
-def boolvar(arg1: "void *") -> "void *":
+def boolvar(arg1):
     return _backend.boolvar(arg1)
 
-def boolvar_b(arg1: "void *", arg2: "int") -> "void *":
+def boolvar_b(arg1, arg2):
     return _backend.boolvar_b(arg1, arg2)
 
-def boolvar_sb(arg1: "void *", arg2: "char *", arg3: "int") -> "void *":
+def boolvar_sb(arg1, arg2, arg3):
     return _backend.boolvar_sb(arg1, arg2, arg3)
 
-def get_constraint_name(arg1: "void *") -> "char *":
+def get_constraint_name(arg1):
     return _backend.get_constraint_name(arg1)
 
-def post(arg1: "void *") -> "void":
+def post(arg1):
     return _backend.post(arg1)
 
-def reify(arg1: "void *") -> "void *":
+def reify(arg1):
     return _backend.reify(arg1)
 
-def is_satisfied(arg1: "void *") -> "int":
+def is_satisfied(arg1):
     return _backend.is_satisfied(arg1)
 
-def arithm_iv_cst(arg1: "void *", arg2: "void *", arg3: "char *", arg4: "int") -> "void *":
+def arithm_iv_cst(arg1, arg2, arg3, arg4):
     return _backend.arithm_iv_cst(arg1, arg2, arg3, arg4)
 
-def arithm_iv_iv(arg1: "void *", arg2: "void *", arg3: "char *", arg4: "void *") -> "void *":
+def arithm_iv_iv(arg1, arg2, arg3, arg4):
     return _backend.arithm_iv_iv(arg1, arg2, arg3, arg4)
 
-def arithm_iv_iv_cst(arg1: "void *", arg2: "void *", arg3: "char *", arg4: "void *", arg5: "char *", arg6: "int") -> "void *":
+def arithm_iv_iv_cst(arg1, arg2, arg3, arg4, arg5, arg6):
     return _backend.arithm_iv_iv_cst(arg1, arg2, arg3, arg4, arg5, arg6)
 
-def arithm_iv_iv_iv(arg1: "void *", arg2: "void *", arg3: "char *", arg4: "void *", arg5: "char *", arg6: "void *") -> "void *":
+def arithm_iv_iv_iv(arg1, arg2, arg3, arg4, arg5, arg6):
     return _backend.arithm_iv_iv_iv(arg1, arg2, arg3, arg4, arg5, arg6)
 
-def member_iv_iarray(arg1: "void *", arg2: "void *", arg3: "void *") -> "void *":
+def member_iv_iarray(arg1, arg2, arg3):
     return _backend.member_iv_iarray(arg1, arg2, arg3)
 
-def member_iv_i_i(arg1: "void *", arg2: "void *", arg3: "int", arg4: "int") -> "void *":
+def member_iv_i_i(arg1, arg2, arg3, arg4):
     return _backend.member_iv_i_i(arg1, arg2, arg3, arg4)
 
-def mod_iv_i_i(arg1: "void *", arg2: "void *", arg3: "int", arg4: "int") -> "void *":
+def mod_iv_i_i(arg1, arg2, arg3, arg4):
     return _backend.mod_iv_i_i(arg1, arg2, arg3, arg4)
 
-def mod_iv_i_iv(arg1: "void *", arg2: "void *", arg3: "int", arg4: "void *") -> "void *":
+def mod_iv_i_iv(arg1, arg2, arg3, arg4):
     return _backend.mod_iv_i_iv(arg1, arg2, arg3, arg4)
 
-def mod_iv_iv_iv(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *") -> "void *":
+def mod_iv_iv_iv(arg1, arg2, arg3, arg4):
     return _backend.mod_iv_iv_iv(arg1, arg2, arg3, arg4)
 
-def not_(arg1: "void *", arg2: "void *") -> "void *":
+def not_(arg1, arg2):
     return _backend.not_(arg1, arg2)
 
-def not_member_iv_iarray(arg1: "void *", arg2: "void *", arg3: "void *") -> "void *":
+def not_member_iv_iarray(arg1, arg2, arg3):
     return _backend.not_member_iv_iarray(arg1, arg2, arg3)
 
-def not_member_iv_i_i(arg1: "void *", arg2: "void *", arg3: "int", arg4: "int") -> "void *":
+def not_member_iv_i_i(arg1, arg2, arg3, arg4):
     return _backend.not_member_iv_i_i(arg1, arg2, arg3, arg4)
 
-def absolute(arg1: "void *", arg2: "void *", arg3: "void *") -> "void *":
+def absolute(arg1, arg2, arg3):
     return _backend.absolute(arg1, arg2, arg3)
 
-def distance_iv_iv_i(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "char *", arg5: "int") -> "void *":
+def distance_iv_iv_i(arg1, arg2, arg3, arg4, arg5):
     return _backend.distance_iv_iv_i(arg1, arg2, arg3, arg4, arg5)
 
-def distance_iv_iv_iv(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "char *", arg5: "void *") -> "void *":
+def distance_iv_iv_iv(arg1, arg2, arg3, arg4, arg5):
     return _backend.distance_iv_iv_iv(arg1, arg2, arg3, arg4, arg5)
 
-def element_iv_iarray_iv_i(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *", arg5: "int") -> "void *":
+def element_iv_iarray_iv_i(arg1, arg2, arg3, arg4, arg5):
     return _backend.element_iv_iarray_iv_i(arg1, arg2, arg3, arg4, arg5)
 
-def element_iv_ivarray_iv_i(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *", arg5: "int") -> "void *":
+def element_iv_ivarray_iv_i(arg1, arg2, arg3, arg4, arg5):
     return _backend.element_iv_ivarray_iv_i(arg1, arg2, arg3, arg4, arg5)
 
-def square(arg1: "void *", arg2: "void *", arg3: "void *") -> "void *":
+def square(arg1, arg2, arg3):
     return _backend.square(arg1, arg2, arg3)
 
-def times_iv_i_iv(arg1: "void *", arg2: "void *", arg3: "int", arg4: "void *") -> "void *":
+def times_iv_i_iv(arg1, arg2, arg3, arg4):
     return _backend.times_iv_i_iv(arg1, arg2, arg3, arg4)
 
-def times_iv_iv_i(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "int") -> "void *":
+def times_iv_iv_i(arg1, arg2, arg3, arg4):
     return _backend.times_iv_iv_i(arg1, arg2, arg3, arg4)
 
-def times_iv_iv_iv(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *") -> "void *":
+def times_iv_iv_iv(arg1, arg2, arg3, arg4):
     return _backend.times_iv_iv_iv(arg1, arg2, arg3, arg4)
 
-def div_(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *") -> "void *":
+def div_(arg1, arg2, arg3, arg4):
     return _backend.div_(arg1, arg2, arg3, arg4)
 
-def max_iv_iv_iv(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *") -> "void *":
+def max_iv_iv_iv(arg1, arg2, arg3, arg4):
     return _backend.max_iv_iv_iv(arg1, arg2, arg3, arg4)
 
-def max_iv_ivarray(arg1: "void *", arg2: "void *", arg3: "void *") -> "void *":
+def max_iv_ivarray(arg1, arg2, arg3):
     return _backend.max_iv_ivarray(arg1, arg2, arg3)
 
-def min_iv_iv_iv(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *") -> "void *":
+def min_iv_iv_iv(arg1, arg2, arg3, arg4):
     return _backend.min_iv_iv_iv(arg1, arg2, arg3, arg4)
 
-def min_iv_ivarray(arg1: "void *", arg2: "void *", arg3: "void *") -> "void *":
+def min_iv_ivarray(arg1, arg2, arg3):
     return _backend.min_iv_ivarray(arg1, arg2, arg3)
 
-def all_different(arg1: "void *", arg2: "void *") -> "void *":
+def all_different(arg1, arg2):
     return _backend.all_different(arg1, arg2)
 
-def all_equal(arg1: "void *", arg2: "void *") -> "void *":
+def all_equal(arg1, arg2):
     return _backend.all_equal(arg1, arg2)
 
-def not_all_equal(arg1: "void *", arg2: "void *") -> "void *":
+def not_all_equal(arg1, arg2):
     return _backend.not_all_equal(arg1, arg2)
 
-def among(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *") -> "void *":
+def among(arg1, arg2, arg3, arg4):
     return _backend.among(arg1, arg2, arg3, arg4)
 
-def and_bv_bv(arg1: "void *", arg2: "void *") -> "void *":
+def and_bv_bv(arg1, arg2):
     return _backend.and_bv_bv(arg1, arg2)
 
-def and_cs_cs(arg1: "void *", arg2: "void *") -> "void *":
+def and_cs_cs(arg1, arg2):
     return _backend.and_cs_cs(arg1, arg2)
 
-def at_least_n_values(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "int") -> "void *":
+def at_least_n_values(arg1, arg2, arg3, arg4):
     return _backend.at_least_n_values(arg1, arg2, arg3, arg4)
 
-def at_most_n_values(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "int") -> "void *":
+def at_most_n_values(arg1, arg2, arg3, arg4):
     return _backend.at_most_n_values(arg1, arg2, arg3, arg4)
 
-def bin_packing(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *", arg5: "int") -> "void *":
+def bin_packing(arg1, arg2, arg3, arg4, arg5):
     return _backend.bin_packing(arg1, arg2, arg3, arg4, arg5)
 
-def bools_int_channeling(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "int") -> "void *":
+def bools_int_channeling(arg1, arg2, arg3, arg4):
     return _backend.bools_int_channeling(arg1, arg2, arg3, arg4)
 
-def bits_int_channeling(arg1: "void *", arg2: "void *", arg3: "void *") -> "void *":
+def bits_int_channeling(arg1, arg2, arg3):
     return _backend.bits_int_channeling(arg1, arg2, arg3)
 
-def clauses_int_channeling(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *") -> "void *":
+def clauses_int_channeling(arg1, arg2, arg3, arg4):
     return _backend.clauses_int_channeling(arg1, arg2, arg3, arg4)
 
-def circuit(arg1: "void *", arg2: "void *", arg3: "int", arg4: "char *") -> "void *":
+def circuit(arg1, arg2, arg3, arg4):
     return _backend.circuit(arg1, arg2, arg3, arg4)
 
-def count_i(arg1: "void *", arg2: "int", arg3: "void *", arg4: "void *") -> "void *":
+def count_i(arg1, arg2, arg3, arg4):
     return _backend.count_i(arg1, arg2, arg3, arg4)
 
-def count_iv(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *") -> "void *":
+def count_iv(arg1, arg2, arg3, arg4):
     return _backend.count_iv(arg1, arg2, arg3, arg4)
 
-def diff_n(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *", arg5: "void *", arg6: "int") -> "void *":
+def diff_n(arg1, arg2, arg3, arg4, arg5, arg6):
     return _backend.diff_n(arg1, arg2, arg3, arg4, arg5, arg6)
 
-def global_cardinality(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *", arg5: "int") -> "void *":
+def global_cardinality(arg1, arg2, arg3, arg4, arg5):
     return _backend.global_cardinality(arg1, arg2, arg3, arg4, arg5)
 
-def inverse_channeling(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "int", arg5: "int", arg6: "int") -> "void *":
+def inverse_channeling(arg1, arg2, arg3, arg4, arg5, arg6):
     return _backend.inverse_channeling(arg1, arg2, arg3, arg4, arg5, arg6)
 
-def int_value_precede_chain(arg1: "void *", arg2: "void *", arg3: "void *") -> "void *":
+def int_value_precede_chain(arg1, arg2, arg3):
     return _backend.int_value_precede_chain(arg1, arg2, arg3)
 
-def knapsack(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *", arg5: "void *", arg6: "void *") -> "void *":
+def knapsack(arg1, arg2, arg3, arg4, arg5, arg6):
     return _backend.knapsack(arg1, arg2, arg3, arg4, arg5, arg6)
 
-def lex_chain_less(arg1: "void *", arg2: "void *") -> "void *":
+def lex_chain_less(arg1, arg2):
     return _backend.lex_chain_less(arg1, arg2)
 
-def lex_chain_less_eq(arg1: "void *", arg2: "void *") -> "void *":
+def lex_chain_less_eq(arg1, arg2):
     return _backend.lex_chain_less_eq(arg1, arg2)
 
-def lex_less(arg1: "void *", arg2: "void *", arg3: "void *") -> "void *":
+def lex_less(arg1, arg2, arg3):
     return _backend.lex_less(arg1, arg2, arg3)
 
-def lex_less_eq(arg1: "void *", arg2: "void *", arg3: "void *") -> "void *":
+def lex_less_eq(arg1, arg2, arg3):
     return _backend.lex_less_eq(arg1, arg2, arg3)
 
-def argmax(arg1: "void *", arg2: "void *", arg3: "int", arg4: "void *") -> "void *":
+def argmax(arg1, arg2, arg3, arg4):
     return _backend.argmax(arg1, arg2, arg3, arg4)
 
-def argmin(arg1: "void *", arg2: "void *", arg3: "int", arg4: "void *") -> "void *":
+def argmin(arg1, arg2, arg3, arg4):
     return _backend.argmin(arg1, arg2, arg3, arg4)
 
-def n_values(arg1: "void *", arg2: "void *", arg3: "void *") -> "void *":
+def n_values(arg1, arg2, arg3):
     return _backend.n_values(arg1, arg2, arg3)
 
-def or_bv_bv(arg1: "void *", arg2: "void *") -> "void *":
+def or_bv_bv(arg1, arg2):
     return _backend.or_bv_bv(arg1, arg2)
 
-def or_cs_cs(arg1: "void *", arg2: "void *") -> "void *":
+def or_cs_cs(arg1, arg2):
     return _backend.or_cs_cs(arg1, arg2)
 
-def path(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *", arg5: "int") -> "void *":
+def path(arg1, arg2, arg3, arg4, arg5):
     return _backend.path(arg1, arg2, arg3, arg4, arg5)
 
-def scalar_i(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "char *", arg5: "int") -> "void *":
+def scalar_i(arg1, arg2, arg3, arg4, arg5):
     return _backend.scalar_i(arg1, arg2, arg3, arg4, arg5)
 
-def scalar_iv(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "char *", arg5: "void *") -> "void *":
+def scalar_iv(arg1, arg2, arg3, arg4, arg5):
     return _backend.scalar_iv(arg1, arg2, arg3, arg4, arg5)
 
-def sort(arg1: "void *", arg2: "void *", arg3: "void *") -> "void *":
+def sort(arg1, arg2, arg3):
     return _backend.sort(arg1, arg2, arg3)
 
-def sub_circuit(arg1: "void *", arg2: "void *", arg3: "int", arg4: "void *") -> "void *":
+def sub_circuit(arg1, arg2, arg3, arg4):
     return _backend.sub_circuit(arg1, arg2, arg3, arg4)
 
-def sub_path(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "void *", arg5: "int", arg6: "void *") -> "void *":
+def sub_path(arg1, arg2, arg3, arg4, arg5, arg6):
     return _backend.sub_path(arg1, arg2, arg3, arg4, arg5, arg6)
 
-def sum_iv_i(arg1: "void *", arg2: "void *", arg3: "char *", arg4: "int") -> "void *":
+def sum_iv_i(arg1, arg2, arg3, arg4):
     return _backend.sum_iv_i(arg1, arg2, arg3, arg4)
 
-def sum_iv_iv(arg1: "void *", arg2: "void *", arg3: "char *", arg4: "void *") -> "void *":
+def sum_iv_iv(arg1, arg2, arg3, arg4):
     return _backend.sum_iv_iv(arg1, arg2, arg3, arg4)
 
-def sum_ivarray_ivarray(arg1: "void *", arg2: "void *", arg3: "char *", arg4: "void *") -> "void *":
+def sum_ivarray_ivarray(arg1, arg2, arg3, arg4):
     return _backend.sum_ivarray_ivarray(arg1, arg2, arg3, arg4)
 
-def sum_bv_i(arg1: "void *", arg2: "void *", arg3: "char *", arg4: "int") -> "void *":
+def sum_bv_i(arg1, arg2, arg3, arg4):
     return _backend.sum_bv_i(arg1, arg2, arg3, arg4)
 
-def sum_bv_iv(arg1: "void *", arg2: "void *", arg3: "char *", arg4: "void *") -> "void *":
+def sum_bv_iv(arg1, arg2, arg3, arg4):
     return _backend.sum_bv_iv(arg1, arg2, arg3, arg4)
 
-def tree(arg1: "void *", arg2: "void *", arg3: "void *", arg4: "int") -> "void *":
+def tree(arg1, arg2, arg3, arg4):
     return _backend.tree(arg1, arg2, arg3, arg4)
 
-def create_intvar_array(arg1: "int") -> "void *":
+def create_intvar_array(arg1):
     return _backend.create_intvar_array(arg1)
 
-def intvar_array_length(arg1: "void *") -> "int":
+def intvar_array_length(arg1):
     return _backend.intvar_array_length(arg1)
 
-def intvar_array_set(arg1: "void *", arg2: "void *", arg3: "int") -> "void":
+def intvar_array_set(arg1, arg2, arg3):
     return _backend.intvar_array_set(arg1, arg2, arg3)
 
-def create_boolvar_array(arg1: "int") -> "void *":
+def create_boolvar_array(arg1):
     return _backend.create_boolvar_array(arg1)
 
-def boolvar_array_set(arg1: "void *", arg2: "void *", arg3: "int") -> "void":
+def boolvar_array_set(arg1, arg2, arg3):
     return _backend.boolvar_array_set(arg1, arg2, arg3)
 
-def create_constraint_array(arg1: "int") -> "void *":
+def create_constraint_array(arg1):
     return _backend.create_constraint_array(arg1)
 
-def constraint_array_set(arg1: "void *", arg2: "void *", arg3: "int") -> "void":
+def constraint_array_set(arg1, arg2, arg3):
     return _backend.constraint_array_set(arg1, arg2, arg3)
 
-def create_int_array(arg1: "int") -> "void *":
+def create_int_array(arg1):
     return _backend.create_int_array(arg1)
 
-def int_array_length(arg1: "void *") -> "int":
+def int_array_length(arg1):
     return _backend.int_array_length(arg1)
 
-def int_array_set(arg1: "void *", arg2: "int", arg3: "int") -> "void":
+def int_array_set(arg1, arg2, arg3):
     return _backend.int_array_set(arg1, arg2, arg3)
 
-def create_criterion_array(arg1: "int") -> "void *":
+def create_criterion_array(arg1):
     return _backend.create_criterion_array(arg1)
 
-def criterion_array_set(arg1: "void *", arg2: "void *", arg3: "int") -> "void":
+def criterion_array_set(arg1, arg2, arg3):
     return _backend.criterion_array_set(arg1, arg2, arg3)
 
-def array_length(arg1: "void *") -> "int":
+def array_length(arg1):
     return _backend.array_length(arg1)
 
-def list_size(arg1: "void *") -> "int":
+def list_size(arg1):
     return _backend.list_size(arg1)
 
-def list_solution_get(arg1: "void *", arg2: "int") -> "void *":
+def list_solution_get(arg1, arg2):
     return _backend.list_solution_get(arg1, arg2)
 
-def set_random_search(arg1: "void *", arg2: "void *", arg3: "long") -> "void":
+def set_random_search(arg1, arg2, arg3):
     return _backend.set_random_search(arg1, arg2, arg3)
 
-def set_dom_over_w_deg_search(arg1: "void *", arg2: "void *") -> "void":
+def set_dom_over_w_deg_search(arg1, arg2):
     return _backend.set_dom_over_w_deg_search(arg1, arg2)
 
-def set_dom_over_w_deg_ref_search(arg1: "void *", arg2: "void *") -> "void":
+def set_dom_over_w_deg_ref_search(arg1, arg2):
     return _backend.set_dom_over_w_deg_ref_search(arg1, arg2)
 
-def set_activity_based_search(arg1: "void *", arg2: "void *") -> "void":
+def set_activity_based_search(arg1, arg2):
     return _backend.set_activity_based_search(arg1, arg2)
 
-def set_min_dom_lb_search(arg1: "void *", arg2: "void *") -> "void":
+def set_min_dom_lb_search(arg1, arg2):
     return _backend.set_min_dom_lb_search(arg1, arg2)
 
-def set_min_dom_ub_search(arg1: "void *", arg2: "void *") -> "void":
+def set_min_dom_ub_search(arg1, arg2):
     return _backend.set_min_dom_ub_search(arg1, arg2)
 
-def set_conflict_history_search(arg1: "void *", arg2: "void *") -> "void":
+def set_conflict_history_search(arg1, arg2):
     return _backend.set_conflict_history_search(arg1, arg2)
 
-def set_default_search(arg1: "void *") -> "void":
+def set_default_search(arg1):
     return _backend.set_default_search(arg1)
 
-def set_input_order_lb_search(arg1: "void *", arg2: "void *") -> "void":
+def set_input_order_lb_search(arg1, arg2):
     return _backend.set_input_order_lb_search(arg1, arg2)
 
-def set_input_order_ub_search(arg1: "void *", arg2: "void *") -> "void":
+def set_input_order_ub_search(arg1, arg2):
     return _backend.set_input_order_ub_search(arg1, arg2)
 
-def set_failure_length_based_search(arg1: "void *", arg2: "void *") -> "void":
+def set_failure_length_based_search(arg1, arg2):
     return _backend.set_failure_length_based_search(arg1, arg2)
 
-def set_failure_rate_based_search(arg1: "void *", arg2: "void *") -> "void":
+def set_failure_rate_based_search(arg1, arg2):
     return _backend.set_failure_rate_based_search(arg1, arg2)
 
-def chocosolver_handles_destroy(arg1: "void *") -> "void":
+def chocosolver_handles_destroy(arg1):
     return _backend.chocosolver_handles_destroy(arg1)
 
 

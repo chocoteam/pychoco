@@ -8,4 +8,4 @@ rm pychoco/*.so
 swig -python -py3 pychoco/backend.i
 
 # Build extensions
-python3 setup.py build_ext --inplace
+python3 setup.py develop
