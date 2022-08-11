@@ -8,7 +8,7 @@ from pychoco.variables.intvar import IntVar
 
 class IntConstraintFactory(ABC):
     """
-    Factory for constraints over integer variables.
+    Constraints over integer and boolean variables.
     """
 
     @abstractmethod

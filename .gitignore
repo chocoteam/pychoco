@@ -1,7 +1,5 @@
 .idea
 
-choco-solver-capi
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

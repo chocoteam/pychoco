@@ -13,6 +13,7 @@ class VariableFactory(ABC):
     def intvar(self, lb: int, ub: Union[int, None] = None, name: Union[str, None] = None):
         """
         Creates an intvar.
+
         :param lb: Lower bound (integer).
         :param ub: upper bound (integer). If None: the variable is a constant equals to lb.
         :param name: The name of the intvar (automatically given if None).
@@ -24,6 +25,7 @@ class VariableFactory(ABC):
     def intvars(self, size: int, lb: Union[List[int], int], ub: Union[int, None] = None, name: Union[str, None] = None):
         """
         Creates a list of intvars.
+
         :param size: Number of intvars.
         :param lb: Lower bound (integer). If lb is a list of ints, constant variables are created.
         :param ub: upper bound (integer). If None: the variable is a constant equals to lb.

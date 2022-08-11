@@ -27,7 +27,7 @@ class CopySharedLibrary(Command):
     def initialize_options(self):
         self.build_lib = None
         self.inplace = 0
-        self.build_dir = "choco-solver-capi"
+        self.build_dir = "choco-solver-capi/target"
         self.filename = capi_filename
         self.lib_source_path = os.path.join(self.build_dir, self.filename)
         self.package_name = 'pychoco'
@@ -44,7 +44,6 @@ class CopySharedLibrary(Command):
             lib_target_path = os.path.join(self.build_lib, self.package_name)
             self.mkpath(lib_target_path)
         self.copy_file(self.lib_source_path, os.path.join(lib_target_path, self.filename))
-        # runtime_library_dirs.append(os.path.abspath(lib_target_path))
         os.environ["ORIGIN"] = os.path.abspath(lib_target_path)
 
 
@@ -66,8 +65,8 @@ class CustomBuildExt(build_ext):
 
 lib_choco = Extension(
     'pychoco._backend', ['pychoco/backend.i', 'pychoco/backend.c'],
-    include_dirs=["pychoco/", "choco-solver-capi/"],
-    library_dirs=["pychoco/", "choco-solver-capi/"],
+    include_dirs=["pychoco/", "choco-solver-capi/target"],
+    library_dirs=["pychoco/", "choco-solver-capi/target"],
     libraries=["choco_capi"],
     runtime_library_dirs=runtime_library_dirs,
     extra_link_args=extra_link_args

@@ -11,7 +11,7 @@ class Variable(ABC):
     @abstractmethod
     def name(self):
         """
-        :return: The name of the variable.
+        The name of the variable.
         """
         pass
 
@@ -19,7 +19,7 @@ class Variable(ABC):
     @abstractmethod
     def model(self):
         """
-        :return: The model in which the variable was declared.
+        The model in which the variable was declared.
         """
         pass
 

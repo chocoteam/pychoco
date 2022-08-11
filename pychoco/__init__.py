@@ -25,6 +25,7 @@ del atexit
 def create_model(name: str = None):
     """
     Create a Choco model.
+    
     :param name: The name of the model (optional)
     :return: A Choco model.
     """

@@ -1,0 +1,3 @@
+[submodule "choco-solver-capi"]
+	path = choco-solver-capi
+	url = git@github.com:dimitri-justeau/choco-solver-capi.git
