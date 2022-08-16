@@ -19,7 +19,7 @@ jobs:
         run: sudo apt-get install swig
       - name: Update repository
         run: |
-          git submodule update --recursive --remote
+          git submodule update --init --recursive
       - name: Build
         run: |
           sh build.sh
