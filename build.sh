@@ -3,7 +3,7 @@
 
 # Build choco-solver-capi
 cd choco-solver-capi
-sh ./build.sh
+#sh ./build.sh
 cd ..
 
 # Clean previous build
@@ -16,4 +16,5 @@ rm -f pychoco/*.so
 swig -python -py3 pychoco/backend.i
 
 # Build extensions
-python3 setup.py develop
+#python3 setup.py develop
+pip install -e .
