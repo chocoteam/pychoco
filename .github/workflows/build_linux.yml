@@ -16,7 +16,7 @@ jobs:
           graalvm-version: 21.2.0
           java-version: 11
       - name: Install Swig
-        run: apt-get install swig
+        run: sudo apt-get install swig
       - name: Update repository
         run: |
           git submodule update --recursive --remote
