@@ -1,0 +1,36 @@
+name: Windows
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build-macos:
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Set up GraalVM Native Image toolchain
+        uses: helpermethod/graalvm-native-image-toolchain@0.0.2
+        with:
+          graalvm-version: 21.2.0
+          java-version: 11
+      - name: Install Swig
+        run: choco install swig
+      - name: Update repository
+        run: |
+          git submodule update --init --recursive
+      - name: Build
+        run: |
+          sh build.sh
+          pip3 install .
+      - name: Test
+        run: |
+          pip3 install -U pytest
+          pytest
+      - name: Generate Report
+        run: |
+          pip3 install coverage
+          coverage run -m unittest
+      - name: Upload Coverage to Codecov
+        uses: codecov/codecov-action@v2

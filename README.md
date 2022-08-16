@@ -1,6 +1,7 @@
 # PyChoco
 
 [![ubuntu_build](https://github.com/dimitri-justeau/pychoco/actions/workflows/ubuntu.yml/badge.svg)](https://github.com/dimitri-justeau/pychoco/actions)
+[![macos_build](https://github.com/dimitri-justeau/pychoco/actions/workflows/macos.yml/badge.svg)](https://github.com/dimitri-justeau/pychoco/actions)
 [![codecov](https://codecov.io/gh/dimitri-justeau/pychoco/branch/master/graph/badge.svg?token=JRW8NQG8I7)](https://codecov.io/gh/dimitri-justeau/pychoco)
 
 Python bindings for the Choco Constraint programming solver (https://choco-solver.org/).
