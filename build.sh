@@ -16,4 +16,4 @@ rm -f pychoco/*.so
 swig -python -py3 pychoco/backend.i
 
 # Build extensions
-pip install -e .
+pip3 install -e .
