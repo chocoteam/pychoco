@@ -1,4 +1,4 @@
-name: pychoco_build_linux
+name: Ubuntu
 
 on:
   push:
