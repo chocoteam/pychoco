@@ -22,7 +22,7 @@ jobs:
           git submodule update --init --recursive
       - name: Build
         run: |
-          mvn clean -P package
+          vcvars
           sh build.sh
           pip3 install .
       - name: Test
