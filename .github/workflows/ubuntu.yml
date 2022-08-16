@@ -1,11 +1,11 @@
-name: MacOS
+name: Ubuntu
 
 on:
   push:
     branches: [ "master" ]
 
 jobs:
-  build-linux:
+  build-ubuntu:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository

@@ -1,11 +1,11 @@
-name: Ubuntu
+name: MacOS
 
 on:
   push:
     branches: [ "master" ]
 
 jobs:
-  build-linux:
+  build-macos:
     runs-on: macos-latest
     steps:
       - name: Check out repository
@@ -16,7 +16,7 @@ jobs:
           graalvm-version: 21.2.0
           java-version: 11
       - name: Install Swig
-        run: sudo apt-get install swig
+        run: brew install swig
       - name: Update repository
         run: |
           git submodule update --init --recursive
@@ -26,7 +26,7 @@ jobs:
           pip install .
       - name: Test
         run: |
-          sudo apt-get install python3-pytest
+          brew install python3-pytest
           pytest-3
       - name: Generate Report
         run: |
