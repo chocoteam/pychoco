@@ -26,4 +26,5 @@ jobs:
           pip install .
       - name: Test
         run: |
+          sudo apt-get install python3-pytest
           pytest-3
