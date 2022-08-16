@@ -27,7 +27,7 @@ jobs:
       - name: Test
         run: |
           pip3 install -U pytest
-          pytest-3
+          pytest
       - name: Generate Report
         run: |
           pip3 install coverage
