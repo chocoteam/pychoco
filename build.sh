@@ -3,7 +3,7 @@
 
 # Build choco-solver-capi
 cd choco-solver-capi
-#sh ./build.sh
+sh ./build.sh
 cd ..
 
 # Clean previous build
