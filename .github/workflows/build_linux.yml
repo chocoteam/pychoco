@@ -24,3 +24,6 @@ jobs:
         run: |
           sh build.sh
           pip install .
+      - name: Test
+        run: |
+          pytest-3
