@@ -23,7 +23,7 @@ jobs:
       - name: Build
         run: |
           sh build.sh
-          pip install .
+          pip3 install .
       - name: Test
         run: |
           brew install python3-pytest
