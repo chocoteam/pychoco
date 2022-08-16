@@ -5,7 +5,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build-macos:
+  build-windows:
     runs-on: windows-latest
     steps:
       - name: Check out repository
@@ -22,6 +22,7 @@ jobs:
           git submodule update --init --recursive
       - name: Build
         run: |
+          mvn clean package -P
           sh build.sh
           pip3 install .
       - name: Test
