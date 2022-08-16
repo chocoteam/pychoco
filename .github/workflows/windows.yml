@@ -20,9 +20,12 @@ jobs:
       - name: Update repository
         run: |
           git submodule update --init --recursive
+      - name: Set up Visual Studio shell
+        uses: egor-tensin/vs-shell@v2
+        with:
+          arch: x64
       - name: Build
         run: |
-          vcvars
           sh build.sh
           pip3 install .
       - name: Test
