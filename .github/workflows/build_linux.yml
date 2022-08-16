@@ -15,10 +15,9 @@ jobs:
         with:
           graalvm-version: 21.2.0
           java-version: 11
-      - name: Clone repository
+      - name: Update repository
         run: |
-          git clone --recurse-submodules https://github.com/dimitri-justeau/pychoco.git
-          git submodule update --init --recursive
+          git submodule update --recursive --remote
       - name: Build
         run: |
           sh build.sh
