@@ -1,5 +1,8 @@
 # PyChoco
 
+[![ubuntu_build](https://github.com/dimitri-justeau/pychoco/actions/workflows/build_linux.yml/badge.svg)](https://github.com/dimitri-justeau/pychoco/actions)
+[![codecov](https://codecov.io/gh/dimitri-justeau/pychoco/branch/master/graph/badge.svg?token=JRW8NQG8I7)](https://codecov.io/gh/dimitri-justeau/pychoco)
+
 Python bindings for the Choco Constraint programming solver (https://choco-solver.org/).
 
 Choco-solver is an open-source Java library for Constraint Programming (see https://choco-solver.org/).

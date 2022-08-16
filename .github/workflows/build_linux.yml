@@ -27,10 +27,9 @@ jobs:
       - name: Test
         run: |
           sudo apt-get install python3-pytest
-          pytest-3
-      - name: Generate Report
+          pytest-3 --cov
+      - name: Upload Codevov Report
         run: |
-          pip3 install coverage
-          coverage run -m unittest
-      - name: Upload Coverage to Codecov
-        uses: codecov/codecov-action@v2
+          curl -Os https://uploader.codecov.io/latest/linux/codecov
+          chmod +x codecov
+          ./codecov -t ${CODECOV_TOKEN}
