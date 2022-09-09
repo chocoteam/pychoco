@@ -181,6 +181,7 @@ class IntConstraintFactory(ABC):
         - STR2+: Arc Consistency version STR2 for allowed tuples,
         - FC: Forward Checking.
         - MDD+: uses a multi-valued decision diagram for allowed tuples (see mddc constraint).
+        
         :param intvars: integer variables forming the tuples.
         :param tuples: the relation between the variables (list of allowed/forbidden tuples)
         :param feasible: if True, the tuples describe allowed tuples, otherwise forbidden tuples.
