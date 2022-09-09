@@ -368,6 +368,11 @@ void* times_iv_iv_iv(void* modelHandle, void* intVarHandle1, void* intVarHandle2
     return Java_org_chocosolver_capi_ConstraintApi_times_iv_iv_iv(thread, modelHandle, intVarHandle1, intVarHandle2, intVarHandle3);
 }
 
+void* pow_(void* modelHandle, void* intVarHandle1, int c, void* intVarHandle2) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_pow(thread, modelHandle, intVarHandle1, c, intVarHandle2);
+}
+
 void* div_(void* modelHandle, void* intVarHandle1, void* intVarHandle2, void* intVarHandle3) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ConstraintApi_div(thread, modelHandle, intVarHandle1, intVarHandle2, intVarHandle3);
@@ -530,6 +535,16 @@ void* diff_n(void* modelHandle, void* XHandle, void* YHandle, void* widthHandle,
         heightHandle,
         addCumulativeReasoning
     );
+}
+
+void* decreasing(void* modelHandle, void* intVarArrayHandle, int delta) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_decreasing(thread, modelHandle, intVarArrayHandle, delta);
+}
+
+void* increasing(void* modelHandle, void* intVarArrayHandle, int delta) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_increasing(thread, modelHandle, intVarArrayHandle, delta);
 }
 
 void* global_cardinality(void* modelHandle, void* intVarArrayHandle, void* valuesHandle,
@@ -842,7 +857,7 @@ void constraint_array_set(void* arrayHandle, void* constraintHandle, int index) 
     return Java_org_chocosolver_capi_ArrayApi_constraint_set(thread, arrayHandle, constraintHandle, index);
 }
 
-// int
+// int[]
 
 void* create_int_array(int size) {
     LAZY_THREAD_ATTACH
@@ -859,7 +874,7 @@ void int_array_set(void* intArrayHandle, int element, int index) {
     return Java_org_chocosolver_capi_ArrayApi_int_set(thread, intArrayHandle, element, index);
 }
 
-// int array
+// int[][]
 
 void* create_int_array_array(int size) {
     LAZY_THREAD_ATTACH
@@ -874,6 +889,23 @@ int int_array_array_length(void* arrayHandle) {
 void int_array_array_set(void* arrayHandle, void* elementHandle, int index) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ArrayApi_int_array_set(thread, arrayHandle, elementHandle, index);
+}
+
+// int[][][]
+
+void* create_int_array_array_array(int size) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_int_array_array_create(thread, size);
+}
+
+int int_array_array_array_length(void* arrayHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_int_array_array_length(thread, arrayHandle);
+}
+
+void int_array_array_array_set(void* arrayHandle, void* elementHandle, int index) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_int_array_array_set(thread, arrayHandle, elementHandle, index);
 }
 
 // Criterion
@@ -967,6 +999,113 @@ void set_failure_length_based_search(void* solverHandle, void* intVarArrayHandle
 void set_failure_rate_based_search(void* solverHandle, void* intVarArrayHandle) {
     LAZY_THREAD_ATTACH
     Java_org_chocosolver_capi_SearchApi_set_failure_rate_based_search(thread, solverHandle, intVarArrayHandle);
+}
+
+// Automaton API
+
+void* create_fa() {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_AutomatonApi_create_fa(thread);
+}
+
+void* create_fa_regexp(char* regexp) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_AutomatonApi_create_fa_regexp(thread, regexp);
+}
+
+void* create_fa_regexp_min_max(char* regexp, int min, int max) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_AutomatonApi_create_fa_regexp_min_max(thread, regexp, min, max);
+}
+
+void* create_cost_fa() {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_AutomatonApi_create_cost_fa(thread);
+}
+
+void* create_cost_fa_from_fa(void* faHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_AutomatonApi_create_cost_fa_from_automaton(thread, faHandle);
+}
+
+int get_nb_states(void* faHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_AutomatonApi_get_nb_states(thread, faHandle);
+}
+
+int get_nb_symbols(void* faHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_AutomatonApi_get_nb_symbols(thread, faHandle);
+}
+
+int add_state(void* faHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_AutomatonApi_add_state(thread, faHandle);
+}
+
+void remove_symbol(void* faHandle, int symbol) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_AutomatonApi_remove_symbol(thread, faHandle, symbol);
+}
+
+void add_transition(void* faHandle, int source, int destination, void* symbolsHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_AutomatonApi_add_transition(thread, faHandle, source, destination, symbolsHandle);
+}
+
+void delete_transition(void* faHandle, int source, int destination, int symbol) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_AutomatonApi_delete_transition(thread, faHandle, source, destination, symbol);
+}
+
+int get_initial_state(void* faHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_AutomatonApi_get_initial_state(thread, faHandle);
+}
+
+int is_final(void* faHandle, int state) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_AutomatonApi_is_final(thread, faHandle, state);
+}
+
+void set_initial_state(void* faHandle, int state) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_AutomatonApi_set_initial_state(thread, faHandle, state);
+}
+
+void set_final(void* faHandle, void* statesHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_AutomatonApi_set_final(thread, faHandle, statesHandle);
+}
+
+void set_non_final(void* faHandle, void* statesHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_AutomatonApi_set_non_final(thread, faHandle, statesHandle);
+}
+
+void cost_fa_add_counter(void* costFaHandle, void* counterHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_AutomatonApi_cost_fa_add_counter(thread, costFaHandle, counterHandle);
+}
+
+void* fa_union(void* faHandle, void* otherFaHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_AutomatonApi_union(thread, faHandle, otherFaHandle);
+}
+
+void fa_minimize(void* faHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_AutomatonApi_minimize(thread, faHandle);
+}
+
+void* fa_complement(void* faHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_AutomatonApi_complement(thread, faHandle);
+}
+
+void* create_counter_state(void* layerValueStateHandle, int min, int max) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_AutomatonApi_create_counter_state(thread, layerValueStateHandle, min, max);
 }
 
 // Handle API

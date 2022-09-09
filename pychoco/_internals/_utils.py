@@ -33,6 +33,19 @@ def make_int_array_array(*arrays: List[List[int]]):
     return int_array_array
 
 
+def make_int_array_array_array(*arrays: List[List[List[int]]]):
+    """
+    Creates a Java int[][][] handle from a list of Python lists of lists of ints.
+    :param arrays: A list of lists of lists of int.
+    :return: A Java int[][][] handle.
+    """
+    int_array_array_array = backend.create_int_array_array_array(len(arrays))
+    for i in range(0, len(arrays)):
+        handle = make_int_array_array(*arrays[i])
+        backend.int_array_array_array_set(int_array_array_array, handle, i)
+    return int_array_array_array
+
+
 def make_intvar_array(*intvars: List[IntVar]):
     """
     Creates a Java IntVar[] handle from a list of Python IntVars

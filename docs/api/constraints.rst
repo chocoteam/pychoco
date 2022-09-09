@@ -115,6 +115,12 @@ count
 .. autofunction:: count
    :noindex:
 
+decreasing
+^^^^^^^^^^
+
+.. autofunction:: decreasing
+   :noindex:
+
 diff_n
 ^^^^^^
 
@@ -143,6 +149,12 @@ global_cardinality
 ^^^^^^^^^^^^^^^^^^
 
 .. autofunction:: global_cardinality
+   :noindex:
+
+increasing
+^^^^^^^^^^
+
+.. autofunction:: increasing
    :noindex:
 
 int_value_precede_chain
@@ -245,6 +257,12 @@ path
 ^^^^
 
 .. autofunction:: path
+   :noindex:
+
+pow
+^^^
+
+.. autofunction:: pow
    :noindex:
 
 scalar

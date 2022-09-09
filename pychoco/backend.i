@@ -185,6 +185,8 @@ void* times_iv_iv_i(void*, void*, void*, int);
 
 void* times_iv_iv_iv(void*, void*, void*, void*);
 
+void* pow_(void*, void*, int, void*);
+
 void* div_(void*, void*, void*, void*);
 
 void* max_iv_iv_iv(void*, void*, void*, void*);
@@ -226,6 +228,10 @@ void* count_i(void*, int, void*, void*);
 void* count_iv(void*, void*, void*, void*);
 
 void* diff_n(void*, void*, void*, void*, void*, int);
+
+void* decreasing(void*, void*, int);
+
+void* increasing(void*, void*, int);
 
 void* global_cardinality(void*, void*, void*, void*, int);
 
@@ -299,7 +305,7 @@ void* create_constraint_array(int);
 
 void constraint_array_set(void*, void*, int);
 
-// int
+// int[]
 
 void* create_int_array(int);
 
@@ -307,13 +313,21 @@ int int_array_length(void*);
 
 void int_array_set(void*, int, int);
 
-// int array
+// int[][]
 
 void* create_int_array_array(int);
 
 int int_array_array_length(void*);
 
 void int_array_array_set(void*, void*, int);
+
+// int[][][]
+
+void* create_int_array_array_array(int);
+
+int int_array_array_array_length(void*);
+
+void int_array_array_array_set(void*, void*, int);
 
 // Criterion
 
@@ -356,6 +370,50 @@ void set_input_order_ub_search(void*, void*);
 void set_failure_length_based_search(void*, void*);
 
 void set_failure_rate_based_search(void*, void*);
+
+// Automaton API
+
+void* create_fa();
+
+void* create_fa_regexp(char*);
+
+void* create_fa_regexp_min_max(char*, int, int);
+
+void* create_cost_fa();
+
+void* create_cost_fa_from_fa(void*);
+
+int get_nb_states(void*);
+
+int get_nb_symbols(void*);
+
+int add_state(void*);
+
+void remove_symbol(void*, int);
+
+void add_transition(void*, int, int, void*);
+
+void delete_transition(void*, int, int, int);
+
+int get_initial_state(void*);
+
+int is_final(void*, int);
+
+void set_initial_state(void*, int);
+
+void set_final(void*, void*);
+
+void set_non_final(void*, void*);
+
+void cost_fa_add_counter(void*, void*);
+
+void* fa_union(void*, void*);
+
+void fa_minimize(void*);
+
+void* fa_complement(void*);
+
+void* create_counter_state(void*, int, int);
 
 // Handle API
 

@@ -204,6 +204,18 @@ class IntConstraintFactory(ABC):
         pass
 
     @abstractmethod
+    def pow(self, x: IntVar, c: int, y: IntVar):
+        """
+        Creates a power constraint: x^c = y
+
+        :param x: An IntVar.
+        :param c: An int.
+        :param y: An IntVar.
+        :return: A pow constraint.
+        """
+        pass
+
+    @abstractmethod
     def div(self, dividend: IntVar, divisor: IntVar, result: IntVar):
         """
         Creates a euclidean division constraint. Ensures dividend / divisor = result, rounding towards 0.
@@ -445,6 +457,32 @@ class IntConstraintFactory(ABC):
         :param add_cumulative_reasoning: Indicates whether redundant cumulative constraints should be put
             on each dimension or not (advised).
         :return: A diff_n constraint.
+        """
+        pass
+
+    @abstractmethod
+    def decreasing(self, intvars: List[IntVar], delta: int):
+        """
+        Create a decreasing constraint which ensures that the variables in intvars are decreasing.
+        The delta parameter make possible to adjust bounds.
+        That is: (X_0 >= X_1 +delta) and (X_1 >= X_2 + delta) and ...
+
+        :param intvars: A list of IntVars.
+        :param delta: An int.
+        :return: A decreasing constraint.
+        """
+        pass
+
+    @abstractmethod
+    def increasing(self, intvars: List[IntVar], delta: int):
+        """
+        Create an increasing constraint which ensures that the variables in intvars are increasing.
+        The delta parameter make possible to adjust bounds.
+        That is: (X_0 <= X_1 +delta) and (X_1 <= X_2 + delta) and ...
+
+        :param intvars: A list of IntVars.
+        :param delta: An int.
+        :return: An increasing constraint.
         """
         pass
 

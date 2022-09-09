@@ -187,6 +187,10 @@ class _Model(Model, _HandleWrapper):
             constraint_handle = backend.times_iv_iv_iv(self.handle, x.handle, y.handle, z.handle)
         return _Constraint(constraint_handle, self)
 
+    def pow(self, x: IntVar, c: int, y: IntVar):
+        constraint_handle = backend.pow_(self.handle, x.handle, c, y.handle)
+        return _Constraint(constraint_handle, self)
+
     def div(self, dividend: _IntVar, divisor: _IntVar, result: _IntVar):
         constraint_handle = backend.div_(self.handle, dividend.handle, divisor.handle, result.handle)
         return _Constraint(constraint_handle, self)
@@ -291,6 +295,16 @@ class _Model(Model, _HandleWrapper):
         height_handle = make_intvar_array(*height)
         constraint_handle = backend.diff_n(self.handle, x_handle, y_handle, width_handle, height_handle,
                                            add_cumulative_reasoning)
+        return _Constraint(constraint_handle, self)
+
+    def decreasing(self, intvars: List[IntVar], delta: int):
+        intvars_handle = make_intvar_array(*intvars)
+        constraint_handle = backend.decreasing(self.handle, intvars_handle, delta)
+        return _Constraint(constraint_handle, self)
+
+    def increasing(self, intvars: List[IntVar], delta: int):
+        intvars_handle = make_intvar_array(*intvars)
+        constraint_handle = backend.increasing(self.handle, intvars_handle, delta)
         return _Constraint(constraint_handle, self)
 
     def global_cardinality(self, intvars: List[IntVar], values: List[int], occurrences: List[IntVar],

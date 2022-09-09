@@ -248,6 +248,9 @@ def times_iv_iv_i(arg1, arg2, arg3, arg4):
 def times_iv_iv_iv(arg1, arg2, arg3, arg4):
     return _backend.times_iv_iv_iv(arg1, arg2, arg3, arg4)
 
+def pow_(arg1, arg2, arg3, arg4):
+    return _backend.pow_(arg1, arg2, arg3, arg4)
+
 def div_(arg1, arg2, arg3, arg4):
     return _backend.div_(arg1, arg2, arg3, arg4)
 
@@ -310,6 +313,12 @@ def count_iv(arg1, arg2, arg3, arg4):
 
 def diff_n(arg1, arg2, arg3, arg4, arg5, arg6):
     return _backend.diff_n(arg1, arg2, arg3, arg4, arg5, arg6)
+
+def decreasing(arg1, arg2, arg3):
+    return _backend.decreasing(arg1, arg2, arg3)
+
+def increasing(arg1, arg2, arg3):
+    return _backend.increasing(arg1, arg2, arg3)
 
 def global_cardinality(arg1, arg2, arg3, arg4, arg5):
     return _backend.global_cardinality(arg1, arg2, arg3, arg4, arg5)
@@ -425,6 +434,15 @@ def int_array_array_length(arg1):
 def int_array_array_set(arg1, arg2, arg3):
     return _backend.int_array_array_set(arg1, arg2, arg3)
 
+def create_int_array_array_array(arg1):
+    return _backend.create_int_array_array_array(arg1)
+
+def int_array_array_array_length(arg1):
+    return _backend.int_array_array_array_length(arg1)
+
+def int_array_array_array_set(arg1, arg2, arg3):
+    return _backend.int_array_array_array_set(arg1, arg2, arg3)
+
 def create_criterion_array(arg1):
     return _backend.create_criterion_array(arg1)
 
@@ -475,6 +493,69 @@ def set_failure_length_based_search(arg1, arg2):
 
 def set_failure_rate_based_search(arg1, arg2):
     return _backend.set_failure_rate_based_search(arg1, arg2)
+
+def create_fa():
+    return _backend.create_fa()
+
+def create_fa_regexp(arg1):
+    return _backend.create_fa_regexp(arg1)
+
+def create_fa_regexp_min_max(arg1, arg2, arg3):
+    return _backend.create_fa_regexp_min_max(arg1, arg2, arg3)
+
+def create_cost_fa():
+    return _backend.create_cost_fa()
+
+def create_cost_fa_from_fa(arg1):
+    return _backend.create_cost_fa_from_fa(arg1)
+
+def get_nb_states(arg1):
+    return _backend.get_nb_states(arg1)
+
+def get_nb_symbols(arg1):
+    return _backend.get_nb_symbols(arg1)
+
+def add_state(arg1):
+    return _backend.add_state(arg1)
+
+def remove_symbol(arg1, arg2):
+    return _backend.remove_symbol(arg1, arg2)
+
+def add_transition(arg1, arg2, arg3, arg4):
+    return _backend.add_transition(arg1, arg2, arg3, arg4)
+
+def delete_transition(arg1, arg2, arg3, arg4):
+    return _backend.delete_transition(arg1, arg2, arg3, arg4)
+
+def get_initial_state(arg1):
+    return _backend.get_initial_state(arg1)
+
+def is_final(arg1, arg2):
+    return _backend.is_final(arg1, arg2)
+
+def set_initial_state(arg1, arg2):
+    return _backend.set_initial_state(arg1, arg2)
+
+def set_final(arg1, arg2):
+    return _backend.set_final(arg1, arg2)
+
+def set_non_final(arg1, arg2):
+    return _backend.set_non_final(arg1, arg2)
+
+def cost_fa_add_counter(arg1, arg2):
+    return _backend.cost_fa_add_counter(arg1, arg2)
+
+def fa_union(arg1, arg2):
+    return _backend.fa_union(arg1, arg2)
+
+def fa_minimize(arg1):
+    return _backend.fa_minimize(arg1)
+
+def fa_complement(arg1):
+    return _backend.fa_complement(arg1)
+
+def create_counter_state(arg1, arg2, arg3):
+    return _backend.create_counter_state(arg1, arg2, arg3)
 
 def chocosolver_handles_destroy(arg1):
     return _backend.chocosolver_handles_destroy(arg1)
