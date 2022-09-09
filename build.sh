@@ -3,6 +3,7 @@
 
 # Build choco-solver-capi
 cd choco-solver-capi
+git pull origin master
 sh ./build.sh
 cd ..
 

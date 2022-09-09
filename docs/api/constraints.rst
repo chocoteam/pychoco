@@ -283,6 +283,12 @@ sum
 .. autofunction:: sum
    :noindex:
 
+table
+^^^^^
+
+.. autofunction:: table
+   :nodindex:
+
 times
 ^^^^^
 
