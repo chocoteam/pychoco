@@ -305,6 +305,9 @@ def clauses_int_channeling(arg1, arg2, arg3, arg4):
 def circuit(arg1, arg2, arg3, arg4):
     return _backend.circuit(arg1, arg2, arg3, arg4)
 
+def cost_regular(arg1, arg2, arg3, arg4):
+    return _backend.cost_regular(arg1, arg2, arg3, arg4)
+
 def count_i(arg1, arg2, arg3, arg4):
     return _backend.count_i(arg1, arg2, arg3, arg4)
 

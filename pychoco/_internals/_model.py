@@ -3,6 +3,7 @@ from typing import Union, List
 from pychoco import backend
 from pychoco._internals._boolvar import _BoolVar
 from pychoco._internals._constraint import _Constraint
+from pychoco._internals._cost_automaton import _CostAutomaton
 from pychoco._internals._handle_wrapper import _HandleWrapper
 from pychoco._internals._intvar import _IntVar
 from pychoco._internals._solver import _Solver
@@ -277,6 +278,11 @@ class _Model(Model, _HandleWrapper):
         intvars_handle = make_intvar_array(*intvars)
         assert conf in ["LIGHT", "FIRST", "RD", "ALL"], "[circuit] conf must be in ['LIGHT', 'FIRST', 'RD', 'ALL']"
         constraint_handle = backend.circuit(self.handle, intvars_handle, offset, conf)
+        return _Constraint(constraint_handle, self)
+
+    def cost_regular(self, intvars: List[IntVar], cost: IntVar, cost_automaton: _CostAutomaton):
+        intvars_handle = make_intvar_array(*intvars)
+        constraint_handle = backend.cost_regular(self.handle, intvars_handle, cost.handle, cost_automaton.handle)
         return _Constraint(constraint_handle, self)
 
     def count(self, value: Union[int, IntVar], intvars: List[IntVar], limit: IntVar):

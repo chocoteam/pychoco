@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from typing import Union, List
 
 from pychoco.constraints.constraint import Constraint
+from pychoco.objects.automaton.cost_automaton import CostAutomaton
 from pychoco.variables.boolvar import BoolVar
 from pychoco.variables.intvar import IntVar
 
@@ -426,6 +427,21 @@ class IntConstraintFactory(ABC):
             (which counts from 1 to n instead of from 0 to n-1).
         :param conf: Filtering options, among ["LIGHT", "FIRST", "RD", and "ALL"].
         :return: A circuit constraint.
+        """
+        pass
+
+    @abstractmethod
+    def cost_regular(self, intvars: List[IntVar], cost: IntVar, cost_automaton: CostAutomaton):
+        """
+        Creates a regular constraint that supports a cost function.
+        Ensures that the assignment of a sequence of variables is recognized by costAutomaton, a deterministic
+        finite automaton, and that the sum of the costs associated to each assignment is bounded by the cost variable.
+        This version allows to specify different costs according to the automaton state at which the assignment occurs
+        (i.e. the transition starts).
+        :param intvars: sequence of variables.
+        :param cost: cost variable.
+        :param cost_automaton: A deterministic finite automaton defining the regular language and the costs.
+        :return:
         """
         pass
 

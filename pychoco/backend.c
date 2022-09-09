@@ -501,6 +501,16 @@ void* circuit(void* modelHandle, void* intVarArrayHandle, int offset, char* conf
     );
 }
 
+void* cost_regular(void* modelHandle, void* intVarsHandle, void* costHandle, void* costAutomatonHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_cost_regular(
+        thread,
+        modelHandle,
+        intVarsHandle,
+        costHandle,costAutomatonHandle
+    );
+}
+
 void* count_i(void* modelHandle, int value, void* intVarArrayHandle, void* limitHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ConstraintApi_count_i(

@@ -223,6 +223,8 @@ void* clauses_int_channeling(void*, void*, void*, void*);
 
 void* circuit(void*, void*, int, char*);
 
+void* cost_regular(void*, void*, void*, void*);
+
 void* count_i(void*, int, void*, void*);
 
 void* count_iv(void*, void*, void*, void*);

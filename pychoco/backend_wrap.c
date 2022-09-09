@@ -5628,6 +5628,44 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_cost_regular(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  void *arg2 = (void *) 0 ;
+  void *arg3 = (void *) 0 ;
+  void *arg4 = (void *) 0 ;
+  int res1 ;
+  int res2 ;
+  int res3 ;
+  int res4 ;
+  PyObject *swig_obj[4] ;
+  void *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "cost_regular", 4, 4, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "cost_regular" "', argument " "1"" of type '" "void *""'"); 
+  }
+  res2 = SWIG_ConvertPtr(swig_obj[1],SWIG_as_voidptrptr(&arg2), 0, 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "cost_regular" "', argument " "2"" of type '" "void *""'"); 
+  }
+  res3 = SWIG_ConvertPtr(swig_obj[2],SWIG_as_voidptrptr(&arg3), 0, 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "cost_regular" "', argument " "3"" of type '" "void *""'"); 
+  }
+  res4 = SWIG_ConvertPtr(swig_obj[3],SWIG_as_voidptrptr(&arg4), 0, 0);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "cost_regular" "', argument " "4"" of type '" "void *""'"); 
+  }
+  result = (void *)cost_regular(arg1,arg2,arg3,arg4);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_count_i(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   void *arg1 = (void *) 0 ;
@@ -8315,6 +8353,7 @@ static PyMethodDef SwigMethods[] = {
 	 { "bits_int_channeling", _wrap_bits_int_channeling, METH_VARARGS, NULL},
 	 { "clauses_int_channeling", _wrap_clauses_int_channeling, METH_VARARGS, NULL},
 	 { "circuit", _wrap_circuit, METH_VARARGS, NULL},
+	 { "cost_regular", _wrap_cost_regular, METH_VARARGS, NULL},
 	 { "count_i", _wrap_count_i, METH_VARARGS, NULL},
 	 { "count_iv", _wrap_count_iv, METH_VARARGS, NULL},
 	 { "diff_n", _wrap_diff_n, METH_VARARGS, NULL},
