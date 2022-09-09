@@ -9,7 +9,7 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath('..'))
+sys.path.insert(0, os.path.abspath('../pychoco'))
 
 project = 'PyChoco'
 copyright = '2022, Dimitri Justeau-Allaire'

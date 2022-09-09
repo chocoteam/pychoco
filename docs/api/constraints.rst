@@ -287,7 +287,7 @@ table
 ^^^^^
 
 .. autofunction:: table
-   :nodindex:
+   :noindex:
 
 times
 ^^^^^
