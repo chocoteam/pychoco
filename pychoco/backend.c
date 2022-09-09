@@ -348,6 +348,11 @@ void* square(void* modelHandle, void* intVarHandle1, void* intVarHandle2) {
     return Java_org_chocosolver_capi_ConstraintApi_square(thread, modelHandle, intVarHandle1, intVarHandle2);
 }
 
+void* table(void* modelHandle, void* varsHandle, void* tuplesHandle, int feasible, char* algo) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_table(thread, modelHandle, varsHandle, tuplesHandle, feasible, algo);
+}
+
 void* times_iv_i_iv(void* modelHandle, void* intVarHandle1, int y, void* intVarHandle2) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ConstraintApi_times_iv_i_iv(thread, modelHandle, intVarHandle1, y, intVarHandle2);
@@ -852,6 +857,23 @@ int int_array_length(void* intArrayHandle) {
 void int_array_set(void* intArrayHandle, int element, int index) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ArrayApi_int_set(thread, intArrayHandle, element, index);
+}
+
+// int array
+
+void* create_int_array_array(int size) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_int_array_create(thread, size);
+}
+
+int int_array_array_length(void* arrayHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_int_array_length(thread, arrayHandle);
+}
+
+void int_array_array_set(void* arrayHandle, void* elementHandle, int index) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_int_array_set(thread, arrayHandle, elementHandle, index);
 }
 
 // Criterion

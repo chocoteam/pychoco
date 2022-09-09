@@ -236,6 +236,9 @@ def element_iv_ivarray_iv_i(arg1, arg2, arg3, arg4, arg5):
 def square(arg1, arg2, arg3):
     return _backend.square(arg1, arg2, arg3)
 
+def table(arg1, arg2, arg3, arg4, arg5):
+    return _backend.table(arg1, arg2, arg3, arg4, arg5)
+
 def times_iv_i_iv(arg1, arg2, arg3, arg4):
     return _backend.times_iv_i_iv(arg1, arg2, arg3, arg4)
 
@@ -412,6 +415,15 @@ def int_array_length(arg1):
 
 def int_array_set(arg1, arg2, arg3):
     return _backend.int_array_set(arg1, arg2, arg3)
+
+def create_int_array_array(arg1):
+    return _backend.create_int_array_array(arg1)
+
+def int_array_array_length(arg1):
+    return _backend.int_array_array_length(arg1)
+
+def int_array_array_set(arg1, arg2, arg3):
+    return _backend.int_array_array_set(arg1, arg2, arg3)
 
 def create_criterion_array(arg1):
     return _backend.create_criterion_array(arg1)

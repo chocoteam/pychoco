@@ -141,6 +141,8 @@ void* element_iv_ivarray_iv_i(void*, void*, void*, void*, int);
 
 void* square(void*, void*, void*);
 
+void* table(void*, void*, void*, int, char*);
+
 void* times_iv_i_iv(void*, void*, int, void*);
 
 void* times_iv_iv_i(void*, void*, void*, int);
@@ -266,6 +268,14 @@ void* create_int_array(int);
 int int_array_length(void*);
 
 void int_array_set(void*, int, int);
+
+// int array
+
+void* create_int_array_array(int);
+
+int int_array_array_length(void*);
+
+void int_array_array_set(void*, void*, int);
 
 // Criterion
 

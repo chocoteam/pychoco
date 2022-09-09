@@ -11,13 +11,26 @@ from pychoco.variables.intvar import IntVar
 def make_int_array(*ints: List[int]):
     """
     Creates a Java int[] handle from a list of Python ints
-    :param intvars: A list of Python ints
+    :param ints: A list of Python ints
     :return: A Java int[] handle.
     """
     ints_array = backend.create_int_array(len(ints))
     for i in range(0, len(ints)):
         backend.int_array_set(ints_array, ints[i], i)
     return ints_array
+
+
+def make_int_array_array(*arrays: List[List[int]]):
+    """
+    Creates a Java int[][] handle from a list of Python int lists.
+    :param arrays: A list of int lists.
+    :return: A Java int[][] handle.
+    """
+    int_array_array = backend.create_int_array_array(len(arrays))
+    for i in range(0, len(arrays)):
+        handle = make_int_array(*arrays[i])
+        backend.int_array_array_set(int_array_array, handle, i)
+    return int_array_array
 
 
 def make_intvar_array(*intvars: List[IntVar]):

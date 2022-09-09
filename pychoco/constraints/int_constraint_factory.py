@@ -169,6 +169,28 @@ class IntConstraintFactory(ABC):
         pass
 
     @abstractmethod
+    def table(self, intvars: List[IntVar], tuples: List[List[int]], feasible: bool = True, algo: str = "GAC3rm"):
+        """
+        Creates a table constraint, with the specified algorithm defined algo
+        - CT+: Compact-Table algorithm (AC),
+        - GAC2001: Arc Consistency version 2001 for tuples,
+        - GAC2001+: Arc Consistency version 2001 for allowed tuples,
+        - GAC3rm: Arc Consistency version AC3 rm for tuples,
+        - GAC3rm+ (default): Arc Consistency version 3rm for allowed tuples,
+        - GACSTR+: Arc Consistency version STR for allowed tuples,
+        - STR2+: Arc Consistency version STR2 for allowed tuples,
+        - FC: Forward Checking.
+        - MDD+: uses a multi-valued decision diagram for allowed tuples (see mddc constraint).
+        :param intvars: integer variables forming the tuples.
+        :param tuples: the relation between the variables (list of allowed/forbidden tuples)
+        :param feasible: if True, the tuples describe allowed tuples, otherwise forbidden tuples.
+        :param algo: filtering algorithm, to choose among: "CT+", "GAC3rm", "GAC2001", "GACSTR", "GAC2001+", "GAC3rm+",
+            "FC", "STR2+". Default is "GAC3rm".
+        :return: A table constraint.
+        """
+        pass
+
+    @abstractmethod
     def times(self, x: IntVar, y: Union[int, IntVar], z: Union[int, IntVar]):
         """
         Creates a multiplication constraint: x * y = z.

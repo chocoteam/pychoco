@@ -1,5 +1,6 @@
 from typing import Union, List
 
+from _internals._utils import make_int_array_array
 from pychoco import backend
 from pychoco._internals._boolvar import _BoolVar
 from pychoco._internals._constraint import _Constraint
@@ -165,6 +166,15 @@ class _Model(Model, _HandleWrapper):
 
     def square(self, x: _IntVar, y: _IntVar):
         constraint_handle = backend.square(self.handle, x.handle, y.handle)
+        return _Constraint(constraint_handle, self)
+
+    def table(self, intvars: List[IntVar], tuples: List[List[int]], feasible: bool = True, algo: str = "GAC3rm"):
+        assert algo in ["CT+", "GAC3rm", "GAC2001", "GACSTR", "GAC2001+", "GAC3rm+",
+                        "FC", "STR2+"], '[table] algo must be in ["CT+", "GAC3rm", "GAC2001", "GACSTR", "GAC2001+", ' \
+                                        '"GAC3rm+", "FC", "STR2+"]'
+        vars_handle = make_intvar_array(*intvars)
+        tuples_handle = make_int_array_array(*tuples)
+        constraint_handle = backend.table(self.handle, vars_handle, tuples_handle, feasible, algo)
         return _Constraint(constraint_handle, self)
 
     def times(self, x: _IntVar, y: Union[int, _IntVar], z: Union[int, _IntVar]):
