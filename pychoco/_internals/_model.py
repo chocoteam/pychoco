@@ -303,12 +303,12 @@ class _Model(Model, _HandleWrapper):
                                            add_cumulative_reasoning)
         return _Constraint(constraint_handle, self)
 
-    def decreasing(self, intvars: List[IntVar], delta: int):
+    def decreasing(self, intvars: List[IntVar], delta: int = 0):
         intvars_handle = make_intvar_array(*intvars)
         constraint_handle = backend.decreasing(self.handle, intvars_handle, delta)
         return _Constraint(constraint_handle, self)
 
-    def increasing(self, intvars: List[IntVar], delta: int):
+    def increasing(self, intvars: List[IntVar], delta: int = 0):
         intvars_handle = make_intvar_array(*intvars)
         constraint_handle = backend.increasing(self.handle, intvars_handle, delta)
         return _Constraint(constraint_handle, self)

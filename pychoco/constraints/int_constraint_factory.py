@@ -477,7 +477,7 @@ class IntConstraintFactory(ABC):
         pass
 
     @abstractmethod
-    def decreasing(self, intvars: List[IntVar], delta: int):
+    def decreasing(self, intvars: List[IntVar], delta: int = 0):
         """
         Create a decreasing constraint which ensures that the variables in intvars are decreasing.
         The delta parameter make possible to adjust bounds.
@@ -490,7 +490,7 @@ class IntConstraintFactory(ABC):
         pass
 
     @abstractmethod
-    def increasing(self, intvars: List[IntVar], delta: int):
+    def increasing(self, intvars: List[IntVar], delta: int = 0):
         """
         Create an increasing constraint which ensures that the variables in intvars are increasing.
         The delta parameter make possible to adjust bounds.
