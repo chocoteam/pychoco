@@ -271,6 +271,12 @@ pow
 .. autofunction:: pow
    :noindex:
 
+regular
+^^^^^^^
+
+.. autofunction:: regular
+   :noindex:
+
 scalar
 ^^^^^^
 

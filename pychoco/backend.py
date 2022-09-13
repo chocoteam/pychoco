@@ -314,6 +314,9 @@ def count_i(arg1, arg2, arg3, arg4):
 def count_iv(arg1, arg2, arg3, arg4):
     return _backend.count_iv(arg1, arg2, arg3, arg4)
 
+def cumulative(arg1, arg2, arg3, arg4, arg5):
+    return _backend.cumulative(arg1, arg2, arg3, arg4, arg5)
+
 def diff_n(arg1, arg2, arg3, arg4, arg5, arg6):
     return _backend.diff_n(arg1, arg2, arg3, arg4, arg5, arg6)
 
@@ -365,6 +368,9 @@ def or_cs_cs(arg1, arg2):
 def path(arg1, arg2, arg3, arg4, arg5):
     return _backend.path(arg1, arg2, arg3, arg4, arg5)
 
+def regular(arg1, arg2, arg3):
+    return _backend.regular(arg1, arg2, arg3)
+
 def scalar_i(arg1, arg2, arg3, arg4, arg5):
     return _backend.scalar_i(arg1, arg2, arg3, arg4, arg5)
 
@@ -406,6 +412,15 @@ def intvar_array_length(arg1):
 
 def intvar_array_set(arg1, arg2, arg3):
     return _backend.intvar_array_set(arg1, arg2, arg3)
+
+def create_task_array(arg1):
+    return _backend.create_task_array(arg1)
+
+def task_array_length(arg1):
+    return _backend.task_array_length(arg1)
+
+def task_array_set(arg1, arg2, arg3):
+    return _backend.task_array_set(arg1, arg2, arg3)
 
 def create_boolvar_array(arg1):
     return _backend.create_boolvar_array(arg1)

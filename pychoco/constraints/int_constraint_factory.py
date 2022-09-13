@@ -3,6 +3,7 @@ from typing import Union, List
 
 from pychoco.constraints.constraint import Constraint
 from pychoco.objects.automaton.cost_automaton import CostAutomaton
+from pychoco.objects.automaton.finite_automaton import FiniteAutomaton
 from pychoco.variables.boolvar import BoolVar
 from pychoco.variables.intvar import IntVar
 
@@ -701,6 +702,21 @@ class IntConstraintFactory(ABC):
         :param end: An IntVar.
         :param offset: An int.
         :return: A path constraint.
+        """
+        pass
+
+    @abstractmethod
+    def regular(self, intvars: List[IntVar], automaton: FiniteAutomaton):
+        """
+        Creates a regular constraint.
+        Enforces the sequence of vars to be a word
+        recognized by the deterministic finite automaton.
+        For example regexp = "(1|2)(3*)(4|5)";
+        The same dfa can be used for different propagators.
+
+        :param intvars: IntVars.
+        :param automaton: A finite automaton.
+        :return: A regular constraint.
         """
         pass
 

@@ -158,45 +158,57 @@ class _Solver(Solver, _HandleWrapper):
         backend.set_default_search(self.handle)
 
     def set_dom_over_w_deg_search(self, *intvars):
+        assert len(intvars) > 0, "No variables were declared for the search"
         var_array_handle = make_intvar_array(*intvars)
         backend.set_dom_over_w_deg_search(self.handle, var_array_handle)
 
     def set_dom_over_w_deg_ref_search(self, *intvars):
+        assert len(intvars) > 0, "No variables were declared for the search"
         var_array_handle = make_intvar_array(*intvars)
         backend.set_dom_over_w_deg_ref_search(self.handle, var_array_handle)
 
     def set_activity_based_search(self, *intvars):
+        assert len(intvars) > 0, "No variables were declared for the search"
         var_array_handle = make_intvar_array(*intvars)
         backend.set_activity_based_search(self.handle, var_array_handle)
 
     def set_min_dom_lb_search(self, *intvars):
+        assert len(intvars) > 0, "No variables were declared for the search"
         var_array_handle = make_intvar_array(*intvars)
         backend.set_min_dom_lb_search(self.handle, var_array_handle)
 
     def set_min_dom_ub_search(self, *intvars):
+        assert len(intvars) > 0, "No variables were declared for the search"
         var_array_handle = make_intvar_array(*intvars)
         backend.set_min_dom_ub_search(self.handle, var_array_handle)
 
     def set_random_search(self, *intvars, seed: int = round(time.time() * 1000)):
+        assert len(intvars) > 0, "No variables were declared for the search"
         var_array_handle = make_intvar_array(*intvars)
         backend.set_random_search(self.handle, var_array_handle, seed)
 
     def set_conflict_history_search(self, *intvars):
+        assert len(intvars) > 0, "No variables were declared for the search"
         var_array_handle = make_intvar_array(*intvars)
         backend.set_conflict_history_search(self.handle, var_array_handle)
 
     def set_input_order_lb_search(self, *intvars):
+        assert len(intvars) > 0, "No variables were declared for the search"
+        assert len(intvars) > 0, "No variables were declared for the search"
         var_array_handle = make_intvar_array(*intvars)
         backend.set_input_order_lb_search(self.handle, var_array_handle)
 
     def set_input_order_ub_search(self, *intvars):
+        assert len(intvars) > 0, "No variables were declared for the search"
         var_array_handle = make_intvar_array(*intvars)
         backend.set_input_order_ub_search(self.handle, var_array_handle)
 
     def set_failure_length_based_search(self, *intvars):
+        assert len(intvars) > 0, "No variables were declared for the search"
         var_array_handle = make_intvar_array(*intvars)
         backend.set_failure_length_based_search(self.handle, var_array_handle)
 
     def set_failure_rate_based_search(self, *intvars):
+        assert len(intvars) > 0, "No variables were declared for the search"
         var_array_handle = make_intvar_array(*intvars)
         backend.set_failure_rate_based_search(self.handle, var_array_handle)

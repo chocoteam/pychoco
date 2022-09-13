@@ -7,9 +7,9 @@ pychoco - Python API for the Choco Constraint Programming solver
 import atexit
 from typing import Union, List
 
-from _internals._cost_automaton import _make_single_resource
 from . import backend
 from ._internals._cost_automaton import _create_cost_automaton
+from ._internals._cost_automaton import _make_single_resource
 from ._internals._finite_automaton import _create_finite_automaton
 from ._internals._model import _create_model
 from .objects.automaton.finite_automaton import FiniteAutomaton

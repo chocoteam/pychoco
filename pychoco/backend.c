@@ -533,6 +533,18 @@ void* count_iv(void* modelHandle, void* valueHandle, void* intVarArrayHandle, vo
     );
 }
 
+void* cumulative(void* modelHandle, void* tasksHandle, void* heightsHandle, void* capacityHandle, int incr) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_cumulative(
+        thread,
+        modelHandle,
+        tasksHandle,
+        heightsHandle,
+        capacityHandle,
+        incr
+    );
+}
+
 void* diff_n(void* modelHandle, void* XHandle, void* YHandle, void* widthHandle, void* heightHandle,
              int addCumulativeReasoning) {
     LAZY_THREAD_ATTACH
@@ -700,6 +712,16 @@ void* path(void* modelHandle, void* intVarsHandle, void* startHandle, void* endH
     );
 }
 
+void* regular(void* modelHandle, void* intVarsHandle, void* automatonHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_regular(
+        thread,
+        modelHandle,
+        intVarsHandle,
+        automatonHandle
+    );
+}
+
 void* scalar_i(void* modelHandle, void* intVarsHandle, void* coeffsHandle, char* op, int scalar) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ConstraintApi_scalar_i(
@@ -842,6 +864,24 @@ void intvar_array_set(void* arrayHandle, void* intVarHandle, int index) {
     LAZY_THREAD_ATTACH
     Java_org_chocosolver_capi_ArrayApi_intVar_set(thread, arrayHandle, intVarHandle, index);
 }
+
+// Tasks
+
+void* create_task_array(int size) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_task_create(thread, size);
+}
+
+int task_array_length(void* arrayHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_task_length(thread, arrayHandle);
+}
+
+void task_array_set(void* arrayHandle, void* elementHandle, int index) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ArrayApi_task_set(thread, arrayHandle, elementHandle, index);
+}
+
 
 // BoolVar
 

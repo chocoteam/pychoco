@@ -229,6 +229,8 @@ void* count_i(void*, int, void*, void*);
 
 void* count_iv(void*, void*, void*, void*);
 
+void* cumulative(void*, void*, void*, void*, int);
+
 void* diff_n(void*, void*, void*, void*, void*, int);
 
 void* decreasing(void*, void*, int);
@@ -263,6 +265,8 @@ void* or_cs_cs(void*, void*);
 
 void* path(void*, void*, void*, void*, int);
 
+void* regular(void*, void*, void*);
+
 void* scalar_i(void*, void*, void*, char*, int);
 
 void* scalar_iv(void*, void*, void*, char*, void*);
@@ -294,6 +298,14 @@ void* create_intvar_array(int);
 int intvar_array_length(void*);
 
 void intvar_array_set(void*, void*, int);
+
+// Tasks
+
+void* create_task_array(int);
+
+int task_array_length(void*);
+
+void task_array_set(void*, void*, int);
 
 // BoolVar
 

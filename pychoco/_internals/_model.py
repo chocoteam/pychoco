@@ -4,6 +4,7 @@ from pychoco import backend
 from pychoco._internals._boolvar import _BoolVar
 from pychoco._internals._constraint import _Constraint
 from pychoco._internals._cost_automaton import _CostAutomaton
+from pychoco._internals._finite_automaton import _FiniteAutomaton
 from pychoco._internals._handle_wrapper import _HandleWrapper
 from pychoco._internals._intvar import _IntVar
 from pychoco._internals._solver import _Solver
@@ -395,6 +396,11 @@ class _Model(Model, _HandleWrapper):
     def path(self, intvars: List[IntVar], start: IntVar, end: IntVar, offset: int = 0):
         intvars_handle = make_intvar_array(*intvars)
         constraint_handle = backend.path(self.handle, intvars_handle, start.handle, end.handle, offset)
+        return _Constraint(constraint_handle, self)
+
+    def regular(self, intvars: List[IntVar], automaton: _FiniteAutomaton):
+        intvars_handle = make_intvar_array(*intvars)
+        constraint_handle = backend.regular(self.handle, intvars_handle, automaton.handle)
         return _Constraint(constraint_handle, self)
 
     def scalar(self, intvars: List[IntVar], coeffs: List[int], operator: str, scalar: Union[int, IntVar]):
