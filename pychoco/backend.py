@@ -560,6 +560,12 @@ def fa_complement(arg1):
 def create_counter_state(arg1, arg2, arg3):
     return _backend.create_counter_state(arg1, arg2, arg3)
 
+def make_single_resource_ii(arg1, arg2, arg3, arg4):
+    return _backend.make_single_resource_ii(arg1, arg2, arg3, arg4)
+
+def make_single_resource_iii(arg1, arg2, arg3, arg4):
+    return _backend.make_single_resource_iii(arg1, arg2, arg3, arg4)
+
 def chocosolver_handles_destroy(arg1):
     return _backend.chocosolver_handles_destroy(arg1)
 

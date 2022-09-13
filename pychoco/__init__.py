@@ -7,10 +7,12 @@ pychoco - Python API for the Choco Constraint Programming solver
 import atexit
 from typing import Union, List
 
+from _internals._cost_automaton import _make_single_resource
 from . import backend
 from ._internals._cost_automaton import _create_cost_automaton
-from ._internals._finite_automaton import _create_finite_automaton, _FiniteAutomaton
+from ._internals._finite_automaton import _create_finite_automaton
 from ._internals._model import _create_model
+from .objects.automaton.finite_automaton import FiniteAutomaton
 
 backend.chocosolver_init()
 del backend
@@ -46,7 +48,7 @@ def create_finite_automaton(regexp: Union[str, None] = None, bounds: Union[List[
     return _create_finite_automaton(regexp, bounds)
 
 
-def create_cost_automaton(automaton: Union[_FiniteAutomaton, None] = None):
+def create_cost_automaton(automaton: Union[FiniteAutomaton, None] = None):
     """
     Create a cost automaton (for regular constraints).
 
@@ -54,3 +56,15 @@ def create_cost_automaton(automaton: Union[_FiniteAutomaton, None] = None):
     :return: A cost automaton object.
     """
     return _create_cost_automaton(automaton)
+
+
+def make_single_resource(automaton: FiniteAutomaton, costs: Union[List[List[int]], List[List[List[int]]]], inf: int,
+                         sup: int):
+    """
+    :param automaton: A finite automaton.
+    :param costs: Costs (2 or 3 dimensional int matrix).
+    :param inf: Lower bound.
+    :param sup: Upper bound.
+    :return: A cost automaton from a finite automaton and costs.
+    """
+    return _make_single_resource(automaton, costs, inf, sup)

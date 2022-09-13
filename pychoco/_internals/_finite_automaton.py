@@ -51,13 +51,13 @@ class _FiniteAutomaton(FiniteAutomaton, _HandleWrapper):
         backend.set_non_final(self.handle, states_handle)
 
     def minimize(self):
-        backend.fa_minimize(self.handle)
+        return _FiniteAutomaton(backend.fa_minimize(self.handle))
 
     def union(self, other):
-        return backend.fa_union(self.handle, other.handle)
+        return _FiniteAutomaton(backend.fa_union(self.handle, other.handle))
 
     def complement(self):
-        return backend.fa_complement(self.handle)
+        return _FiniteAutomaton(backend.fa_complement(self.handle))
 
 
 def _create_finite_automaton(regexp: Union[str, None] = None, bounds: Union[List[int], None] = None):

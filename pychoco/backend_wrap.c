@@ -8250,6 +8250,90 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_make_single_resource_ii(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  void *arg2 = (void *) 0 ;
+  int arg3 ;
+  int arg4 ;
+  int res1 ;
+  int res2 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  int val4 ;
+  int ecode4 = 0 ;
+  PyObject *swig_obj[4] ;
+  void *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "make_single_resource_ii", 4, 4, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "make_single_resource_ii" "', argument " "1"" of type '" "void *""'"); 
+  }
+  res2 = SWIG_ConvertPtr(swig_obj[1],SWIG_as_voidptrptr(&arg2), 0, 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "make_single_resource_ii" "', argument " "2"" of type '" "void *""'"); 
+  }
+  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "make_single_resource_ii" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = (int)(val3);
+  ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "make_single_resource_ii" "', argument " "4"" of type '" "int""'");
+  } 
+  arg4 = (int)(val4);
+  result = (void *)make_single_resource_ii(arg1,arg2,arg3,arg4);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_make_single_resource_iii(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  void *arg2 = (void *) 0 ;
+  int arg3 ;
+  int arg4 ;
+  int res1 ;
+  int res2 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  int val4 ;
+  int ecode4 = 0 ;
+  PyObject *swig_obj[4] ;
+  void *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "make_single_resource_iii", 4, 4, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "make_single_resource_iii" "', argument " "1"" of type '" "void *""'"); 
+  }
+  res2 = SWIG_ConvertPtr(swig_obj[1],SWIG_as_voidptrptr(&arg2), 0, 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "make_single_resource_iii" "', argument " "2"" of type '" "void *""'"); 
+  }
+  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "make_single_resource_iii" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = (int)(val3);
+  ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "make_single_resource_iii" "', argument " "4"" of type '" "int""'");
+  } 
+  arg4 = (int)(val4);
+  result = (void *)make_single_resource_iii(arg1,arg2,arg3,arg4);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_chocosolver_handles_destroy(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   void *arg1 = (void *) 0 ;
@@ -8438,6 +8522,8 @@ static PyMethodDef SwigMethods[] = {
 	 { "fa_minimize", _wrap_fa_minimize, METH_O, NULL},
 	 { "fa_complement", _wrap_fa_complement, METH_O, NULL},
 	 { "create_counter_state", _wrap_create_counter_state, METH_VARARGS, NULL},
+	 { "make_single_resource_ii", _wrap_make_single_resource_ii, METH_VARARGS, NULL},
+	 { "make_single_resource_iii", _wrap_make_single_resource_iii, METH_VARARGS, NULL},
 	 { "chocosolver_handles_destroy", _wrap_chocosolver_handles_destroy, METH_O, NULL},
 	 { NULL, NULL, 0, NULL }
 };

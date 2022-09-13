@@ -438,10 +438,11 @@ class IntConstraintFactory(ABC):
         finite automaton, and that the sum of the costs associated to each assignment is bounded by the cost variable.
         This version allows to specify different costs according to the automaton state at which the assignment occurs
         (i.e. the transition starts).
+
         :param intvars: sequence of variables.
         :param cost: cost variable.
         :param cost_automaton: A deterministic finite automaton defining the regular language and the costs.
-        :return:
+        :return: A cost_regular constraint.
         """
         pass
 

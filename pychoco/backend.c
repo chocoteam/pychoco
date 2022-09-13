@@ -1118,6 +1118,16 @@ void* create_counter_state(void* layerValueStateHandle, int min, int max) {
     return Java_org_chocosolver_capi_AutomatonApi_create_counter_state(thread, layerValueStateHandle, min, max);
 }
 
+void* make_single_resource_ii(void* automatonHandle, void* costsHandle, int inf, int sup) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_AutomatonApi_make_single_resource_ii(thread, automatonHandle, costsHandle, inf, sup);
+}
+
+void* make_single_resource_iii(void* automatonHandle, void* costsHandle, int inf, int sup) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_AutomatonApi_make_single_resource_iii(thread, automatonHandle, costsHandle, inf, sup);
+}
+
 // Handle API
 
 void chocosolver_handles_destroy(void* handle) {

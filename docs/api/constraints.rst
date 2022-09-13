@@ -109,6 +109,12 @@ clauses_int_channeling
 .. autofunction:: clauses_int_channeling
    :noindex:
 
+cost_regular
+^^^^^^^^^^^^
+
+.. autofunction:: cost_regular
+   :noindex:
+
 count
 ^^^^^
 

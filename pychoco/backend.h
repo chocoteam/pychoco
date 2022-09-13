@@ -379,6 +379,10 @@ void* fa_complement(void*);
 
 void* create_counter_state(void*, int, int);
 
+void* make_single_resource_ii(void*, void*, int, int);
+
+void* make_single_resource_iii(void*, void*, int, int);
+
 // Handle API
 
 void chocosolver_handles_destroy(void*);
