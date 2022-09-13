@@ -1,5 +1,6 @@
 from typing import Union, List
 
+from _internals._utils import make_task_array
 from pychoco import backend
 from pychoco._internals._boolvar import _BoolVar
 from pychoco._internals._constraint import _Constraint
@@ -309,6 +310,12 @@ class _Model(Model, _HandleWrapper):
             constraint_handle = backend.count_i(self.handle, value, intvars_handle, limit.handle)
         else:
             constraint_handle = backend.count_iv(self.handle, value.handle, intvars_handle, limit.handle)
+        return _Constraint(constraint_handle, self)
+
+    def cumulative(self, tasks: List[_Task], heights: List[_IntVar], capacity: _IntVar, incremental: bool = True):
+        tasks_handle = make_task_array(*tasks)
+        vars_handle = make_intvar_array(*heights)
+        constraint_handle = backend.cumulative(self.handle, tasks_handle, vars_handle, capacity.handle, incremental)
         return _Constraint(constraint_handle, self)
 
     def diff_n(self, x: List[IntVar], y: List[IntVar], width: List[IntVar], height: List[IntVar],

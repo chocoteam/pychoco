@@ -6,6 +6,7 @@ from pychoco.objects.automaton.cost_automaton import CostAutomaton
 from pychoco.objects.automaton.finite_automaton import FiniteAutomaton
 from pychoco.variables.boolvar import BoolVar
 from pychoco.variables.intvar import IntVar
+from variables.task import Task
 
 
 class IntConstraintFactory(ABC):
@@ -458,6 +459,24 @@ class IntConstraintFactory(ABC):
         :param intvars: A list of IntVars.
         :param limit: An int or an IntVar.
         :return: A count constraint.
+        """
+        pass
+
+    @abstractmethod
+    def cumulative(self, tasks: List[Task], heights: List[IntVar], capacity: IntVar, incremental: bool = True):
+        """
+        Creates a cumulative constraint: Enforces that at each point in time,
+        the cumulated height of the set of tasks that overlap that point
+        does not exceed a given limit.
+
+        Task duration and height should be >= 0
+        Discards tasks whose duration or height is equal to zero
+
+        :param tasks: Task objects containing start, duration and end variables.
+        :param heights: Integer variables representing the resource consumption of each task.
+        :param capacity: Integer variable representing the resource capacity.
+        :param incremental: Specifies if an incremental propagation should be applied (True by default).
+        :return: A cumulative constraint.
         """
         pass
 

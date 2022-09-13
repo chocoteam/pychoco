@@ -121,6 +121,12 @@ count
 .. autofunction:: count
    :noindex:
 
+cumulative
+^^^^^^^^^^
+
+.. autofunction:: cumulative
+   :noindex:
+
 decreasing
 ^^^^^^^^^^
 
