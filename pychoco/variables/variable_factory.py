@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import Union, List
 
+from pychoco.variables.intvar import IntVar
+
 
 class VariableFactory(ABC):
     """
@@ -34,6 +36,8 @@ class VariableFactory(ABC):
         """
         pass
 
+    # Boolean variables #
+
     @abstractmethod
     def boolvar(self, value: Union[bool, None] = None, name: Union[str, None] = None):
         """
@@ -55,5 +59,23 @@ class VariableFactory(ABC):
             the same for all variables (bool), or given as a list of bools.
         :param name: The name of the variable (optional).
         :return: A list of boolvars.
+        """
+        pass
+
+    # Task variables #
+
+    @abstractmethod
+    def task(self, start: IntVar, duration: Union[int, IntVar], end: Union[None, IntVar] = None):
+        """
+        Creates a task container, based on a starting time `start`, a duration `duration`, and
+        optionally an ending time `end`, such that: `start` + `duration` = `end`.
+
+        A call to ensure_bound_consistency() is required before launching the resolution,
+        this will not be done automatically.
+
+        :param start: The starting time (IntVar).
+        :param duration: The duration (int or IntVar).
+        :param end: The ending time (IntVar, or None).
+        :return: A task container.
         """
         pass

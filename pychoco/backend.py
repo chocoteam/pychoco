@@ -581,6 +581,27 @@ def make_single_resource_ii(arg1, arg2, arg3, arg4):
 def make_single_resource_iii(arg1, arg2, arg3, arg4):
     return _backend.make_single_resource_iii(arg1, arg2, arg3, arg4)
 
+def create_task_iv_i(arg1, arg2):
+    return _backend.create_task_iv_i(arg1, arg2)
+
+def create_task_iv_i_iv(arg1, arg2, arg3):
+    return _backend.create_task_iv_i_iv(arg1, arg2, arg3)
+
+def create_task_iv_iv_iv(arg1, arg2, arg3):
+    return _backend.create_task_iv_iv_iv(arg1, arg2, arg3)
+
+def task_ensure_bound_consistency(arg1):
+    return _backend.task_ensure_bound_consistency(arg1)
+
+def task_get_start(arg1):
+    return _backend.task_get_start(arg1)
+
+def task_get_end(arg1):
+    return _backend.task_get_end(arg1)
+
+def task_get_duration(arg1):
+    return _backend.task_get_duration(arg1)
+
 def chocosolver_handles_destroy(arg1):
     return _backend.chocosolver_handles_destroy(arg1)
 

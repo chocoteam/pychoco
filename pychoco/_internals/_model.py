@@ -8,6 +8,7 @@ from pychoco._internals._finite_automaton import _FiniteAutomaton
 from pychoco._internals._handle_wrapper import _HandleWrapper
 from pychoco._internals._intvar import _IntVar
 from pychoco._internals._solver import _Solver
+from pychoco._internals._task import _Task
 from pychoco._internals._utils import make_intvar_array, make_int_array, make_boolvar_array, make_constraint_array, \
     make_int_array_array
 from pychoco.constraints.constraint import Constraint
@@ -75,6 +76,22 @@ class _Model(Model, _HandleWrapper):
             return [self.boolvar(value[i], name) for i in range(0, size)]
         else:
             return [self.boolvar(value, name) for i in range(0, size)]
+
+    def task(self, start: _IntVar, duration: Union[int, _IntVar], end: Union[None, _IntVar] = None):
+        has_monitor = True
+        if end is None:
+            if isinstance(duration, IntVar):
+                end_ = self.intvar(start.get_lb() + duration.get_lb(), start.get_ub() + duration.get_ub())
+                handle = backend.create_task_iv_iv_iv(start.handle, duration.handle, end_.handle)
+            else:
+                handle = backend.create_task_iv_i(start.handle, duration)
+                has_monitor = False
+        else:
+            if isinstance(duration, IntVar):
+                handle = backend.create_task_iv_iv_iv(start.handle, duration.handle, end.handle)
+            else:
+                handle = backend.create_task_iv_i_iv(start.handle, duration, end.handle)
+        return _Task(handle, self, has_monitor)
 
     # IntConstraintFactor methods implementation
 

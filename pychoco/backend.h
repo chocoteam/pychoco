@@ -396,6 +396,22 @@ void* make_single_resource_ii(void*, void*, int, int);
 
 void* make_single_resource_iii(void*, void*, int, int);
 
+// Task API
+
+void* create_task_iv_i(void*, int);
+
+void* create_task_iv_i_iv(void*, int, void*);
+
+void* create_task_iv_iv_iv(void*, void*, void*);
+
+void task_ensure_bound_consistency(void*);
+
+void* task_get_start(void*);
+
+void* task_get_end(void*);
+
+void* task_get_duration(void*);
+
 // Handle API
 
 void chocosolver_handles_destroy(void*);

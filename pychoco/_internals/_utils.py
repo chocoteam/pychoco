@@ -6,6 +6,7 @@ from pychoco.constraints.constraint import Constraint
 from pychoco.solution import Solution
 from pychoco.variables.boolvar import BoolVar
 from pychoco.variables.intvar import IntVar
+from pychoco.variables.task import Task
 
 
 def make_int_array(*ints: List[int]):
@@ -68,6 +69,18 @@ def make_boolvar_array(*boolvars: List[BoolVar]):
     for i in range(0, len(boolvars)):
         backend.boolvar_array_set(vars_array, boolvars[i].handle, i)
     return vars_array
+
+
+def make_task_array(*tasks: List[Task]):
+    """
+    Creates a Java Task[] handle from a list of Python Tasks
+    :param tasks: A list of Python Tasks
+    :return: A Java Task[] handle.
+    """
+    task_array = backend.create_task_array(len(tasks))
+    for i in range(0, len(tasks)):
+        backend.task_array_set(task_array, tasks[i].handle, i)
+    return task_array
 
 
 def make_constraint_array(*constraints: List[Constraint]):

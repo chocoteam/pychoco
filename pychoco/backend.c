@@ -1168,6 +1168,44 @@ void* make_single_resource_iii(void* automatonHandle, void* costsHandle, int inf
     return Java_org_chocosolver_capi_AutomatonApi_make_single_resource_iii(thread, automatonHandle, costsHandle, inf, sup);
 }
 
+// Task API
+
+void* create_task_iv_i(void* startHandle, int d) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_TaskApi_create_iv_i(thread, startHandle, d);
+}
+
+void* create_task_iv_i_iv(void* startHandle, int d, void* endHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_TaskApi_create_iv_i_iv(thread, startHandle, d, endHandle);
+}
+
+void* create_task_iv_iv_iv(void* startHandle, void* durationHandle, void* endHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_TaskApi_create_iv_iv_iv(thread, startHandle, durationHandle, endHandle);
+}
+
+void task_ensure_bound_consistency(void* taskHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_TaskApi_ensure_bound_consistency(thread, taskHandle);
+}
+
+void* task_get_start(void* taskHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_TaskApi_get_start(thread, taskHandle);
+
+}
+
+void* task_get_end(void* taskHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_TaskApi_get_end(thread, taskHandle);
+}
+
+void* task_get_duration(void* taskHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_TaskApi_get_duration(thread, taskHandle);
+}
+
 // Handle API
 
 void chocosolver_handles_destroy(void* handle) {
