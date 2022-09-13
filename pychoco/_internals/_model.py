@@ -1,6 +1,5 @@
 from typing import Union, List
 
-from _internals._utils import make_task_array
 from pychoco import backend
 from pychoco._internals._boolvar import _BoolVar
 from pychoco._internals._constraint import _Constraint
@@ -12,6 +11,7 @@ from pychoco._internals._solver import _Solver
 from pychoco._internals._task import _Task
 from pychoco._internals._utils import make_intvar_array, make_int_array, make_boolvar_array, make_constraint_array, \
     make_int_array_array
+from pychoco._internals._utils import make_task_array
 from pychoco.constraints.constraint import Constraint
 from pychoco.model import Model
 from pychoco.variables.boolvar import BoolVar
