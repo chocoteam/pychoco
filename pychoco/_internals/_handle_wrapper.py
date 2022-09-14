@@ -16,7 +16,8 @@ class _HandleWrapper:
 
     def __del__(self):
         if backend.chocosolver_is_initialized():
-            backend.chocosolver_handles_destroy(self._handle)
+            if self._handle is not None:
+                backend.chocosolver_handles_destroy(self._handle)
 
     def __repr__(self):
         return "_HandleWrapper(%r)" % self._handle

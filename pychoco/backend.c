@@ -388,6 +388,16 @@ void* max_iv_ivarray(void* modelHandle, void* intVarHandle, void* intVarArrayHan
     return Java_org_chocosolver_capi_ConstraintApi_max_iv_ivarray(thread, modelHandle, intVarHandle, intVarArrayHandle);
 }
 
+void* mddc(void* modelHandle, void* intVarsHandle, void* mddHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_mddc(
+        thread,
+        modelHandle,
+        intVarsHandle,
+        mddHandle
+    );
+}
+
 void* min_iv_iv_iv(void* modelHandle, void* intVarHandle1, void* intVarHandle2, void* intVarHandle3) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ConstraintApi_min_iv_iv_iv(thread, modelHandle, intVarHandle1, intVarHandle2, intVarHandle3);
@@ -1278,6 +1288,28 @@ void* task_get_end(void* taskHandle) {
 void* task_get_duration(void* taskHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_TaskApi_get_duration(thread, taskHandle);
+}
+
+// MDD API
+
+void* create_mdd_tuples(void* intVarsHandle, void* tuplesHandle, int compactOnce, int sortTuples) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_MDDApi_create_mdd_tuples(
+        thread,
+        intVarsHandle,
+        tuplesHandle,
+        compactOnce,
+        sortTuples
+    );
+}
+
+void* create_mdd_transitions(void* intVarsHandle, void* transitionsHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_MDDApi_create_mdd_transitions(
+        thread,
+        intVarsHandle,
+        transitionsHandle
+    );
 }
 
 // Handle API

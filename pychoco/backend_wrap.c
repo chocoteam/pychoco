@@ -5109,6 +5109,38 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_mddc(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  void *arg2 = (void *) 0 ;
+  void *arg3 = (void *) 0 ;
+  int res1 ;
+  int res2 ;
+  int res3 ;
+  PyObject *swig_obj[3] ;
+  void *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "mddc", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "mddc" "', argument " "1"" of type '" "void *""'"); 
+  }
+  res2 = SWIG_ConvertPtr(swig_obj[1],SWIG_as_voidptrptr(&arg2), 0, 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "mddc" "', argument " "2"" of type '" "void *""'"); 
+  }
+  res3 = SWIG_ConvertPtr(swig_obj[2],SWIG_as_voidptrptr(&arg3), 0, 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "mddc" "', argument " "3"" of type '" "void *""'"); 
+  }
+  result = (void *)mddc(arg1,arg2,arg3);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_min_iv_iv_iv(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   void *arg1 = (void *) 0 ;
@@ -8968,6 +9000,74 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_create_mdd_tuples(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  void *arg2 = (void *) 0 ;
+  int arg3 ;
+  int arg4 ;
+  int res1 ;
+  int res2 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  int val4 ;
+  int ecode4 = 0 ;
+  PyObject *swig_obj[4] ;
+  void *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "create_mdd_tuples", 4, 4, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "create_mdd_tuples" "', argument " "1"" of type '" "void *""'"); 
+  }
+  res2 = SWIG_ConvertPtr(swig_obj[1],SWIG_as_voidptrptr(&arg2), 0, 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "create_mdd_tuples" "', argument " "2"" of type '" "void *""'"); 
+  }
+  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "create_mdd_tuples" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = (int)(val3);
+  ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "create_mdd_tuples" "', argument " "4"" of type '" "int""'");
+  } 
+  arg4 = (int)(val4);
+  result = (void *)create_mdd_tuples(arg1,arg2,arg3,arg4);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_create_mdd_transitions(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  void *arg2 = (void *) 0 ;
+  int res1 ;
+  int res2 ;
+  PyObject *swig_obj[2] ;
+  void *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "create_mdd_transitions", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "create_mdd_transitions" "', argument " "1"" of type '" "void *""'"); 
+  }
+  res2 = SWIG_ConvertPtr(swig_obj[1],SWIG_as_voidptrptr(&arg2), 0, 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "create_mdd_transitions" "', argument " "2"" of type '" "void *""'"); 
+  }
+  result = (void *)create_mdd_transitions(arg1,arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_chocosolver_handles_destroy(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   void *arg1 = (void *) 0 ;
@@ -9056,6 +9156,7 @@ static PyMethodDef SwigMethods[] = {
 	 { "div_", _wrap_div_, METH_VARARGS, NULL},
 	 { "max_iv_iv_iv", _wrap_max_iv_iv_iv, METH_VARARGS, NULL},
 	 { "max_iv_ivarray", _wrap_max_iv_ivarray, METH_VARARGS, NULL},
+	 { "mddc", _wrap_mddc, METH_VARARGS, NULL},
 	 { "min_iv_iv_iv", _wrap_min_iv_iv_iv, METH_VARARGS, NULL},
 	 { "min_iv_ivarray", _wrap_min_iv_ivarray, METH_VARARGS, NULL},
 	 { "multi_cost_regular", _wrap_multi_cost_regular, METH_VARARGS, NULL},
@@ -9180,6 +9281,8 @@ static PyMethodDef SwigMethods[] = {
 	 { "task_get_start", _wrap_task_get_start, METH_O, NULL},
 	 { "task_get_end", _wrap_task_get_end, METH_O, NULL},
 	 { "task_get_duration", _wrap_task_get_duration, METH_O, NULL},
+	 { "create_mdd_tuples", _wrap_create_mdd_tuples, METH_VARARGS, NULL},
+	 { "create_mdd_transitions", _wrap_create_mdd_transitions, METH_VARARGS, NULL},
 	 { "chocosolver_handles_destroy", _wrap_chocosolver_handles_destroy, METH_O, NULL},
 	 { NULL, NULL, 0, NULL }
 };

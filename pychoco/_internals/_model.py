@@ -15,6 +15,7 @@ from pychoco._internals._utils import make_intvar_array, make_int_array, make_bo
 from pychoco._internals._utils import make_task_array
 from pychoco.constraints.constraint import Constraint
 from pychoco.model import Model
+from pychoco.objects.graphs.multivalued_decision_diagram import MultivaluedDecisionDiagram
 from pychoco.variables.boolvar import BoolVar
 from pychoco.variables.intvar import IntVar
 
@@ -220,6 +221,11 @@ class _Model(Model, _HandleWrapper):
         int_var_array_handle = make_intvar_array(*intvars)
         constraint_hande = backend.max_iv_ivarray(self.handle, x.handle, int_var_array_handle)
         return _Constraint(constraint_hande, self)
+
+    def mddc(self, intvars: List[IntVar], mdd: MultivaluedDecisionDiagram):
+        intvars_handle = make_intvar_array(*intvars)
+        constraint_handle = backend.mddc(self.handle, intvars_handle, mdd.handle)
+        return _Constraint(constraint_handle, self)
 
     def min(self, x: IntVar, *intvars: List[IntVar]):
         int_var_array_handle = make_intvar_array(*intvars)

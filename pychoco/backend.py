@@ -260,6 +260,9 @@ def max_iv_iv_iv(arg1, arg2, arg3, arg4):
 def max_iv_ivarray(arg1, arg2, arg3):
     return _backend.max_iv_ivarray(arg1, arg2, arg3)
 
+def mddc(arg1, arg2, arg3):
+    return _backend.mddc(arg1, arg2, arg3)
+
 def min_iv_iv_iv(arg1, arg2, arg3, arg4):
     return _backend.min_iv_iv_iv(arg1, arg2, arg3, arg4)
 
@@ -631,6 +634,12 @@ def task_get_end(arg1):
 
 def task_get_duration(arg1):
     return _backend.task_get_duration(arg1)
+
+def create_mdd_tuples(arg1, arg2, arg3, arg4):
+    return _backend.create_mdd_tuples(arg1, arg2, arg3, arg4)
+
+def create_mdd_transitions(arg1, arg2):
+    return _backend.create_mdd_transitions(arg1, arg2)
 
 def chocosolver_handles_destroy(arg1):
     return _backend.chocosolver_handles_destroy(arg1)

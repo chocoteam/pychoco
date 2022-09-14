@@ -223,6 +223,12 @@ max
 .. autofunction:: max
    :noindex:
 
+mddc
+^^^^
+
+.. autofunction:: mddc
+   :noindex:
+
 member
 ^^^^^^
 

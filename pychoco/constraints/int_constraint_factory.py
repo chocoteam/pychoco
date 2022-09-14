@@ -4,6 +4,7 @@ from typing import Union, List
 from pychoco.constraints.constraint import Constraint
 from pychoco.objects.automaton.cost_automaton import CostAutomaton
 from pychoco.objects.automaton.finite_automaton import FiniteAutomaton
+from pychoco.objects.graphs.multivalued_decision_diagram import MultivaluedDecisionDiagram
 from pychoco.variables.boolvar import BoolVar
 from pychoco.variables.intvar import IntVar
 from pychoco.variables.task import Task
@@ -239,6 +240,18 @@ class IntConstraintFactory(ABC):
         :param x: An IntVar.
         :param intvars: A list of IntVars.
         :return: A max constraint.
+        """
+        pass
+
+    @abstractmethod
+    def mddc(self, intvars: List[IntVar], mdd: MultivaluedDecisionDiagram):
+        """
+        Create a constraint where solutions (tuples) are encoded by a multi-valued decision diagram.
+        The order of the variables in vars is important and must refer to the MDD.
+
+        :param intvars: A list of IntVars.
+        :param mdd: A MultiValuedDecisionDiagram object.
+        :return: A mddc constraint.
         """
         pass
 

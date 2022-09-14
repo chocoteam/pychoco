@@ -193,6 +193,8 @@ void* max_iv_iv_iv(void*, void*, void*, void*);
 
 void* max_iv_ivarray(void*, void*, void*);
 
+void* mddc(void*, void*, void*);
+
 void* min_iv_iv_iv(void*, void*, void*, void*);
 
 void* min_iv_ivarray(void*, void*, void*);
@@ -472,6 +474,12 @@ void* task_get_start(void*);
 void* task_get_end(void*);
 
 void* task_get_duration(void*);
+
+// MDD API
+
+void* create_mdd_tuples(void*, void*, int, int);
+
+void* create_mdd_transitions(void*, void*);
 
 // Handle API
 
