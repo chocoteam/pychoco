@@ -288,6 +288,32 @@ void* all_different(void* modelHandle, void* intVarArrayHandle) {
     return Java_org_chocosolver_capi_ConstraintApi_allDifferent(thread, modelHandle, intVarArrayHandle);
 }
 
+void* all_different_except_0(void* modelHandle, void* intVarsHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_allDifferentExcept0(thread, modelHandle, intVarsHandle);
+}
+
+void* all_different_prec_pred_succ(void* modelHandle, void* intVarsHandle, void* predHandle, void* succHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_allDifferentPrecPredSucc(
+        thread,
+        modelHandle,
+        intVarsHandle,
+        predHandle,
+        succHandle
+    );
+}
+
+void* all_different_prec_prec(void* modelHandle, void* intVarsHandle, void* precHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_allDifferentPrecBools(
+        thread,
+        modelHandle,
+        intVarsHandle,
+        precHandle
+    );
+}
+
 void* mod_iv_i_i(void* modelHandle, void* intVarHandle, int mod, int result) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ConstraintApi_mod_iv_i_i(thread, modelHandle, intVarHandle, mod, result);

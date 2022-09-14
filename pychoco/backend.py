@@ -275,6 +275,15 @@ def multi_cost_regular(arg1, arg2, arg3, arg4):
 def all_different(arg1, arg2):
     return _backend.all_different(arg1, arg2)
 
+def all_different_except_0(arg1, arg2):
+    return _backend.all_different_except_0(arg1, arg2)
+
+def all_different_prec_pred_succ(arg1, arg2, arg3, arg4):
+    return _backend.all_different_prec_pred_succ(arg1, arg2, arg3, arg4)
+
+def all_different_prec_prec(arg1, arg2, arg3):
+    return _backend.all_different_prec_prec(arg1, arg2, arg3)
+
 def all_equal(arg1, arg2):
     return _backend.all_equal(arg1, arg2)
 

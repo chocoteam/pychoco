@@ -244,6 +244,18 @@ class _Model(Model, _HandleWrapper):
         constraint_handle = backend.all_different(self.handle, vars_array)
         return _Constraint(constraint_handle, self)
 
+    def all_different_except_0(self, *intvars: List[IntVar]):
+        vars_array = make_intvar_array(*intvars)
+        constraint_handle = backend.all_different_except_0(self.handle, vars_array)
+        return _Constraint(constraint_handle, self)
+
+    def all_different_prec(self, *intvars: List[IntVar], predecessors: List[List[int]], successors: List[List[int]]):
+        intvars_handle = make_intvar_array(*intvars)
+        predHandle = make_int_2d_array(*predecessors)
+        succHandle = make_int_2d_array(*successors)
+        constraint_handle = backend.all_different_prec_pred_succ(self.handle, intvars_handle, predHandle, succHandle)
+        return _Constraint(constraint_handle, self)
+
     def all_equal(self, *intvars: List[IntVar]):
         vars_array = make_intvar_array(*intvars)
         constraint_handle = backend.all_equal(self.handle, vars_array)

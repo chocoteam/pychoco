@@ -117,6 +117,12 @@ void* member_iv_i_i(void*, void*, int, int);
 
 void* all_different(void*, void*);
 
+void* all_different_except_0(void*, void*);
+
+void* all_different_prec_pred_succ(void*, void*, void*, void*);
+
+void* all_different_prec_prec(void*, void*, void*);
+
 void* mod_iv_i_i(void*, void*, int, int);
 
 void* mod_iv_i_iv(void*, void*, int, void*);

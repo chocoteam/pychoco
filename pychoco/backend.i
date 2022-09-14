@@ -203,6 +203,12 @@ void* multi_cost_regular(void*, void*, void*, void*);
 
 void* all_different(void*, void*);
 
+void* all_different_except_0(void*, void*);
+
+void* all_different_prec_pred_succ(void*, void*, void*, void*);
+
+void* all_different_prec_prec(void*, void*, void*);
+
 void* all_equal(void*, void*);
 
 void* not_all_equal(void*, void*);

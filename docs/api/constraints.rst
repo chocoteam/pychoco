@@ -31,6 +31,18 @@ all_different
 .. autofunction:: all_different
    :noindex:
 
+all_different_except_0
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: all_different_except_0
+   :noindex:
+
+all_different_prec
+^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: all_different_prec
+   :noindex:
+
 all_equal
 ^^^^^^^^^
 

@@ -5275,6 +5275,102 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_all_different_except_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  void *arg2 = (void *) 0 ;
+  int res1 ;
+  int res2 ;
+  PyObject *swig_obj[2] ;
+  void *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "all_different_except_0", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "all_different_except_0" "', argument " "1"" of type '" "void *""'"); 
+  }
+  res2 = SWIG_ConvertPtr(swig_obj[1],SWIG_as_voidptrptr(&arg2), 0, 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "all_different_except_0" "', argument " "2"" of type '" "void *""'"); 
+  }
+  result = (void *)all_different_except_0(arg1,arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_all_different_prec_pred_succ(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  void *arg2 = (void *) 0 ;
+  void *arg3 = (void *) 0 ;
+  void *arg4 = (void *) 0 ;
+  int res1 ;
+  int res2 ;
+  int res3 ;
+  int res4 ;
+  PyObject *swig_obj[4] ;
+  void *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "all_different_prec_pred_succ", 4, 4, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "all_different_prec_pred_succ" "', argument " "1"" of type '" "void *""'"); 
+  }
+  res2 = SWIG_ConvertPtr(swig_obj[1],SWIG_as_voidptrptr(&arg2), 0, 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "all_different_prec_pred_succ" "', argument " "2"" of type '" "void *""'"); 
+  }
+  res3 = SWIG_ConvertPtr(swig_obj[2],SWIG_as_voidptrptr(&arg3), 0, 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "all_different_prec_pred_succ" "', argument " "3"" of type '" "void *""'"); 
+  }
+  res4 = SWIG_ConvertPtr(swig_obj[3],SWIG_as_voidptrptr(&arg4), 0, 0);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "all_different_prec_pred_succ" "', argument " "4"" of type '" "void *""'"); 
+  }
+  result = (void *)all_different_prec_pred_succ(arg1,arg2,arg3,arg4);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_all_different_prec_prec(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  void *arg2 = (void *) 0 ;
+  void *arg3 = (void *) 0 ;
+  int res1 ;
+  int res2 ;
+  int res3 ;
+  PyObject *swig_obj[3] ;
+  void *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "all_different_prec_prec", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "all_different_prec_prec" "', argument " "1"" of type '" "void *""'"); 
+  }
+  res2 = SWIG_ConvertPtr(swig_obj[1],SWIG_as_voidptrptr(&arg2), 0, 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "all_different_prec_prec" "', argument " "2"" of type '" "void *""'"); 
+  }
+  res3 = SWIG_ConvertPtr(swig_obj[2],SWIG_as_voidptrptr(&arg3), 0, 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "all_different_prec_prec" "', argument " "3"" of type '" "void *""'"); 
+  }
+  result = (void *)all_different_prec_prec(arg1,arg2,arg3);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_all_equal(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   void *arg1 = (void *) 0 ;
@@ -9161,6 +9257,9 @@ static PyMethodDef SwigMethods[] = {
 	 { "min_iv_ivarray", _wrap_min_iv_ivarray, METH_VARARGS, NULL},
 	 { "multi_cost_regular", _wrap_multi_cost_regular, METH_VARARGS, NULL},
 	 { "all_different", _wrap_all_different, METH_VARARGS, NULL},
+	 { "all_different_except_0", _wrap_all_different_except_0, METH_VARARGS, NULL},
+	 { "all_different_prec_pred_succ", _wrap_all_different_prec_pred_succ, METH_VARARGS, NULL},
+	 { "all_different_prec_prec", _wrap_all_different_prec_prec, METH_VARARGS, NULL},
 	 { "all_equal", _wrap_all_equal, METH_VARARGS, NULL},
 	 { "not_all_equal", _wrap_not_all_equal, METH_VARARGS, NULL},
 	 { "among", _wrap_among, METH_VARARGS, NULL},
