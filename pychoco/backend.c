@@ -606,6 +606,18 @@ void* int_value_precede_chain(void* modelHandle, void* intVarsHandle, void* VHan
     );
 }
 
+void* keysort(void* modelHandle, void* varsHandle, void* permVarsHandle, void* sortedVarsHandle, int k) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_keysort(
+        thread,
+        modelHandle,
+        varsHandle,
+        permVarsHandle,
+        sortedVarsHandle,
+        k
+    );
+}
+
 void* knapsack(void* modelHandle, void* occurrencesHandle, void* weightSumHandle, void* energySumHandle,
                void* weightHandle, void* energyHandle) {
     LAZY_THREAD_ATTACH
@@ -865,6 +877,22 @@ void intvar_array_set(void* arrayHandle, void* intVarHandle, int index) {
     Java_org_chocosolver_capi_ArrayApi_intVar_set(thread, arrayHandle, intVarHandle, index);
 }
 
+// IntVar[][]
+
+void* create_intvar_array_array(int size) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_intVar_array_create(thread, size);
+}
+
+int intvar_array_array_length(void* arrayHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_intVar_array_length(thread, arrayHandle);
+}
+
+void intvar_array_array_set(void* arrayHandle, void* intVarArrayHandle, int index) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ArrayApi_intVar_array_set(thread, arrayHandle, intVarArrayHandle, index);
+}
 // Tasks
 
 void* create_task_array(int size) {

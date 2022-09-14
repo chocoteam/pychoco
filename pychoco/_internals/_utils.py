@@ -59,6 +59,19 @@ def make_intvar_array(*intvars: List[IntVar]):
     return vars_array
 
 
+def make_intvar_array_array(*arrays: List[List[IntVar]]):
+    """
+    Creates a Java IntVar[][] handle from a list of Python IntVar lists.
+    :param arrays: A list of Intvar lists.
+    :return: A Java IntVar[][] handle.
+    """
+    intvar_array_array = backend.create_intvar_array_array(len(arrays))
+    for i in range(0, len(arrays)):
+        handle = make_intvar_array(*arrays[i])
+        backend.intvar_array_array_set(intvar_array_array, handle, i)
+    return intvar_array_array
+
+
 def make_boolvar_array(*boolvars: List[BoolVar]):
     """
     Creates a Java BoolVar[] handle from a list of Python BoolVars

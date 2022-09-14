@@ -243,6 +243,8 @@ void* inverse_channeling(void*, void*, void*, int, int, int);
 
 void* int_value_precede_chain(void*, void*, void*);
 
+void* keysort(void*, void*, void*, void*, int);
+
 void* knapsack(void*, void*, void*, void*, void*, void*);
 
 void* lex_chain_less(void*, void*);
@@ -298,6 +300,14 @@ void* create_intvar_array(int);
 int intvar_array_length(void*);
 
 void intvar_array_set(void*, void*, int);
+
+// IntVar[][]
+
+void* create_intvar_array_array(int);
+
+int intvar_array_array_length(void*);
+
+void intvar_array_array_set(void*, void*, int);
 
 // Tasks
 

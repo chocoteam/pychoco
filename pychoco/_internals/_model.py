@@ -11,6 +11,7 @@ from pychoco._internals._solver import _Solver
 from pychoco._internals._task import _Task
 from pychoco._internals._utils import make_intvar_array, make_int_array, make_boolvar_array, make_constraint_array, \
     make_int_array_array
+from pychoco._internals._utils import make_intvar_array_array
 from pychoco._internals._utils import make_task_array
 from pychoco.constraints.constraint import Constraint
 from pychoco.model import Model
@@ -359,6 +360,17 @@ class _Model(Model, _HandleWrapper):
         intvars_handle = make_intvar_array(*intvars)
         values_handle = make_int_array(*values)
         constraint_handle = backend.int_value_precede_chain(self.handle, intvars_handle, values_handle)
+        return _Constraint(constraint_handle, self)
+
+    def keysort(self, intvars: List[List[IntVar]], permutation_intvars: Union[List[IntVar], None],
+                sorted_intvars: List[List[IntVar]], k: int):
+        intvars_handle = make_intvar_array_array(*intvars)
+        permutation_intvars_handle = None
+        if permutation_intvars is not None:
+            permutation_intvars_handle = make_intvar_array(*permutation_intvars)
+        sorted_intvars_handle = make_intvar_array_array(*sorted_intvars)
+        constraint_handle = backend.keysort(self.handle, intvars_handle, permutation_intvars_handle,
+                                            sorted_intvars_handle, k)
         return _Constraint(constraint_handle, self)
 
     def knapsack(self, occurrences: List[IntVar], weight_sum: IntVar, energy_sum: IntVar, weight: List[int],

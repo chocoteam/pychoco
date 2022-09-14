@@ -6,7 +6,7 @@ from pychoco.objects.automaton.cost_automaton import CostAutomaton
 from pychoco.objects.automaton.finite_automaton import FiniteAutomaton
 from pychoco.variables.boolvar import BoolVar
 from pychoco.variables.intvar import IntVar
-from variables.task import Task
+from pychoco.variables.task import Task
 
 
 class IntConstraintFactory(ABC):
@@ -570,6 +570,23 @@ class IntConstraintFactory(ABC):
         :param intvars: A list of IntVars.
         :param values: A list of distinct ints.
         :return: An int_value_precede_chain constraint.
+        """
+        pass
+
+    @abstractmethod
+    def keysort(self, intvars: List[List[IntVar]], permutation_intvars: Union[List[IntVar], None],
+                sorted_intvars: List[List[IntVar]], k: int):
+        """
+        Creates a keySort constraint which ensures that the variables of `sorted_intvars` correspond to the variables
+        of `intvars` according to a permutation stored in `permutation_variables` (optional, can be null).
+        The variables of `sorted_intvars` are also sorted in increasing order wrt to `k`-size tuples.
+        The sort is stable, that is, ties are broken using the position of the tuple in vars.
+
+        :param intvars: A list of list of Intvars.
+        :param permutation_intvars: List of permutation variables, domains should be [1, len(intvars)] -- Can be null
+        :param sorted_intvars: List of array of variables sorted in increasing order.
+        :param k: key prefix size (0 <= k <= m, where m is the size of intvars).
+        :return: A keysort constraint.
         """
         pass
 

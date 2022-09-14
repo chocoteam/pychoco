@@ -335,6 +335,9 @@ def inverse_channeling(arg1, arg2, arg3, arg4, arg5, arg6):
 def int_value_precede_chain(arg1, arg2, arg3):
     return _backend.int_value_precede_chain(arg1, arg2, arg3)
 
+def keysort(arg1, arg2, arg3, arg4, arg5):
+    return _backend.keysort(arg1, arg2, arg3, arg4, arg5)
+
 def knapsack(arg1, arg2, arg3, arg4, arg5, arg6):
     return _backend.knapsack(arg1, arg2, arg3, arg4, arg5, arg6)
 
@@ -412,6 +415,15 @@ def intvar_array_length(arg1):
 
 def intvar_array_set(arg1, arg2, arg3):
     return _backend.intvar_array_set(arg1, arg2, arg3)
+
+def create_intvar_array_array(arg1):
+    return _backend.create_intvar_array_array(arg1)
+
+def intvar_array_array_length(arg1):
+    return _backend.intvar_array_array_length(arg1)
+
+def intvar_array_array_set(arg1, arg2, arg3):
+    return _backend.intvar_array_array_set(arg1, arg2, arg3)
 
 def create_task_array(arg1):
     return _backend.create_task_array(arg1)
