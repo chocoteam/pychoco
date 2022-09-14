@@ -241,6 +241,12 @@ mod
 .. autofunction:: mod
    :noindex:
 
+multi_cost_regular
+^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: multi_cost_regular
+   :noindex:
+
 n_values
 ^^^^^^^^
 
