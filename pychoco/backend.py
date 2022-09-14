@@ -266,6 +266,9 @@ def min_iv_iv_iv(arg1, arg2, arg3, arg4):
 def min_iv_ivarray(arg1, arg2, arg3):
     return _backend.min_iv_ivarray(arg1, arg2, arg3)
 
+def multi_cost_regular(arg1, arg2, arg3, arg4):
+    return _backend.multi_cost_regular(arg1, arg2, arg3, arg4)
+
 def all_different(arg1, arg2):
     return _backend.all_different(arg1, arg2)
 
@@ -416,14 +419,14 @@ def intvar_array_length(arg1):
 def intvar_array_set(arg1, arg2, arg3):
     return _backend.intvar_array_set(arg1, arg2, arg3)
 
-def create_intvar_array_array(arg1):
-    return _backend.create_intvar_array_array(arg1)
+def create_intvar_2d_array(arg1):
+    return _backend.create_intvar_2d_array(arg1)
 
-def intvar_array_array_length(arg1):
-    return _backend.intvar_array_array_length(arg1)
+def intvar_2d_array_length(arg1):
+    return _backend.intvar_2d_array_length(arg1)
 
-def intvar_array_array_set(arg1, arg2, arg3):
-    return _backend.intvar_array_array_set(arg1, arg2, arg3)
+def intvar_2d_array_set(arg1, arg2, arg3):
+    return _backend.intvar_2d_array_set(arg1, arg2, arg3)
 
 def create_task_array(arg1):
     return _backend.create_task_array(arg1)
@@ -455,23 +458,32 @@ def int_array_length(arg1):
 def int_array_set(arg1, arg2, arg3):
     return _backend.int_array_set(arg1, arg2, arg3)
 
-def create_int_array_array(arg1):
-    return _backend.create_int_array_array(arg1)
+def create_int_2d_array(arg1):
+    return _backend.create_int_2d_array(arg1)
 
-def int_array_array_length(arg1):
-    return _backend.int_array_array_length(arg1)
+def int_2d_array_length(arg1):
+    return _backend.int_2d_array_length(arg1)
 
-def int_array_array_set(arg1, arg2, arg3):
-    return _backend.int_array_array_set(arg1, arg2, arg3)
+def int_2d_array_set(arg1, arg2, arg3):
+    return _backend.int_2d_array_set(arg1, arg2, arg3)
 
-def create_int_array_array_array(arg1):
-    return _backend.create_int_array_array_array(arg1)
+def create_int_3d_array(arg1):
+    return _backend.create_int_3d_array(arg1)
 
-def int_array_array_array_length(arg1):
-    return _backend.int_array_array_array_length(arg1)
+def int_3d_array_length(arg1):
+    return _backend.int_3d_array_length(arg1)
 
-def int_array_array_array_set(arg1, arg2, arg3):
-    return _backend.int_array_array_array_set(arg1, arg2, arg3)
+def int_3d_array_set(arg1, arg2, arg3):
+    return _backend.int_3d_array_set(arg1, arg2, arg3)
+
+def create_int_4d_array(arg1):
+    return _backend.create_int_4d_array(arg1)
+
+def int_4d_array_length(arg1):
+    return _backend.int_4d_array_length(arg1)
+
+def int_4d_array_set(arg1, arg2, arg3):
+    return _backend.int_4d_array_set(arg1, arg2, arg3)
 
 def create_criterion_array(arg1):
     return _backend.create_criterion_array(arg1)
@@ -592,6 +604,12 @@ def make_single_resource_ii(arg1, arg2, arg3, arg4):
 
 def make_single_resource_iii(arg1, arg2, arg3, arg4):
     return _backend.make_single_resource_iii(arg1, arg2, arg3, arg4)
+
+def make_multi_resources_iii(arg1, arg2, arg3):
+    return _backend.make_multi_resources_iii(arg1, arg2, arg3)
+
+def make_multi_resources_iiii(arg1, arg2, arg3):
+    return _backend.make_multi_resources_iiii(arg1, arg2, arg3)
 
 def create_task_iv_i(arg1, arg2):
     return _backend.create_task_iv_i(arg1, arg2)

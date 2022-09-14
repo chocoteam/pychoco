@@ -5179,6 +5179,44 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_multi_cost_regular(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  void *arg2 = (void *) 0 ;
+  void *arg3 = (void *) 0 ;
+  void *arg4 = (void *) 0 ;
+  int res1 ;
+  int res2 ;
+  int res3 ;
+  int res4 ;
+  PyObject *swig_obj[4] ;
+  void *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "multi_cost_regular", 4, 4, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "multi_cost_regular" "', argument " "1"" of type '" "void *""'"); 
+  }
+  res2 = SWIG_ConvertPtr(swig_obj[1],SWIG_as_voidptrptr(&arg2), 0, 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "multi_cost_regular" "', argument " "2"" of type '" "void *""'"); 
+  }
+  res3 = SWIG_ConvertPtr(swig_obj[2],SWIG_as_voidptrptr(&arg3), 0, 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "multi_cost_regular" "', argument " "3"" of type '" "void *""'"); 
+  }
+  res4 = SWIG_ConvertPtr(swig_obj[3],SWIG_as_voidptrptr(&arg4), 0, 0);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "multi_cost_regular" "', argument " "4"" of type '" "void *""'"); 
+  }
+  result = (void *)multi_cost_regular(arg1,arg2,arg3,arg4);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_all_different(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   void *arg1 = (void *) 0 ;
@@ -7058,7 +7096,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_create_intvar_array_array(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_create_intvar_2d_array(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   int arg1 ;
   int val1 ;
@@ -7070,10 +7108,10 @@ SWIGINTERN PyObject *_wrap_create_intvar_array_array(PyObject *SWIGUNUSEDPARM(se
   swig_obj[0] = args;
   ecode1 = SWIG_AsVal_int(swig_obj[0], &val1);
   if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "create_intvar_array_array" "', argument " "1"" of type '" "int""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "create_intvar_2d_array" "', argument " "1"" of type '" "int""'");
   } 
   arg1 = (int)(val1);
-  result = (void *)create_intvar_array_array(arg1);
+  result = (void *)create_intvar_2d_array(arg1);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
   return resultobj;
 fail:
@@ -7081,7 +7119,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_intvar_array_array_length(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_intvar_2d_array_length(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   void *arg1 = (void *) 0 ;
   int res1 ;
@@ -7092,9 +7130,9 @@ SWIGINTERN PyObject *_wrap_intvar_array_array_length(PyObject *SWIGUNUSEDPARM(se
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "intvar_array_array_length" "', argument " "1"" of type '" "void *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "intvar_2d_array_length" "', argument " "1"" of type '" "void *""'"); 
   }
-  result = (int)intvar_array_array_length(arg1);
+  result = (int)intvar_2d_array_length(arg1);
   resultobj = SWIG_From_int((int)(result));
   return resultobj;
 fail:
@@ -7102,7 +7140,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_intvar_array_array_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_intvar_2d_array_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   void *arg1 = (void *) 0 ;
   void *arg2 = (void *) 0 ;
@@ -7113,21 +7151,21 @@ SWIGINTERN PyObject *_wrap_intvar_array_array_set(PyObject *SWIGUNUSEDPARM(self)
   int ecode3 = 0 ;
   PyObject *swig_obj[3] ;
   
-  if (!SWIG_Python_UnpackTuple(args, "intvar_array_array_set", 3, 3, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "intvar_2d_array_set", 3, 3, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "intvar_array_array_set" "', argument " "1"" of type '" "void *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "intvar_2d_array_set" "', argument " "1"" of type '" "void *""'"); 
   }
   res2 = SWIG_ConvertPtr(swig_obj[1],SWIG_as_voidptrptr(&arg2), 0, 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "intvar_array_array_set" "', argument " "2"" of type '" "void *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "intvar_2d_array_set" "', argument " "2"" of type '" "void *""'"); 
   }
   ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "intvar_array_array_set" "', argument " "3"" of type '" "int""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "intvar_2d_array_set" "', argument " "3"" of type '" "int""'");
   } 
   arg3 = (int)(val3);
-  intvar_array_array_set(arg1,arg2,arg3);
+  intvar_2d_array_set(arg1,arg2,arg3);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -7403,7 +7441,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_create_int_array_array(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_create_int_2d_array(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   int arg1 ;
   int val1 ;
@@ -7415,10 +7453,10 @@ SWIGINTERN PyObject *_wrap_create_int_array_array(PyObject *SWIGUNUSEDPARM(self)
   swig_obj[0] = args;
   ecode1 = SWIG_AsVal_int(swig_obj[0], &val1);
   if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "create_int_array_array" "', argument " "1"" of type '" "int""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "create_int_2d_array" "', argument " "1"" of type '" "int""'");
   } 
   arg1 = (int)(val1);
-  result = (void *)create_int_array_array(arg1);
+  result = (void *)create_int_2d_array(arg1);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
   return resultobj;
 fail:
@@ -7426,7 +7464,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_int_array_array_length(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_int_2d_array_length(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   void *arg1 = (void *) 0 ;
   int res1 ;
@@ -7437,9 +7475,9 @@ SWIGINTERN PyObject *_wrap_int_array_array_length(PyObject *SWIGUNUSEDPARM(self)
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "int_array_array_length" "', argument " "1"" of type '" "void *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "int_2d_array_length" "', argument " "1"" of type '" "void *""'"); 
   }
-  result = (int)int_array_array_length(arg1);
+  result = (int)int_2d_array_length(arg1);
   resultobj = SWIG_From_int((int)(result));
   return resultobj;
 fail:
@@ -7447,7 +7485,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_int_array_array_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_int_2d_array_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   void *arg1 = (void *) 0 ;
   void *arg2 = (void *) 0 ;
@@ -7458,21 +7496,21 @@ SWIGINTERN PyObject *_wrap_int_array_array_set(PyObject *SWIGUNUSEDPARM(self), P
   int ecode3 = 0 ;
   PyObject *swig_obj[3] ;
   
-  if (!SWIG_Python_UnpackTuple(args, "int_array_array_set", 3, 3, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "int_2d_array_set", 3, 3, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "int_array_array_set" "', argument " "1"" of type '" "void *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "int_2d_array_set" "', argument " "1"" of type '" "void *""'"); 
   }
   res2 = SWIG_ConvertPtr(swig_obj[1],SWIG_as_voidptrptr(&arg2), 0, 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "int_array_array_set" "', argument " "2"" of type '" "void *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "int_2d_array_set" "', argument " "2"" of type '" "void *""'"); 
   }
   ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "int_array_array_set" "', argument " "3"" of type '" "int""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "int_2d_array_set" "', argument " "3"" of type '" "int""'");
   } 
   arg3 = (int)(val3);
-  int_array_array_set(arg1,arg2,arg3);
+  int_2d_array_set(arg1,arg2,arg3);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -7480,7 +7518,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_create_int_array_array_array(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_create_int_3d_array(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   int arg1 ;
   int val1 ;
@@ -7492,10 +7530,10 @@ SWIGINTERN PyObject *_wrap_create_int_array_array_array(PyObject *SWIGUNUSEDPARM
   swig_obj[0] = args;
   ecode1 = SWIG_AsVal_int(swig_obj[0], &val1);
   if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "create_int_array_array_array" "', argument " "1"" of type '" "int""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "create_int_3d_array" "', argument " "1"" of type '" "int""'");
   } 
   arg1 = (int)(val1);
-  result = (void *)create_int_array_array_array(arg1);
+  result = (void *)create_int_3d_array(arg1);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
   return resultobj;
 fail:
@@ -7503,7 +7541,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_int_array_array_array_length(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_int_3d_array_length(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   void *arg1 = (void *) 0 ;
   int res1 ;
@@ -7514,9 +7552,9 @@ SWIGINTERN PyObject *_wrap_int_array_array_array_length(PyObject *SWIGUNUSEDPARM
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "int_array_array_array_length" "', argument " "1"" of type '" "void *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "int_3d_array_length" "', argument " "1"" of type '" "void *""'"); 
   }
-  result = (int)int_array_array_array_length(arg1);
+  result = (int)int_3d_array_length(arg1);
   resultobj = SWIG_From_int((int)(result));
   return resultobj;
 fail:
@@ -7524,7 +7562,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_int_array_array_array_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_int_3d_array_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   void *arg1 = (void *) 0 ;
   void *arg2 = (void *) 0 ;
@@ -7535,21 +7573,98 @@ SWIGINTERN PyObject *_wrap_int_array_array_array_set(PyObject *SWIGUNUSEDPARM(se
   int ecode3 = 0 ;
   PyObject *swig_obj[3] ;
   
-  if (!SWIG_Python_UnpackTuple(args, "int_array_array_array_set", 3, 3, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "int_3d_array_set", 3, 3, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "int_array_array_array_set" "', argument " "1"" of type '" "void *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "int_3d_array_set" "', argument " "1"" of type '" "void *""'"); 
   }
   res2 = SWIG_ConvertPtr(swig_obj[1],SWIG_as_voidptrptr(&arg2), 0, 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "int_array_array_array_set" "', argument " "2"" of type '" "void *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "int_3d_array_set" "', argument " "2"" of type '" "void *""'"); 
   }
   ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "int_array_array_array_set" "', argument " "3"" of type '" "int""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "int_3d_array_set" "', argument " "3"" of type '" "int""'");
   } 
   arg3 = (int)(val3);
-  int_array_array_array_set(arg1,arg2,arg3);
+  int_3d_array_set(arg1,arg2,arg3);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_create_int_4d_array(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  int arg1 ;
+  int val1 ;
+  int ecode1 = 0 ;
+  PyObject *swig_obj[1] ;
+  void *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  ecode1 = SWIG_AsVal_int(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "create_int_4d_array" "', argument " "1"" of type '" "int""'");
+  } 
+  arg1 = (int)(val1);
+  result = (void *)create_int_4d_array(arg1);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_int_4d_array_length(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  int res1 ;
+  PyObject *swig_obj[1] ;
+  int result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "int_4d_array_length" "', argument " "1"" of type '" "void *""'"); 
+  }
+  result = (int)int_4d_array_length(arg1);
+  resultobj = SWIG_From_int((int)(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_int_4d_array_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  void *arg2 = (void *) 0 ;
+  int arg3 ;
+  int res1 ;
+  int res2 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "int_4d_array_set", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "int_4d_array_set" "', argument " "1"" of type '" "void *""'"); 
+  }
+  res2 = SWIG_ConvertPtr(swig_obj[1],SWIG_as_voidptrptr(&arg2), 0, 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "int_4d_array_set" "', argument " "2"" of type '" "void *""'"); 
+  }
+  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "int_4d_array_set" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = (int)(val3);
+  int_4d_array_set(arg1,arg2,arg3);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -8612,6 +8727,70 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_make_multi_resources_iii(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  void *arg2 = (void *) 0 ;
+  void *arg3 = (void *) 0 ;
+  int res1 ;
+  int res2 ;
+  int res3 ;
+  PyObject *swig_obj[3] ;
+  void *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "make_multi_resources_iii", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "make_multi_resources_iii" "', argument " "1"" of type '" "void *""'"); 
+  }
+  res2 = SWIG_ConvertPtr(swig_obj[1],SWIG_as_voidptrptr(&arg2), 0, 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "make_multi_resources_iii" "', argument " "2"" of type '" "void *""'"); 
+  }
+  res3 = SWIG_ConvertPtr(swig_obj[2],SWIG_as_voidptrptr(&arg3), 0, 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "make_multi_resources_iii" "', argument " "3"" of type '" "void *""'"); 
+  }
+  result = (void *)make_multi_resources_iii(arg1,arg2,arg3);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_make_multi_resources_iiii(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  void *arg2 = (void *) 0 ;
+  void *arg3 = (void *) 0 ;
+  int res1 ;
+  int res2 ;
+  int res3 ;
+  PyObject *swig_obj[3] ;
+  void *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "make_multi_resources_iiii", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "make_multi_resources_iiii" "', argument " "1"" of type '" "void *""'"); 
+  }
+  res2 = SWIG_ConvertPtr(swig_obj[1],SWIG_as_voidptrptr(&arg2), 0, 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "make_multi_resources_iiii" "', argument " "2"" of type '" "void *""'"); 
+  }
+  res3 = SWIG_ConvertPtr(swig_obj[2],SWIG_as_voidptrptr(&arg3), 0, 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "make_multi_resources_iiii" "', argument " "3"" of type '" "void *""'"); 
+  }
+  result = (void *)make_multi_resources_iiii(arg1,arg2,arg3);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_create_task_iv_i(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   void *arg1 = (void *) 0 ;
@@ -8879,6 +9058,7 @@ static PyMethodDef SwigMethods[] = {
 	 { "max_iv_ivarray", _wrap_max_iv_ivarray, METH_VARARGS, NULL},
 	 { "min_iv_iv_iv", _wrap_min_iv_iv_iv, METH_VARARGS, NULL},
 	 { "min_iv_ivarray", _wrap_min_iv_ivarray, METH_VARARGS, NULL},
+	 { "multi_cost_regular", _wrap_multi_cost_regular, METH_VARARGS, NULL},
 	 { "all_different", _wrap_all_different, METH_VARARGS, NULL},
 	 { "all_equal", _wrap_all_equal, METH_VARARGS, NULL},
 	 { "not_all_equal", _wrap_not_all_equal, METH_VARARGS, NULL},
@@ -8929,9 +9109,9 @@ static PyMethodDef SwigMethods[] = {
 	 { "create_intvar_array", _wrap_create_intvar_array, METH_O, NULL},
 	 { "intvar_array_length", _wrap_intvar_array_length, METH_O, NULL},
 	 { "intvar_array_set", _wrap_intvar_array_set, METH_VARARGS, NULL},
-	 { "create_intvar_array_array", _wrap_create_intvar_array_array, METH_O, NULL},
-	 { "intvar_array_array_length", _wrap_intvar_array_array_length, METH_O, NULL},
-	 { "intvar_array_array_set", _wrap_intvar_array_array_set, METH_VARARGS, NULL},
+	 { "create_intvar_2d_array", _wrap_create_intvar_2d_array, METH_O, NULL},
+	 { "intvar_2d_array_length", _wrap_intvar_2d_array_length, METH_O, NULL},
+	 { "intvar_2d_array_set", _wrap_intvar_2d_array_set, METH_VARARGS, NULL},
 	 { "create_task_array", _wrap_create_task_array, METH_O, NULL},
 	 { "task_array_length", _wrap_task_array_length, METH_O, NULL},
 	 { "task_array_set", _wrap_task_array_set, METH_VARARGS, NULL},
@@ -8942,12 +9122,15 @@ static PyMethodDef SwigMethods[] = {
 	 { "create_int_array", _wrap_create_int_array, METH_O, NULL},
 	 { "int_array_length", _wrap_int_array_length, METH_O, NULL},
 	 { "int_array_set", _wrap_int_array_set, METH_VARARGS, NULL},
-	 { "create_int_array_array", _wrap_create_int_array_array, METH_O, NULL},
-	 { "int_array_array_length", _wrap_int_array_array_length, METH_O, NULL},
-	 { "int_array_array_set", _wrap_int_array_array_set, METH_VARARGS, NULL},
-	 { "create_int_array_array_array", _wrap_create_int_array_array_array, METH_O, NULL},
-	 { "int_array_array_array_length", _wrap_int_array_array_array_length, METH_O, NULL},
-	 { "int_array_array_array_set", _wrap_int_array_array_array_set, METH_VARARGS, NULL},
+	 { "create_int_2d_array", _wrap_create_int_2d_array, METH_O, NULL},
+	 { "int_2d_array_length", _wrap_int_2d_array_length, METH_O, NULL},
+	 { "int_2d_array_set", _wrap_int_2d_array_set, METH_VARARGS, NULL},
+	 { "create_int_3d_array", _wrap_create_int_3d_array, METH_O, NULL},
+	 { "int_3d_array_length", _wrap_int_3d_array_length, METH_O, NULL},
+	 { "int_3d_array_set", _wrap_int_3d_array_set, METH_VARARGS, NULL},
+	 { "create_int_4d_array", _wrap_create_int_4d_array, METH_O, NULL},
+	 { "int_4d_array_length", _wrap_int_4d_array_length, METH_O, NULL},
+	 { "int_4d_array_set", _wrap_int_4d_array_set, METH_VARARGS, NULL},
 	 { "create_criterion_array", _wrap_create_criterion_array, METH_O, NULL},
 	 { "criterion_array_set", _wrap_criterion_array_set, METH_VARARGS, NULL},
 	 { "array_length", _wrap_array_length, METH_O, NULL},
@@ -8988,6 +9171,8 @@ static PyMethodDef SwigMethods[] = {
 	 { "create_counter_state", _wrap_create_counter_state, METH_VARARGS, NULL},
 	 { "make_single_resource_ii", _wrap_make_single_resource_ii, METH_VARARGS, NULL},
 	 { "make_single_resource_iii", _wrap_make_single_resource_iii, METH_VARARGS, NULL},
+	 { "make_multi_resources_iii", _wrap_make_multi_resources_iii, METH_VARARGS, NULL},
+	 { "make_multi_resources_iiii", _wrap_make_multi_resources_iiii, METH_VARARGS, NULL},
 	 { "create_task_iv_i", _wrap_create_task_iv_i, METH_VARARGS, NULL},
 	 { "create_task_iv_i_iv", _wrap_create_task_iv_i_iv, METH_VARARGS, NULL},
 	 { "create_task_iv_iv_iv", _wrap_create_task_iv_iv_iv, METH_VARARGS, NULL},

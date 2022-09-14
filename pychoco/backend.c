@@ -398,6 +398,16 @@ void* min_iv_ivarray(void* modelHandle, void* intVarHandle, void* intVarArrayHan
     return Java_org_chocosolver_capi_ConstraintApi_min_iv_ivarray(thread, modelHandle, intVarHandle, intVarArrayHandle);
 }
 
+void* multi_cost_regular(void* modelHandle, void* intVarsHandle, void* costsHandle, void* automatonHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_multiCostRegular(thread,
+        modelHandle,
+        intVarsHandle,
+        costsHandle,
+        automatonHandle
+    );
+}
+
 void* all_equal(void* modelHandle, void* intVarArrayHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ConstraintApi_all_equal(thread, modelHandle, intVarArrayHandle);
@@ -879,19 +889,19 @@ void intvar_array_set(void* arrayHandle, void* intVarHandle, int index) {
 
 // IntVar[][]
 
-void* create_intvar_array_array(int size) {
+void* create_intvar_2d_array(int size) {
     LAZY_THREAD_ATTACH
-    return Java_org_chocosolver_capi_ArrayApi_intVar_array_create(thread, size);
+    return Java_org_chocosolver_capi_ArrayApi_intVar_2d_array_create(thread, size);
 }
 
-int intvar_array_array_length(void* arrayHandle) {
+int intvar_2d_array_length(void* arrayHandle) {
     LAZY_THREAD_ATTACH
-    return Java_org_chocosolver_capi_ArrayApi_intVar_array_length(thread, arrayHandle);
+    return Java_org_chocosolver_capi_ArrayApi_intVar_2d_array_length(thread, arrayHandle);
 }
 
-void intvar_array_array_set(void* arrayHandle, void* intVarArrayHandle, int index) {
+void intvar_2d_array_set(void* arrayHandle, void* intVarArrayHandle, int index) {
     LAZY_THREAD_ATTACH
-    Java_org_chocosolver_capi_ArrayApi_intVar_array_set(thread, arrayHandle, intVarArrayHandle, index);
+    Java_org_chocosolver_capi_ArrayApi_intVar_2d_array_set(thread, arrayHandle, intVarArrayHandle, index);
 }
 // Tasks
 
@@ -909,7 +919,6 @@ void task_array_set(void* arrayHandle, void* elementHandle, int index) {
     LAZY_THREAD_ATTACH
     Java_org_chocosolver_capi_ArrayApi_task_set(thread, arrayHandle, elementHandle, index);
 }
-
 
 // BoolVar
 
@@ -954,36 +963,53 @@ void int_array_set(void* intArrayHandle, int element, int index) {
 
 // int[][]
 
-void* create_int_array_array(int size) {
+void* create_int_2d_array(int size) {
     LAZY_THREAD_ATTACH
-    return Java_org_chocosolver_capi_ArrayApi_int_array_create(thread, size);
+    return Java_org_chocosolver_capi_ArrayApi_int_2d_array_create(thread, size);
 }
 
-int int_array_array_length(void* arrayHandle) {
+int int_2d_array_length(void* arrayHandle) {
     LAZY_THREAD_ATTACH
-    return Java_org_chocosolver_capi_ArrayApi_int_array_length(thread, arrayHandle);
+    return Java_org_chocosolver_capi_ArrayApi_int_2d_array_length(thread, arrayHandle);
 }
 
-void int_array_array_set(void* arrayHandle, void* elementHandle, int index) {
+void int_2d_array_set(void* arrayHandle, void* elementHandle, int index) {
     LAZY_THREAD_ATTACH
-    return Java_org_chocosolver_capi_ArrayApi_int_array_set(thread, arrayHandle, elementHandle, index);
+    return Java_org_chocosolver_capi_ArrayApi_int_2d_array_set(thread, arrayHandle, elementHandle, index);
 }
 
 // int[][][]
 
-void* create_int_array_array_array(int size) {
+void* create_int_3d_array(int size) {
     LAZY_THREAD_ATTACH
-    return Java_org_chocosolver_capi_ArrayApi_int_array_array_create(thread, size);
+    return Java_org_chocosolver_capi_ArrayApi_int_3d_array_create(thread, size);
 }
 
-int int_array_array_array_length(void* arrayHandle) {
+int int_3d_array_length(void* arrayHandle) {
     LAZY_THREAD_ATTACH
-    return Java_org_chocosolver_capi_ArrayApi_int_array_array_length(thread, arrayHandle);
+    return Java_org_chocosolver_capi_ArrayApi_int_3d_array_length(thread, arrayHandle);
 }
 
-void int_array_array_array_set(void* arrayHandle, void* elementHandle, int index) {
+void int_3d_array_set(void* arrayHandle, void* elementHandle, int index) {
     LAZY_THREAD_ATTACH
-    return Java_org_chocosolver_capi_ArrayApi_int_array_array_set(thread, arrayHandle, elementHandle, index);
+    return Java_org_chocosolver_capi_ArrayApi_int_3d_array_set(thread, arrayHandle, elementHandle, index);
+}
+
+// int[][][][]
+
+void* create_int_4d_array(int size) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_int_4d_array_create(thread, size);
+}
+
+int int_4d_array_length(void* arrayHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_int_4d_array_length(thread, arrayHandle);
+}
+
+void int_4d_array_set(void* arrayHandle, void* elementHandle, int index) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_int_4d_array_set(thread, arrayHandle, elementHandle, index);
 }
 
 // Criterion
@@ -1194,6 +1220,26 @@ void* make_single_resource_ii(void* automatonHandle, void* costsHandle, int inf,
 void* make_single_resource_iii(void* automatonHandle, void* costsHandle, int inf, int sup) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_AutomatonApi_make_single_resource_iii(thread, automatonHandle, costsHandle, inf, sup);
+}
+
+void* make_multi_resources_iii(void* automatonHandle, void* costsHandle, void* boundsHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_AutomatonApi_make_multi_resources_iii(
+        thread,
+        automatonHandle,
+        costsHandle,
+        boundsHandle
+    );
+}
+
+void* make_multi_resources_iiii(void* automatonHandle, void* costsHandle, void* boundsHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_AutomatonApi_make_multi_resources_iiii(
+        thread,
+        automatonHandle,
+        costsHandle,
+        boundsHandle
+    );
 }
 
 // Task API

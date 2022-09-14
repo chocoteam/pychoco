@@ -21,30 +21,43 @@ def make_int_array(*ints: List[int]):
     return ints_array
 
 
-def make_int_array_array(*arrays: List[List[int]]):
+def make_int_2d_array(*arrays: List[List[int]]):
     """
     Creates a Java int[][] handle from a list of Python int lists.
-    :param arrays: A list of int lists.
+    :param arrays: A 2d int matrix.
     :return: A Java int[][] handle.
     """
-    int_array_array = backend.create_int_array_array(len(arrays))
+    int_2d_array = backend.create_int_2d_array(len(arrays))
     for i in range(0, len(arrays)):
         handle = make_int_array(*arrays[i])
-        backend.int_array_array_set(int_array_array, handle, i)
-    return int_array_array
+        backend.int_2d_array_set(int_2d_array, handle, i)
+    return int_2d_array
 
 
-def make_int_array_array_array(*arrays: List[List[List[int]]]):
+def make_int_3d_array(*arrays: List[List[List[int]]]):
     """
     Creates a Java int[][][] handle from a list of Python lists of lists of ints.
-    :param arrays: A list of lists of lists of int.
+    :param arrays: A 3d int matrix.
     :return: A Java int[][][] handle.
     """
-    int_array_array_array = backend.create_int_array_array_array(len(arrays))
+    int_3d_array = backend.create_int_3d_array(len(arrays))
     for i in range(0, len(arrays)):
-        handle = make_int_array_array(*arrays[i])
-        backend.int_array_array_array_set(int_array_array_array, handle, i)
-    return int_array_array_array
+        handle = make_int_2d_array(*arrays[i])
+        backend.int_3d_array_set(int_3d_array, handle, i)
+    return int_3d_array
+
+
+def make_int_4d_array(*arrays: List[List[List[List[int]]]]):
+    """
+    Creates a Java int[][][][] handle from a list of Python lists of lists of ints.
+    :param arrays: A 4d int matrix.
+    :return: A Java int[][][][] handle.
+    """
+    int_4d_array = backend.create_int_4d_array(len(arrays))
+    for i in range(0, len(arrays)):
+        handle = make_int_3d_array(*arrays[i])
+        backend.int_4d_array_set(int_4d_array, handle, i)
+    return int_4d_array
 
 
 def make_intvar_array(*intvars: List[IntVar]):
@@ -59,17 +72,17 @@ def make_intvar_array(*intvars: List[IntVar]):
     return vars_array
 
 
-def make_intvar_array_array(*arrays: List[List[IntVar]]):
+def make_intvar_2d_array(*arrays: List[List[IntVar]]):
     """
     Creates a Java IntVar[][] handle from a list of Python IntVar lists.
     :param arrays: A list of Intvar lists.
     :return: A Java IntVar[][] handle.
     """
-    intvar_array_array = backend.create_intvar_array_array(len(arrays))
+    intvar_2d_array = backend.create_intvar_2d_array(len(arrays))
     for i in range(0, len(arrays)):
         handle = make_intvar_array(*arrays[i])
-        backend.intvar_array_array_set(intvar_array_array, handle, i)
-    return intvar_array_array
+        backend.intvar_2d_array_set(intvar_2d_array, handle, i)
+    return intvar_2d_array
 
 
 def make_boolvar_array(*boolvars: List[BoolVar]):

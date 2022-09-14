@@ -181,6 +181,12 @@ inverse_channeling
 .. autofunction:: inverse_channeling
    :noindex:
 
+keysort
+^^^^^^^
+
+.. autofunction:: keysort
+   :noindex:
+
 knapsack
 ^^^^^^^^
 

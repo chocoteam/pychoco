@@ -161,6 +161,8 @@ void* min_iv_iv_iv(void*, void*, void*, void*);
 
 void* min_iv_ivarray(void*, void*, void*);
 
+void* multi_cost_regular(void*, void*, void*, void*);
+
 void* all_equal(void*, void*);
 
 void* not_all_equal(void*, void*);
@@ -265,11 +267,11 @@ void intvar_array_set(void*, void*, int);
 
 // IntVar[][]
 
-void* create_intvar_array_array(int);
+void* create_intvar_2d_array(int);
 
-int intvar_array_array_length(void*);
+int intvar_2d_array_length(void*);
 
-void intvar_array_array_set(void*, void*, int);
+void intvar_2d_array_set(void*, void*, int);
 
 // Tasks
 
@@ -302,19 +304,27 @@ void int_array_set(void*, int, int);
 
 // int[][]
 
-void* create_int_array_array(int);
+void* create_int_2d_array(int);
 
-int int_array_array_length(void*);
+int int_2d_array_length(void*);
 
-void int_array_array_set(void*, void*, int);
+void int_2d_array_set(void*, void*, int);
 
 // int[][][]
 
-void* create_int_array_array_array(int);
+void* create_int_3d_array(int);
 
-int int_array_array_array_length(void*);
+int int_3d_array_length(void*);
 
-void int_array_array_array_set(void*, void*, int);
+void int_3d_array_set(void*, void*, int);
+
+// int[][][][]
+
+void* create_int_4d_array(int);
+
+int int_4d_array_length(void*);
+
+void int_4d_array_set(void*, void*, int);
 
 // Criterion
 
@@ -405,6 +415,10 @@ void* create_counter_state(void*, int, int);
 void* make_single_resource_ii(void*, void*, int, int);
 
 void* make_single_resource_iii(void*, void*, int, int);
+
+void* make_multi_resources_iii(void*, void*, void*);
+
+void* make_multi_resources_iiii(void*, void*, void*);
 
 // Task API
 

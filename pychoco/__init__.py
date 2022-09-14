@@ -9,10 +9,12 @@ from typing import Union, List
 
 from . import backend
 from ._internals._cost_automaton import _create_cost_automaton
+from ._internals._cost_automaton import _make_multi_resources
 from ._internals._cost_automaton import _make_single_resource
 from ._internals._finite_automaton import _create_finite_automaton
 from ._internals._model import _create_model
 from .objects.automaton.finite_automaton import FiniteAutomaton
+from .variables.intvar import IntVar
 
 backend.chocosolver_init()
 del backend
@@ -68,3 +70,14 @@ def make_single_resource(automaton: FiniteAutomaton, costs: Union[List[List[int]
     :return: A cost automaton from a finite automaton and costs.
     """
     return _make_single_resource(automaton, costs, inf, sup)
+
+
+def make_multi_resources(automaton: FiniteAutomaton, costs: Union[List[List[List[int]]], List[List[List[List[int]]]]],
+                         bounds: List[IntVar]):
+    """
+    :param automaton: A finite automaton.
+    :param costs: Costs (3 or 4 dimensional int matrix).
+    :param bounds: List of IntVars defining bounds.
+    :return: A multi cost automaton from a finite automaton and costs.
+    """
+    return _make_multi_resources(automaton, costs, bounds)

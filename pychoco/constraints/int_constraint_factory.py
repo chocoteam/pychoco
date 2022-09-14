@@ -253,7 +253,22 @@ class IntConstraintFactory(ABC):
         """
         pass
 
-    # TODO Test from here
+    @abstractmethod
+    def multi_cost_regular(self, intvars: List[IntVar], costs: List[IntVar], cost_automaton: CostAutomaton):
+        """
+        Creates a regular constraint that supports a multiple cost function.
+        Ensures that the assignment of a sequence of `intvars` is recognized by `cost_automaton`, a deterministic finite
+        automaton, and that the sum of the cost vector associated to each assignment is bounded by the variable vector
+        `costs`. This version allows to specify different costs according to the automaton state at which the
+        assignment occurs (i.e. the transition starts).
+        The precision is set to 1e-4.
+
+        :param intvars: List of IntVars.
+        :param costs: List of IntVars.
+        :param cost_automaton: A cost automaton.
+        :return: A multi_cost_regular constraint.
+        """
+        pass
 
     @abstractmethod
     def all_equal(self, *intvars: List[IntVar]):

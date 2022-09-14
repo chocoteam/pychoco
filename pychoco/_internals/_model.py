@@ -9,9 +9,9 @@ from pychoco._internals._handle_wrapper import _HandleWrapper
 from pychoco._internals._intvar import _IntVar
 from pychoco._internals._solver import _Solver
 from pychoco._internals._task import _Task
+from pychoco._internals._utils import make_intvar_2d_array
 from pychoco._internals._utils import make_intvar_array, make_int_array, make_boolvar_array, make_constraint_array, \
-    make_int_array_array
-from pychoco._internals._utils import make_intvar_array_array
+    make_int_2d_array
 from pychoco._internals._utils import make_task_array
 from pychoco.constraints.constraint import Constraint
 from pychoco.model import Model
@@ -194,7 +194,7 @@ class _Model(Model, _HandleWrapper):
                         "FC", "STR2+"], '[table] algo must be in ["CT+", "GAC3rm", "GAC2001", "GACSTR", "GAC2001+", ' \
                                         '"GAC3rm+", "FC", "STR2+"]'
         vars_handle = make_intvar_array(*intvars)
-        tuples_handle = make_int_array_array(*tuples)
+        tuples_handle = make_int_2d_array(*tuples)
         constraint_handle = backend.table(self.handle, vars_handle, tuples_handle, feasible, algo)
         return _Constraint(constraint_handle, self)
 
@@ -225,6 +225,13 @@ class _Model(Model, _HandleWrapper):
         int_var_array_handle = make_intvar_array(*intvars)
         constraint_hande = backend.min_iv_ivarray(self.handle, x.handle, int_var_array_handle)
         return _Constraint(constraint_hande, self)
+
+    def multi_cost_regular(self, intvars: List[_IntVar], costs: List[_IntVar], cost_automaton: _CostAutomaton):
+        intvar_array_handle = make_intvar_array(*intvars)
+        costs_handle = make_intvar_array(*costs)
+        constraint_handle = backend.multi_cost_regular(self.handle, intvar_array_handle, costs_handle,
+                                                       cost_automaton.handle)
+        return _Constraint(constraint_handle, self)
 
     def all_different(self, *intvars: List[IntVar]):
         vars_array = make_intvar_array(*intvars)
@@ -364,11 +371,11 @@ class _Model(Model, _HandleWrapper):
 
     def keysort(self, intvars: List[List[IntVar]], permutation_intvars: Union[List[IntVar], None],
                 sorted_intvars: List[List[IntVar]], k: int):
-        intvars_handle = make_intvar_array_array(*intvars)
+        intvars_handle = make_intvar_2d_array(*intvars)
         permutation_intvars_handle = None
         if permutation_intvars is not None:
             permutation_intvars_handle = make_intvar_array(*permutation_intvars)
-        sorted_intvars_handle = make_intvar_array_array(*sorted_intvars)
+        sorted_intvars_handle = make_intvar_2d_array(*sorted_intvars)
         constraint_handle = backend.keysort(self.handle, intvars_handle, permutation_intvars_handle,
                                             sorted_intvars_handle, k)
         return _Constraint(constraint_handle, self)
