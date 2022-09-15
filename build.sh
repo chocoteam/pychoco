@@ -20,4 +20,5 @@ swig -python -py3 pychoco/backend.i
 #pip3 install -e .
 
 pip3 install wheel
+python setup.py develop
 python setup.py bdist_wheel
