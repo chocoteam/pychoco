@@ -13,7 +13,7 @@ jobs:
       - name: Set up GraalVM Native Image toolchain
         uses: helpermethod/graalvm-native-image-toolchain@0.0.2
         with:
-          graalvm-version: 21.2.0
+          graalvm-version: 22.2.0
           java-version: 11
       - name: Install Swig
         run: choco install swig
