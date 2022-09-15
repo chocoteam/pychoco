@@ -11,7 +11,6 @@ runtime_library_dirs = []
 if sys.platform.startswith('win32'):
     so_ext = '.dll'
     capi_filename = 'choco_capi' + so_ext
-    runtime_library_dirs = ['$ORIGIN']
 if sys.platform.startswith('linux'):
     so_ext = '.so'
     capi_filename = 'libchoco_capi' + so_ext
