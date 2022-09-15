@@ -26,7 +26,7 @@ jobs:
           pip3 install .
       - name: Test
         run: |
-          pip3 install -U pytest
+          pip3 install pychoco --no-index -f dist/
           pytest
       - name: Generate Report
         run: |

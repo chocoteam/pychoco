@@ -21,4 +21,3 @@ swig -python -py3 pychoco/backend.i
 
 pip3 install wheel
 python setup.py bdist_wheel
-pip3 install pychoco --no-index -f dist/
