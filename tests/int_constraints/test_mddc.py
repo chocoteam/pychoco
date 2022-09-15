@@ -13,7 +13,7 @@ class TestMddc(unittest.TestCase):
         m.mddc(intvars, MultivaluedDecisionDiagram(intvars, tuples)).post()
         while m.get_solver().solve():
             pass
-        self.assertEquals(m.get_solver().get_solution_count(), 2)
+        self.assertEqual(m.get_solver().get_solution_count(), 2)
 
     def testMddc2(self):
         model = create_model()
@@ -22,4 +22,4 @@ class TestMddc(unittest.TestCase):
         model.mddc(intvars, MultivaluedDecisionDiagram(intvars, tuples)).post();
         while model.get_solver().solve():
             pass
-        self.assertEquals(model.get_solver().get_solution_count(), 2)
+        self.assertEqual(model.get_solver().get_solution_count(), 2)

@@ -23,7 +23,7 @@ class TestRegular(unittest.TestCase):
         model.get_solver().set_input_order_lb_search(*intvars)
         while model.get_solver().solve():
             pass
-        self.assertEquals(model.get_solver().get_solution_count(), 59049)
+        self.assertEqual(model.get_solver().get_solution_count(), 59049)
 
     def testRegular2(self):
         model = create_model()
@@ -51,9 +51,9 @@ class TestRegular(unittest.TestCase):
             auto.minimize()
         auto = auto.complement()
         auto.minimize()
-        self.assertEquals(auto.nb_states, 54)
+        self.assertEqual(auto.nb_states, 54)
         model.regular(intvars, auto).post()
         model.get_solver().set_input_order_lb_search(*intvars)
         while model.get_solver().solve():
             pass
-        self.assertEquals(model.get_solver().get_solution_count(), 25980)
+        self.assertEqual(model.get_solver().get_solution_count(), 25980)

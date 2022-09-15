@@ -21,18 +21,18 @@ class TestKeysort(unittest.TestCase):
         ]
         model.keysort(x, None, y, 2).post()
         model.get_solver().solve()
-        self.assertEquals(y[0][0].get_value(), 1)
-        self.assertEquals(y[0][1].get_value(), 5)
-        self.assertEquals(y[0][2].get_value(), 1003)
-        self.assertEquals(y[1][0].get_value(), 2)
-        self.assertEquals(y[1][1].get_value(), 3)
-        self.assertEquals(y[1][2].get_value(), 1001)
-        self.assertEquals(y[2][0].get_value(), 2)
-        self.assertEquals(y[2][1].get_value(), 3)
-        self.assertEquals(y[2][2].get_value(), 1004)
-        self.assertEquals(y[3][0].get_value(), 2)
-        self.assertEquals(y[3][1].get_value(), 4)
-        self.assertEquals(y[3][2].get_value(), 1002)
+        self.assertEqual(y[0][0].get_value(), 1)
+        self.assertEqual(y[0][1].get_value(), 5)
+        self.assertEqual(y[0][2].get_value(), 1003)
+        self.assertEqual(y[1][0].get_value(), 2)
+        self.assertEqual(y[1][1].get_value(), 3)
+        self.assertEqual(y[1][2].get_value(), 1001)
+        self.assertEqual(y[2][0].get_value(), 2)
+        self.assertEqual(y[2][1].get_value(), 3)
+        self.assertEqual(y[2][2].get_value(), 1004)
+        self.assertEqual(y[3][0].get_value(), 2)
+        self.assertEqual(y[3][1].get_value(), 4)
+        self.assertEqual(y[3][2].get_value(), 1002)
 
     def testKeysort2(self):
         model = create_model()
@@ -51,4 +51,4 @@ class TestKeysort(unittest.TestCase):
         model.keysort(x, None, y, 2).post()
         while model.get_solver().solve():
             pass
-        self.assertEquals(model.get_solver().get_solution_count(), 16)
+        self.assertEqual(model.get_solver().get_solution_count(), 16)

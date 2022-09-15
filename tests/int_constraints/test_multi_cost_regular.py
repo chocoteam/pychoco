@@ -64,7 +64,7 @@ class TestMultiCostRegular(unittest.TestCase):
             model = make(5, i + seed)
             while model.get_solver().solve():
                 pass
-            self.assertEquals(model.get_solver().get_solution_count(), 4)
+            self.assertEqual(model.get_solver().get_solution_count(), 4)
 
     def testMultiCostRegular2(self):
         seed = 0
@@ -72,7 +72,7 @@ class TestMultiCostRegular(unittest.TestCase):
             model = make(7, i + seed)
             while model.get_solver().solve():
                 pass
-            self.assertEquals(model.get_solver().get_solution_count(), 6)
+            self.assertEqual(model.get_solver().get_solution_count(), 6)
 
     def testMultiCostRegular3(self):
         seed = 0
@@ -80,4 +80,4 @@ class TestMultiCostRegular(unittest.TestCase):
             model = make(21, i + seed)
             while model.get_solver().solve():
                 pass
-            self.assertEquals(model.get_solver().get_solution_count(), 85)
+            self.assertEqual(model.get_solver().get_solution_count(), 85)

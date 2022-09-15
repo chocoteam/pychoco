@@ -20,5 +20,4 @@ class TestIncreasing(unittest.TestCase):
         intvars = m.intvars(10, 0, 0)
         m.increasing(intvars).post()
         sols = m.get_solver().find_all_solutions()
-        self.assertEquals(len(sols), 1)
-
+        self.assertEqual(len(sols), 1)

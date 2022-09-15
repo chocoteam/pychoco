@@ -21,11 +21,11 @@ class TestPow(unittest.TestCase):
         b = 2;
         c = model.intvar(5, 30);
         model.pow(a, b, c).post()
-        self.assertEquals(len(model.get_solver().find_all_solutions()), 3)
+        self.assertEqual(len(model.get_solver().find_all_solutions()), 3)
 
     def testPow3(self):
         model = create_model("model")
         x = model.intvar(-5, 5)
         z = model.intvar(-5, 5)
         model.pow(x, 3, z).post()
-        self.assertEquals(len(model.get_solver().find_all_solutions()), 3)
+        self.assertEqual(len(model.get_solver().find_all_solutions()), 3)

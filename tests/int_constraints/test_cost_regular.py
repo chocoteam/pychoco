@@ -79,7 +79,7 @@ class TestCostRegular(unittest.TestCase):
             auto.minimize()
         auto = auto.complement()
         auto.minimize()
-        self.assertEquals(auto.nb_states, 54)
+        self.assertEqual(auto.nb_states, 54)
         # costs
         costs = []
         for i in range(0, n):
@@ -91,4 +91,4 @@ class TestCostRegular(unittest.TestCase):
         model.get_solver().set_input_order_lb_search(*intvars)
         while model.get_solver().solve():
             pass
-        self.assertEquals(model.get_solver().get_solution_count(), 229376)
+        self.assertEqual(model.get_solver().get_solution_count(), 229376)
