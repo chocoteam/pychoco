@@ -44,6 +44,8 @@ class CopySharedLibrary(Command):
             lib_target_path = os.path.join(self.build_lib, self.package_name)
             self.mkpath(lib_target_path)
         self.copy_file(self.lib_source_path, os.path.join(lib_target_path, self.filename))
+        if sys.platform.startswith('win32'):
+            self.copy_file(self.lib_source_path, os.path.join(lib_target_path, "lib{}".format(self.filename)))
         os.environ["ORIGIN"] = os.path.abspath(lib_target_path)
 
 
