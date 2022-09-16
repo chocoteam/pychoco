@@ -17,8 +17,8 @@ rm -f pychoco/*.so
 swig -python -py3 pychoco/backend.i
 
 # Build extensions
-pip3 install .
+#pip3 install .
 
 #pip3 install wheel
-#python setup.py develop
+python setup.py develop
 #python setup.py bdist_wheel

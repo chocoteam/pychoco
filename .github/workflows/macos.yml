@@ -23,10 +23,8 @@ jobs:
       - name: Build
         run: |
           sh build.sh
-          pip3 install .
       - name: Test
         run: |
-          pip3 install pychoco --no-index -f dist/
           pytest
       - name: Generate Report
         run: |
