@@ -5,16 +5,7 @@ pychoco - Python API for the Choco Constraint Programming solver
 # Implementation inspired by https://github.com/d-michail/python-jgrapht
 
 import atexit
-import os
-import sys
-from ctypes import cdll
 from typing import Union, List
-
-if sys.platform.startswith('win32'):
-    path = os.path.dirname(__file__)
-    if sys.version_info[1] >= 8:
-        os.add_dll_directory(path)
-    cdll.LoadLibrary(os.path.join(path, "choco_capi.dll"))
 
 from . import backend
 from ._internals._cost_automaton import _create_cost_automaton
@@ -24,6 +15,12 @@ from ._internals._finite_automaton import _create_finite_automaton
 from ._internals._model import _create_model
 from .objects.automaton.finite_automaton import FiniteAutomaton
 from .variables.intvar import IntVar
+
+# if sys.platform.startswith('win32'):
+#    path = os.path.dirname(__file__)
+#    if sys.version_info[1] >= 8:
+#        os.add_dll_directory(path)
+#    cdll.LoadLibrary(os.path.join(path, "choco_capi.dll"))
 
 backend.chocosolver_init()
 del backend
