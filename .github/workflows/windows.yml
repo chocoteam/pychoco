@@ -27,6 +27,7 @@ jobs:
       - name: Build
         run: |
           sh build.sh
+          pip3 install pychoco --no-index -f dist/
       - name: Test
         run: |
           pip3 install -U pytest
