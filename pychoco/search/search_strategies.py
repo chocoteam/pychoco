@@ -1,4 +1,3 @@
-import random
 from abc import ABC, abstractmethod
 
 
@@ -66,7 +65,7 @@ class SearchStrategies(ABC):
         pass
 
     @abstractmethod
-    def set_random_search(self, seed: int = random.seed(), *intvars):
+    def set_random_search(self, seed: int = round(time.time()), *intvars):
         """
         Randomly selects a variable and assigns it to a value randomly taken in - the domain in case
         the variable has an enumerated domain - {LB,UB} (one of the two bounds) in case the domain is
