@@ -182,7 +182,7 @@ class _Solver(Solver, _HandleWrapper):
         var_array_handle = make_intvar_array(*intvars)
         backend.set_min_dom_ub_search(self.handle, var_array_handle)
 
-    def set_random_search(self, *intvars, seed: int = round(time.time() * 1000)):
+    def set_random_search(self, *intvars, seed: int = round(time.time())):
         assert len(intvars) > 0, "No variables were declared for the search"
         var_array_handle = make_intvar_array(*intvars)
         backend.set_random_search(self.handle, var_array_handle, seed)

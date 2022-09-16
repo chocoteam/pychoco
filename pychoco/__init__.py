@@ -16,12 +16,6 @@ from ._internals._model import _create_model
 from .objects.automaton.finite_automaton import FiniteAutomaton
 from .variables.intvar import IntVar
 
-# if sys.platform.startswith('win32'):
-#    path = os.path.dirname(__file__)
-#    if sys.version_info[1] >= 8:
-#        os.add_dll_directory(path)
-#    cdll.LoadLibrary(os.path.join(path, "choco_capi.dll"))
-
 backend.chocosolver_init()
 del backend
 
