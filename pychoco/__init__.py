@@ -5,7 +5,15 @@ pychoco - Python API for the Choco Constraint Programming solver
 # Implementation inspired by https://github.com/d-michail/python-jgrapht
 
 import atexit
+import os
+import sys
 from typing import Union, List
+
+if sys.platform.startswith('win32'):
+    path = os.path.dirname(__file__)
+    if sys.version_info[1] >= 8:
+        os.add_dll_directory(path)
+    # cdll.LoadLibrary(os.path.join(path, "choco_capi.dll"))
 
 from . import backend
 from ._internals._cost_automaton import _create_cost_automaton
