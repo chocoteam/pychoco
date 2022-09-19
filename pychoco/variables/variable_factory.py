@@ -79,3 +79,20 @@ class VariableFactory(ABC):
         :return: A task container.
         """
         pass
+
+    # Set variables
+
+    @abstractmethod
+    def setvar(self, lb_or_value: set, ub: Union[set, None] = None, name: Union[str, None] = None):
+        """
+        Creates a set variable taking its domain in [lb, ub], or a a constant setvar if ub is None.
+        For instance [{0,3},{-2,0,2,3}] means the variable must include both 0 and 3 and can additionally include -2
+        and 2.
+
+        :param lb_or_value: Initial domain lower bound (contains mandatory elements that should be present in
+            every solution). If ub is None, corresponds to the constant value of this variable.
+        :param ub: Initial domain upper bound (contains potential elements)
+        :param name: Name of the variable (optional).
+        :return: A SetVar.
+        """
+        pass

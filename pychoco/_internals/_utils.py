@@ -21,6 +21,18 @@ def make_int_array(*ints: List[int]):
     return ints_array
 
 
+def get_int_array(handle):
+    """
+    Return a Python int list from a Java int[] handle.
+    :param handle: An int[] handle
+    :return: A python int list.
+    """
+    array = []
+    for i in range(0, backend.int_array_length(handle)):
+        array.append(backend.int_array_get(handle, i))
+    return array
+
+
 def make_int_2d_array(*arrays: List[List[int]]):
     """
     Creates a Java int[][] handle from a list of Python int lists.

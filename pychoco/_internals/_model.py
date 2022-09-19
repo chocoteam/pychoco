@@ -18,6 +18,7 @@ from pychoco.model import Model
 from pychoco.objects.graphs.multivalued_decision_diagram import MultivaluedDecisionDiagram
 from pychoco.variables.boolvar import BoolVar
 from pychoco.variables.intvar import IntVar
+from pychoco.variables.setvar import SetVar
 
 
 class _Model(Model, _HandleWrapper):
@@ -95,6 +96,9 @@ class _Model(Model, _HandleWrapper):
             else:
                 handle = backend.create_task_iv_i_iv(start.handle, duration, end.handle)
         return _Task(handle, self, has_monitor)
+
+    def setvar(self, lb_or_value: set, ub: Union[set, None] = None, name: Union[str, None] = None):
+        return SetVar(self, lb_or_value, ub, name)
 
     # IntConstraintFactor methods implementation
 

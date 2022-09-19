@@ -108,8 +108,8 @@ class IntConstraintFactory(ABC):
     def all_different_prec(self, *intvars: List[IntVar], predecessors: List[List[int]], successors: List[List[int]]):
         """
         Creates an AllDiffPrec constraint. The predecessors and successors matrix are built as following:
-        with n = |variables|, for all i in [0, n-1], if there is k such that predecessors[i][k] = j then variables[j]
-        is a predecessor of variables[i]. Similarly, with n = |variables|, for all i in [0,n-1], if there is k such
+        with n = | variables | , for all i in [0, n-1], if there is k such that predecessors[i][k] = j then variables[j]
+        is a predecessor of variables[i]. Similarly, with n = | variables | , for all i in [0, n-1], if there is k such
         that successors[i][k] = j then variables[j] is a successor of variables[i]. The matrix should be built such
         that, if variables[i] is a predecessor of variables[j], then i is in successors[j] and vice versa.
 

@@ -170,6 +170,27 @@ def boolvar_b(arg1, arg2):
 def boolvar_sb(arg1, arg2, arg3):
     return _backend.boolvar_sb(arg1, arg2, arg3)
 
+def setvar_s_iviv(arg1, arg2, arg3, arg4):
+    return _backend.setvar_s_iviv(arg1, arg2, arg3, arg4)
+
+def setvar_iviv(arg1, arg2, arg3):
+    return _backend.setvar_iviv(arg1, arg2, arg3)
+
+def setvar_s_iv(arg1, arg2, arg3):
+    return _backend.setvar_s_iv(arg1, arg2, arg3)
+
+def setvar_iv(arg1, arg2):
+    return _backend.setvar_iv(arg1, arg2)
+
+def get_setvar_lb(arg1):
+    return _backend.get_setvar_lb(arg1)
+
+def get_setvar_ub(arg1):
+    return _backend.get_setvar_ub(arg1)
+
+def get_setvar_value(arg1):
+    return _backend.get_setvar_value(arg1)
+
 def get_constraint_name(arg1):
     return _backend.get_constraint_name(arg1)
 
@@ -469,6 +490,9 @@ def int_array_length(arg1):
 
 def int_array_set(arg1, arg2, arg3):
     return _backend.int_array_set(arg1, arg2, arg3)
+
+def int_array_get(arg1, arg2):
+    return _backend.int_array_get(arg1, arg2)
 
 def create_int_2d_array(arg1):
     return _backend.create_int_2d_array(arg1)

@@ -231,6 +231,44 @@ void* boolvar_sb(void* modelHandle, char* name, int value) {
     return Java_org_chocosolver_capi_BoolVarApi_boolVar_sb(thread, modelHandle, name, value);
 }
 
+// SetVars
+
+void* setvar_s_iviv(void* modelHandle, char* name, void* lbHandle, void* ubHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SetVarApi_create_setVar_named(thread, modelHandle, name, lbHandle, ubHandle);
+}
+
+void* setvar_iviv(void* modelHandle, void* lbHandle, void* ubHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SetVarApi_create_setVar(thread, modelHandle, lbHandle, ubHandle);
+}
+
+void* setvar_s_iv(void* modelHandle, char* name, void* valueHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SetVarApi_create_setVar_cst_named(thread, modelHandle, name, valueHandle);
+}
+
+void* setvar_iv(void* modelHandle, void* valueHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SetVarApi_create_setVar_cst(thread, modelHandle, valueHandle);
+}
+
+void* get_setvar_lb(void* setVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SetVarApi_getLB(thread, setVarHandle);
+}
+
+void* get_setvar_ub(void* setVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SetVarApi_getUB(thread, setVarHandle);
+}
+
+void* get_setvar_value(void* setVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SetVarApi_getValue(thread, setVarHandle);
+}
+
+
 // Constraints
 
 char* get_constraint_name(void* constraintHandle) {
@@ -995,6 +1033,11 @@ int int_array_length(void* intArrayHandle) {
 void int_array_set(void* intArrayHandle, int element, int index) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ArrayApi_int_set(thread, intArrayHandle, element, index);
+}
+
+int int_array_get(void* arrayHandle, int index) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_int_get(thread, arrayHandle, index);
 }
 
 // int[][]

@@ -5,8 +5,8 @@ Variables
 
 A variable is an unknown, mathematically speaking. The goal of a resolution is to assign a value to each variable.
 The domain of a variable –set of values it may take– must be defined in the model. Currently, PyChoco supports boolean
-variables (BoolVar) and integer variables (IntVar). Variables are created using a `Model` object (see :ref:`model`).
-When creating a variable, the user can specify a name to help reading the output.
+variables (BoolVar), integer variables (IntVar), and set variables (SetVar). Variables are created using a `Model`
+object (see :ref:`model`). When creating a variable, the user can specify a name to help reading the output.
 
 Variable
 --------
@@ -30,7 +30,7 @@ Integer variables represent a integer value, and can be created from a Model obj
 .. autofunction:: pychoco.variables.variable_factory.VariableFactory.intvars
    :noindex:
 
-Integer variables also include additional parameters and methods the generic Variable class:
+Integer variables also include additional parameters and methods to the generic Variable class:
 
 .. autoclass:: pychoco.variables.intvar.IntVar
    :members:
@@ -40,7 +40,7 @@ Integer variables also include additional parameters and methods the generic Var
 BoolVar
 -------
 
-Boolean variables represent a boolean valu (0/1 or False/True). They are a special case of integer variables where the
+Boolean variables represent a boolean value (0/1 or False/True). They are a special case of integer variables where the
 domain is restricted to [0, 1], and can be created from a Model object using the following methods:
 
 .. autofunction:: pychoco.variables.variable_factory.VariableFactory.boolvar
@@ -49,10 +49,31 @@ domain is restricted to [0, 1], and can be created from a Model object using the
 .. autofunction:: pychoco.variables.variable_factory.VariableFactory.boolvars
    :noindex:
 
-Boolean variables also include additional parameters and methods the generic Variable class:
+Boolean variables also include additional parameters and methods to the generic Variable class:
 
 .. autoclass:: pychoco.variables.boolvar.BoolVar
    :members:
    :inherited-members:
    :undoc-members:
    :noindex:
+
+
+SetVar
+------
+
+Set variables represent a set of integers, which value must belong to a set interval [lb, ub].
+The lower bound lb is the set of mandatory values (or kernel) for any instantiation of the variable,
+while the upper bound ub is the set of potential values (or envelope) for any instantiation of the
+variable. Set variables can be created from a model object using the following method:
+
+.. autofunction:: pychoco.variables.variable_factory.VariableFactory.setvar
+   :noindex:
+
+Set variables also include additional parameters and methods the generic Variable class:
+
+.. autoclass:: pychoco.variables.setvar.SetVar
+   :members:
+   :inherited-members:
+   :undoc-members:
+   :noindex:
+
