@@ -366,3 +366,176 @@ tree
 
 .. autofunction:: tree
    :noindex:
+
+
+Set constraints
+---------------
+
+All constraints over set variables in the `SetConstraintFactory` abstract class, which is implemented by the `Model`
+class. Set constraints have the `set_` prefix, indeed, as several set constraints have the same name as int constraints,
+we made the choice to semantically distinguish them, contrarily to the Choco Java API, as method Python does not support
+method overloading.
+
+.. py:currentmodule:: pychoco.constraints.set_constraint_factory.SetConstraintFactory
+
+set_union
+^^^^^^^^^
+
+.. autofunction:: set_union
+   :noindex:
+
+set_union_indices
+^^^^^^^^^^^^^^^^^
+
+.. autofunction:: set_union_indices
+   :noindex:
+
+set_intersection
+^^^^^^^^^^^^^^^^
+
+.. autofunction:: set_intersection
+   :noindex:
+
+set_subset_eq
+^^^^^^^^^^^^^
+
+.. autofunction:: set_subset_eq
+   :noindex:
+
+set_nb_empty
+^^^^^^^^^^^^
+
+.. autofunction:: set_nb_empty
+   :noindex:
+
+set_offset
+^^^^^^^^^^
+
+.. autofunction:: set_offset
+   :noindex:
+
+set_not_empty
+^^^^^^^^^^^^^
+
+.. autofunction:: set_not_empty
+   :noindex:
+
+set_sum_element
+^^^^^^^^^^^^^^^
+
+.. autofunction:: set_sum_element
+   :noindex:
+
+set_max
+^^^^^^^
+
+.. autofunction:: set_max
+   :noindex:
+
+set_max_indices
+^^^^^^^^^^^^^^^
+
+.. autofunction:: set_max_indices
+   :noindex:
+
+set_min
+^^^^^^^^^^^^^^^^^
+
+.. autofunction:: set_union_indices
+   :noindex:
+
+set_min_indices
+^^^^^^^^^^^^^^^
+
+.. autofunction:: set_min_indices
+   :noindex:
+
+set_bools_channeling
+^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: set_bools_channeling
+   :noindex:
+
+set_ints_channeling
+^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: set_ints_channeling
+   :noindex:
+
+set_disjoint
+^^^^^^^^^^^^^^^^^
+
+.. autofunction:: set_union_indices
+   :noindex:
+
+set_all_disjoint
+^^^^^^^^^^^^^^^^
+
+.. autofunction:: set_all_disjoint
+   :noindex:
+
+set_all_different
+^^^^^^^^^^^^^^^^^
+
+.. autofunction:: set_all_different
+   :noindex:
+
+set_all_equal
+^^^^^^^^^^^^^
+
+.. autofunction:: set_all_equal
+   :noindex:
+
+set_partition
+^^^^^^^^^^^^^
+
+.. autofunction:: set_partition
+   :noindex:
+
+set_inverse_set
+^^^^^^^^^^^^^^^
+
+.. autofunction:: set_inverse_set
+   :noindex:
+
+set_symmetric
+^^^^^^^^^^^^^
+
+.. autofunction:: set_symmetric
+   :noindex:
+
+set_element
+^^^^^^^^^^^
+
+.. autofunction:: set_element
+   :noindex:
+
+set_member_set
+^^^^^^^^^^^^^^
+
+.. autofunction:: set_member_set
+   :noindex:
+
+set_member_int
+^^^^^^^^^^^^^^
+
+.. autofunction:: set_member_int
+   :noindex:
+
+set_not_member_int
+^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: set_not_member_int
+   :noindex:
+
+set_le
+^^^^^^
+
+.. autofunction:: set_le
+   :noindex:
+
+set_lt
+^^^^^^
+
+.. autofunction:: set_lt
+   :noindex:
