@@ -443,6 +443,93 @@ def sum_bv_iv(arg1, arg2, arg3, arg4):
 def tree(arg1, arg2, arg3, arg4):
     return _backend.tree(arg1, arg2, arg3, arg4)
 
+def set_union_ints(arg1, arg2, arg3):
+    return _backend.set_union_ints(arg1, arg2, arg3)
+
+def set_union(arg1, arg2, arg3):
+    return _backend.set_union(arg1, arg2, arg3)
+
+def set_union_indices(arg1, arg2, arg3, arg4, arg5, arg6):
+    return _backend.set_union_indices(arg1, arg2, arg3, arg4, arg5, arg6)
+
+def set_intersection(arg1, arg2, arg3, arg4):
+    return _backend.set_intersection(arg1, arg2, arg3, arg4)
+
+def set_subset_eq(arg1, arg2):
+    return _backend.set_subset_eq(arg1, arg2)
+
+def set_nb_empty(arg1, arg2, arg3):
+    return _backend.set_nb_empty(arg1, arg2, arg3)
+
+def set_offset(arg1, arg2, arg3, arg4):
+    return _backend.set_offset(arg1, arg2, arg3, arg4)
+
+def set_not_empty(arg1, arg2):
+    return _backend.set_not_empty(arg1, arg2)
+
+def set_sum(arg1, arg2, arg3):
+    return _backend.set_sum(arg1, arg2, arg3)
+
+def set_sum_elements(arg1, arg2, arg3, arg4, arg5):
+    return _backend.set_sum_elements(arg1, arg2, arg3, arg4, arg5)
+
+def set_max(arg1, arg2, arg3, arg4):
+    return _backend.set_max(arg1, arg2, arg3, arg4)
+
+def set_max_indices(arg1, arg2, arg3, arg4, arg5, arg6):
+    return _backend.set_max_indices(arg1, arg2, arg3, arg4, arg5, arg6)
+
+def set_min(arg1, arg2, arg3, arg4):
+    return _backend.set_min(arg1, arg2, arg3, arg4)
+
+def set_min_indices(arg1, arg2, arg3, arg4, arg5, arg6):
+    return _backend.set_min_indices(arg1, arg2, arg3, arg4, arg5, arg6)
+
+def set_bools_channeling(arg1, arg2, arg3, arg4):
+    return _backend.set_bools_channeling(arg1, arg2, arg3, arg4)
+
+def set_ints_channeling(arg1, arg2, arg3, arg4, arg5):
+    return _backend.set_ints_channeling(arg1, arg2, arg3, arg4, arg5)
+
+def set_disjoint(arg1, arg2, arg3):
+    return _backend.set_disjoint(arg1, arg2, arg3)
+
+def set_all_disjoint(arg1, arg2):
+    return _backend.set_all_disjoint(arg1, arg2)
+
+def set_all_different(arg1, arg2):
+    return _backend.set_all_different(arg1, arg2)
+
+def set_all_equal(arg1, arg2):
+    return _backend.set_all_equal(arg1, arg2)
+
+def set_partition(arg1, arg2, arg3):
+    return _backend.set_partition(arg1, arg2, arg3)
+
+def set_inverse_set(arg1, arg2, arg3, arg4, arg5):
+    return _backend.set_inverse_set(arg1, arg2, arg3, arg4, arg5)
+
+def set_symmetric(arg1, arg2, arg3):
+    return _backend.set_symmetric(arg1, arg2, arg3)
+
+def set_element(arg1, arg2, arg3, arg4, arg5):
+    return _backend.set_element(arg1, arg2, arg3, arg4, arg5)
+
+def set_member_set(arg1, arg2, arg3):
+    return _backend.set_member_set(arg1, arg2, arg3)
+
+def set_member_int(arg1, arg2, arg3):
+    return _backend.set_member_int(arg1, arg2, arg3)
+
+def set_not_member_int(arg1, arg2, arg3):
+    return _backend.set_not_member_int(arg1, arg2, arg3)
+
+def set_le(arg1, arg2, arg3):
+    return _backend.set_le(arg1, arg2, arg3)
+
+def set_lt(arg1, arg2, arg3):
+    return _backend.set_lt(arg1, arg2, arg3)
+
 def create_intvar_array(arg1):
     return _backend.create_intvar_array(arg1)
 

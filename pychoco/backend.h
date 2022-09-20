@@ -82,6 +82,8 @@ void post(void*);
 void* reify(void*);
 int is_satisfied(void*);
 
+// IntVar and BoolVar constraints
+
 void* arithm_iv_cst(void*, void*, char*, int);
 void* arithm_iv_iv(void*, void*, char*, void*);
 void* arithm_iv_iv_cst(void*, void*, char*, void*, char*, int);
@@ -162,6 +164,38 @@ void* sum_ivarray_ivarray(void*, void*, char*, void*);
 void* sum_bv_i(void*, void*, char*, int);
 void* sum_bv_iv(void*, void*, char*, void*);
 void* tree(void*, void*, void*, int);
+
+// SetVar constraints
+
+void* set_union_ints(void*, void*, void*);
+void* set_union(void*, void*, void*);
+void* set_union_indices(void*, void*, void*, void*, int, int);
+void* set_intersection(void*, void*, void*, int);
+void* set_subset_eq(void*, void*);
+void* set_nb_empty(void*, void*, void*);
+void* set_offset(void*, void*, void*, int);
+void* set_not_empty(void*, void*);
+void* set_sum(void*, void*, void*);
+void* set_sum_elements(void*, void*, void*, int, void*);
+void* set_max(void*, void*, void*, int);
+void* set_max_indices(void*, void*, void*, int, void*, int);
+void* set_min(void*, void*, void*, int);
+void* set_min_indices(void*, void*, void*, int, void*, int);
+void* set_bools_channeling(void*, void*, void*, int);
+void* set_ints_channeling(void*, void*, void*, int, int);
+void* set_disjoint(void*, void*, void*);
+void* set_all_disjoint(void*, void*);
+void* set_all_different(void*, void*);
+void* set_all_equal(void*, void*);
+void* set_partition(void*, void*, void*);
+void* set_inverse_set(void*, void*, void*, int, int);
+void* set_symmetric(void*, void*, int);
+void* set_element(void*, void*, void*, int, void*);
+void* set_member_set(void*, void*, void*);
+void* set_member_int(void*, void*, void*);
+void* set_not_member_int(void*, void*, void*);
+void* set_le(void*, void*, void*);
+void* set_lt(void*, void*, void*);
 
 // Array API
 

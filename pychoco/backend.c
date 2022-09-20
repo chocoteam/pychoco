@@ -291,6 +291,8 @@ int is_satisfied(void* constraintHandle) {
     return Java_org_chocosolver_capi_ConstraintApi_is_satisfied(thread, constraintHandle);
 }
 
+// IntVar and BoolVar constraints
+
 void* arithm_iv_cst(void* modelHandle, void* intVarHandle, char* op, int constant) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ConstraintApi_arithm_iv_cst(thread, modelHandle, intVarHandle, op, constant);
@@ -940,6 +942,166 @@ void* tree(void* modelHandle, void* successorsHandle, void* nbTreeHandle , int o
         nbTreeHandle,
         offset
     );
+}
+
+// SetVar constraints
+
+void* set_union_ints(void* modelHandle, void* intVarsHandle, void* setVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_set_union_ints(thread, modelHandle, intVarsHandle, setVarHandle);
+}
+
+void* set_union(void* modelHandle, void* setVarsHandle, void* unionVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_set_union(thread, modelHandle, setVarsHandle, unionVarHandle);
+}
+
+void* set_union_indices(void* modelHandle, void* setVarsHandle, void* indicesHandle, void* unionHandle, int vOffset,
+                        int iOffset) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_set_union_indices(thread, modelHandle, setVarsHandle, indicesHandle,
+                                                                     unionHandle, vOffset, iOffset);
+}
+
+void* set_intersection(void* modelHandle, void* setVarsHandle, void* intersectionHandle, int bc) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_set_intersection(thread, modelHandle, setVarsHandle,
+                                                                    intersectionHandle, bc);
+}
+
+void* set_subset_eq(void* modelHandle, void* setVarsHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_set_subset_eq(thread, modelHandle, setVarsHandle);
+}
+
+void* set_nb_empty(void* modelHandle, void* setVarsHandle, void* intVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_set_nb_empty(thread, modelHandle, setVarsHandle, intVarHandle);
+}
+
+void* set_offset(void* modelHandle, void* setVarHandle1, void* setVarHandle2, int offset) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_set_offset(thread, modelHandle, setVarHandle1, setVarHandle2,
+                                                              offset);
+}
+
+void* set_not_empty(void* modelHandle, void* setVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_set_not_empty(thread, modelHandle, setVarHandle);
+}
+
+void* set_sum(void* modelHandle, void* setVarHandle, void* sumHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_set_sum(thread, modelHandle, setVarHandle, sumHandle);
+}
+
+void* set_sum_elements(void* modelHandle, void* setVarHandle, void* weightsHandle, int offset, void* sumHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_set_sum_elements(thread, modelHandle, setVarHandle, weightsHandle,
+                                                                    offset, sumHandle);
+}
+
+void* set_max(void* modelHandle, void* setVarHandle, void* maxHandle, int notEmpty) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_set_max(thread, modelHandle, setVarHandle, maxHandle, notEmpty);
+}
+
+void* set_max_indices(void* modelHandle, void* setVarHandle, void* weightsHandle, int offset, void* maxHandle,
+                      int notEmpty) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_set_max_indices(thread, modelHandle, setVarHandle,
+                                                                   weightsHandle, offset, maxHandle, notEmpty);
+}
+
+void* set_min(void* modelHandle, void* setVarHandle, void* minHandle, int notEmpty) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_set_min(thread, modelHandle, setVarHandle, minHandle, notEmpty);
+}
+
+void* set_min_indices(void* modelHandle, void* setVarHandle, void* weightsHandle, int offset, void* minHandle,
+                      int notEmpty) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_set_min_indices(thread, modelHandle, setVarHandle,
+                                                                   weightsHandle, offset, minHandle, notEmpty);
+}
+
+void* set_bools_channeling(void* modelHandle, void* boolVarsHandle, void* setVarHandle, int offset) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_set_bools_channeling(thread, modelHandle, boolVarsHandle,
+                                                                        setVarHandle, offset);
+}
+
+void* set_ints_channeling(void* modelHandle, void* setVarsHandle, void* intVarsHandle, int offset1, int offset2) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_set_ints_channeling(thread, modelHandle, setVarsHandle,
+                                                                       intVarsHandle, offset1, offset2);
+}
+
+void* set_disjoint(void* modelHandle, void* setVarHandle1, void* setVarHandle2) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_set_disjoint(thread, modelHandle, setVarHandle1, setVarHandle2);
+}
+
+void* set_all_disjoint(void* modelHandle, void* setVarsHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_set_all_disjoint(thread, modelHandle, setVarsHandle);
+}
+
+void* set_all_different(void* modelHandle, void* setVarsHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_set_all_different(thread, modelHandle, setVarsHandle);
+}
+
+void* set_all_equal(void* modelHandle, void* setVarsHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_set_all_equal(thread, modelHandle, setVarsHandle);
+}
+
+void* set_partition(void* modelHandle, void* setVarsHandle, void* universeHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_set_partition(thread, modelHandle, setVarsHandle, universeHandle);
+}
+
+void* set_inverse_set(void* modelHandle, void* setVarsHandle, void* invSetVarsHandle, int offset1, int offset2) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_set_inverse_set(thread, modelHandle, setVarsHandle, invSetVarsHandle,
+                                                                   offset1, offset2);
+}
+
+void* set_symmetric(void* modelHandle, void* setVarsHandle, int offset) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_set_symmetric(thread, modelHandle, setVarsHandle, offset);
+}
+
+void* set_element(void* modelHandle, void* indexHandle, void* setVarsHandle, int offset, void* setVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_set_element(thread, modelHandle, indexHandle, setVarsHandle,
+                                                               offset, setVarHandle);
+}
+
+void* set_member_set(void* modelHandle, void* setVarsHandle, void* setVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_set_member_set(thread, modelHandle, setVarsHandle, setVarHandle);
+}
+
+void* set_member_int(void* modelHandle, void* intVarHandle, void* setVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_set_member_int(thread, modelHandle, intVarHandle, setVarHandle);
+}
+
+void* set_not_member_int(void* modelHandle, void* intVarHandle, void* setVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_set_not_member_int(thread, modelHandle, intVarHandle, setVarHandle);
+}
+
+void* set_le(void* modelHandle, void* setVarHandle1, void* setVarHandle2) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_set_le(thread, modelHandle, setVarHandle1, setVarHandle2);
+}
+
+void* set_lt(void* modelHandle, void* setVarHandle1, void* setVarHandle2) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_set_lt(thread, modelHandle, setVarHandle1, setVarHandle2);
 }
 
 // Array API
