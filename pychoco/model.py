@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
-from constraints.set_constraint_factory import SetConstraintFactory
 from pychoco.constraints.int_constraint_factory import IntConstraintFactory
+from pychoco.constraints.set_constraint_factory import SetConstraintFactory
 from pychoco.variables.variable_factory import VariableFactory
 
 

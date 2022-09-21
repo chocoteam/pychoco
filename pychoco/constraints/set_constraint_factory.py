@@ -1,9 +1,9 @@
 from abc import ABC, abstractmethod
 from typing import Union, List
 
+from pychoco.variables.boolvar import BoolVar
 from pychoco.variables.intvar import IntVar
-from variables.boolvar import BoolVar
-from variables.setvar import SetVar
+from pychoco.variables.setvar import SetVar
 
 
 class SetConstraintFactory(ABC):

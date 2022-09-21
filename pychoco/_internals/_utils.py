@@ -7,7 +7,6 @@ from pychoco.solution import Solution
 from pychoco.variables.boolvar import BoolVar
 from pychoco.variables.intvar import IntVar
 from pychoco.variables.task import Task
-from variables.setvar import SetVar
 
 
 def make_int_array(*ints: List[int]):
@@ -110,7 +109,7 @@ def make_boolvar_array(*boolvars: List[BoolVar]):
     return vars_array
 
 
-def make_setvar_array(*setvars: List[SetVar]):
+def make_setvar_array(*setvars: List["SetVar"]):
     """
     Creates a Java SetVar[] handle from a list of Python SetVars
     :param setvars: A list of Python SetVars
