@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestNot(unittest.TestCase):
 
     def testNot1(self):
-        m = create_model()
+        m = Model()
         a = m.intvar(0, 10)
         b = m.intvar(0, 10)
         c = m.arithm(a, ">", b)

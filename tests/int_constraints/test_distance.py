@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestDistance(unittest.TestCase):
 
     def testDistance1(self):
-        m = create_model()
+        m = Model()
         a = m.intvar(0, 10)
         b = m.intvar(0, 20)
         m.distance(a, b, ">", 10).post()
@@ -15,7 +15,7 @@ class TestDistance(unittest.TestCase):
             self.assertTrue(abs(s.get_int_val(a) - s.get_int_val(b)) >= 10)
 
     def testDistance2(self):
-        m = create_model()
+        m = Model()
         a = m.intvar(0, 10)
         b = m.intvar(0, 20)
         c = m.intvar(0, 20)
@@ -25,7 +25,7 @@ class TestDistance(unittest.TestCase):
             self.assertEqual(abs(s.get_int_val(a) - s.get_int_val(b)), s.get_int_val(c))
 
     def testDistance3(self):
-        m = create_model()
+        m = Model()
         a = m.intvar(0, 10)
         b = m.intvar(0, 20)
         c = m.intvar(0, 20)
@@ -35,7 +35,7 @@ class TestDistance(unittest.TestCase):
             self.assertTrue(abs(s.get_int_val(a) - s.get_int_val(b)) > s.get_int_val(c))
 
     def testDistanceError(self):
-        m = create_model()
+        m = Model()
         a = m.intvar(0, 10)
         b = m.intvar(0, 20)
         c = m.intvar(0, 20)

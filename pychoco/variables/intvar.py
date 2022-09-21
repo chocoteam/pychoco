@@ -1,9 +1,9 @@
-from abc import abstractmethod, ABC
-
+from pychoco import backend
+from pychoco._handle_wrapper import _HandleWrapper
 from pychoco.variables.variable import Variable
 
 
-class IntVar(Variable, ABC):
+class IntVar(Variable, _HandleWrapper):
     """
     An integer variable (IntVar) is an unknown whose value should be an integer.
     Therefore, the domain of an integer variable is a set of integers (representing
@@ -11,25 +11,23 @@ class IntVar(Variable, ABC):
     (with a lower bound and an upper bound), or enumerated.
     """
 
-    @abstractmethod
     def get_lb(self):
         """
         :return: The lower bound of the variable.
         """
-        pass
+        return backend.get_intvar_lb(self.handle)
 
-    @abstractmethod
     def get_ub(self):
         """
         :return: The upper bound of the variable.
         """
-        pass
+        return backend.get_intvar_ub(self.handle)
 
-    @abstractmethod
     def get_value(self):
         """
         :return: The value of the variable (only valid if it is instantiated).
         """
+        return backend.get_intvar_value(self.handle)
 
-    def __repr__(self):
-        return "Choco IntVar ('" + self.name + "')"
+    def get_type(self):
+        return "IntVar"

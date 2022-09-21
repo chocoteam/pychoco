@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestTree(unittest.TestCase):
 
     def testTree1(self):
-        model = create_model()
+        model = Model()
         vs = model.intvars(6, -1, 6)
         nt = model.intvar(2, 3)
         tree = model.tree(vs, nt)

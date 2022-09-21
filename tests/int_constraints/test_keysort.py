@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestKeysort(unittest.TestCase):
 
     def testKeysort1(self):
-        model = create_model()
+        model = Model()
         x = [
             [model.intvar(2), model.intvar(3), model.intvar(1001)],
             [model.intvar(2), model.intvar(4), model.intvar(1002)],
@@ -35,7 +35,7 @@ class TestKeysort(unittest.TestCase):
         self.assertEqual(y[3][2].get_value(), 1002)
 
     def testKeysort2(self):
-        model = create_model()
+        model = Model()
         x = [
             [model.intvar(3, 3), model.intvar(1, 1)],
             [model.intvar(1, 4), model.intvar(2, 2)],

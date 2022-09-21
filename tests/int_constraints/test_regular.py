@@ -1,15 +1,16 @@
 import unittest
 
-from pychoco import create_model, create_finite_automaton
+from pychoco.model import Model
+from pychoco.objects.automaton.finite_automaton import FiniteAutomaton
 
 
 class TestRegular(unittest.TestCase):
 
     def testRegular1(self):
-        model = create_model()
+        model = Model()
         n = 10
         intvars = model.intvars(n, 0, 2)
-        auto = create_finite_automaton()
+        auto = FiniteAutomaton()
         start = auto.add_state()
         end = auto.add_state()
         auto.set_initial_state(start)
@@ -26,7 +27,7 @@ class TestRegular(unittest.TestCase):
         self.assertEqual(model.get_solver().get_solution_count(), 59049)
 
     def testRegular2(self):
-        model = create_model()
+        model = Model()
         n = 12
         intvars = model.intvars(n, 0, 2)
         # different rules are formulated as patterns that must NOT be matched by x
@@ -44,9 +45,9 @@ class TestRegular(unittest.TestCase):
             "(0|1|2)((0|1|2)(0|1|2))*2(0|1|2)2(0|1|2)2(0|1|2)*"
         ]
         # a unique automaton is built as the complement language composed of all the forbidden patterns
-        auto = create_finite_automaton()
+        auto = FiniteAutomaton()
         for reg in forbidden_regexps:
-            a = create_finite_automaton(reg)
+            a = FiniteAutomaton(reg)
             auto = auto.union(a)
             auto.minimize()
         auto = auto.complement()

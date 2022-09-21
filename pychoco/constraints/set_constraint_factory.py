@@ -1,6 +1,9 @@
 from abc import ABC, abstractmethod
 from typing import Union, List
 
+from pychoco import backend
+from pychoco._utils import make_intvar_array, make_setvar_array, make_int_array, make_boolvar_array
+from pychoco.constraints.constraint import Constraint
 from pychoco.variables.boolvar import BoolVar
 from pychoco.variables.intvar import IntVar
 from pychoco.variables.setvar import SetVar
@@ -11,7 +14,11 @@ class SetConstraintFactory(ABC):
     Constraints over set variables.
     """
 
+    @property
     @abstractmethod
+    def handle(self):
+        pass
+
     def set_union(self, intvars_or_setvars: Union[List[IntVar], List[SetVar]], union: SetVar):
         """
         Creates a constraint which ensures that the union of intvars_or_setvars is equal to union.
@@ -20,9 +27,15 @@ class SetConstraintFactory(ABC):
         :param union: A SetVar.
         :return: A union constraint.
         """
-        pass
+        assert len(intvars_or_setvars) > 0
+        if isinstance(intvars_or_setvars[0], IntVar):
+            vars_handle = make_intvar_array(intvars_or_setvars)
+            constraint_handle = backend.set_union_ints(self.handle, vars_handle, union.handle)
+        else:
+            vars_handle = make_setvar_array(intvars_or_setvars)
+            constraint_handle = backend.set_union(self.handle, vars_handle, union.handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def set_union_indices(self, setvars: List[SetVar], union: SetVar, indices: SetVar, v_offset: int = 0,
                           i_offset: int = 0):
         """
@@ -36,9 +49,11 @@ class SetConstraintFactory(ABC):
         :param i_offset: Indices offset.
         :return: A union_indices constraint.
         """
-        pass
+        setvars_handle = make_setvar_array(setvars)
+        constraint_handle = backend.set_union_indices(self.handle, setvars_handle, union.handle, indices.handle,
+                                                      v_offset, i_offset)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def set_intersection(self, setvars: List[SetVar], intersection: SetVar, bc: bool = False):
         """
         Creates a constraint which ensures that the intersection of setvars is equal to intersection.
@@ -48,9 +63,10 @@ class SetConstraintFactory(ABC):
         :param bc: If True, add a propagator to guarantee bound consistency.
         :return: A set intersection constraint.
         """
-        pass
+        setvars_handle = make_setvar_array(setvars)
+        constraint_handle = backend.set_intersection(self.handle, setvars_handle, intersection.handle, bc)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def set_subset_eq(self, setvars: List[SetVar]):
         """
         Creates a constraint establishing that setvars [ i ] is a subset of setvars [ j ] if i < j
@@ -58,9 +74,10 @@ class SetConstraintFactory(ABC):
         :param setvars: A list of SetVars.
         :return: A subset_eq constraint.
         """
-        pass
+        setvars_handle = make_setvar_array(setvars)
+        constraint_handle = backend.set_subset_eq(self.handle, setvars_handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def set_nb_empty(self, setvars: List[SetVar], nb_empty: Union[IntVar, int]):
         """
         Creates a constraint counting the number of empty sets.
@@ -69,9 +86,10 @@ class SetConstraintFactory(ABC):
         :param nb_empty: An IntVar or an int.
         :return: An nb_empty set constraint.
         """
-        pass
+        setvars_handle = make_setvar_array(setvars)
+        constraint_handle = backend.set_nb_empty(self.handle, setvars_handle, nb_empty.handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def set_offset(self, setvar_1: SetVar, setvar_2: SetVar, offset: int):
         """
         Creates a constraint linking setvar_1 and setvar_2 with an offset :
@@ -82,9 +100,9 @@ class SetConstraintFactory(ABC):
         :param offset: An int.
         :return: A set_offset constraint.
         """
-        pass
+        constraint_handle = backend.set_offset(self.handle, setvar_1.handle, setvar_2.handle, offset)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def set_not_empty(self, setvar: SetVar):
         """
         Creates a constraint preventing setvar to be empty.
@@ -92,9 +110,9 @@ class SetConstraintFactory(ABC):
         :param setvar: A SetVar.
         :return: A set_not_empty constraint.
         """
-        pass
+        constraint_handle = backend.set_not_empty(self.handle, setvar.handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def set_sum(self, setvar: SetVar, sum_var: IntVar):
         """
         Creates a constraint summing elements of setvar sum { i | i in setvar } = sum_var
@@ -103,9 +121,9 @@ class SetConstraintFactory(ABC):
         :param sum_var: An IntVar.
         :return: A set_sum constraint.
         """
-        pass
+        constraint_handle = backend.set_sum(self.handle, setvar.handle, sum_var.handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def set_sum_element(self, indices: SetVar, weights: List[int], sum_var: IntVar, offset: int = 0):
         """
         Creates a constraint summing weights given by a set of indices:
@@ -118,9 +136,11 @@ class SetConstraintFactory(ABC):
         :param offset: index offset.
         :return: A set_sum_element constraint.
         """
-        pass
+        weights_handle = make_int_array(weights)
+        constraint_handle = backend.set_sum_elements(self.handle, indices.handle, weights_handle, offset,
+                                                     sum_var.handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def set_max(self, setvar: SetVar, max_var: IntVar, not_empty: bool):
         """
         Creates a constraint over the maximum element in a set: max { i | i in setvar } = max_var
@@ -130,9 +150,9 @@ class SetConstraintFactory(ABC):
         :param not_empty: If True, setvar cannot be empty.
         :return: A set_max constraint.
         """
-        pass
+        constraint_handle = backend.set_max(self.handle, setvar.handle, max_var.handle, not_empty)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def set_max_indices(self, indices: SetVar, weights: List[int], max_var: IntVar, not_empty: bool, offset: int = 0):
         """
         Creates a constraint over the maximum element induces by a set:
@@ -145,9 +165,11 @@ class SetConstraintFactory(ABC):
         :param offset:
         :return: A set_max_indices constraint.
         """
-        pass
+        weights_handle = make_int_array(weights)
+        constraint_handle = backend.set_max_indices(self.handle, indices.handle, weights_handle, offset, max_var.handle,
+                                                    not_empty)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def set_min(self, setvar: SetVar, min_var: IntVar, not_empty: bool):
         """
         Creates a constraint over the minimum element in a set: min { i | i in setvar } = min_var
@@ -157,9 +179,9 @@ class SetConstraintFactory(ABC):
         :param not_empty: If True, setvar cannot be empty.
         :return: A set_min constraint.
         """
-        pass
+        constraint_handle = backend.set_min(self.handle, setvar.handle, min_var.handle, not_empty)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def set_min_indices(self, indices: SetVar, weights: List[int], min_var: IntVar, not_empty: bool, offset: int = 0):
         """
         Creates a constraint over the minimum element induces by a set:
@@ -172,9 +194,11 @@ class SetConstraintFactory(ABC):
         :param offset:
         :return: A set_min_indices constraint.
         """
-        pass
+        weights_handle = make_int_array(weights)
+        constraint_handle = backend.set_min_indices(self.handle, indices.handle, weights_handle, offset, min_var.handle,
+                                                    not_empty)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def set_bools_channeling(self, boolvars: List[BoolVar], setvar: SetVar, offset: int = 0):
         """
         Creates a constraint channeling a set variable with boolean variables :
@@ -185,9 +209,10 @@ class SetConstraintFactory(ABC):
         :param offset: An int.
         :return: A set_bools_channeling constraint.
         """
-        pass
+        boolvars_handle = make_boolvar_array(boolvars)
+        constraint_handle = backend.set_bools_channeling(self.handle, boolvars_handle, setvar.handle, offset)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def set_ints_channeling(self, setvars: List[SetVar], intvars: List[IntVar], offset_1: int = 0, offset_2: int = 0):
         """
         Creates a constraint channeling set variables and integer variables :
@@ -199,9 +224,11 @@ class SetConstraintFactory(ABC):
         :param offset_2: An int.
         :return: A set_ints_channeling
         """
-        pass
+        setvars_handle = make_setvar_array(setvars)
+        intvars_handle = make_intvar_array(intvars)
+        constraint_handle = backend.set_ints_channeling(self.handle, setvars_handle, intvars_handle, offset_1, offset_2)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def set_disjoint(self, setvar_1: SetVar, setvar_2: SetVar):
         """
         Creates a constraint stating that the intersection of setvar_1 and setvar_2 should be empty.
@@ -211,9 +238,9 @@ class SetConstraintFactory(ABC):
         :param setvar_2: A SetVar.
         :return: A set_disjoint constraint.
         """
-        pass
+        constraint_handle = backend.set_disjoint(self.handle, setvar_1.handle, setvar_2.handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def set_all_disjoint(self, setvars: List[SetVar]):
         """
         Creates a constraint stating that the intersection of setvar should be empty.
@@ -222,9 +249,10 @@ class SetConstraintFactory(ABC):
         :param setvars: A list of SetVars.
         :return: A set_all_disjoint constraint.
         """
-        pass
+        setvars_handle = make_setvar_array(setvars)
+        constraint_handle = backend.set_all_disjoint(self.handle, setvars_handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def set_all_different(self, setvars: List[SetVar]):
         """
         Creates a constraint stating that setvars should all be different (not necessarily disjoint).
@@ -233,9 +261,10 @@ class SetConstraintFactory(ABC):
         :param setvars: A list of SetVars.
         :return: A set_all_different constraint.
         """
-        pass
+        setvars_handle = make_setvar_array(setvars)
+        constraint_handle = backend.set_all_different(self.handle, setvars_handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def set_all_equal(self, setvars: List[SetVar]):
         """
         Creates a constraint stating that setvars should be all equal.
@@ -243,9 +272,10 @@ class SetConstraintFactory(ABC):
         :param setvars: A list of SetVars.
         :return: A set_all_equal constraint.
         """
-        pass
+        setvars_handle = make_setvar_array(setvars)
+        constraint_handle = backend.set_all_equal(self.handle, setvars_handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def set_partition(self, setvars: List[SetVar], universe: SetVar):
         """
         Creates a constraint stating that partitions universe< into setvars:
@@ -255,9 +285,10 @@ class SetConstraintFactory(ABC):
         :param universe: A SetVar.
         :return: A set_partition constraint.
         """
-        pass
+        setvars_handle = make_setvar_array(setvars)
+        constraint_handle = backend.set_partition(self.handle, setvars_handle, universe.handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def set_inverse_set(self, setvars: List[SetVar], inverse_setvars: List[SetVar], offset_1: int = 0,
                         offset_2: int = 0):
         """
@@ -269,9 +300,11 @@ class SetConstraintFactory(ABC):
         :param offset_2: An int.
         :return: A set_inverse_set constraint.
         """
-        pass
+        setvars_handle = make_setvar_array(setvars)
+        inv_setvars_handle = make_setvar_array(inverse_setvars)
+        constraint_handle = backend.set_inverse_set(self.handle, setvars_handle, inv_setvars_handle, offset_1, offset_2)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def set_symmetric(self, setvars: List[SetVar], offset: int = 0):
         """
         Creates a constraint stating that setvars are symmetric sets:
@@ -281,9 +314,10 @@ class SetConstraintFactory(ABC):
         :param offset: An int.
         :return: A set_symmetric constraints.
         """
-        pass
+        setvars_handle = make_setvar_array(setvars)
+        constraint_handle = backend.set_symmetric(self.handle, setvars_handle, offset)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def set_element(self, index: IntVar, setvars: List[SetVar], setvar: SetVar, offset: int = 0):
         """
         Creates a constraint enabling to retrieve an element setvar in setvars:
@@ -295,9 +329,10 @@ class SetConstraintFactory(ABC):
         :param offset: An int.
         :return: A set_element constraint.
         """
-        pass
+        setvars_handle = make_setvar_array(setvars)
+        constraint_handle = backend.set_element(self.handle, index.handle, setvars_handle, setvar.handle, offset)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def set_member_set(self, setvars: List[SetVar], setvar: SetVar):
         """
         Creates a member constraint stating that setvar belongs to setvars.
@@ -306,9 +341,10 @@ class SetConstraintFactory(ABC):
         :param setvar: A SetVar.
         :return: A set_member_set constraint.
         """
-        pass
+        setvars_handle = make_setvar_array(setvars)
+        constraint_handle = backend.set_member_set(self.handle, setvars_handle, setvar.handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def set_member_int(self, intvar: Union[IntVar, int], setvar: SetVar):
         """
         Creates a member constraint stating that the value of intvar is in setvar.
@@ -317,9 +353,12 @@ class SetConstraintFactory(ABC):
         :param setvar: A SetVars.
         :return: A set_member_int constraint.
         """
-        pass
+        iv = intvar
+        if isinstance(intvar, int):
+            iv = self.intvar(intvar)
+        constraint_handle = backend.set_member_int(self.handle, iv.handle, setvar.handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def set_not_member_int(self, intvar: Union[IntVar, int], setvar: SetVar):
         """
         Creates a not member constraint stating that the value of intvar is not in setvar.
@@ -328,9 +367,12 @@ class SetConstraintFactory(ABC):
         :param setvar: A SetVar.
         :return: A set_not_member_int constraint.
         """
-        pass
+        iv = intvar
+        if isinstance(intvar, int):
+            iv = self.intvar(intvar)
+        constraint_handle = backend.set_member_int(self.handle, iv.handle, setvar.handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def set_le(self, setvar_1: SetVar, setvar_2: SetVar):
         """
         Creates a "less or equal" constraint stating that the constant setvar_1 <= setvar_1.
@@ -340,9 +382,9 @@ class SetConstraintFactory(ABC):
         :param setvar_2: A SetVar.
         :return: A set_le constraint.
         """
-        pass
+        constraint_handle = backend.set_le(self.handle, setvar_1.handle, setvar_2.handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def set_lt(self, setvar_1: SetVar, setvar_2: SetVar):
         """
         Creates a "strictly less" constraint stating that the constant setvar_1 < setvar_2.
@@ -352,4 +394,5 @@ class SetConstraintFactory(ABC):
         :param setvar_2: A SetVar.
         :return: A set_lt constraint.
         """
-        pass
+        constraint_handle = backend.set_lt(self.handle, setvar_1.handle, setvar_2.handle)
+        return Constraint(constraint_handle, self)

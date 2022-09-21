@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestGlobalCardinality(unittest.TestCase):
 
     def testGlobalCardinality1(self):
-        m = create_model()
+        m = Model()
         intvars = m.intvars(5, 0, 5)
         values = [1, 2]
         occurrences = m.intvars(2, 2)
@@ -17,7 +17,7 @@ class TestGlobalCardinality(unittest.TestCase):
         self.assertTrue(m.get_solver().get_solution_count() > 0)
 
     def testGlobalCardinalityFail(self):
-        m = create_model()
+        m = Model()
         intvars = m.intvars(5, 3, 5)
         values = [1, 2]
         occurrences = m.intvars(2, 2)

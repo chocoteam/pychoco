@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestAllDifferent(unittest.TestCase):
 
     def testClausesIntChanneling1(self):
-        model = create_model()
+        model = Model()
         iv = model.intvar(1, 50)
         eqs = model.boolvars(50)
         lqs = model.boolvars(50)

@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestNValues(unittest.TestCase):
 
     def testNValues1(self):
-        m = create_model()
+        m = Model()
         variables = m.intvars(5, 0, 5)
         n_values = m.intvar(0, 2)
         m.n_values(variables, n_values).post()
@@ -15,7 +15,7 @@ class TestNValues(unittest.TestCase):
             self.assertTrue(len(vals) == n_values.get_value())
 
     def testNValuesFail(self):
-        m = create_model()
+        m = Model()
         variables = m.intvars(5, 0, 5)
         n_values = m.intvar(2)
         m.n_values(variables, n_values).post()

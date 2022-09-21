@@ -1,7 +1,12 @@
 from abc import ABC, abstractmethod
 from typing import Union, List
 
+from _utils import make_int_array
+from pychoco import backend
+from pychoco.variables.boolvar import BoolVar
 from pychoco.variables.intvar import IntVar
+from pychoco.variables.setvar import SetVar
+from pychoco.variables.task import Task
 
 
 class VariableFactory(ABC):
@@ -9,9 +14,13 @@ class VariableFactory(ABC):
     Factory for creating variables.
     """
 
+    @property
+    @abstractmethod
+    def handle(self):
+        pass
+
     # Integer variables #
 
-    @abstractmethod
     def intvar(self, lb: int, ub: Union[int, None] = None, name: Union[str, None] = None):
         """
         Creates an intvar.
@@ -21,9 +30,18 @@ class VariableFactory(ABC):
         :param name: The name of the intvar (automatically given if None).
         :return: An intvar.
         """
-        pass
+        if name is None:
+            if ub is None:
+                var_handle = backend.intvar_i(self.handle, lb)
+            else:
+                var_handle = backend.intvar_ii(self.handle, lb, ub)
+        else:
+            if ub is None:
+                var_handle = backend.intvar_si(self.handle, name, lb)
+            else:
+                var_handle = backend.intvar_sii(self.handle, name, lb, ub)
+        return IntVar(var_handle, self)
 
-    @abstractmethod
     def intvars(self, size: int, lb: Union[List[int], int], ub: Union[int, None] = None, name: Union[str, None] = None):
         """
         Creates a list of intvars.
@@ -34,11 +52,14 @@ class VariableFactory(ABC):
         :param name: Prefix name of the intvars (automatically given if None).
         :return: A list of intvars.
         """
-        pass
+        if isinstance(lb, list):
+            assert len(lb) == size
+            return [self.intvar(lb[i], None, name) for i in range(0, size)]
+        else:
+            return [self.intvar(lb, ub, name) for i in range(0, size)]
 
     # Boolean variables #
 
-    @abstractmethod
     def boolvar(self, value: Union[bool, None] = None, name: Union[str, None] = None):
         """
         Creates a boolvar.
@@ -47,9 +68,18 @@ class VariableFactory(ABC):
         :param name: The name of the variable (optional).
         :return: A boolvar.
         """
-        pass
+        if name is not None:
+            if value is not None:
+                var_handle = backend.boolvar_sb(self.handle, name, value)
+            else:
+                var_handle = backend.boolvar_s(self.handle, name)
+        else:
+            if value is not None:
+                var_handle = backend.boolvar_b(self.handle, value)
+            else:
+                var_handle = backend.boolvar(self.handle)
+        return BoolVar(var_handle, self)
 
-    @abstractmethod
     def boolvars(self, size: int, value: Union[List[bool], bool, None] = None, name: Union[str, None] = None):
         """
         Creates a list of boolvars.
@@ -60,11 +90,14 @@ class VariableFactory(ABC):
         :param name: The name of the variable (optional).
         :return: A list of boolvars.
         """
-        pass
+        if isinstance(value, list):
+            assert len(value) == size
+            return [self.boolvar(value[i], name) for i in range(0, size)]
+        else:
+            return [self.boolvar(value, name) for i in range(0, size)]
 
     # Task variables #
 
-    @abstractmethod
     def task(self, start: IntVar, duration: Union[int, IntVar], end: Union[None, IntVar] = None):
         """
         Creates a task container, based on a starting time `start`, a duration `duration`, and
@@ -78,11 +111,10 @@ class VariableFactory(ABC):
         :param end: The ending time (IntVar, or None).
         :return: A task container.
         """
-        pass
+        return Task(self, start, duration, end)
 
     # Set variables
 
-    @abstractmethod
     def setvar(self, lb_or_value: set, ub: Union[set, None] = None, name: Union[str, None] = None):
         """
         Creates a set variable taking its domain in [lb, ub], or a a constant setvar if ub is None.
@@ -95,4 +127,16 @@ class VariableFactory(ABC):
         :param name: Name of the variable (optional).
         :return: A SetVar.
         """
-        pass
+        lb_handle = make_int_array(list(lb_or_value))
+        if ub is None:
+            if name is None:
+                handle = backend.setvar_iv(self.handle, lb_handle)
+            else:
+                handle = backend.setvar_s_iv(self.handle, name, lb_handle)
+        else:
+            ub_handle = make_int_array(list(ub))
+            if name is None:
+                handle = backend.setvar_iviv(self.handle, lb_handle, ub_handle)
+            else:
+                handle = backend.setvar_s_iviv(self.handle, lb_handle, ub_handle)
+        return SetVar(handle, self)

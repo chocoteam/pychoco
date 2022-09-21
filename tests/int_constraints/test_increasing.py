@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestIncreasing(unittest.TestCase):
 
     def testIncreasing1(self):
-        m = create_model()
+        m = Model()
         intvars = m.intvars(10, 0, 10)
         m.increasing(intvars).post()
         for i in range(0, 10):
@@ -16,7 +16,7 @@ class TestIncreasing(unittest.TestCase):
                 self.assertGreaterEqual(sol[j + 1], sol[j])
 
     def testIncreasing2(self):
-        m = create_model()
+        m = Model()
         intvars = m.intvars(10, 0, 0)
         m.increasing(intvars).post()
         sols = m.get_solver().find_all_solutions()

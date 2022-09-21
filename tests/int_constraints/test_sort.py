@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestSort(unittest.TestCase):
 
     def testSort1(self):
-        m = create_model()
+        m = Model()
         iv1 = m.intvars(6, 0, 3)
         iv2 = m.intvars(6, 0, 3)
         sort = m.sort(iv1, iv2)

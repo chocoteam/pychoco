@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestMember(unittest.TestCase):
 
     def testMember1(self):
-        m = create_model()
+        m = Model()
         x = m.intvar(-1000, 1000)
         m.member(x, [0, 1, 3, 5]).post()
         sols = m.get_solver().find_all_solutions()
@@ -15,7 +15,7 @@ class TestMember(unittest.TestCase):
             self.assertTrue(s.get_int_val(x) in [0, 1, 3, 5])
 
     def testMember2(self):
-        m = create_model()
+        m = Model()
         x = m.intvar(-1000, 1000)
         m.member(x, lb=-10, ub=10).post()
         sols = m.get_solver().find_all_solutions()

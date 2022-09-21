@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestTable(unittest.TestCase):
 
     def testTable1(self):
-        m = create_model()
+        m = Model()
         intvars = m.intvars(3, 1, 2)
         tuples = [
             [0, 0, 0],
@@ -20,7 +20,7 @@ class TestTable(unittest.TestCase):
         self.assertEqual(m.get_solver().get_solution_count(), 1)
 
     def testTable2(self):
-        m = create_model()
+        m = Model()
         x = m.intvar(0, 4)
         y = m.boolvar()
         z = m.boolvar()

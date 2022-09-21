@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestAnd(unittest.TestCase):
 
     def testAnd1(self):
-        m = create_model()
+        m = Model()
         variables = m.intvars(3, 0, 4)
         all_diff = m.all_different(variables)
         sum_ = m.sum(variables, "<=", 3)
@@ -20,7 +20,7 @@ class TestAnd(unittest.TestCase):
         self.assertEqual(m.get_solver().get_solution_count(), 6)
 
     def testAnd2(self):
-        m = create_model()
+        m = Model()
         variables = m.boolvars(3)
         m.and_(variables).post()
         sols = m.get_solver().find_all_solutions()
@@ -29,14 +29,14 @@ class TestAnd(unittest.TestCase):
             self.assertEqual(sols[0].get_int_val(v), 1)
 
     def testAndFail1(self):
-        m = create_model()
+        m = Model()
         variables = m.boolvars(3)
         m.and_(variables).post()
         m.sum(variables, "<", 3).post()
         self.assertFalse(m.get_solver().solve())
 
     def testAndFail2(self):
-        m = create_model()
+        m = Model()
         variables = m.intvars(3, 0, 3)
         all_diff = m.all_different(variables)
         sum_ = m.sum(variables, "<=", 2)

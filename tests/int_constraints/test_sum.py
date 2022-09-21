@@ -1,19 +1,19 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestSum(unittest.TestCase):
 
     def testSum1(self):
-        model = create_model()
+        model = Model()
         intvars = model.intvars(5, 0, 5)
         sumvar = model.intvar(15, 20)
         model.sum(intvars, "=", sumvar).post()
         nb_sol = self._check_solutions("=", intvars, sumvar)
         # compare to scalar
         coeffs = [1, 1, 1, 1, 1]
-        model = create_model()
+        model = Model()
         intvars = model.intvars(5, 0, 5)
         sumvar = model.intvar(15, 20)
         model.scalar(intvars, coeffs, "=", sumvar).post()
@@ -23,7 +23,7 @@ class TestSum(unittest.TestCase):
         self.assertEqual(nb_sol, nb_sol2)
 
     def testSumFail(self):
-        model = create_model()
+        model = Model()
         intvars = model.intvars(5, 0, 5)
         sumvar = model.intvar(26, 30)
         model.sum(intvars, "=", sumvar).post()

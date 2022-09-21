@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestTask(unittest.TestCase):
 
     def test_create_task_iv_iv_iv(self):
-        model = create_model("MyModel")
+        model = Model("MyModel")
         s = model.intvar(0, 10)
         d = model.intvar(0, 10)
         e = model.intvar(0, 20)
@@ -17,7 +17,7 @@ class TestTask(unittest.TestCase):
         t.ensure_bound_consistency()
 
     def test_create_task_iv_i(self):
-        model = create_model("MyModel")
+        model = Model("MyModel")
         s = model.intvar(0, 10)
         d = 10
         t = model.task(s, d)
@@ -27,7 +27,7 @@ class TestTask(unittest.TestCase):
         t.ensure_bound_consistency()
 
     def test_create_task_iv_iv(self):
-        model = create_model("MyModel")
+        model = Model("MyModel")
         s = model.intvar(0, 10)
         d = model.intvar(0, 10)
         t = model.task(s, d)
@@ -37,7 +37,7 @@ class TestTask(unittest.TestCase):
         t.ensure_bound_consistency()
 
     def test_create_task_iv_i_iv(self):
-        model = create_model("MyModel")
+        model = Model("MyModel")
         s = model.intvar(0, 10)
         d = 10
         e = model.intvar(0, 20)

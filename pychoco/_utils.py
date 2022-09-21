@@ -1,12 +1,7 @@
 from typing import List
 
 from pychoco import backend
-from pychoco._internals._solution import _Solution
-from pychoco.constraints.constraint import Constraint
 from pychoco.solution import Solution
-from pychoco.variables.boolvar import BoolVar
-from pychoco.variables.intvar import IntVar
-from pychoco.variables.task import Task
 
 
 def make_int_array(ints: List[int]):
@@ -72,7 +67,7 @@ def make_int_4d_array(arrays: List[List[List[List[int]]]]):
     return int_4d_array
 
 
-def make_intvar_array(intvars: List[IntVar]):
+def make_intvar_array(intvars: List["IntVar"]):
     """
     Creates a Java IntVar[] handle from a list of Python IntVars
     :param intvars: A list of Python IntVars
@@ -84,7 +79,7 @@ def make_intvar_array(intvars: List[IntVar]):
     return vars_array
 
 
-def make_intvar_2d_array(arrays: List[List[IntVar]]):
+def make_intvar_2d_array(arrays: List[List["IntVar"]]):
     """
     Creates a Java IntVar[][] handle from a list of Python IntVar lists.
     :param arrays: A list of Intvar lists.
@@ -97,7 +92,7 @@ def make_intvar_2d_array(arrays: List[List[IntVar]]):
     return intvar_2d_array
 
 
-def make_boolvar_array(boolvars: List[BoolVar]):
+def make_boolvar_array(boolvars: List["BoolVar"]):
     """
     Creates a Java BoolVar[] handle from a list of Python BoolVars
     :param boolvars: A list of Python BoolVars
@@ -121,7 +116,7 @@ def make_setvar_array(setvars: List["SetVar"]):
     return vars_array
 
 
-def make_task_array(tasks: List[Task]):
+def make_task_array(tasks: List["Task"]):
     """
     Creates a Java Task[] handle from a list of Python Tasks
     :param tasks: A list of Python Tasks
@@ -133,7 +128,7 @@ def make_task_array(tasks: List[Task]):
     return task_array
 
 
-def make_constraint_array(constraints: List[Constraint]):
+def make_constraint_array(constraints: List["Constraint"]):
     """
     Creates a Java Constraint[] handle from a list of Python Constraint
     :param constraints: A list of Python Constraint
@@ -157,7 +152,7 @@ def make_criterion_var_array(criterion):
     return criterion_array
 
 
-def extract_solutions(solution_list_handle) -> List[Solution]:
+def extract_solutions(solution_list_handle) -> List["Solution"]:
     """
     Convert a Java List<Solution> handler into a Python list of Solutions.
     :param solution_list_handle: Java List<Solution> handle.
@@ -167,5 +162,5 @@ def extract_solutions(solution_list_handle) -> List[Solution]:
     size = backend.list_size(solution_list_handle)
     for i in range(0, size):
         sol_handle = backend.list_solution_get(solution_list_handle, i)
-        solutions.append(_Solution(sol_handle))
+        solutions.append(Solution(sol_handle))
     return solutions

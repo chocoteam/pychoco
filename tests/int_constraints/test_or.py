@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestOr(unittest.TestCase):
 
     def testOr1(self):
-        m = create_model()
+        m = Model()
         variables = m.intvars(3, 0, 4)
         c1 = m.arithm(variables[0], ">", variables[1])
         c2 = m.arithm(variables[1], ">", variables[2])
@@ -15,21 +15,21 @@ class TestOr(unittest.TestCase):
             self.assertTrue(c1.is_satisfied() or c2.is_satisfied())
 
     def testOr2(self):
-        m = create_model()
+        m = Model()
         variables = m.boolvars(3)
         m.or_(variables).post()
         while m.get_solver().solve():
             self.assertTrue(sum([1 for v in variables if v.get_value() == 1]) > 0)
 
     def testOrFail1(self):
-        m = create_model()
+        m = Model()
         variables = m.boolvars(3)
         m.or_(variables).post()
         m.sum(variables, "=", 0).post()
         self.assertFalse(m.get_solver().solve())
 
     def testOrFail2(self):
-        m = create_model()
+        m = Model()
         variables = m.intvars(3, 0, 1)
         all_diff = m.all_different(variables)
         sum_ = m.sum(variables, ">", 10)

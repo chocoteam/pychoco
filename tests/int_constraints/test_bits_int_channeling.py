@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestBitsIntChanneling(unittest.TestCase):
 
     def testBitsIntChanneling1(self):
-        model = create_model()
+        model = Model()
         bits = [
             model.boolvar(False),
             model.boolvar(True),
@@ -21,7 +21,7 @@ class TestBitsIntChanneling(unittest.TestCase):
         self.assertFalse(model.get_solver().solve())
 
     def testBitsIntChanneling2(self):
-        model = create_model()
+        model = Model()
         bits = []
         intvar = model.intvar(0, 100)
         model.bits_int_channeling(bits, intvar).post()
@@ -30,21 +30,21 @@ class TestBitsIntChanneling(unittest.TestCase):
         self.assertFalse(model.get_solver().solve())
 
     def testBitsIntChanneling3(self):
-        model = create_model()
+        model = Model()
         bits = model.boolvars(7)
         intvar = model.intvar(10)
         model.bits_int_channeling(bits, intvar).post()
         self._check_solutions(model, bits, intvar)
 
     def testBitsIntChanneling4(self):
-        model = create_model()
+        model = Model()
         bits = model.boolvars(10)
         var = model.intvar(0, 1000)
         model.bits_int_channeling(bits, var).post()
         self._check_solutions(model, bits, var)
 
     def testBitsIntChannelingFail(self):
-        model = create_model()
+        model = Model()
         bits = model.boolvars(7)
         intvar = model.intvar(128, 500)
         model.bits_int_channeling(bits, intvar).post()

@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestSetVar(unittest.TestCase):
 
     def test_create_setvar(self):
-        model = create_model("MyModel")
+        model = Model("MyModel")
         lb = set([0, 1, 2])
         ub = set([0, 1, 2, 3, 4])
         s = model.setvar(lb, ub)

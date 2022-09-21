@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestAbsolute(unittest.TestCase):
 
     def testAbsolute1(self):
-        m = create_model()
+        m = Model()
         x = m.intvar(0, 20)
         y = m.intvar(-10, 10)
         m.absolute(x, y).post()
@@ -16,7 +16,7 @@ class TestAbsolute(unittest.TestCase):
         self.assertEqual(len(solutions), 21)
 
     def testFail(self):
-        m = create_model()
+        m = Model()
         x = m.intvar(-10, -4)
         y = m.intvar(-10, 10)
         m.absolute(x, y).post()

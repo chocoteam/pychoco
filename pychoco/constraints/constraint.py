@@ -1,7 +1,12 @@
-from abc import ABC, abstractmethod
+from abc import abstractmethod
+
+from pychoco import backend
+from pychoco._handle_wrapper import _HandleWrapper
+from pychoco.utils import ESat
+from pychoco.variables.boolvar import BoolVar
 
 
-class Constraint(ABC):
+class Constraint(_HandleWrapper):
     """
     A constraint is a logic formula defining allowed combinations of values for a set of
     variables, i.e., restrictions over variables that must be respected in order to get
@@ -13,27 +18,32 @@ class Constraint(ABC):
     To be effective, a constraint must be either posted or reified.
     """
 
-    @abstractmethod
+    def __init__(self, handle: "SwigPyObject", model: "_Model"):
+        """
+        Warning: Not intended to be used by users, use a Model object to instantiate constraints instead.
+        """
+        super().__init__(handle)
+        self._model = model
+
     def get_name(self):
         """
         :return: The name of the constraint.
         """
-        pass
+        return backend.get_constraint_name(self.handle)
 
     @property
-    @abstractmethod
     def model(self):
         """
         :return: The model associated with this constraint.
         """
-        pass
+        return self._model
 
     @abstractmethod
     def post(self):
         """
         :return: Post the constraint.
         """
-        pass
+        backend.post(self.handle)
 
     @abstractmethod
     def reify(self):
@@ -43,7 +53,8 @@ class Constraint(ABC):
 
         :return: A BoolVar.
         """
-        pass
+        var_handle = backend.reify(self.handle)
+        return BoolVar(var_handle, self.model)
 
     @abstractmethod
     def is_satisfied(self):
@@ -54,7 +65,12 @@ class Constraint(ABC):
         a constraint is satisfied (or not) regardless of the variables' instantiation.
         :return: The satisfaction state of the constraint.
         """
-        pass
+        state = backend.is_satisfied(self.handle)
+        if state == 0:
+            return ESat.FALSE
+        if state == 1:
+            return ESat.TRUE
+        return ESat.UNDEFINED
 
     def __repr__(self):
         return "Choco Constraint ('" + self.get_name() + "')"

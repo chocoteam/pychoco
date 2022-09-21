@@ -1,41 +1,55 @@
-from abc import ABC, abstractmethod
-from typing import List
+from typing import List, Union
+
+from pychoco import backend
+from pychoco._handle_wrapper import _HandleWrapper
+from pychoco._utils import make_int_array
 
 
-class FiniteAutomaton:
-    pass
-
-
-class FiniteAutomaton(ABC):
+class FiniteAutomaton(_HandleWrapper):
     """
     Class representing a finite automaton, which is used in regular constraints.
     """
 
+    def __init__(self, regexp: Union[str, None] = None, bounds: Union[List[int], None] = None, _handle=None):
+        """
+        Finite automaton constructor (for regular constraints).
+
+        :param regexp: A regexpt describing the automaton (optional).
+        :param bounds: [min, max] (optional).
+        """
+        if _handle is not None:
+            super().__init__(_handle)
+        else:
+            if regexp is None:
+                handle = backend.create_fa()
+            elif bounds is None:
+                handle = backend.create_fa_regexp(regexp)
+            else:
+                assert len(bounds) == 2
+                handle = backend.create_fa_regexp_min_max(regexp, bounds[0], bounds[1])
+            super().__init__(handle)
+
     @property
-    @abstractmethod
     def nb_states(self):
         """
         :return: The number of states in this automaton.
         """
-        pass
+        return backend.get_nb_states(self.handle)
 
     @property
-    @abstractmethod
     def nb_symbols(self):
         """
         :return: The number of symbols in this automaton.
         """
-        pass
+        return backend.get_nb_symbols(self.handle)
 
     @property
-    @abstractmethod
     def initial_state(self):
         """
         :return: The initial state of this automaton.
         """
-        pass
+        return backend.get_initial_state(self.handle)
 
-    @abstractmethod
     def is_final(self, state: int):
         """
         Return True if state is final.
@@ -43,25 +57,22 @@ class FiniteAutomaton(ABC):
         :param state: A state.
         :return True if state is final, False otherwise.
         """
-        pass
+        return backend.is_final(self.handle, state)
 
-    @abstractmethod
     def add_state(self):
         """
         Add a state to this automaton.
         """
-        pass
+        return backend.add_state(self.handle)
 
-    @abstractmethod
     def remove_symbol(self, symbol: int):
         """
         Removes a symbol from this automaton.
 
         :param symbol: A symbol (int).
         """
-        pass
+        backend.remove_symbol(self.handle, symbol)
 
-    @abstractmethod
     def add_transition(self, source: int, destination: int, *symbols: List[int]):
         """
         Add a transition to this automaton.
@@ -70,9 +81,9 @@ class FiniteAutomaton(ABC):
         :param destination: The destination state.
         :param symbols: The symbols.
         """
-        pass
+        symbols_handle = make_int_array(symbols)
+        backend.add_transition(self.handle, source, destination, symbols_handle)
 
-    @abstractmethod
     def delete_transition(self, source: int, destination: int, symbol: int):
         """
         Delete a transition from this automaton.
@@ -81,53 +92,49 @@ class FiniteAutomaton(ABC):
         :param destination: The destination state.
         :param symbol: The symbol.
         """
-        pass
+        backend.delete_transition(self.handle, source, destination, symbol)
 
-    @abstractmethod
     def set_initial_state(self, state: int):
         """
         Define the initial state of this automaton.
 
         :param state: The state to be defined as initial.
         """
-        pass
+        backend.set_initial_state(self.handle, state)
 
-    @abstractmethod
     def set_final(self, *states: List[int]):
         """
         Set states as final.
 
         :param states: One or several states.
         """
-        pass
+        states_handle = make_int_array(states)
+        backend.set_final(self.handle, states_handle)
 
-    @abstractmethod
     def set_non_final(self, *states: List[int]):
         """
         Set states as non final.
 
         :param states: One or several states.
         """
-        pass
+        states_handle = make_int_array(states)
+        backend.set_non_final(self.handle, states_handle)
 
-    @abstractmethod
     def minimize(self):
         """
         Minimize the automaton.
         """
-        pass
+        return FiniteAutomaton(_handle=backend.fa_minimize(self.handle))
 
-    @abstractmethod
     def union(self, other):
         """
         :param other Another automaton
         :return: The union of this and other.
         """
-        pass
+        return FiniteAutomaton(_handle=backend.fa_union(self.handle, other.handle))
 
-    @abstractmethod
     def complement(self):
         """
         :return: The complement of this automaton.
         """
-        pass
+        return FiniteAutomaton(_handle=backend.fa_complement(self.handle))

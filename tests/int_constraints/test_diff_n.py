@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestDiffN(unittest.TestCase):
 
     def testDiffN1(self):
-        m = create_model()
+        m = Model()
         x = m.intvars(2, 0, 2)
         y = m.intvars(2, 0, 2)
         width = m.intvars(2, 0, 2)

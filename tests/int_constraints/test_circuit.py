@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestCircuit(unittest.TestCase):
 
     def testCircuit1(self):
-        m = create_model()
+        m = Model()
         intvars = m.intvars(7, 0, 6)
         m.circuit(intvars).post()
         all_diff = m.all_different(intvars)
@@ -20,7 +20,7 @@ class TestCircuit(unittest.TestCase):
             self.assertTrue(i == 0 and n == len(intvars))
 
     def testCircuitFail(self):
-        m = create_model()
+        m = Model()
         intvars = m.intvars(7, 0, 6)
         m.circuit(intvars).post()
         m.at_most_n_values(intvars, m.intvar(3)).post()

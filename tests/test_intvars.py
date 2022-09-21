@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestIntVar(unittest.TestCase):
 
     def test_create_intvar(self):
-        model = create_model("MyModel")
+        model = Model("MyModel")
         a = model.intvar(0, 10, "a")
         b = model.intvar(1, 2)
         self.assertEqual(a.name, "a")

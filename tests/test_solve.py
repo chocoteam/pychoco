@@ -1,13 +1,13 @@
 import math
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestSolver(unittest.TestCase):
 
     def test_find_solution(self):
-        model = create_model("MyModel")
+        model = Model("MyModel")
         a = model.intvar(0, 10)
         b = model.intvar(0, 5)
         c = model.intvar(2, 7)
@@ -29,7 +29,7 @@ class TestSolver(unittest.TestCase):
         self.assertTrue(solution.get_int_val(c) + solution.get_int_val(e) <= solution.get_int_val(a))
 
     def test_find_10_solutions(self):
-        model = create_model("MyModel")
+        model = Model("MyModel")
         a = model.intvar(0, 10)
         b = model.intvar(0, 5)
         c = model.intvar(2, 7)

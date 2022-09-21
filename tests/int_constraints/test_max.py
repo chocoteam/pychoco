@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestMax(unittest.TestCase):
 
     def testMax1(self):
-        m = create_model()
+        m = Model()
         a = m.intvar(0, 5)
         b = m.intvars(5, 0, 5)
         m.max(a, b).post()

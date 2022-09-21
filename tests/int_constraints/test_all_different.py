@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestAllDifferent(unittest.TestCase):
 
     def testAllDifferent1(self):
-        m = create_model()
+        m = Model()
         variables = m.intvars(3, 0, 2)
         m.all_different(variables).post()
         solutions = m.get_solver().find_all_solutions()
@@ -17,7 +17,7 @@ class TestAllDifferent(unittest.TestCase):
             self.assertNotEqual(s.get_int_val(variables[1]), s.get_int_val(variables[2]))
 
     def testAllDifferentFail(self):
-        m = create_model()
+        m = Model()
         variables = m.intvars(3, 0, 1)
         m.all_different(variables).post()
         solution = m.get_solver().find_solution()

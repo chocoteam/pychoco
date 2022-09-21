@@ -1,10 +1,10 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestModel(unittest.TestCase):
 
     def test_create_model(self):
-        model = create_model("MyModel")
+        model = Model("MyModel")
         self.assertEqual(model.name, "MyModel")

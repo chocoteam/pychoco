@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestDiv(unittest.TestCase):
 
     def testDiv1(self):
-        m = create_model()
+        m = Model()
         a = m.intvar(0, 10)
         b = m.intvar(-10, 40)
         c = m.intvar(-1, 12)

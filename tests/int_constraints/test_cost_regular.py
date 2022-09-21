@@ -1,16 +1,18 @@
 import unittest
 
-from pychoco import create_model, create_cost_automaton, create_finite_automaton, make_single_resource
+from pychoco.model import Model
+from pychoco.objects.automaton.cost_automaton import CostAutomaton, make_single_resource
+from pychoco.objects.automaton.finite_automaton import FiniteAutomaton
 
 
 class TestCostRegular(unittest.TestCase):
 
     def testCostRegular1(self):
-        m = create_model()
+        m = Model()
         n = 10
         intvars = m.intvars(10, 0, 2)
         cost = m.intvar(3, 4)
-        auto = create_cost_automaton()
+        auto = CostAutomaton()
         start = auto.add_state()
         end = auto.add_state()
         auto.set_initial_state(start)
@@ -30,11 +32,11 @@ class TestCostRegular(unittest.TestCase):
         self.assertEqual(m.get_solver().get_solution_count(), 9280)
 
     def testCostRegular2(self):
-        model = create_model()
+        model = Model()
         n = 10
         intvars = model.intvars(n, 0, 2)
         cost = model.intvar(3, 4)
-        auto = create_finite_automaton()
+        auto = FiniteAutomaton()
         start = auto.add_state()
         end = auto.add_state()
         auto.set_initial_state(start)
@@ -54,7 +56,7 @@ class TestCostRegular(unittest.TestCase):
         self.assertEqual(model.get_solver().get_solution_count(), 9280)
 
     def testCostRegular3(self):
-        model = create_model()
+        model = Model()
         n = 28
         intvars = model.intvars(n, 0, 2)
         cost = model.intvar(0, 4)
@@ -72,9 +74,9 @@ class TestCostRegular(unittest.TestCase):
             "(0|1|2)((0|1|2)(0|1|2))*2(0|1|2)2(0|1|2)2(0|1|2)*"
         ]
         # a unique automaton is built as the complement language composed of all the forbidden patterns
-        auto = create_finite_automaton()
+        auto = FiniteAutomaton()
         for reg in forbidden_regexps:
-            a = create_finite_automaton(reg)
+            a = FiniteAutomaton(reg)
             auto = auto.union(a)
             auto.minimize()
         auto = auto.complement()

@@ -1,26 +1,26 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestScalar(unittest.TestCase):
 
     def testScalar1(self):
-        model = create_model()
+        model = Model()
         coeffs = [1, 5, 7, 8]
         intvars = model.intvars(4, 1, 5);
         model.scalar(intvars, coeffs, "=", 35).post()
         self._check_solutions(coeffs, intvars, model.intvar(35), "=")
 
     def testScalar2(self):
-        model = create_model()
+        model = Model()
         coeffs = [5, 6, 7, 9]
         vars = model.intvars(4, -5, 5)
         model.scalar(vars, coeffs, "<=", 0).post()
         self._check_solutions(coeffs, vars, model.intvar(0), "<=")
 
     def testScalar3(self):
-        model = create_model()
+        model = Model()
         coeffs = [1]
         intvars = [model.intvar(1, 100)]
         sumvar = model.intvar(1, 100)
@@ -28,7 +28,7 @@ class TestScalar(unittest.TestCase):
         self.assertEqual(self._check_solutions(coeffs, intvars, sumvar, "="), 100)
 
     def testScalarFail(self):
-        model = create_model()
+        model = Model()
         coeffs = [0]
         intvars = [model.intvar(1, 10)]
         model.scalar(intvars, coeffs, ">=", 1).post()

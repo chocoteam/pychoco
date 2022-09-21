@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestLexLess(unittest.TestCase):
 
     def testLexLess1(self):
-        m = create_model()
+        m = Model()
         ar1 = m.intvars(3, 0, 5)
         ar2 = m.intvars(3, -1, 4)
         c = m.lex_less(ar1, ar2)

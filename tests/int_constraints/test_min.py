@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestMin(unittest.TestCase):
 
     def testMin(self):
-        m = create_model()
+        m = Model()
         a = m.intvar(0, 5)
         b = m.intvars(5, 0, 5)
         m.min(a, b).post()

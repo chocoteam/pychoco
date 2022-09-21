@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestAllDifferent(unittest.TestCase):
 
     def testAtLeastNValues1(self):
-        m = create_model()
+        m = Model()
         variables = m.intvars(5, 0, 5)
         n_values = m.intvar(0, 2)
         m.at_least_n_values(variables, n_values).post()
@@ -15,7 +15,7 @@ class TestAllDifferent(unittest.TestCase):
             self.assertTrue(len(vals) >= n_values.get_value())
 
     def testAtLeastNValuesFail(self):
-        m = create_model()
+        m = Model()
         variables = m.intvars(5, 0, 5)
         n_values = m.intvar(2)
         m.at_least_n_values(variables, n_values).post()

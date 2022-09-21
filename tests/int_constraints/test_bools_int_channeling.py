@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestBoolsIntChanneling(unittest.TestCase):
 
     def testBoolsIntChanneling1(self):
-        m = create_model()
+        m = Model()
         bools = m.boolvars(10)
         intvar = m.intvar(0, 9)
         m.bools_int_channeling(bools, intvar).post()
@@ -19,7 +19,7 @@ class TestBoolsIntChanneling(unittest.TestCase):
             self.assertTrue(m.get_solver().get_solution_count(), 10)
 
     def testBoolsIntChannelingFail(self):
-        m = create_model()
+        m = Model()
         bools = m.boolvars(10)
         intvar = m.intvar(10, 11)
         m.or_(bools).post()

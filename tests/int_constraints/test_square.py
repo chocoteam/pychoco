@@ -1,13 +1,13 @@
 import math
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestSquare(unittest.TestCase):
 
     def testSquare1(self):
-        m = create_model()
+        m = Model()
         x2 = m.intvar(0, 100)
         x = m.intvar(0, 10)
         m.square(x2, x).post()

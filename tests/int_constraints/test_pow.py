@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestPow(unittest.TestCase):
 
     def testPow1(self):
-        m = create_model()
+        m = Model()
         dividend = m.intvar(2, 3, "dividend")
         divisor = 1
         remainder = m.intvar(1, 2, "remainder")
@@ -16,7 +16,7 @@ class TestPow(unittest.TestCase):
         s.solve()
 
     def testPow2(self):
-        model = create_model("model");
+        model = Model("model");
         a = model.intvar(2, 6);
         b = 2;
         c = model.intvar(5, 30);
@@ -24,7 +24,7 @@ class TestPow(unittest.TestCase):
         self.assertEqual(len(model.get_solver().find_all_solutions()), 3)
 
     def testPow3(self):
-        model = create_model("model")
+        model = Model("model")
         x = model.intvar(-5, 5)
         z = model.intvar(-5, 5)
         model.pow(x, 3, z).post()

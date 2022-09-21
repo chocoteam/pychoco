@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestBinPacking(unittest.TestCase):
 
     def testBinPacking1(self):
-        model = create_model();
+        model = Model();
         item_size = [2, 3, 1];
         item_bin = model.intvars(3, -1, 1);
         bin_load = model.intvars(2, 3, 3);
@@ -14,7 +14,7 @@ class TestBinPacking(unittest.TestCase):
         self.assertTrue(model.get_solver().solve())
 
     def testBinPacking2(self):
-        model = create_model()
+        model = Model()
         item_size = [2, 2, 2]
         item_bin = model.intvars(3, 0, 2)
         bin_load = model.intvars(3, 0, 5)

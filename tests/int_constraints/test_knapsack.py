@@ -1,13 +1,13 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestKnapsack(unittest.TestCase):
 
     def testKnapsack1(self):
         for seed in range(0, 200):
-            m = create_model()
+            m = Model()
             occs = m.boolvars(35)
             es = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 8, 8, 8, 8, 4, 4, 4, 4,
                   4, 7, 7, 7, 3, 3, 3, 3, 3, 3, 3, 3]

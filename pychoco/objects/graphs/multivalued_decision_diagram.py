@@ -1,10 +1,8 @@
-from typing import List, TYPE_CHECKING
+from typing import List
 
-if TYPE_CHECKING:
-    from pychoco import IntVar
 from pychoco import backend
-from pychoco._internals._handle_wrapper import _HandleWrapper
-from pychoco._internals._utils import make_intvar_array, make_int_2d_array
+from pychoco._handle_wrapper import _HandleWrapper
+from pychoco._utils import make_intvar_array, make_int_2d_array
 
 
 class MultivaluedDecisionDiagram(_HandleWrapper):

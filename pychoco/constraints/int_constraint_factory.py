@@ -1,6 +1,9 @@
 from abc import ABC, abstractmethod
 from typing import Union, List
 
+from pychoco import backend
+from pychoco._utils import make_int_array, make_intvar_array, make_int_2d_array, make_boolvar_array, \
+    make_constraint_array, make_task_array, make_intvar_2d_array
 from pychoco.constraints.constraint import Constraint
 from pychoco.objects.automaton.cost_automaton import CostAutomaton
 from pychoco.objects.automaton.finite_automaton import FiniteAutomaton
@@ -15,7 +18,11 @@ class IntConstraintFactory(ABC):
     Constraints over integer and boolean variables.
     """
 
+    @property
     @abstractmethod
+    def handle(self):
+        pass
+
     def arithm(self, x: IntVar, op1: str, y: Union[int, IntVar],
                op2: Union[None, str] = None, z: Union[None, int, IntVar] = None):
         """
@@ -51,9 +58,32 @@ class IntConstraintFactory(ABC):
         :param z: An IntVar object, a constant (integer), or None.
         :return: An arithmetic constraint.
         """
-        pass
+        constraint_handle = None
+        eq_operators = ["=", "!=", ">", "<", ">=", "<="]
+        alg_operators = ["+", "-", "*", "/"]
+        if op2 is None:
+            assert op1 in eq_operators
+        else:
+            assert (op1 in eq_operators and op2 in alg_operators) or (op1 in alg_operators and op2 in eq_operators)
+        # Case 1
+        if isinstance(y, int) and op2 is None and z is None:
+            constraint_handle = backend.arithm_iv_cst(self.handle, x.handle, op1, y)
+        if isinstance(y, int) and op2 is not None and z is not None:
+            yy = self.intvar(y)
+            if isinstance(z, int):
+                constraint_handle = backend.arithm_iv_iv_cst(self.handle, x.handle, op1, yy.handle, op2, z)
+            else:
+                constraint_handle = backend.arithm_iv_iv_iv(self.handle, x.handle, op1, yy.handle, op2, z)
+        if isinstance(y, IntVar) and op2 is None and z is None:
+            constraint_handle = backend.arithm_iv_iv(self.handle, x.handle, op1, y.handle)
+        if isinstance(y, IntVar) and op2 is not None and isinstance(z, int):
+            constraint_handle = backend.arithm_iv_iv_cst(self.handle, x.handle, op1, y.handle, op2, z)
+        if isinstance(y, IntVar) and op2 is not None and isinstance(z, IntVar):
+            constraint_handle = backend.arithm_iv_iv_iv(self.handle, x.handle, op1, y.handle, op2, z.handle)
+        if constraint_handle is None:
+            raise AttributeError("Invalid parameters combination for arithm constraint. Please refer to the doc")
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def member(self, x: IntVar, table: Union[list, tuple, None] = None,
                lb: Union[None, int] = None, ub: Union[None, int] = None):
         """
@@ -66,9 +96,13 @@ class IntConstraintFactory(ABC):
         :param ub: An integer, or `None`.
         :return: A member constraint.
         """
-        pass
+        if table is not None:
+            ints_array = make_int_array(table)
+            constraint_handle = backend.member_iv_iarray(self.handle, x.handle, ints_array)
+        else:
+            constraint_handle = backend.member_iv_i_i(self.handle, x.handle, lb, ub)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def not_member(self, x: IntVar, table: Union[list, tuple, None] = None,
                    lb: Union[None, int] = None, ub: Union[None, int] = None):
         """
@@ -81,9 +115,13 @@ class IntConstraintFactory(ABC):
         :param ub: An integer, or `None`.
         :return: A not_member constraint.
         """
-        pass
+        if table is not None:
+            ints_array = make_int_array(table)
+            constraint_handle = backend.not_member_iv_iarray(self.handle, x.handle, ints_array)
+        else:
+            constraint_handle = backend.not_member_iv_i_i(self.handle, x.handle, lb, ub)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def all_different(self, intvars: List[IntVar]):
         """
         Creates an allDifferent constraint, which ensures that all variables from vars take a different value.
@@ -91,9 +129,10 @@ class IntConstraintFactory(ABC):
         :param intvars: A list of integer variables.
         :return: An allDifferent constraint.
         """
-        pass
+        vars_array = make_intvar_array(intvars)
+        constraint_handle = backend.all_different(self.handle, vars_array)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def all_different_except_0(self, intvars: List[IntVar]):
         """
         Creates an allDifferent constraint for variables that are not equal to 0.
@@ -102,9 +141,10 @@ class IntConstraintFactory(ABC):
         :param intvars: A list of integer variables.
         :return: An allDifferent constraint.
         """
-        pass
+        vars_array = make_intvar_array(intvars)
+        constraint_handle = backend.all_different_except_0(self.handle, vars_array)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def all_different_prec(self, intvars: List[IntVar], predecessors: List[List[int]], successors: List[List[int]]):
         """
         Creates an AllDiffPrec constraint. The predecessors and successors matrix are built as following:
@@ -118,9 +158,12 @@ class IntConstraintFactory(ABC):
         :param successors: successors matrix.
         :return: An allDifferent constraint.
         """
-        pass
+        intvars_handle = make_intvar_array(intvars)
+        predHandle = make_int_2d_array(predecessors)
+        succHandle = make_int_2d_array(successors)
+        constraint_handle = backend.all_different_prec_pred_succ(self.handle, intvars_handle, predHandle, succHandle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def mod(self, x, mod: Union[int, IntVar], res: Union[int, IntVar]):
         """
         Creates a modulo constraint. Ensures X % mod = res.
@@ -133,9 +176,15 @@ class IntConstraintFactory(ABC):
         :param res: A constant (int), or an `IntVar`.
         :return: A modulo constraint.
         """
-        pass
+        constraint_handle = None
+        if isinstance(mod, int) and isinstance(res, int):
+            constraint_handle = backend.mod_iv_i_i(self.handle, x.handle, mod, res)
+        if isinstance(mod, int) and isinstance(res, IntVar):
+            constraint_handle = backend.mod_iv_i_iv(self.handle, x.handle, mod, res.handle)
+        if isinstance(mod, IntVar) and isinstance(res, IntVar):
+            constraint_handle = backend.mod_iv_iv_iv(self.handle, x.handle, mod.handle, res.handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def not_(self, constraint: Constraint):
         """
         Gets the opposite of a given constraint.
@@ -144,9 +193,9 @@ class IntConstraintFactory(ABC):
         :param constraint: A constraint.
         :return: A not constraint.
         """
-        pass
+        constraint_handle = backend.not_(self.handle, constraint.handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def absolute(self, x: IntVar, y: IntVar):
         """
         Creates an absolute value constraint: x = | y | .
@@ -155,9 +204,9 @@ class IntConstraintFactory(ABC):
         :param y: An IntVar.
         :return: An absolute constraint.
         """
-        pass
+        constraint_handle = backend.absolute(self.handle, x.handle, y.handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def distance(self, x: IntVar, y: IntVar, op: str, z: Union[int, IntVar]):
         """
         Creates a distance constraint : | x - y | op z, where op can take its value among:
@@ -172,9 +221,16 @@ class IntConstraintFactory(ABC):
         :param z: An IntVar or a constant (int).
         :return: A distance constraint.
         """
-        pass
+        if isinstance(z, IntVar):
+            assert op in {"=", ">", "<"}, "[distance] op must be in ['=', '>', '<']"
+        else:
+            assert op in {"=", "!=", ">", "<"}, "[distance] op must be in ['=', '!=', '>', '<']"
+        if isinstance(z, int):
+            constraint_handle = backend.distance_iv_iv_i(self.handle, x.handle, y.handle, op, z)
+        else:
+            constraint_handle = backend.distance_iv_iv_iv(self.handle, x.handle, y.handle, op, z.handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def element(self, x: IntVar, table: Union[List[int], List[IntVar]], index: IntVar, offset: int = 0):
         """
         Creates an element constraint: x = table[index-offset]
@@ -186,9 +242,18 @@ class IntConstraintFactory(ABC):
         :param offset: An integer.
         :return: An element constraint.
         """
-        pass
+        if len(table) == 0:
+            raise AttributeError("table parameter in element constraint must have a length > 0")
+        if isinstance(table[0], int):
+            ints_array_handle = make_int_array(table)
+            constraint_handle = backend.element_iv_iarray_iv_i(self.handle, x.handle, ints_array_handle,
+                                                               index.handle, offset)
+        else:
+            int_var_array_handle = make_intvar_array(table)
+            constraint_handle = backend.element_iv_ivarray_iv_i(self.handle, x.handle, int_var_array_handle,
+                                                                index.handle, offset)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def square(self, x: IntVar, y: IntVar):
         """
         Creates a square constraint: x = y^2.
@@ -197,9 +262,9 @@ class IntConstraintFactory(ABC):
         :param y: An IntVar.
         :return: A square constraint.
         """
-        pass
+        constraint_handle = backend.square(self.handle, x.handle, y.handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def table(self, intvars: List[IntVar], tuples: List[List[int]], feasible: bool = True, algo: str = "GAC3rm"):
         """
         Creates a table constraint, with the specified algorithm defined algo
@@ -212,7 +277,7 @@ class IntConstraintFactory(ABC):
         - STR2+: Arc Consistency version STR2 for allowed tuples,
         - FC: Forward Checking.
         - MDD+: uses a multi-valued decision diagram for allowed tuples (see mddc constraint).
-        
+
         :param intvars: integer variables forming the tuples.
         :param tuples: the relation between the variables (list of allowed/forbidden tuples)
         :param feasible: if True, the tuples describe allowed tuples, otherwise forbidden tuples.
@@ -220,9 +285,14 @@ class IntConstraintFactory(ABC):
             "FC", "STR2+". Default is "GAC3rm".
         :return: A table constraint.
         """
-        pass
+        assert algo in ["CT+", "GAC3rm", "GAC2001", "GACSTR", "GAC2001+", "GAC3rm+",
+                        "FC", "STR2+"], '[table] algo must be in ["CT+", "GAC3rm", "GAC2001", "GACSTR", "GAC2001+", ' \
+                                        '"GAC3rm+", "FC", "STR2+"]'
+        vars_handle = make_intvar_array(intvars)
+        tuples_handle = make_int_2d_array(tuples)
+        constraint_handle = backend.table(self.handle, vars_handle, tuples_handle, feasible, algo)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def times(self, x: IntVar, y: Union[int, IntVar], z: Union[int, IntVar]):
         """
         Creates a multiplication constraint: x * y = z.
@@ -232,9 +302,15 @@ class IntConstraintFactory(ABC):
         :param z: An IntVar or an int.
         :return: A times constraint.
         """
-        pass
+        constraint_handle = None
+        if isinstance(z, IntVar) and isinstance(y, int):
+            constraint_handle = backend.times_iv_i_iv(self.handle, x.handle, y, z.handle)
+        if isinstance(y, IntVar) and isinstance(z, int):
+            constraint_handle = backend.times_iv_iv_i(self.handle, x.handle, y.handle, z)
+        if isinstance(y, IntVar) and isinstance(z, IntVar):
+            constraint_handle = backend.times_iv_iv_iv(self.handle, x.handle, y.handle, z.handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def pow(self, x: IntVar, c: int, y: IntVar):
         """
         Creates a power constraint: x^c = y
@@ -244,9 +320,9 @@ class IntConstraintFactory(ABC):
         :param y: An IntVar.
         :return: A pow constraint.
         """
-        pass
+        constraint_handle = backend.pow_(self.handle, x.handle, c, y.handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def div(self, dividend: IntVar, divisor: IntVar, result: IntVar):
         """
         Creates a euclidean division constraint. Ensures dividend / divisor = result, rounding towards 0.
@@ -257,9 +333,9 @@ class IntConstraintFactory(ABC):
         :param result: An IntVar.
         :return: A div constraint.
         """
-        pass
+        constraint_handle = backend.div_(self.handle, dividend.handle, divisor.handle, result.handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def max(self, x: IntVar, intvars: List[IntVar]):
         """
         Creates a maximum constraint, x is the maximum value among IntVars in intvars.
@@ -268,9 +344,10 @@ class IntConstraintFactory(ABC):
         :param intvars: A list of IntVars.
         :return: A max constraint.
         """
-        pass
+        int_var_array_handle = make_intvar_array(intvars)
+        constraint_hande = backend.max_iv_ivarray(self.handle, x.handle, int_var_array_handle)
+        return Constraint(constraint_hande, self)
 
-    @abstractmethod
     def mddc(self, intvars: List[IntVar], mdd: MultivaluedDecisionDiagram):
         """
         Create a constraint where solutions (tuples) are encoded by a multi-valued decision diagram.
@@ -280,9 +357,10 @@ class IntConstraintFactory(ABC):
         :param mdd: A MultiValuedDecisionDiagram object.
         :return: A mddc constraint.
         """
-        pass
+        intvars_handle = make_intvar_array(intvars)
+        constraint_handle = backend.mddc(self.handle, intvars_handle, mdd.handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def min(self, x: IntVar, intvars: List[IntVar]):
         """
         Creates a minimum constraint, x is the minimum value among IntVars in intvars.
@@ -291,9 +369,10 @@ class IntConstraintFactory(ABC):
         :param intvars: A list of IntVars.
         :return: A min constraint.
         """
-        pass
+        int_var_array_handle = make_intvar_array(intvars)
+        constraint_hande = backend.min_iv_ivarray(self.handle, x.handle, int_var_array_handle)
+        return Constraint(constraint_hande, self)
 
-    @abstractmethod
     def multi_cost_regular(self, intvars: List[IntVar], costs: List[IntVar], cost_automaton: CostAutomaton):
         """
         Creates a regular constraint that supports a multiple cost function.
@@ -308,9 +387,12 @@ class IntConstraintFactory(ABC):
         :param cost_automaton: A cost automaton.
         :return: A multi_cost_regular constraint.
         """
-        pass
+        intvar_array_handle = make_intvar_array(intvars)
+        costs_handle = make_intvar_array(costs)
+        constraint_handle = backend.multi_cost_regular(self.handle, intvar_array_handle, costs_handle,
+                                                       cost_automaton.handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def all_equal(self, intvars: List[IntVar]):
         """
         Creates an all_equal constraint.
@@ -319,9 +401,10 @@ class IntConstraintFactory(ABC):
         :param intvars: A list of IntVars.
         :return: An all_equal constraint.
         """
-        pass
+        vars_array = make_intvar_array(intvars)
+        constraint_handle = backend.all_equal(self.handle, vars_array)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def not_all_equal(self, intvars: List[IntVar]):
         """
         Creates a not_all_equal constraint.
@@ -330,9 +413,10 @@ class IntConstraintFactory(ABC):
         :param intvars: A list of IntVars.
         :return: A not_all_equal constraint.
         """
-        pass
+        vars_array = make_intvar_array(intvars)
+        constraint_handle = backend.not_all_equal(self.handle, vars_array)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def among(self, nb_var: IntVar, intvars: List[IntVar], values: List[int]):
         """
         Creates an among constraint.
@@ -347,9 +431,11 @@ class IntConstraintFactory(ABC):
         :param values: A list of ints.
         :return: An among constraint.
         """
-        pass
+        vars_array = make_intvar_array(intvars)
+        values_array = make_int_array(values)
+        constraint_handle = backend.among(self.handle, nb_var.handle, vars_array, values_array)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def and_(self, bools_or_constraints: Union[List[BoolVar], List[Constraint]]):
         """
         Creates an and constraint that is satisfied if all boolean variables or constraint in
@@ -358,9 +444,15 @@ class IntConstraintFactory(ABC):
         :param bools_or_constraints: Either a list of BoolVars or a list of Constraints.
         :return: An and constraint.
         """
-        pass
+        assert len(bools_or_constraints) >= 1, "[and_] bools_or_constraints must not be empty"
+        if isinstance(bools_or_constraints[0], BoolVar):
+            vars_array = make_boolvar_array(bools_or_constraints)
+            constraint_handle = backend.and_bv_bv(self.handle, vars_array)
+        else:
+            cons_array = make_constraint_array(bools_or_constraints)
+            constraint_handle = backend.and_cs_cs(self.handle, cons_array)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def at_least_n_values(self, intvars: List[IntVar], n_values: IntVar, ac: bool = False):
         """
         Creates an at_least_n_value constraint.
@@ -375,9 +467,10 @@ class IntConstraintFactory(ABC):
             from (Soft) AllDifferent.
         :return: An at_least_n_values constraint.
         """
-        pass
+        vars_array = make_intvar_array(intvars)
+        constraint_handle = backend.at_least_n_values(self.handle, vars_array, n_values.handle, ac)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def at_most_n_values(self, intvars: List[IntVar], n_values: IntVar, strong: bool = False):
         """
         Creates an at_mostn_value constraint.
@@ -394,9 +487,10 @@ class IntConstraintFactory(ABC):
             Presumably useful when nValues must be minimized.
         :return: An at_most_n_values constraint.
         """
-        pass
+        vars_array = make_intvar_array(intvars)
+        constraint_handle = backend.at_most_n_values(self.handle, vars_array, n_values.handle, strong)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def bin_packing(self, item_bin: List[IntVar], item_size: List[int], bin_load: List[IntVar], offset: int = 0):
         """
         Creates a bin_packing constraint.
@@ -412,9 +506,13 @@ class IntConstraintFactory(ABC):
             (which counts from 1 to n instead of from 0 to n-1)
         :return: A bin_packing constraint.
         """
-        pass
+        item_bin_handle = make_intvar_array(item_bin)
+        item_size_handle = make_int_array(item_size)
+        bin_load_handle = make_intvar_array(bin_load)
+        constraint_handle = backend.bin_packing(self.handle, item_bin_handle, item_size_handle,
+                                                bin_load_handle, offset)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def bools_int_channeling(self, boolvars: List[BoolVar], intvar: IntVar, offset: int = 0):
         """
         Creates a channeling constraint between an integer variable and a set of boolean variables.
@@ -428,9 +526,10 @@ class IntConstraintFactory(ABC):
             which counts from 1 to n instead of from 0 to n-1.
         :return: A bools_int_channeling constraint.
         """
-        pass
+        boolvars_handle = make_boolvar_array(boolvars)
+        constraint_handle = backend.bools_int_channeling(self.handle, boolvars_handle, intvar.handle, offset)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def bits_int_channeling(self, bits: List[BoolVar], intvar: IntVar):
         """
         Creates a channeling constraint between an integer variable and a set of bit variables.
@@ -443,9 +542,10 @@ class IntConstraintFactory(ABC):
         :param intvar: An IntVar.
         :return: A bits_int_channeling constraint.
         """
-        pass
+        bits_handle = make_boolvar_array(bits)
+        constraint_handle = backend.bits_int_channeling(self.handle, bits_handle, intvar.handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def clauses_int_channeling(self, intvar: IntVar, e_vars: List[BoolVar], l_vars: List[BoolVar]):
         """
         Creates a channeling constraint between an integer variable and a set of clauses.
@@ -461,9 +561,14 @@ class IntConstraintFactory(ABC):
         :param l_vars: A list of LEQ BoolVars.
         :return: A clauses_int_channeling constraint.
         """
-        pass
+        assert len(e_vars) == len(l_vars) == abs(1 + intvar.get_ub() - intvar.get_lb()), \
+            "[clauses_int_channeling] e_vars and l_vars must have the same length as intvar's domain size"
+        assert not isinstance(intvar, BoolVar), "[clauses_int_channeling] intvar cannot be a BoolVar"
+        e_vars_handle = make_boolvar_array(e_vars)
+        l_vars_handle = make_boolvar_array(l_vars)
+        constraint_handle = backend.clauses_int_channeling(self.handle, intvar.handle, e_vars_handle, l_vars_handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def circuit(self, intvars: List[IntVar], offset: int = 0, conf: str = "RD"):
         """
         Creates a circuit constraint which ensures that
@@ -485,9 +590,11 @@ class IntConstraintFactory(ABC):
         :param conf: Filtering options, among ["LIGHT", "FIRST", "RD", and "ALL"].
         :return: A circuit constraint.
         """
-        pass
+        intvars_handle = make_intvar_array(intvars)
+        assert conf in ["LIGHT", "FIRST", "RD", "ALL"], "[circuit] conf must be in ['LIGHT', 'FIRST', 'RD', 'ALL']"
+        constraint_handle = backend.circuit(self.handle, intvars_handle, offset, conf)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def cost_regular(self, intvars: List[IntVar], cost: IntVar, cost_automaton: CostAutomaton):
         """
         Creates a regular constraint that supports a cost function.
@@ -501,9 +608,10 @@ class IntConstraintFactory(ABC):
         :param cost_automaton: A deterministic finite automaton defining the regular language and the costs.
         :return: A cost_regular constraint.
         """
-        pass
+        intvars_handle = make_intvar_array(intvars)
+        constraint_handle = backend.cost_regular(self.handle, intvars_handle, cost.handle, cost_automaton.handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def count(self, value: Union[int, IntVar], intvars: List[IntVar], limit: IntVar):
         """
         Creates a count constraint.
@@ -515,9 +623,13 @@ class IntConstraintFactory(ABC):
         :param limit: An int or an IntVar.
         :return: A count constraint.
         """
-        pass
+        intvars_handle = make_intvar_array(intvars)
+        if isinstance(value, int):
+            constraint_handle = backend.count_i(self.handle, value, intvars_handle, limit.handle)
+        else:
+            constraint_handle = backend.count_iv(self.handle, value.handle, intvars_handle, limit.handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def cumulative(self, tasks: List[Task], heights: List[IntVar], capacity: IntVar, incremental: bool = True):
         """
         Creates a cumulative constraint: Enforces that at each point in time,
@@ -533,9 +645,11 @@ class IntConstraintFactory(ABC):
         :param incremental: Specifies if an incremental propagation should be applied (True by default).
         :return: A cumulative constraint.
         """
-        pass
+        tasks_handle = make_task_array(tasks)
+        vars_handle = make_intvar_array(heights)
+        constraint_handle = backend.cumulative(self.handle, tasks_handle, vars_handle, capacity.handle, incremental)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def diff_n(self, x: List[IntVar], y: List[IntVar], width: List[IntVar], height: List[IntVar],
                add_cumulative_reasoning: bool = True):
         """
@@ -550,9 +664,14 @@ class IntConstraintFactory(ABC):
             on each dimension or not (advised).
         :return: A diff_n constraint.
         """
-        pass
+        x_handle = make_intvar_array(x)
+        y_handle = make_intvar_array(y)
+        width_handle = make_intvar_array(width)
+        height_handle = make_intvar_array(height)
+        constraint_handle = backend.diff_n(self.handle, x_handle, y_handle, width_handle, height_handle,
+                                           add_cumulative_reasoning)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def decreasing(self, intvars: List[IntVar], delta: int = 0):
         """
         Create a decreasing constraint which ensures that the variables in intvars are decreasing.
@@ -563,9 +682,10 @@ class IntConstraintFactory(ABC):
         :param delta: An int.
         :return: A decreasing constraint.
         """
-        pass
+        intvars_handle = make_intvar_array(intvars)
+        constraint_handle = backend.decreasing(self.handle, intvars_handle, delta)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def increasing(self, intvars: List[IntVar], delta: int = 0):
         """
         Create an increasing constraint which ensures that the variables in intvars are increasing.
@@ -576,9 +696,10 @@ class IntConstraintFactory(ABC):
         :param delta: An int.
         :return: An increasing constraint.
         """
-        pass
+        intvars_handle = make_intvar_array(intvars)
+        constraint_handle = backend.increasing(self.handle, intvars_handle, delta)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def global_cardinality(self, intvars: List[IntVar], values: List[int], occurrences: List[IntVar],
                            closed: bool = False):
         """
@@ -592,9 +713,13 @@ class IntConstraintFactory(ABC):
         :param closed: If True, restricts domains of intvars to values.
         :return: A global_cardinality constraint.
         """
-        pass
+        intvars_handle = make_intvar_array(intvars)
+        values_handle = make_int_array(values)
+        occurrences_handle = make_intvar_array(occurrences)
+        constraint_handle = backend.global_cardinality(self.handle, intvars_handle, values_handle, occurrences_handle,
+                                                       closed)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def inverse_channeling(self, intvars1: List[IntVar], intvars2: List[IntVar], offset1: int = 0,
                            offset2: int = 0, ac: bool = False):
         """
@@ -612,9 +737,12 @@ class IntConstraintFactory(ABC):
         :param ac: A bool.
         :return: An inverse_channeling constraint.
         """
-        pass
+        intvars1_handle = make_intvar_array(intvars1)
+        intvars2_handle = make_intvar_array(intvars2)
+        constraint_handle = backend.inverse_channeling(self.handle, intvars1_handle, intvars2_handle,
+                                                       offset1, offset2, ac)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def int_value_precede_chain(self, intvars: List[IntVar], values: List[int]):
         """
         Creates an int_value_precede_chain constraint.
@@ -626,9 +754,11 @@ class IntConstraintFactory(ABC):
         :param values: A list of distinct ints.
         :return: An int_value_precede_chain constraint.
         """
-        pass
+        intvars_handle = make_intvar_array(intvars)
+        values_handle = make_int_array(values)
+        constraint_handle = backend.int_value_precede_chain(self.handle, intvars_handle, values_handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def keysort(self, intvars: List[List[IntVar]], permutation_intvars: Union[List[IntVar], None],
                 sorted_intvars: List[List[IntVar]], k: int):
         """
@@ -643,9 +773,15 @@ class IntConstraintFactory(ABC):
         :param k: key prefix size (0 <= k <= m, where m is the size of intvars).
         :return: A keysort constraint.
         """
-        pass
+        intvars_handle = make_intvar_2d_array(intvars)
+        permutation_intvars_handle = None
+        if permutation_intvars is not None:
+            permutation_intvars_handle = make_intvar_array(permutation_intvars)
+        sorted_intvars_handle = make_intvar_2d_array(sorted_intvars)
+        constraint_handle = backend.keysort(self.handle, intvars_handle, permutation_intvars_handle,
+                                            sorted_intvars_handle, k)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def knapsack(self, occurrences: List[IntVar], weight_sum: IntVar, energy_sum: IntVar, weight: List[int],
                  energy: List[int]):
         """
@@ -676,9 +812,13 @@ class IntConstraintFactory(ABC):
         :param energy: A list of ints.
         :return: A knapsack constraint.
         """
-        pass
+        occ_handle = make_intvar_array(occurrences)
+        weight_handle = make_int_array(weight)
+        energy_handle = make_int_array(energy)
+        constraint_handle = backend.knapsack(self.handle, occ_handle, weight_sum.handle, energy_sum.handle,
+                                             weight_handle, energy_handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def lex_chain_less(self, intvars: List[IntVar]):
         """
         Creates a lex_chain_less constraint.
@@ -688,9 +828,10 @@ class IntConstraintFactory(ABC):
         :param intvars: A list of IntVars.
         :return: A lex_chain_less constraint.
         """
-        pass
+        intvars_handle = make_intvar_array(intvars)
+        constraint_handle = backend.lex_chain_less(self.handle, intvars_handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def lex_chain_less_eq(self, intvars: List[IntVar]):
         """
         Creates a lex_chain_less_eq constraint.
@@ -700,9 +841,10 @@ class IntConstraintFactory(ABC):
         :param intvars: A list of IntVars.
         :return: A lex_chain_less_eq constraint.
         """
-        pass
+        intvars_handle = make_intvar_array(intvars)
+        constraint_handle = backend.lex_chain_less_eq(self.handle, intvars_handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def lex_less(self, intvars1: List[IntVar], intvars2: List[IntVar]):
         """
         Creates a lex_less constraint.
@@ -712,9 +854,11 @@ class IntConstraintFactory(ABC):
         :param intvars2: A list of IntVars.
         :return: A lex_less constraint.
         """
-        pass
+        intvars_handle1 = make_intvar_array(intvars1)
+        intvars_handle2 = make_intvar_array(intvars2)
+        constraint_handle = backend.lex_less(self.handle, intvars_handle1, intvars_handle2)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def lex_less_eq(self, intvars1: List[IntVar], intvars2: List[IntVar]):
         """
         Creates a lex_less_eq constraint.
@@ -724,9 +868,11 @@ class IntConstraintFactory(ABC):
         :param intvars2: A list of IntVars.
         :return: A lex_less_eq constraint.
         """
-        pass
+        intvars_handle1 = make_intvar_array(intvars1)
+        intvars_handle2 = make_intvar_array(intvars2)
+        constraint_handle = backend.lex_less_eq(self.handle, intvars_handle1, intvars_handle2)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def argmax(self, intvar: IntVar, offset: int, intvars: List[IntVar]):
         """
         Creates an argmax constraint.
@@ -737,9 +883,10 @@ class IntConstraintFactory(ABC):
         :param intvars: A list of IntVars.
         :return: An argmax constraint.
         """
-        pass
+        intvars_handle = make_intvar_array(intvars)
+        constraint_handle = backend.argmax(self.handle, intvar.handle, offset, intvars_handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def argmin(self, intvar: IntVar, offset: int, intvars: List[IntVar]):
         """
         Creates an argmin constraint.
@@ -750,9 +897,10 @@ class IntConstraintFactory(ABC):
         :param intvars: A list of IntVars.
         :return: An argmin constraint.
         """
-        pass
+        intvars_handle = make_intvar_array(intvars)
+        constraint_handle = backend.argmin(self.handle, intvar.handle, offset, intvars_handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def n_values(self, intvars: List[IntVar], n_values: IntVar):
         """
         Creates an n_values constraint.
@@ -763,9 +911,10 @@ class IntConstraintFactory(ABC):
         :param n_values: An IntVar.
         :return: An n_values constraint.
         """
-        pass
+        intvars_handle = make_intvar_array(intvars)
+        constraint_handle = backend.n_values(self.handle, intvars_handle, n_values.handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def or_(self, bools_or_constraints: Union[List[BoolVar], List[Constraint]]):
         """
         Creates a or constraint that is satisfied if at least one boolean variable or constraint in
@@ -774,9 +923,15 @@ class IntConstraintFactory(ABC):
         :param bools_or_constraints: Either a list of BoolVars or a list of Constraints.
         :return: An or constraint.
         """
-        pass
+        assert len(bools_or_constraints) >= 1, "[or_] bools_or_constraint must not be empty"
+        if isinstance(bools_or_constraints[0], BoolVar):
+            vars_array = make_boolvar_array(bools_or_constraints)
+            constraint_handle = backend.or_bv_bv(self.handle, vars_array)
+        else:
+            cons_array = make_constraint_array(bools_or_constraints)
+            constraint_handle = backend.or_cs_cs(self.handle, cons_array)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def path(self, intvars: List[IntVar], start: IntVar, end: IntVar, offset: int = 0):
         """
         Creates a path constraint which ensures that
@@ -794,9 +949,10 @@ class IntConstraintFactory(ABC):
         :param offset: An int.
         :return: A path constraint.
         """
-        pass
+        intvars_handle = make_intvar_array(intvars)
+        constraint_handle = backend.path(self.handle, intvars_handle, start.handle, end.handle, offset)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def regular(self, intvars: List[IntVar], automaton: FiniteAutomaton):
         """
         Creates a regular constraint.
@@ -809,9 +965,10 @@ class IntConstraintFactory(ABC):
         :param automaton: A finite automaton.
         :return: A regular constraint.
         """
-        pass
+        intvars_handle = make_intvar_array(intvars)
+        constraint_handle = backend.regular(self.handle, intvars_handle, automaton.handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def scalar(self, intvars: List[IntVar], coeffs: List[int], operator: str, scalar: Union[int, IntVar]):
         """
         Creates a scalar constraint which ensures that Sum(intvars[i] * coeffs[i]) operator scalar.
@@ -822,9 +979,17 @@ class IntConstraintFactory(ABC):
         :param scalar: An int or an IntVar.
         :return: A scalar constraint.
         """
-        pass
+        assert len(intvars) == len(coeffs), "[scalar] intvars and coeffs must have the same length"
+        assert operator in ["=", "!=", ">", "<", ">=",
+                            "<="], "[scalar] operator must be in ['=', '!=', '>', '<', '>=', '<=']"
+        intvars_handle = make_intvar_array(intvars)
+        coeffs_handle = make_int_array(coeffs)
+        if isinstance(scalar, IntVar):
+            constraint_handle = backend.scalar_iv(self.handle, intvars_handle, coeffs_handle, operator, scalar.handle)
+        else:
+            constraint_handle = backend.scalar_i(self.handle, intvars_handle, coeffs_handle, operator, scalar)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def sort(self, intvars: List[IntVar], sorted_intvars: List[IntVar]):
         """
         Creates a sort constraint which ensures that the variables of sorted_intvars correspond to the variables
@@ -839,9 +1004,11 @@ class IntConstraintFactory(ABC):
         :param sorted_intvars: A list of IntVars.
         :return: A sort constraint.
         """
-        pass
+        intvars_handle = make_intvar_array(intvars)
+        sorted_intvars_handle = make_intvar_array(sorted_intvars)
+        constraint_handle = backend.sort(self.handle, intvars_handle, sorted_intvars_handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def sub_circuit(self, intvars: List[IntVar], offset: int, sub_circuit_length: IntVar):
         """
         Creates a sub_circuit constraint which ensures that:
@@ -863,9 +1030,10 @@ class IntConstraintFactory(ABC):
         :param sub_circuit_length: An IntVar.
         :return: A sub_circuit constraint.
         """
-        pass
+        intvars_handle = make_intvar_array(intvars)
+        constraint_handle = backend.sub_circuit(self.handle, intvars_handle, offset, sub_circuit_length.handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def sub_path(self, intvars: List[IntVar], start: IntVar, end: IntVar, offset: int, sub_path_length: IntVar):
         """
         Creates a sub_path constraint which ensures that:
@@ -886,9 +1054,12 @@ class IntConstraintFactory(ABC):
         :param sub_path_length: An IntVar.
         :return: A sub_path constraint.
         """
-        pass
+        assert len(intvars) > 0, "[sub_path] intvars must not be empty"
+        intvars_handle = make_intvar_array(intvars)
+        constraint_handle = backend.sub_path(self.handle, intvars_handle, start.handle, end.handle, offset,
+                                             sub_path_length.handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def sum(self, intvars_or_boolvars: Union[List[IntVar], List[BoolVar]], operator: str,
             sum_result: Union[int, IntVar, List[IntVar]]):
         """
@@ -900,9 +1071,29 @@ class IntConstraintFactory(ABC):
         :param sum_result: Either an int, an IntVar, or a list of IntVars.
         :return: A sum constraint.
         """
-        pass
+        assert len(intvars_or_boolvars) > 0, "[sum] intvars_or_boolvars must not be empty"
+        assert operator in ["=", "!=", ">", "<", ">=",
+                            "<="], "[sum] operator must be in ['=', '!=', '>', '<', '>=', '<=']"
+        if isinstance(intvars_or_boolvars[0], IntVar):
+            vars_handle = make_intvar_array(intvars_or_boolvars)
+            if isinstance(sum_result, int):
+                constraint_handle = backend.sum_iv_i(self.handle, vars_handle, operator, sum_result)
+            elif isinstance(sum_result, IntVar):
+                constraint_handle = backend.sum_iv_iv(self.handle, vars_handle, operator, sum_result.handle)
+            else:
+                sum_result_handle = make_intvar_array(sum_result)
+                constraint_handle = backend.sum_ivarray_ivarray(self.handle, vars_handle, operator, sum_result_handle)
+        else:
+            vars_handle = make_boolvar_array(intvars_or_boolvars)
+            if isinstance(sum_result, int):
+                constraint_handle = backend.sum_bv_i(self.handle, vars_handle, operator, sum_result)
+            elif isinstance(sum_result, IntVar):
+                constraint_handle = backend.sum_bv_iv(self.handle, vars_handle, operator, sum_result.handle)
+            else:
+                sum_result_handle = make_intvar_array(sum_result)
+                constraint_handle = backend.sum_ivarray_ivarray(self.handle, vars_handle, operator, sum_result_handle)
+        return Constraint(constraint_handle, self)
 
-    @abstractmethod
     def tree(self, successors: List[IntVar], nb_trees: IntVar, offset: int = 0):
         """
         Creates a tree constraint.
@@ -919,4 +1110,6 @@ class IntConstraintFactory(ABC):
         :param offset: An int.
         :return: A tree constraint.
         """
-        pass
+        successors_handle = make_intvar_array(successors)
+        constraint_handle = backend.tree(self.handle, successors_handle, nb_trees.handle, offset)
+        return Constraint(constraint_handle, self)

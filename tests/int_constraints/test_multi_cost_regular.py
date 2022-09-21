@@ -1,13 +1,15 @@
 import unittest
 
-from pychoco import create_model, create_finite_automaton, make_multi_resources
+from pychoco.model import Model
+from pychoco.objects.automaton.cost_automaton import make_multi_resources
+from pychoco.objects.automaton.finite_automaton import FiniteAutomaton
 
 
 def make(period, seed):
-    model = create_model()
+    model = Model()
     sequence = model.intvars(period, 0, 2)
     bounds = [model.intvar(0, 80), model.intvar(0, 28), model.intvar(0, 28), model.intvar(0, 28)]
-    auto = create_finite_automaton()
+    auto = FiniteAutomaton()
     idx = auto.add_state()
     auto.set_initial_state(idx)
     auto.set_final(idx)

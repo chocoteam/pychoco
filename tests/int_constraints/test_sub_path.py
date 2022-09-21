@@ -1,12 +1,12 @@
 import unittest
 
-from pychoco import create_model
+from pychoco.model import Model
 
 
 class TestSubPath(unittest.TestCase):
 
     def testSubPath1(self):
-        model = create_model()
+        model = Model()
         x = [
             model.intvar(4),
             model.intvar(1),
@@ -24,7 +24,7 @@ class TestSubPath(unittest.TestCase):
         self.assertEqual(0, end.get_value())
 
     def testSubPath2(self):
-        model = create_model()
+        model = Model()
         x = [
             model.intvar(4),
             model.intvar(-3, 6),
