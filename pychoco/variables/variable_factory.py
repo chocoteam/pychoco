@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import Union, List
 
-from _utils import make_int_array
 from pychoco import backend
+from pychoco._utils import make_int_array
 from pychoco.variables.boolvar import BoolVar
 from pychoco.variables.intvar import IntVar
 from pychoco.variables.setvar import SetVar

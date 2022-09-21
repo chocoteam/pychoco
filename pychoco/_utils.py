@@ -112,7 +112,7 @@ def make_setvar_array(setvars: List["SetVar"]):
     """
     vars_array = backend.create_setvar_array(len(setvars))
     for i in range(0, len(setvars)):
-        backend.boolvar_array_set(vars_array, setvars[i].handle, i)
+        backend.setvar_array_set(vars_array, setvars[i].handle, i)
     return vars_array
 
 
