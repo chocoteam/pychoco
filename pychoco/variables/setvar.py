@@ -24,14 +24,14 @@ class SetVar(_Variable, _HandleWrapper):
         :param ub: A set of integers representing the upper bound, or None if the variable is a constant.
         :param name: The name of the setvar (optional).
         """
-        lb_handle = make_int_array(*list(lb_or_value))
+        lb_handle = make_int_array(list(lb_or_value))
         if ub is None:
             if name is None:
                 handle = backend.setvar_iv(model.handle, lb_handle)
             else:
                 handle = backend.setvar_s_iv(model.handle, name, lb_handle)
         else:
-            ub_handle = make_int_array(*list(ub))
+            ub_handle = make_int_array(list(ub))
             if name is None:
                 handle = backend.setvar_iviv(model.handle, lb_handle, ub_handle)
             else:

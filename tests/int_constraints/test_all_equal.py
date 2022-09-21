@@ -8,7 +8,7 @@ class TestAllEqual(unittest.TestCase):
     def testAllEqual1(self):
         m = create_model()
         variables = m.intvars(3, 0, 2)
-        m.all_equal(*variables).post()
+        m.all_equal(variables).post()
         solutions = m.get_solver().find_all_solutions()
         self.assertEqual(len(solutions), 3)
         for s in solutions:
@@ -19,6 +19,6 @@ class TestAllEqual(unittest.TestCase):
     def testAllEqualFail(self):
         m = create_model()
         variables = [m.intvar(0, 1), m.intvar(1, 2), m.intvar(3, 4)]
-        m.all_equal(*variables).post()
+        m.all_equal(variables).post()
         solution = m.get_solver().find_solution()
         self.assertIsNone(solution)

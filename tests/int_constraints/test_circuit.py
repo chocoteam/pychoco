@@ -9,7 +9,7 @@ class TestCircuit(unittest.TestCase):
         m = create_model()
         intvars = m.intvars(7, 0, 6)
         m.circuit(intvars).post()
-        all_diff = m.all_different(*intvars)
+        all_diff = m.all_different(intvars)
         while m.get_solver().solve():
             self.assertTrue(all_diff.is_satisfied())
             i = intvars[0].get_value()

@@ -8,7 +8,7 @@ class TestArgmax(unittest.TestCase):
     def testArgmax1(self):
         m = create_model()
         variables = m.intvars(5, 0, 10)
-        m.all_different(*variables).post()
+        m.all_different(variables).post()
         idx = m.intvar(1, 5)
         m.argmax(idx, 1, variables).post()
         while m.get_solver().solve():

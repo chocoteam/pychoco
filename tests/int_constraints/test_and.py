@@ -8,9 +8,9 @@ class TestAnd(unittest.TestCase):
     def testAnd1(self):
         m = create_model()
         variables = m.intvars(3, 0, 4)
-        all_diff = m.all_different(*variables)
+        all_diff = m.all_different(variables)
         sum_ = m.sum(variables, "<=", 3)
-        m.and_(all_diff, sum_).post()
+        m.and_([all_diff, sum_]).post()
         while m.get_solver().solve():
             self.assertNotEqual(variables[0].get_value(), variables[1].get_value())
             self.assertNotEqual(variables[0].get_value(), variables[2].get_value())
@@ -22,7 +22,7 @@ class TestAnd(unittest.TestCase):
     def testAnd2(self):
         m = create_model()
         variables = m.boolvars(3)
-        m.and_(*variables).post()
+        m.and_(variables).post()
         sols = m.get_solver().find_all_solutions()
         self.assertEqual(len(sols), 1)
         for v in variables:
@@ -31,14 +31,14 @@ class TestAnd(unittest.TestCase):
     def testAndFail1(self):
         m = create_model()
         variables = m.boolvars(3)
-        m.and_(*variables).post()
+        m.and_(variables).post()
         m.sum(variables, "<", 3).post()
         self.assertFalse(m.get_solver().solve())
 
     def testAndFail2(self):
         m = create_model()
         variables = m.intvars(3, 0, 3)
-        all_diff = m.all_different(*variables)
+        all_diff = m.all_different(variables)
         sum_ = m.sum(variables, "<=", 2)
-        m.and_(all_diff, sum_).post()
+        m.and_([all_diff, sum_]).post()
         self.assertFalse(m.get_solver().solve())

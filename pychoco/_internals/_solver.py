@@ -35,7 +35,7 @@ class _Solver(Solver, _HandleWrapper):
             criterion.append(backend.restart_counter(self.handle, restart_limit))
         if backtrack_limit is not None:
             criterion.append(backend.backtrack_counter(self.handle, restart_limit))
-        stop = make_criterion_var_array(*criterion)
+        stop = make_criterion_var_array(criterion)
         return bool(backend.solve(self.handle, stop))
 
     def find_solution(self,
@@ -55,7 +55,7 @@ class _Solver(Solver, _HandleWrapper):
             criterion.append(backend.restart_counter(self.handle, restart_limit))
         if backtrack_limit is not None:
             criterion.append(backend.backtrack_counter(self.handle, restart_limit))
-        stop = make_criterion_var_array(*criterion)
+        stop = make_criterion_var_array(criterion)
         solution_handle = backend.find_solution(self.handle, stop)
         if solution_handle is None:
             return None
@@ -81,7 +81,7 @@ class _Solver(Solver, _HandleWrapper):
             criterion.append(backend.restart_counter(self.handle, restart_limit))
         if backtrack_limit is not None:
             criterion.append(backend.backtrack_counter(self.handle, restart_limit))
-        stop = make_criterion_var_array(*criterion)
+        stop = make_criterion_var_array(criterion)
         solutions_list_handle = backend.find_all_solutions(self.handle, stop)
         return extract_solutions(solutions_list_handle)
 
@@ -107,7 +107,7 @@ class _Solver(Solver, _HandleWrapper):
             criterion.append(backend.restart_counter(self.handle, restart_limit))
         if backtrack_limit is not None:
             criterion.append(backend.backtrack_counter(self.handle, restart_limit))
-        stop = make_criterion_var_array(*criterion)
+        stop = make_criterion_var_array(criterion)
         solution_handle = backend.find_optimal_solution(self.handle, objective.handle, maximize, stop)
         if solution_handle is None:
             return None
@@ -135,7 +135,7 @@ class _Solver(Solver, _HandleWrapper):
             criterion.append(backend.restart_counter(self.handle, restart_limit))
         if backtrack_limit is not None:
             criterion.append(backend.backtrack_counter(self.handle, restart_limit))
-        stop = make_criterion_var_array(*criterion)
+        stop = make_criterion_var_array(criterion)
         solutions_list_handle = backend.find_all_optimal_solution(self.handle, objective.handle, maximize, stop)
         return extract_solutions(solutions_list_handle)
 
@@ -159,56 +159,56 @@ class _Solver(Solver, _HandleWrapper):
 
     def set_dom_over_w_deg_search(self, *intvars):
         assert len(intvars) > 0, "No variables were declared for the search"
-        var_array_handle = make_intvar_array(*intvars)
+        var_array_handle = make_intvar_array(intvars)
         backend.set_dom_over_w_deg_search(self.handle, var_array_handle)
 
     def set_dom_over_w_deg_ref_search(self, *intvars):
         assert len(intvars) > 0, "No variables were declared for the search"
-        var_array_handle = make_intvar_array(*intvars)
+        var_array_handle = make_intvar_array(intvars)
         backend.set_dom_over_w_deg_ref_search(self.handle, var_array_handle)
 
     def set_activity_based_search(self, *intvars):
         assert len(intvars) > 0, "No variables were declared for the search"
-        var_array_handle = make_intvar_array(*intvars)
+        var_array_handle = make_intvar_array(intvars)
         backend.set_activity_based_search(self.handle, var_array_handle)
 
     def set_min_dom_lb_search(self, *intvars):
         assert len(intvars) > 0, "No variables were declared for the search"
-        var_array_handle = make_intvar_array(*intvars)
+        var_array_handle = make_intvar_array(intvars)
         backend.set_min_dom_lb_search(self.handle, var_array_handle)
 
     def set_min_dom_ub_search(self, *intvars):
         assert len(intvars) > 0, "No variables were declared for the search"
-        var_array_handle = make_intvar_array(*intvars)
+        var_array_handle = make_intvar_array(intvars)
         backend.set_min_dom_ub_search(self.handle, var_array_handle)
 
     def set_random_search(self, *intvars, seed: int = round(time.time())):
         assert len(intvars) > 0, "No variables were declared for the search"
-        var_array_handle = make_intvar_array(*intvars)
+        var_array_handle = make_intvar_array(intvars)
         backend.set_random_search(self.handle, var_array_handle, seed)
 
     def set_conflict_history_search(self, *intvars):
         assert len(intvars) > 0, "No variables were declared for the search"
-        var_array_handle = make_intvar_array(*intvars)
+        var_array_handle = make_intvar_array(intvars)
         backend.set_conflict_history_search(self.handle, var_array_handle)
 
     def set_input_order_lb_search(self, *intvars):
         assert len(intvars) > 0, "No variables were declared for the search"
         assert len(intvars) > 0, "No variables were declared for the search"
-        var_array_handle = make_intvar_array(*intvars)
+        var_array_handle = make_intvar_array(intvars)
         backend.set_input_order_lb_search(self.handle, var_array_handle)
 
     def set_input_order_ub_search(self, *intvars):
         assert len(intvars) > 0, "No variables were declared for the search"
-        var_array_handle = make_intvar_array(*intvars)
+        var_array_handle = make_intvar_array(intvars)
         backend.set_input_order_ub_search(self.handle, var_array_handle)
 
     def set_failure_length_based_search(self, *intvars):
         assert len(intvars) > 0, "No variables were declared for the search"
-        var_array_handle = make_intvar_array(*intvars)
+        var_array_handle = make_intvar_array(intvars)
         backend.set_failure_length_based_search(self.handle, var_array_handle)
 
     def set_failure_rate_based_search(self, *intvars):
         assert len(intvars) > 0, "No variables were declared for the search"
-        var_array_handle = make_intvar_array(*intvars)
+        var_array_handle = make_intvar_array(intvars)
         backend.set_failure_rate_based_search(self.handle, var_array_handle)

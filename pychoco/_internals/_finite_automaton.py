@@ -33,7 +33,7 @@ class _FiniteAutomaton(FiniteAutomaton, _HandleWrapper):
         backend.remove_symbol(self.handle, symbol)
 
     def add_transition(self, source: int, destination: int, *symbols: List[int]):
-        symbols_handle = make_int_array(*symbols)
+        symbols_handle = make_int_array(symbols)
         backend.add_transition(self.handle, source, destination, symbols_handle)
 
     def delete_transition(self, source: int, destination: int, symbol: int):
@@ -43,11 +43,11 @@ class _FiniteAutomaton(FiniteAutomaton, _HandleWrapper):
         backend.set_initial_state(self.handle, state)
 
     def set_final(self, *states: List[int]):
-        states_handle = make_int_array(*states)
+        states_handle = make_int_array(states)
         backend.set_final(self.handle, states_handle)
 
     def set_non_final(self, *states: List[int]):
-        states_handle = make_int_array(*states)
+        states_handle = make_int_array(states)
         backend.set_non_final(self.handle, states_handle)
 
     def minimize(self):

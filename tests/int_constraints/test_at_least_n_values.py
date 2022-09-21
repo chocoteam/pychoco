@@ -19,5 +19,5 @@ class TestAllDifferent(unittest.TestCase):
         variables = m.intvars(5, 0, 5)
         n_values = m.intvar(2)
         m.at_least_n_values(variables, n_values).post()
-        m.all_equal(*variables).post()
+        m.all_equal(variables).post()
         self.assertFalse(m.get_solver().solve())

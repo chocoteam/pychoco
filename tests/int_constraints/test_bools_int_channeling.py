@@ -22,6 +22,6 @@ class TestBoolsIntChanneling(unittest.TestCase):
         m = create_model()
         bools = m.boolvars(10)
         intvar = m.intvar(10, 11)
-        m.or_(*bools).post()
+        m.or_(bools).post()
         m.bools_int_channeling(bools, intvar).post()
         self.assertFalse(m.get_solver().solve())

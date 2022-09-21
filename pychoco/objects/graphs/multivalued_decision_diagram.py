@@ -26,8 +26,8 @@ class MultivaluedDecisionDiagram(_HandleWrapper):
         for r in tuples:
             assert len(r) == len(intvars)
         handle = backend.create_mdd_tuples(
-            make_intvar_array(*intvars),
-            make_int_2d_array(*tuples),
+            make_intvar_array(intvars),
+            make_int_2d_array(tuples),
             compact_once,
             sort_tuple
         )

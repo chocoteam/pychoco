@@ -9,7 +9,7 @@ from pychoco.variables.intvar import IntVar
 from pychoco.variables.task import Task
 
 
-def make_int_array(*ints: List[int]):
+def make_int_array(ints: List[int]):
     """
     Creates a Java int[] handle from a list of Python ints
     :param ints: A list of Python ints
@@ -33,7 +33,7 @@ def get_int_array(handle):
     return array
 
 
-def make_int_2d_array(*arrays: List[List[int]]):
+def make_int_2d_array(arrays: List[List[int]]):
     """
     Creates a Java int[][] handle from a list of Python int lists.
     :param arrays: A 2d int matrix.
@@ -41,12 +41,12 @@ def make_int_2d_array(*arrays: List[List[int]]):
     """
     int_2d_array = backend.create_int_2d_array(len(arrays))
     for i in range(0, len(arrays)):
-        handle = make_int_array(*arrays[i])
+        handle = make_int_array(arrays[i])
         backend.int_2d_array_set(int_2d_array, handle, i)
     return int_2d_array
 
 
-def make_int_3d_array(*arrays: List[List[List[int]]]):
+def make_int_3d_array(arrays: List[List[List[int]]]):
     """
     Creates a Java int[][][] handle from a list of Python lists of lists of ints.
     :param arrays: A 3d int matrix.
@@ -54,12 +54,12 @@ def make_int_3d_array(*arrays: List[List[List[int]]]):
     """
     int_3d_array = backend.create_int_3d_array(len(arrays))
     for i in range(0, len(arrays)):
-        handle = make_int_2d_array(*arrays[i])
+        handle = make_int_2d_array(arrays[i])
         backend.int_3d_array_set(int_3d_array, handle, i)
     return int_3d_array
 
 
-def make_int_4d_array(*arrays: List[List[List[List[int]]]]):
+def make_int_4d_array(arrays: List[List[List[List[int]]]]):
     """
     Creates a Java int[][][][] handle from a list of Python lists of lists of ints.
     :param arrays: A 4d int matrix.
@@ -67,12 +67,12 @@ def make_int_4d_array(*arrays: List[List[List[List[int]]]]):
     """
     int_4d_array = backend.create_int_4d_array(len(arrays))
     for i in range(0, len(arrays)):
-        handle = make_int_3d_array(*arrays[i])
+        handle = make_int_3d_array(arrays[i])
         backend.int_4d_array_set(int_4d_array, handle, i)
     return int_4d_array
 
 
-def make_intvar_array(*intvars: List[IntVar]):
+def make_intvar_array(intvars: List[IntVar]):
     """
     Creates a Java IntVar[] handle from a list of Python IntVars
     :param intvars: A list of Python IntVars
@@ -84,7 +84,7 @@ def make_intvar_array(*intvars: List[IntVar]):
     return vars_array
 
 
-def make_intvar_2d_array(*arrays: List[List[IntVar]]):
+def make_intvar_2d_array(arrays: List[List[IntVar]]):
     """
     Creates a Java IntVar[][] handle from a list of Python IntVar lists.
     :param arrays: A list of Intvar lists.
@@ -92,12 +92,12 @@ def make_intvar_2d_array(*arrays: List[List[IntVar]]):
     """
     intvar_2d_array = backend.create_intvar_2d_array(len(arrays))
     for i in range(0, len(arrays)):
-        handle = make_intvar_array(*arrays[i])
+        handle = make_intvar_array(arrays[i])
         backend.intvar_2d_array_set(intvar_2d_array, handle, i)
     return intvar_2d_array
 
 
-def make_boolvar_array(*boolvars: List[BoolVar]):
+def make_boolvar_array(boolvars: List[BoolVar]):
     """
     Creates a Java BoolVar[] handle from a list of Python BoolVars
     :param boolvars: A list of Python BoolVars
@@ -109,7 +109,7 @@ def make_boolvar_array(*boolvars: List[BoolVar]):
     return vars_array
 
 
-def make_setvar_array(*setvars: List["SetVar"]):
+def make_setvar_array(setvars: List["SetVar"]):
     """
     Creates a Java SetVar[] handle from a list of Python SetVars
     :param setvars: A list of Python SetVars
@@ -121,7 +121,7 @@ def make_setvar_array(*setvars: List["SetVar"]):
     return vars_array
 
 
-def make_task_array(*tasks: List[Task]):
+def make_task_array(tasks: List[Task]):
     """
     Creates a Java Task[] handle from a list of Python Tasks
     :param tasks: A list of Python Tasks
@@ -133,10 +133,10 @@ def make_task_array(*tasks: List[Task]):
     return task_array
 
 
-def make_constraint_array(*constraints: List[Constraint]):
+def make_constraint_array(constraints: List[Constraint]):
     """
     Creates a Java Constraint[] handle from a list of Python Constraint
-    :param intvars: A list of Python Constraint
+    :param constraints: A list of Python Constraint
     :return: A Java Constraint[] handle.
     """
     cons_array = backend.create_constraint_array(len(constraints))
@@ -145,7 +145,7 @@ def make_constraint_array(*constraints: List[Constraint]):
     return cons_array
 
 
-def make_criterion_var_array(*criterion):
+def make_criterion_var_array(criterion):
     """
     Creates a Java Criterion[] handler from a list of Criterion handles
     :param criterion: A list of Criterion handles

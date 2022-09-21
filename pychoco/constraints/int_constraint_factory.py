@@ -84,7 +84,7 @@ class IntConstraintFactory(ABC):
         pass
 
     @abstractmethod
-    def all_different(self, *intvars: List[IntVar]):
+    def all_different(self, intvars: List[IntVar]):
         """
         Creates an allDifferent constraint, which ensures that all variables from vars take a different value.
 
@@ -94,7 +94,7 @@ class IntConstraintFactory(ABC):
         pass
 
     @abstractmethod
-    def all_different_except_0(self, *intvars: List[IntVar]):
+    def all_different_except_0(self, intvars: List[IntVar]):
         """
         Creates an allDifferent constraint for variables that are not equal to 0.
         There can be multiple variables equal to 0.
@@ -105,7 +105,7 @@ class IntConstraintFactory(ABC):
         pass
 
     @abstractmethod
-    def all_different_prec(self, *intvars: List[IntVar], predecessors: List[List[int]], successors: List[List[int]]):
+    def all_different_prec(self, intvars: List[IntVar], predecessors: List[List[int]], successors: List[List[int]]):
         """
         Creates an AllDiffPrec constraint. The predecessors and successors matrix are built as following:
         with n = | variables | , for all i in [0, n-1], if there is k such that predecessors[i][k] = j then variables[j]
@@ -260,7 +260,7 @@ class IntConstraintFactory(ABC):
         pass
 
     @abstractmethod
-    def max(self, x: IntVar, *intvars: List[IntVar]):
+    def max(self, x: IntVar, intvars: List[IntVar]):
         """
         Creates a maximum constraint, x is the maximum value among IntVars in intvars.
 
@@ -283,7 +283,7 @@ class IntConstraintFactory(ABC):
         pass
 
     @abstractmethod
-    def min(self, x: IntVar, *intvars: List[IntVar]):
+    def min(self, x: IntVar, intvars: List[IntVar]):
         """
         Creates a minimum constraint, x is the minimum value among IntVars in intvars.
 
@@ -311,7 +311,7 @@ class IntConstraintFactory(ABC):
         pass
 
     @abstractmethod
-    def all_equal(self, *intvars: List[IntVar]):
+    def all_equal(self, intvars: List[IntVar]):
         """
         Creates an all_equal constraint.
         Ensures that all variables from vars take the same value.
@@ -322,7 +322,7 @@ class IntConstraintFactory(ABC):
         pass
 
     @abstractmethod
-    def not_all_equal(self, *intvars: List[IntVar]):
+    def not_all_equal(self, intvars: List[IntVar]):
         """
         Creates a not_all_equal constraint.
         Ensures that not all variables from vars take the same value.
@@ -350,7 +350,7 @@ class IntConstraintFactory(ABC):
         pass
 
     @abstractmethod
-    def and_(self, *bools_or_constraints: Union[List[BoolVar], List[Constraint]]):
+    def and_(self, bools_or_constraints: Union[List[BoolVar], List[Constraint]]):
         """
         Creates an and constraint that is satisfied if all boolean variables or constraint in
         `bools_or_constraints` are respectively true or satisfied.
@@ -615,12 +615,12 @@ class IntConstraintFactory(ABC):
         pass
 
     @abstractmethod
-    def int_value_precede_chain(self, intvars: List[IntVar], *values: List[int]):
+    def int_value_precede_chain(self, intvars: List[IntVar], values: List[int]):
         """
         Creates an int_value_precede_chain constraint.
         Ensure that, for each pair of values[k] and values[l], such that k < l,
-        if there exists <code>j</code> such that intvars[j] = intvars[l], then, there must exist
-        <code>i</code> <<code>j</code> such that intvars[i] = intvars[k].
+        if there exists j such that intvars[j] = intvars[l], then, there must exist
+        i < j such that intvars[i] = intvars[k].
 
         :param intvars: A list of IntVars.
         :param values: A list of distinct ints.
@@ -679,7 +679,7 @@ class IntConstraintFactory(ABC):
         pass
 
     @abstractmethod
-    def lex_chain_less(self, *intvars: List[IntVar]):
+    def lex_chain_less(self, intvars: List[IntVar]):
         """
         Creates a lex_chain_less constraint.
         For each pair of consecutive vectors intvars<sub>i</sub> and intvars<sub>i+1</sub> of the intvars collection
@@ -691,7 +691,7 @@ class IntConstraintFactory(ABC):
         pass
 
     @abstractmethod
-    def lex_chain_less_eq(self, *intvars: List[IntVar]):
+    def lex_chain_less_eq(self, intvars: List[IntVar]):
         """
         Creates a lex_chain_less_eq constraint.
         For each pair of consecutive vectors intvars<sub>i</sub> and intvars<sub>i+1</sub> of the intvars collection
@@ -766,7 +766,7 @@ class IntConstraintFactory(ABC):
         pass
 
     @abstractmethod
-    def or_(self, *bools_or_constraints: Union[List[BoolVar], List[Constraint]]):
+    def or_(self, bools_or_constraints: Union[List[BoolVar], List[Constraint]]):
         """
         Creates a or constraint that is satisfied if at least one boolean variable or constraint in
         `bools_or_constraints` is respectively true or satisfied.
