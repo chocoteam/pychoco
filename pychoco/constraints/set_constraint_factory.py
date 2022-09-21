@@ -284,7 +284,7 @@ class SetConstraintFactory(ABC):
         pass
 
     @abstractmethod
-    def set_element(self, index: IntVar, setvars: List[SetVar], setvar: List[SetVar], offset: int = 0):
+    def set_element(self, index: IntVar, setvars: List[SetVar], setvar: SetVar, offset: int = 0):
         """
         Creates a constraint enabling to retrieve an element setvar in setvars:
         setvars [ index - offset ] = setvar.
@@ -309,23 +309,23 @@ class SetConstraintFactory(ABC):
         pass
 
     @abstractmethod
-    def set_member_int(self, intvar: Union[IntVar, int], setvars: List[SetVar]):
+    def set_member_int(self, intvar: Union[IntVar, int], setvar: SetVar):
         """
         Creates a member constraint stating that the value of intvar is in setvar.
 
         :param intvar: An IntVar or an int.
-        :param setvars: A list of SetVars.
+        :param setvar: A SetVars.
         :return: A set_member_int constraint.
         """
         pass
 
     @abstractmethod
-    def set_not_member_int(self, intvar: Union[IntVar, int], setvars: List[SetVar]):
+    def set_not_member_int(self, intvar: Union[IntVar, int], setvar: SetVar):
         """
         Creates a not member constraint stating that the value of intvar is not in setvar.
 
         :param intvar: An IntVar or an int.
-        :param setvars: A list of SetVars.
+        :param setvar: A SetVar.
         :return: A set_not_member_int constraint.
         """
         pass

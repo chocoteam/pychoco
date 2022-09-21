@@ -563,6 +563,15 @@ def create_boolvar_array(arg1):
 def boolvar_array_set(arg1, arg2, arg3):
     return _backend.boolvar_array_set(arg1, arg2, arg3)
 
+def create_setvar_array(arg1):
+    return _backend.create_setvar_array(arg1)
+
+def setvar_array_length(arg1):
+    return _backend.setvar_array_length(arg1)
+
+def setvar_array_set(arg1, arg2, arg3):
+    return _backend.setvar_array_set(arg1, arg2, arg3)
+
 def create_constraint_array(arg1):
     return _backend.create_constraint_array(arg1)
 

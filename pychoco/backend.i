@@ -260,6 +260,13 @@ void task_array_set(void*, void*, int);
 void* create_boolvar_array(int);
 void boolvar_array_set(void*, void*, int);
 
+// SetVar
+
+void* create_setvar_array(int);
+int setvar_array_length(void*);
+void setvar_array_set(void*, void*, int);
+
+
 // Constraint
 
 void* create_constraint_array(int);

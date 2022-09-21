@@ -7,6 +7,7 @@ from pychoco.solution import Solution
 from pychoco.variables.boolvar import BoolVar
 from pychoco.variables.intvar import IntVar
 from pychoco.variables.task import Task
+from variables.setvar import SetVar
 
 
 def make_int_array(*ints: List[int]):
@@ -100,12 +101,24 @@ def make_intvar_2d_array(*arrays: List[List[IntVar]]):
 def make_boolvar_array(*boolvars: List[BoolVar]):
     """
     Creates a Java BoolVar[] handle from a list of Python BoolVars
-    :param intvars: A list of Python BoolVars
+    :param boolvars: A list of Python BoolVars
     :return: A Java BoolVars[] handle.
     """
     vars_array = backend.create_boolvar_array(len(boolvars))
     for i in range(0, len(boolvars)):
         backend.boolvar_array_set(vars_array, boolvars[i].handle, i)
+    return vars_array
+
+
+def make_setvar_array(*setvars: List[SetVar]):
+    """
+    Creates a Java SetVar[] handle from a list of Python SetVars
+    :param setvars: A list of Python SetVars
+    :return: A Java SetVar[] handle.
+    """
+    vars_array = backend.create_setvar_array(len(setvars))
+    for i in range(0, len(setvars)):
+        backend.boolvar_array_set(vars_array, setvars[i].handle, i)
     return vars_array
 
 

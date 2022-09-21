@@ -1168,6 +1168,24 @@ void boolvar_array_set(void* arrayHandle, void* boolVarHandle, int index) {
     return Java_org_chocosolver_capi_ArrayApi_boolVar_set(thread, arrayHandle, boolVarHandle, index);
 }
 
+// SetVar
+
+void* create_setvar_array(int size) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_setVar_create(thread, size);
+}
+
+int setvar_array_length(void* arrayHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_setVar_length(thread, arrayHandle);
+}
+
+void setvar_array_set(void* arrayHandle, void* setVarHandle, int index) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_setVar_set(thread, arrayHandle, setVarHandle, index);
+}
+
+
 // Constraint
 
 void* create_constraint_array(int size) {
