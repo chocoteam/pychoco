@@ -530,6 +530,57 @@ def set_le(arg1, arg2, arg3):
 def set_lt(arg1, arg2, arg3):
     return _backend.set_lt(arg1, arg2, arg3)
 
+def bool_not_view(arg1):
+    return _backend.bool_not_view(arg1)
+
+def set_bool_view(arg1, arg2):
+    return _backend.set_bool_view(arg1, arg2)
+
+def set_bools_view(arg1, arg2, arg3):
+    return _backend.set_bools_view(arg1, arg2, arg3)
+
+def int_offset_view(arg1, arg2):
+    return _backend.int_offset_view(arg1, arg2)
+
+def int_minus_view(arg1):
+    return _backend.int_minus_view(arg1)
+
+def int_scale_view(arg1, arg2):
+    return _backend.int_scale_view(arg1, arg2)
+
+def int_abs_view(arg1):
+    return _backend.int_abs_view(arg1)
+
+def int_affine_view(arg1, arg2, arg3):
+    return _backend.int_affine_view(arg1, arg2, arg3)
+
+def int_eq_view(arg1, arg2):
+    return _backend.int_eq_view(arg1, arg2)
+
+def int_ne_view(arg1, arg2):
+    return _backend.int_ne_view(arg1, arg2)
+
+def int_le_view(arg1, arg2):
+    return _backend.int_le_view(arg1, arg2)
+
+def int_ge_view(arg1, arg2):
+    return _backend.int_ge_view(arg1, arg2)
+
+def bools_set_view(arg1, arg2):
+    return _backend.bools_set_view(arg1, arg2)
+
+def ints_set_view(arg1, arg2, arg3):
+    return _backend.ints_set_view(arg1, arg2, arg3)
+
+def set_union_view(arg1):
+    return _backend.set_union_view(arg1)
+
+def set_intersection_view(arg1):
+    return _backend.set_intersection_view(arg1)
+
+def set_difference_view(arg1, arg2):
+    return _backend.set_difference_view(arg1, arg2)
+
 def create_intvar_array(arg1):
     return _backend.create_intvar_array(arg1)
 

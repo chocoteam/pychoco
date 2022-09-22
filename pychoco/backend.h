@@ -197,6 +197,28 @@ void* set_not_member_int(void*, void*, void*);
 void* set_le(void*, void*, void*);
 void* set_lt(void*, void*, void*);
 
+// View API
+
+void* bool_not_view(void*);
+void* set_bool_view(void*, int);
+void* set_bools_view(void*, int, int);
+
+void* int_offset_view(void*, int);
+void* int_minus_view(void*);
+void* int_scale_view(void*, int);
+void* int_abs_view(void*);
+void* int_affine_view(int, void*, int);
+void* int_eq_view(void*, int);
+void* int_ne_view(void*, int);
+void* int_le_view(void*, int);
+void* int_ge_view(void*, int);
+
+void* bools_set_view(void*, int);
+void* ints_set_view(void*, void*, int);
+void* set_union_view(void*);
+void* set_intersection_view(void*);
+void* set_difference_view(void*, void*);
+
 // Array API
 
 // IntVar

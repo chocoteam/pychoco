@@ -1104,6 +1104,80 @@ void* set_lt(void* modelHandle, void* setVarHandle1, void* setVarHandle2) {
     return Java_org_chocosolver_capi_ConstraintApi_set_lt(thread, modelHandle, setVarHandle1, setVarHandle2);
 }
 
+// View API
+
+void* bool_not_view(void* boolVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ViewApi_bool_not_view(thread, boolVarHandle);
+}
+void* set_bool_view(void* setVarHandle, int value) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ViewApi_set_bool_view(thread, setVarHandle, value);
+}
+void* set_bools_view(void* setVarHandle, int size, int offset) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ViewApi_set_bools_view(thread, setVarHandle, size, offset);
+}
+
+void* int_offset_view(void* intVarHandle, int offset) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ViewApi_int_offset_view(thread, intVarHandle, offset);
+}
+void* int_minus_view(void* intVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ViewApi_int_minus_view(thread, intVarHandle);
+}
+void* int_scale_view(void* intVarHandle, int scale) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ViewApi_int_scale_view(thread, intVarHandle, scale);
+}
+void* int_abs_view(void* intVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ViewApi_int_abs_view(thread, intVarHandle);
+}
+void* int_affine_view(int a, void* intVarHandle, int b) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ViewApi_int_affine_view(thread, a, intVarHandle, b);
+}
+void* int_eq_view(void* intVarHandle, int value) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ViewApi_int_eq_view(thread, intVarHandle, value);
+}
+void* int_ne_view(void* intVarHandle, int value) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ViewApi_int_ne_view(thread, intVarHandle, value);
+}
+void* int_le_view(void* intVarHandle, int value) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ViewApi_int_le_view(thread, intVarHandle, value);
+}
+void* int_ge_view(void* intVarHandle, int value) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ViewApi_int_ge_view(thread, intVarHandle, value);
+}
+
+void* bools_set_view(void* boolVarsHandle, int offset) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ViewApi_bools_set_view(thread, boolVarsHandle, offset);
+}
+void* ints_set_view(void* intVarsHandle, void* valueHandle, int offset) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ViewApi_ints_set_view(thread, intVarsHandle, valueHandle, offset);
+}
+void* set_union_view(void* setVarsHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ViewApi_set_union_view(thread, setVarsHandle);
+}
+void* set_intersection_view(void* setVarsHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ViewApi_set_intersection_view(thread, setVarsHandle);
+}
+void* set_difference_view(void* setVarHandle1, void* setVarHandle2) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ViewApi_set_difference_view(thread, setVarHandle1, setVarHandle2);
+}
+
+
 // Array API
 
 // IntVar
