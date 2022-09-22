@@ -97,7 +97,7 @@ class ViewFactory(ABC):
 
     def int_abs_view(self, intvar: IntVar):
         """
-        Creates a view over intvar such that: | intvar |.
+        Creates a view over intvar such that: | intvar | .
         - if intvar is already instantiated, returns a fixed variable;
         - if the lower bound of intvar is greater or equal to 0, returns intvar;
         - if the upper bound of intvar is less or equal to 0, return a minus view;
