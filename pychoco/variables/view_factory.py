@@ -1,11 +1,11 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-import backend
-from _utils import make_boolvar_array, make_intvar_array, make_int_array, make_setvar_array, get_boolvar_array
-from variables.boolvar import BoolVar
-from variables.intvar import IntVar
-from variables.setvar import SetVar
+from pychoco import backend
+from pychoco._utils import make_boolvar_array, make_intvar_array, make_int_array, make_setvar_array, get_boolvar_array
+from pychoco.variables.boolvar import BoolVar
+from pychoco.variables.intvar import IntVar
+from pychoco.variables.setvar import SetVar
 
 
 class ViewFactory(ABC):
