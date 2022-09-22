@@ -11,36 +11,122 @@ return True when a variable is actually a view.
 
 Views are directly declared from a `Model` object (see :ref:`model`).
 
+.. py:currentmodule:: pychoco.variables.view_factory.ViewFactory
+
 Boolean views
 -------------
 
-All constraints over integer and boolean variables are declared in the `IntConstraintFactory` abstract class,
-which is implemented by the `Model` class.
+Boolean view can be declared over several types of variables, and behave as Boolean variables.
 
-.. py:currentmodule:: pychoco.constraints.int_constraint_factory.IntConstraintFactory
+bool_not_view
+^^^^^^^^^^^^^
 
-absolute
-^^^^^^^^
+.. autofunction:: bool_not_view
+   :noindex:
 
-.. autofunction:: absolute
+set_bool_view
+^^^^^^^^^^^^^
+
+.. autofunction:: set_bool_view
+   :noindex:
+
+set_bools_view
+^^^^^^^^^^^^^^
+
+.. autofunction:: set_bools_view
    :noindex:
 
 Integer views
 -------------
 
-All constraints over set variables in the `SetConstraintFactory` abstract class, which is implemented by the `Model`
-class. Set constraints have the `set_` prefix, indeed, as several set constraints have the same name as int constraints,
-we made the choice to semantically distinguish them, contrarily to the Choco Java API, as method Python does not support
-method overloading.
+Integer view can be declared over several types of variables, and behave as Integer variables.
 
-.. py:currentmodule:: pychoco.constraints.set_constraint_factory.SetConstraintFactory
+int_offset_view
+^^^^^^^^^^^^^^^
 
-set_all_different
-^^^^^^^^^^^^^^^^^
-
-.. autofunction:: set_all_different
+.. autofunction:: int_offset_view
    :noindex:
 
+int_minus_view
+^^^^^^^^^^^^^^
+
+.. autofunction:: int_minus_view
+   :noindex:
+
+int_scale_view
+^^^^^^^^^^^^^^
+
+.. autofunction:: int_scale_view
+   :noindex:
+
+int_abs_view
+^^^^^^^^^^^^
+
+.. autofunction:: int_abs_view
+   :noindex:
+
+int_affine_view
+^^^^^^^^^^^^^^^
+
+.. autofunction:: int_affine_view
+   :noindex:
+
+int_eq_view
+^^^^^^^^^^^
+
+.. autofunction:: int_eq_view
+   :noindex:
+
+int_ne_view
+^^^^^^^^^^^
+
+.. autofunction:: int_ne_view
+   :noindex:
+
+int_le_view
+^^^^^^^^^^^
+
+.. autofunction:: int_le_view
+   :noindex:
+
+int_ge_view
+^^^^^^^^^^^
+
+.. autofunction:: int_ge_view
+   :noindex:
 
 Set views
 ---------
+
+Set view can be declared over several types of variables, and behave as Set variables.
+
+bools_set_view
+^^^^^^^^^^^^^^
+
+.. autofunction:: bools_set_view
+   :noindex:
+
+
+ints_set_view
+^^^^^^^^^^^^^
+
+.. autofunction:: ints_set_view
+   :noindex:
+
+set_union_view
+^^^^^^^^^^^^^^
+
+.. autofunction:: set_union_view
+   :noindex:
+
+set_intersection_view
+^^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: set_intersection_view
+   :noindex:
+
+set_difference_view
+^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: set_difference_view
+   :noindex:
