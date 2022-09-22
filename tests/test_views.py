@@ -1,7 +1,7 @@
 import unittest
 
 from pychoco.model import Model
-from variables.boolvar import BoolVar
+from pychoco.variables.boolvar import BoolVar
 
 
 class TestViews(unittest.TestCase):
