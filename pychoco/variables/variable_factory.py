@@ -115,7 +115,7 @@ class VariableFactory(ABC):
 
     # Set variables
 
-    def setvar(self, lb_or_value: set, ub: Union[set, None] = None, name: Union[str, None] = None):
+    def setvar(self, lb_or_value: Union[set, list], ub: Union[set, list, None] = None, name: Union[str, None] = None):
         """
         Creates a set variable taking its domain in [lb, ub], or a a constant setvar if ub is None.
         For instance [{0,3},{-2,0,2,3}] means the variable must include both 0 and 3 and can additionally include -2

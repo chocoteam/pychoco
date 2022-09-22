@@ -36,21 +36,25 @@ class SetConstraintFactory(ABC):
             constraint_handle = backend.set_union(self.handle, vars_handle, union.handle)
         return Constraint(constraint_handle, self)
 
-    def set_union_indices(self, setvars: List[SetVar], union: SetVar, indices: SetVar, v_offset: int = 0,
+    def set_union_indices(self, setvars: List[SetVar], indices: SetVar, union: SetVar, v_offset: int = 0,
                           i_offset: int = 0):
         """
         Creates a constraint which ensures that the union of setvars_i, where i in indices,
         is equal to union.
 
         :param setvars: A list of SetVars.
-        :param union: A SetVar.
         :param indices: A SetVar.
+        :param union: A SetVar.
         :param v_offset: Value offset.
         :param i_offset: Indices offset.
         :return: A union_indices constraint.
         """
+        min_index = min(indices.get_ub())
+        max_index = max(indices.get_ub())
+        assert min_index >= 0 - i_offset and max_index < len(setvars) - i_offset, \
+            "[set_union_indices] Values of the 'indices' setvar are out of bound with 'setvars'"
         setvars_handle = make_setvar_array(setvars)
-        constraint_handle = backend.set_union_indices(self.handle, setvars_handle, union.handle, indices.handle,
+        constraint_handle = backend.set_union_indices(self.handle, setvars_handle, indices.handle, union.handle,
                                                       v_offset, i_offset)
         return Constraint(constraint_handle, self)
 
@@ -165,6 +169,10 @@ class SetConstraintFactory(ABC):
         :param offset:
         :return: A set_max_indices constraint.
         """
+        min_index = min(indices.get_ub())
+        max_index = max(indices.get_ub())
+        assert min_index >= 0 - offset and max_index < len(weights) - offset, \
+            "[set_max_indices] Values of the 'indices' setvar are out of bound with 'weights'"
         weights_handle = make_int_array(weights)
         constraint_handle = backend.set_max_indices(self.handle, indices.handle, weights_handle, offset, max_var.handle,
                                                     not_empty)
@@ -194,6 +202,10 @@ class SetConstraintFactory(ABC):
         :param offset:
         :return: A set_min_indices constraint.
         """
+        min_index = min(indices.get_ub())
+        max_index = max(indices.get_ub())
+        assert min_index >= 0 - offset and max_index < len(weights) - offset, \
+            "[set_min_indices] Values of the 'indices' setvar are out of bound with 'weights'"
         weights_handle = make_int_array(weights)
         constraint_handle = backend.set_min_indices(self.handle, indices.handle, weights_handle, offset, min_var.handle,
                                                     not_empty)
@@ -330,7 +342,7 @@ class SetConstraintFactory(ABC):
         :return: A set_element constraint.
         """
         setvars_handle = make_setvar_array(setvars)
-        constraint_handle = backend.set_element(self.handle, index.handle, setvars_handle, setvar.handle, offset)
+        constraint_handle = backend.set_element(self.handle, index.handle, setvars_handle, offset, setvar.handle)
         return Constraint(constraint_handle, self)
 
     def set_member_set(self, setvars: List[SetVar], setvar: SetVar):
@@ -370,7 +382,7 @@ class SetConstraintFactory(ABC):
         iv = intvar
         if isinstance(intvar, int):
             iv = self.intvar(intvar)
-        constraint_handle = backend.set_member_int(self.handle, iv.handle, setvar.handle)
+        constraint_handle = backend.set_not_member_int(self.handle, iv.handle, setvar.handle)
         return Constraint(constraint_handle, self)
 
     def set_le(self, setvar_1: SetVar, setvar_2: SetVar):
