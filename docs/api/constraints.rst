@@ -378,17 +378,42 @@ method overloading.
 
 .. py:currentmodule:: pychoco.constraints.set_constraint_factory.SetConstraintFactory
 
-set_union
-^^^^^^^^^
+set_all_different
+^^^^^^^^^^^^^^^^^
 
-.. autofunction:: set_union
+.. autofunction:: set_all_different
    :noindex:
 
-set_union_indices
+set_all_disjoint
+^^^^^^^^^^^^^^^^
+
+.. autofunction:: set_all_disjoint
+   :noindex:
+
+set_all_equal
+^^^^^^^^^^^^^
+
+.. autofunction:: set_all_equal
+   :noindex:
+
+set_bools_channeling
+^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: set_bools_channeling
+   :noindex:
+
+set_disjoint
 ^^^^^^^^^^^^^^^^^
 
 .. autofunction:: set_union_indices
    :noindex:
+
+set_element
+^^^^^^^^^^^
+
+.. autofunction:: set_element
+   :noindex:
+
 
 set_intersection
 ^^^^^^^^^^^^^^^^
@@ -396,34 +421,28 @@ set_intersection
 .. autofunction:: set_intersection
    :noindex:
 
-set_subset_eq
-^^^^^^^^^^^^^
+set_ints_channeling
+^^^^^^^^^^^^^^^^^^^
 
-.. autofunction:: set_subset_eq
+.. autofunction:: set_ints_channeling
    :noindex:
 
-set_nb_empty
-^^^^^^^^^^^^
-
-.. autofunction:: set_nb_empty
-   :noindex:
-
-set_offset
-^^^^^^^^^^
-
-.. autofunction:: set_offset
-   :noindex:
-
-set_not_empty
-^^^^^^^^^^^^^
-
-.. autofunction:: set_not_empty
-   :noindex:
-
-set_sum_element
+set_inverse_set
 ^^^^^^^^^^^^^^^
 
-.. autofunction:: set_sum_element
+.. autofunction:: set_inverse_set
+   :noindex:
+
+set_le
+^^^^^^
+
+.. autofunction:: set_le
+   :noindex:
+
+set_lt
+^^^^^^
+
+.. autofunction:: set_lt
    :noindex:
 
 set_max
@@ -438,6 +457,18 @@ set_max_indices
 .. autofunction:: set_max_indices
    :noindex:
 
+set_member_int
+^^^^^^^^^^^^^^
+
+.. autofunction:: set_member_int
+   :noindex:
+
+set_member_set
+^^^^^^^^^^^^^^
+
+.. autofunction:: set_member_set
+   :noindex:
+
 set_min
 ^^^^^^^^^^^^^^^^^
 
@@ -450,76 +481,16 @@ set_min_indices
 .. autofunction:: set_min_indices
    :noindex:
 
-set_bools_channeling
-^^^^^^^^^^^^^^^^^^^^
+set_nb_empty
+^^^^^^^^^^^^
 
-.. autofunction:: set_bools_channeling
+.. autofunction:: set_nb_empty
    :noindex:
 
-set_ints_channeling
-^^^^^^^^^^^^^^^^^^^
-
-.. autofunction:: set_ints_channeling
-   :noindex:
-
-set_disjoint
-^^^^^^^^^^^^^^^^^
-
-.. autofunction:: set_union_indices
-   :noindex:
-
-set_all_disjoint
-^^^^^^^^^^^^^^^^
-
-.. autofunction:: set_all_disjoint
-   :noindex:
-
-set_all_different
-^^^^^^^^^^^^^^^^^
-
-.. autofunction:: set_all_different
-   :noindex:
-
-set_all_equal
+set_not_empty
 ^^^^^^^^^^^^^
 
-.. autofunction:: set_all_equal
-   :noindex:
-
-set_partition
-^^^^^^^^^^^^^
-
-.. autofunction:: set_partition
-   :noindex:
-
-set_inverse_set
-^^^^^^^^^^^^^^^
-
-.. autofunction:: set_inverse_set
-   :noindex:
-
-set_symmetric
-^^^^^^^^^^^^^
-
-.. autofunction:: set_symmetric
-   :noindex:
-
-set_element
-^^^^^^^^^^^
-
-.. autofunction:: set_element
-   :noindex:
-
-set_member_set
-^^^^^^^^^^^^^^
-
-.. autofunction:: set_member_set
-   :noindex:
-
-set_member_int
-^^^^^^^^^^^^^^
-
-.. autofunction:: set_member_int
+.. autofunction:: set_not_empty
    :noindex:
 
 set_not_member_int
@@ -528,14 +499,51 @@ set_not_member_int
 .. autofunction:: set_not_member_int
    :noindex:
 
-set_le
-^^^^^^
+set_offset
+^^^^^^^^^^
 
-.. autofunction:: set_le
+.. autofunction:: set_offset
    :noindex:
 
-set_lt
-^^^^^^
+set_partition
+^^^^^^^^^^^^^
 
-.. autofunction:: set_lt
+.. autofunction:: set_partition
    :noindex:
+
+set_subset_eq
+^^^^^^^^^^^^^
+
+.. autofunction:: set_subset_eq
+   :noindex:
+
+set_sum
+^^^^^^^
+
+.. autofunction:: set_sum
+   :noindex:
+
+set_sum_element
+^^^^^^^^^^^^^^^
+
+.. autofunction:: set_sum_element
+   :noindex:
+
+set_symmetric
+^^^^^^^^^^^^^
+
+.. autofunction:: set_symmetric
+   :noindex:
+
+set_union
+^^^^^^^^^
+
+.. autofunction:: set_union
+   :noindex:
+
+set_union_indices
+^^^^^^^^^^^^^^^^^
+
+.. autofunction:: set_union_indices
+   :noindex:
+
