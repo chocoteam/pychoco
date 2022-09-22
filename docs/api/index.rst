@@ -10,3 +10,4 @@ API
    model
    variables
    constraints
+   views

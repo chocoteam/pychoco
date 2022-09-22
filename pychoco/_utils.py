@@ -2,7 +2,7 @@ from typing import List
 
 from pychoco import backend
 from pychoco.solution import Solution
-from variables.boolvar import BoolVar
+from pychoco.variables.boolvar import BoolVar
 
 
 def make_int_array(ints: List[int]):
