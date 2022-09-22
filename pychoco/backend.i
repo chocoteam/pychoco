@@ -84,6 +84,7 @@ int get_int_val(void*, void*);
 
 char* get_variable_name(void*);
 int is_instantiated(void*);
+int is_view(void*);
 
 // Intvars
 
@@ -264,6 +265,7 @@ void* set_difference_view(void*, void*);
 void* create_intvar_array(int);
 int intvar_array_length(void*);
 void intvar_array_set(void*, void*, int);
+void* intvar_array_get(void*, int);
 
 // IntVar[][]
 

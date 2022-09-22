@@ -2,6 +2,7 @@ from typing import List
 
 from pychoco import backend
 from pychoco.solution import Solution
+from variables.boolvar import BoolVar
 
 
 def make_int_array(ints: List[int]):
@@ -102,6 +103,20 @@ def make_boolvar_array(boolvars: List["BoolVar"]):
     for i in range(0, len(boolvars)):
         backend.boolvar_array_set(vars_array, boolvars[i].handle, i)
     return vars_array
+
+
+def get_boolvar_array(handle, model):
+    """
+    Return a Python List[BoolVar] from a Java BoolVar[] handle.
+    :param handle: A BoolVar[] handle.
+    :param A Python model object.
+    :return: A python BoolVar list.
+    """
+    array = []
+    for i in range(0, backend.array_length(handle)):
+        var_handle = backend.intvar_array_get(handle, i)
+        array.append(BoolVar(var_handle, model))
+    return array
 
 
 def make_setvar_array(setvars: List["SetVar"]):

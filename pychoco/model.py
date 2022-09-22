@@ -4,9 +4,10 @@ from pychoco.constraints.int_constraint_factory import IntConstraintFactory
 from pychoco.constraints.set_constraint_factory import SetConstraintFactory
 from pychoco.solver import Solver
 from pychoco.variables.variable_factory import VariableFactory
+from variables.view_factory import ViewFactory
 
 
-class Model(VariableFactory, IntConstraintFactory, SetConstraintFactory, _HandleWrapper):
+class Model(VariableFactory, ViewFactory, IntConstraintFactory, SetConstraintFactory, _HandleWrapper):
     """
     The Model is the header component of Constraint Programming. It embeds the list of
     Variable (and their Domain), the Constraint's network, and a propagation engine to

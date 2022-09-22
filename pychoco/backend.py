@@ -134,6 +134,9 @@ def get_variable_name(arg1):
 def is_instantiated(arg1):
     return _backend.is_instantiated(arg1)
 
+def is_view(arg1):
+    return _backend.is_view(arg1)
+
 def intvar_sii(arg1, arg2, arg3, arg4):
     return _backend.intvar_sii(arg1, arg2, arg3, arg4)
 
@@ -589,6 +592,9 @@ def intvar_array_length(arg1):
 
 def intvar_array_set(arg1, arg2, arg3):
     return _backend.intvar_array_set(arg1, arg2, arg3)
+
+def intvar_array_get(arg1, arg2):
+    return _backend.intvar_array_get(arg1, arg2)
 
 def create_intvar_2d_array(arg1):
     return _backend.create_intvar_2d_array(arg1)

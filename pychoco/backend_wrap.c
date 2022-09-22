@@ -3596,6 +3596,27 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_is_view(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  int res1 ;
+  PyObject *swig_obj[1] ;
+  int result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "is_view" "', argument " "1"" of type '" "void *""'"); 
+  }
+  result = (int)is_view(arg1);
+  resultobj = SWIG_From_int((int)(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_intvar_sii(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   void *arg1 = (void *) 0 ;
@@ -8952,6 +8973,34 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_intvar_array_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  int arg2 ;
+  int res1 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  void *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "intvar_array_get", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "intvar_array_get" "', argument " "1"" of type '" "void *""'"); 
+  }
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "intvar_array_get" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = (int)(val2);
+  result = (void *)intvar_array_get(arg1,arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_create_intvar_2d_array(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   int arg1 ;
@@ -11043,6 +11092,7 @@ static PyMethodDef SwigMethods[] = {
 	 { "get_int_val", _wrap_get_int_val, METH_VARARGS, NULL},
 	 { "get_variable_name", _wrap_get_variable_name, METH_O, NULL},
 	 { "is_instantiated", _wrap_is_instantiated, METH_O, NULL},
+	 { "is_view", _wrap_is_view, METH_O, NULL},
 	 { "intvar_sii", _wrap_intvar_sii, METH_VARARGS, NULL},
 	 { "intvar_ii", _wrap_intvar_ii, METH_VARARGS, NULL},
 	 { "intvar_i", _wrap_intvar_i, METH_VARARGS, NULL},
@@ -11195,6 +11245,7 @@ static PyMethodDef SwigMethods[] = {
 	 { "create_intvar_array", _wrap_create_intvar_array, METH_O, NULL},
 	 { "intvar_array_length", _wrap_intvar_array_length, METH_O, NULL},
 	 { "intvar_array_set", _wrap_intvar_array_set, METH_VARARGS, NULL},
+	 { "intvar_array_get", _wrap_intvar_array_get, METH_VARARGS, NULL},
 	 { "create_intvar_2d_array", _wrap_create_intvar_2d_array, METH_O, NULL},
 	 { "intvar_2d_array_length", _wrap_intvar_2d_array_length, METH_O, NULL},
 	 { "intvar_2d_array_set", _wrap_intvar_2d_array_set, METH_VARARGS, NULL},

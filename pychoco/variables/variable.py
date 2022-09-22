@@ -34,6 +34,12 @@ class Variable(_HandleWrapper, ABC):
         """
         return backend.is_instantiated(self.handle)
 
+    def is_view(self):
+        """
+        :return: True if this variable is a view
+        """
+        return backend.is_view(self.handle)
+
     @abstractmethod
     def get_type(self):
         """

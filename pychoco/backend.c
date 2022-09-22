@@ -166,6 +166,11 @@ int is_instantiated(void* varHandle) {
     return Java_org_chocosolver_capi_VariableApi_isInstantiated(thread, varHandle);
 }
 
+int is_view(void* varHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_VariableApi_isView(thread, varHandle);
+}
+
 // Intvars
 
 void* intvar_sii(void* modelHandle, char* name, int lb, int ub) {
@@ -1195,6 +1200,11 @@ int intvar_array_length(void* arrayHandle) {
 void intvar_array_set(void* arrayHandle, void* intVarHandle, int index) {
     LAZY_THREAD_ATTACH
     Java_org_chocosolver_capi_ArrayApi_intVar_set(thread, arrayHandle, intVarHandle, index);
+}
+
+void* intvar_array_get(void* arrayHandle, int index) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_intVar_get(thread, arrayHandle, index);
 }
 
 // IntVar[][]
