@@ -7,18 +7,7 @@ git pull origin master
 sh ./build.sh
 cd ..
 
-# Clean previous build
-rm -f -r build
-rm -f pychoco/backend.py
-rm -f pychoco/backend_wrap.c
-rm -f pychoco/*.so
 
-# Create C interface to python with SWIG
-swig -python -py3 pychoco/backend.i
 
-# Build extensions
-#pip3 install .
-
-python3 setup.py develop -e -b .
 pip3 install wheel
 python3 setup.py bdist_wheel

@@ -393,6 +393,26 @@ void* task_get_duration(void*);
 void* create_mdd_tuples(void*, void*, int, int);
 void* create_mdd_transitions(void*, void*);
 
+// Graph API
+
+void* create_graph(void*, int, char*, char*, int);
+void* create_digraph(void*, int, char*, char*, int);
+
+void* get_nodes(void*);
+int add_node(void*, int);
+int remove_node(void*, int);
+int add_edge(void*, int, int);
+int remove_edge(void*, int, int);
+int get_nb_max_nodes(void*);
+char* get_node_set_type(void*);
+char* get_edge_set_type(void*);
+int contains_node(void*, int);
+int contains_edge(void*, int, int);
+int is_directed(void*);
+void* get_successors_of(void*, int);
+void* get_predecessors_of(void*, int);
+char* graphviz_export(void*);
+
 // Handle API
 
 void chocosolver_handles_destroy(void*);

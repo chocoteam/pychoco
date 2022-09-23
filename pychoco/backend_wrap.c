@@ -11046,6 +11046,496 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_create_graph(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  int arg2 ;
+  char *arg3 = (char *) 0 ;
+  char *arg4 = (char *) 0 ;
+  int arg5 ;
+  int res1 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  int res3 ;
+  char *buf3 = 0 ;
+  int alloc3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  int val5 ;
+  int ecode5 = 0 ;
+  PyObject *swig_obj[5] ;
+  void *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "create_graph", 5, 5, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "create_graph" "', argument " "1"" of type '" "void *""'"); 
+  }
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "create_graph" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = (int)(val2);
+  res3 = SWIG_AsCharPtrAndSize(swig_obj[2], &buf3, NULL, &alloc3);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "create_graph" "', argument " "3"" of type '" "char *""'");
+  }
+  arg3 = (char *)(buf3);
+  res4 = SWIG_AsCharPtrAndSize(swig_obj[3], &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "create_graph" "', argument " "4"" of type '" "char *""'");
+  }
+  arg4 = (char *)(buf4);
+  ecode5 = SWIG_AsVal_int(swig_obj[4], &val5);
+  if (!SWIG_IsOK(ecode5)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "create_graph" "', argument " "5"" of type '" "int""'");
+  } 
+  arg5 = (int)(val5);
+  result = (void *)create_graph(arg1,arg2,arg3,arg4,arg5);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
+  if (alloc3 == SWIG_NEWOBJ) free((char*)buf3);
+  if (alloc4 == SWIG_NEWOBJ) free((char*)buf4);
+  return resultobj;
+fail:
+  if (alloc3 == SWIG_NEWOBJ) free((char*)buf3);
+  if (alloc4 == SWIG_NEWOBJ) free((char*)buf4);
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_create_digraph(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  int arg2 ;
+  char *arg3 = (char *) 0 ;
+  char *arg4 = (char *) 0 ;
+  int arg5 ;
+  int res1 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  int res3 ;
+  char *buf3 = 0 ;
+  int alloc3 = 0 ;
+  int res4 ;
+  char *buf4 = 0 ;
+  int alloc4 = 0 ;
+  int val5 ;
+  int ecode5 = 0 ;
+  PyObject *swig_obj[5] ;
+  void *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "create_digraph", 5, 5, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "create_digraph" "', argument " "1"" of type '" "void *""'"); 
+  }
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "create_digraph" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = (int)(val2);
+  res3 = SWIG_AsCharPtrAndSize(swig_obj[2], &buf3, NULL, &alloc3);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "create_digraph" "', argument " "3"" of type '" "char *""'");
+  }
+  arg3 = (char *)(buf3);
+  res4 = SWIG_AsCharPtrAndSize(swig_obj[3], &buf4, NULL, &alloc4);
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "create_digraph" "', argument " "4"" of type '" "char *""'");
+  }
+  arg4 = (char *)(buf4);
+  ecode5 = SWIG_AsVal_int(swig_obj[4], &val5);
+  if (!SWIG_IsOK(ecode5)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "create_digraph" "', argument " "5"" of type '" "int""'");
+  } 
+  arg5 = (int)(val5);
+  result = (void *)create_digraph(arg1,arg2,arg3,arg4,arg5);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
+  if (alloc3 == SWIG_NEWOBJ) free((char*)buf3);
+  if (alloc4 == SWIG_NEWOBJ) free((char*)buf4);
+  return resultobj;
+fail:
+  if (alloc3 == SWIG_NEWOBJ) free((char*)buf3);
+  if (alloc4 == SWIG_NEWOBJ) free((char*)buf4);
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_get_nodes(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  int res1 ;
+  PyObject *swig_obj[1] ;
+  void *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "get_nodes" "', argument " "1"" of type '" "void *""'"); 
+  }
+  result = (void *)get_nodes(arg1);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_add_node(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  int arg2 ;
+  int res1 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  int result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "add_node", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "add_node" "', argument " "1"" of type '" "void *""'"); 
+  }
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "add_node" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = (int)(val2);
+  result = (int)add_node(arg1,arg2);
+  resultobj = SWIG_From_int((int)(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_remove_node(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  int arg2 ;
+  int res1 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  int result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "remove_node", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "remove_node" "', argument " "1"" of type '" "void *""'"); 
+  }
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "remove_node" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = (int)(val2);
+  result = (int)remove_node(arg1,arg2);
+  resultobj = SWIG_From_int((int)(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_add_edge(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  int res1 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  int result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "add_edge", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "add_edge" "', argument " "1"" of type '" "void *""'"); 
+  }
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "add_edge" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = (int)(val2);
+  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "add_edge" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = (int)(val3);
+  result = (int)add_edge(arg1,arg2,arg3);
+  resultobj = SWIG_From_int((int)(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_remove_edge(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  int res1 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  int result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "remove_edge", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "remove_edge" "', argument " "1"" of type '" "void *""'"); 
+  }
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "remove_edge" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = (int)(val2);
+  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "remove_edge" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = (int)(val3);
+  result = (int)remove_edge(arg1,arg2,arg3);
+  resultobj = SWIG_From_int((int)(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_get_nb_max_nodes(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  int res1 ;
+  PyObject *swig_obj[1] ;
+  int result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "get_nb_max_nodes" "', argument " "1"" of type '" "void *""'"); 
+  }
+  result = (int)get_nb_max_nodes(arg1);
+  resultobj = SWIG_From_int((int)(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_get_node_set_type(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  int res1 ;
+  PyObject *swig_obj[1] ;
+  char *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "get_node_set_type" "', argument " "1"" of type '" "void *""'"); 
+  }
+  result = (char *)get_node_set_type(arg1);
+  resultobj = SWIG_FromCharPtr((const char *)result);
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_get_edge_set_type(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  int res1 ;
+  PyObject *swig_obj[1] ;
+  char *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "get_edge_set_type" "', argument " "1"" of type '" "void *""'"); 
+  }
+  result = (char *)get_edge_set_type(arg1);
+  resultobj = SWIG_FromCharPtr((const char *)result);
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_contains_node(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  int arg2 ;
+  int res1 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  int result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "contains_node", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "contains_node" "', argument " "1"" of type '" "void *""'"); 
+  }
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "contains_node" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = (int)(val2);
+  result = (int)contains_node(arg1,arg2);
+  resultobj = SWIG_From_int((int)(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_contains_edge(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  int res1 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  int result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "contains_edge", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "contains_edge" "', argument " "1"" of type '" "void *""'"); 
+  }
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "contains_edge" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = (int)(val2);
+  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "contains_edge" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = (int)(val3);
+  result = (int)contains_edge(arg1,arg2,arg3);
+  resultobj = SWIG_From_int((int)(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_is_directed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  int res1 ;
+  PyObject *swig_obj[1] ;
+  int result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "is_directed" "', argument " "1"" of type '" "void *""'"); 
+  }
+  result = (int)is_directed(arg1);
+  resultobj = SWIG_From_int((int)(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_get_successors_of(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  int arg2 ;
+  int res1 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  void *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "get_successors_of", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "get_successors_of" "', argument " "1"" of type '" "void *""'"); 
+  }
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "get_successors_of" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = (int)(val2);
+  result = (void *)get_successors_of(arg1,arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_get_predecessors_of(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  int arg2 ;
+  int res1 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  void *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "get_predecessors_of", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "get_predecessors_of" "', argument " "1"" of type '" "void *""'"); 
+  }
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "get_predecessors_of" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = (int)(val2);
+  result = (void *)get_predecessors_of(arg1,arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_graphviz_export(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  int res1 ;
+  PyObject *swig_obj[1] ;
+  char *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "graphviz_export" "', argument " "1"" of type '" "void *""'"); 
+  }
+  result = (char *)graphviz_export(arg1);
+  resultobj = SWIG_FromCharPtr((const char *)result);
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_chocosolver_handles_destroy(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   void *arg1 = (void *) 0 ;
@@ -11323,6 +11813,22 @@ static PyMethodDef SwigMethods[] = {
 	 { "task_get_duration", _wrap_task_get_duration, METH_O, NULL},
 	 { "create_mdd_tuples", _wrap_create_mdd_tuples, METH_VARARGS, NULL},
 	 { "create_mdd_transitions", _wrap_create_mdd_transitions, METH_VARARGS, NULL},
+	 { "create_graph", _wrap_create_graph, METH_VARARGS, NULL},
+	 { "create_digraph", _wrap_create_digraph, METH_VARARGS, NULL},
+	 { "get_nodes", _wrap_get_nodes, METH_O, NULL},
+	 { "add_node", _wrap_add_node, METH_VARARGS, NULL},
+	 { "remove_node", _wrap_remove_node, METH_VARARGS, NULL},
+	 { "add_edge", _wrap_add_edge, METH_VARARGS, NULL},
+	 { "remove_edge", _wrap_remove_edge, METH_VARARGS, NULL},
+	 { "get_nb_max_nodes", _wrap_get_nb_max_nodes, METH_O, NULL},
+	 { "get_node_set_type", _wrap_get_node_set_type, METH_O, NULL},
+	 { "get_edge_set_type", _wrap_get_edge_set_type, METH_O, NULL},
+	 { "contains_node", _wrap_contains_node, METH_VARARGS, NULL},
+	 { "contains_edge", _wrap_contains_edge, METH_VARARGS, NULL},
+	 { "is_directed", _wrap_is_directed, METH_O, NULL},
+	 { "get_successors_of", _wrap_get_successors_of, METH_VARARGS, NULL},
+	 { "get_predecessors_of", _wrap_get_predecessors_of, METH_VARARGS, NULL},
+	 { "graphviz_export", _wrap_graphviz_export, METH_O, NULL},
 	 { "chocosolver_handles_destroy", _wrap_chocosolver_handles_destroy, METH_O, NULL},
 	 { NULL, NULL, 0, NULL }
 };

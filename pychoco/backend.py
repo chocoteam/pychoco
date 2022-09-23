@@ -827,6 +827,54 @@ def create_mdd_tuples(arg1, arg2, arg3, arg4):
 def create_mdd_transitions(arg1, arg2):
     return _backend.create_mdd_transitions(arg1, arg2)
 
+def create_graph(arg1, arg2, arg3, arg4, arg5):
+    return _backend.create_graph(arg1, arg2, arg3, arg4, arg5)
+
+def create_digraph(arg1, arg2, arg3, arg4, arg5):
+    return _backend.create_digraph(arg1, arg2, arg3, arg4, arg5)
+
+def get_nodes(arg1):
+    return _backend.get_nodes(arg1)
+
+def add_node(arg1, arg2):
+    return _backend.add_node(arg1, arg2)
+
+def remove_node(arg1, arg2):
+    return _backend.remove_node(arg1, arg2)
+
+def add_edge(arg1, arg2, arg3):
+    return _backend.add_edge(arg1, arg2, arg3)
+
+def remove_edge(arg1, arg2, arg3):
+    return _backend.remove_edge(arg1, arg2, arg3)
+
+def get_nb_max_nodes(arg1):
+    return _backend.get_nb_max_nodes(arg1)
+
+def get_node_set_type(arg1):
+    return _backend.get_node_set_type(arg1)
+
+def get_edge_set_type(arg1):
+    return _backend.get_edge_set_type(arg1)
+
+def contains_node(arg1, arg2):
+    return _backend.contains_node(arg1, arg2)
+
+def contains_edge(arg1, arg2, arg3):
+    return _backend.contains_edge(arg1, arg2, arg3)
+
+def is_directed(arg1):
+    return _backend.is_directed(arg1)
+
+def get_successors_of(arg1, arg2):
+    return _backend.get_successors_of(arg1, arg2)
+
+def get_predecessors_of(arg1, arg2):
+    return _backend.get_predecessors_of(arg1, arg2)
+
+def graphviz_export(arg1):
+    return _backend.graphviz_export(arg1)
+
 def chocosolver_handles_destroy(arg1):
     return _backend.chocosolver_handles_destroy(arg1)
 
