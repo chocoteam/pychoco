@@ -221,7 +221,7 @@ class ViewFactory(ABC):
 
     def set_difference_view(self, setvar_1: SetVar, setvar_2: SetVar):
         """
-        Creates a set view representing the set difference between setvar_1 and setvar_2:  setvar_1 \ setvar_2.
+        Creates a set view representing the set difference between setvar_1 and setvar_2:  setvar_1 \\ setvar_2.
 
         :param setvar_1: A SetVar.
         :param setvar_2: A SetVar.

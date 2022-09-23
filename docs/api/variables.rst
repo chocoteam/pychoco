@@ -87,6 +87,38 @@ variable is a subgraph of it.
 
 The bounds of a graph variable must be created using the graph API of pychoco (see below).
 
+Undirected Graph variables can be created from a model object using the following methods:
+
+.. autofunction:: pychoco.variables.variable_factory.VariableFactory.graphvar
+   :noindex:
+
+.. autofunction:: pychoco.variables.variable_factory.VariableFactory.node_induced_graphvar
+   :noindex:
+
+Undirected variables also include additional parameters and methods the generic Variable class:
+
+.. autoclass:: pychoco.variables.undirected_graphvar.UndirectedGraphVar
+   :members:
+   :inherited-members:
+   :undoc-members:
+   :noindex:
+
+Directed Graph variables can be created from a model object using the following methods:
+
+.. autofunction:: pychoco.variables.variable_factory.VariableFactory.digraphvar
+   :noindex:
+
+.. autofunction:: pychoco.variables.variable_factory.VariableFactory.node_induced_digraphvar
+   :noindex:
+
+Directed variables also include additional parameters and methods the generic Variable class:
+
+.. autoclass:: pychoco.variables.directed_graphvar.DirectedGraphVar
+   :members:
+   :inherited-members:
+   :undoc-members:
+   :noindex:
+
 UndirectedGraph API
 ^^^^^^^^^^^^^^^^^^^
 
