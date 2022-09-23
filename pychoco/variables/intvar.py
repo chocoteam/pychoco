@@ -1,9 +1,8 @@
 from pychoco import backend
-from pychoco._handle_wrapper import _HandleWrapper
 from pychoco.variables.variable import Variable
 
 
-class IntVar(Variable, _HandleWrapper):
+class IntVar(Variable):
     """
     An integer variable (IntVar) is an unknown whose value should be an integer.
     Therefore, the domain of an integer variable is a set of integers (representing
@@ -27,6 +26,7 @@ class IntVar(Variable, _HandleWrapper):
         """
         :return: The value of the variable (only valid if it is instantiated).
         """
+        assert self.is_instantiated(), "{} is not instantiated".format(self.name)
         return backend.get_intvar_value(self.handle)
 
     def get_type(self):

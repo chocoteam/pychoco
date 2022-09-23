@@ -114,6 +114,16 @@ void* get_setvar_lb(void*);
 void* get_setvar_ub(void*);
 void* get_setvar_value(void*);
 
+// GraphVars
+
+void* create_graphvar(void*, char*, void*, void*);
+void* create_digraphvar(void*, char*, void*, void*);
+void* create_node_induced_graphvar(void*, char*, void*, void*);
+void* create_node_induced_digraphvar(void*, char*, void*, void*);
+void* get_graphvar_lb(void*);
+void* get_graphvar_ub(void*);
+void* get_graphvar_value(void*);
+
 // Constraints
 
 char* get_constraint_name(void*);

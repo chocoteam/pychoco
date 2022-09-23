@@ -194,6 +194,27 @@ def get_setvar_ub(arg1):
 def get_setvar_value(arg1):
     return _backend.get_setvar_value(arg1)
 
+def create_graphvar(arg1, arg2, arg3, arg4):
+    return _backend.create_graphvar(arg1, arg2, arg3, arg4)
+
+def create_digraphvar(arg1, arg2, arg3, arg4):
+    return _backend.create_digraphvar(arg1, arg2, arg3, arg4)
+
+def create_node_induced_graphvar(arg1, arg2, arg3, arg4):
+    return _backend.create_node_induced_graphvar(arg1, arg2, arg3, arg4)
+
+def create_node_induced_digraphvar(arg1, arg2, arg3, arg4):
+    return _backend.create_node_induced_digraphvar(arg1, arg2, arg3, arg4)
+
+def get_graphvar_lb(arg1):
+    return _backend.get_graphvar_lb(arg1)
+
+def get_graphvar_ub(arg1):
+    return _backend.get_graphvar_ub(arg1)
+
+def get_graphvar_value(arg1):
+    return _backend.get_graphvar_value(arg1)
+
 def get_constraint_name(arg1):
     return _backend.get_constraint_name(arg1)
 

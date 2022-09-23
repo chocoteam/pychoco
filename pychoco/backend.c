@@ -240,6 +240,36 @@ void* get_setvar_value(void* setVarHandle) {
     return Java_org_chocosolver_capi_SetVarApi_getValue(thread, setVarHandle);
 }
 
+// GraphVars
+
+void* create_graphvar(void* modelHandle, char* name, void* lbHandle, void* ubHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_GraphVarApi_create_graphvar(thread, modelHandle, name, lbHandle, ubHandle);
+}
+void* create_digraphvar(void* modelHandle, char* name, void* lbHandle, void* ubHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_GraphVarApi_create_digraphvar(thread, modelHandle, name, lbHandle, ubHandle);
+}
+void* create_node_induced_graphvar(void* modelHandle, char* name, void* lbHandle, void* ubHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_GraphVarApi_create_node_induced_graphvar(thread, modelHandle, name, lbHandle, ubHandle);
+}
+void* create_node_induced_digraphvar(void* modelHandle, char* name, void* lbHandle, void* ubHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_GraphVarApi_create_node_induced_digraphvar(thread, modelHandle, name, lbHandle, ubHandle);
+}
+void* get_graphvar_lb(void* graphVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_GraphVarApi_get_graphvar_lb(thread, graphVarHandle);
+}
+void* get_graphvar_ub(void* graphVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_GraphVarApi_get_graphvar_ub(thread, graphVarHandle);
+}
+void* get_graphvar_value(void* graphVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_GraphVarApi_get_graphvar_value(thread, graphVarHandle);
+}
 
 // Constraints
 

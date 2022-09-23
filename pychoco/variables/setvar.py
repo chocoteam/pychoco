@@ -1,10 +1,9 @@
 from pychoco import backend
-from pychoco._handle_wrapper import _HandleWrapper
 from pychoco._utils import get_int_array
 from pychoco.variables.variable import Variable
 
 
-class SetVar(Variable, _HandleWrapper):
+class SetVar(Variable):
     """
     A Set Variable is defined by a domain which is a set interval [lb, ub], where:
     lb is the set of integers that must belong to every single solution.
@@ -28,6 +27,7 @@ class SetVar(Variable, _HandleWrapper):
         """
         :return: The value of this set variable (only valid if it is instantiated).
         """
+        assert self.is_instantiated(), "{} is not instantiated".format(self.name)
         return set(get_int_array(backend.get_setvar_value(self.handle)))
 
     def get_type(self):

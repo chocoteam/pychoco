@@ -4,9 +4,11 @@ from typing import Union, List
 from pychoco import backend
 from pychoco._utils import make_int_array
 from pychoco.variables.boolvar import BoolVar
+from pychoco.variables.directed_graphvar import DirectedGraphVar
 from pychoco.variables.intvar import IntVar
 from pychoco.variables.setvar import SetVar
 from pychoco.variables.task import Task
+from pychoco.variables.undirected_graphvar import UndirectedGraphVar
 
 
 class VariableFactory(ABC):
@@ -140,3 +142,69 @@ class VariableFactory(ABC):
             else:
                 handle = backend.setvar_s_iviv(self.handle, lb_handle, ub_handle)
         return SetVar(handle, self)
+
+    # Graph variables
+
+    def graphvar(self, lb: "UndirectedGraph", ub: "UndirectedGraph", name: str):
+        """
+        Creates an undirected graph variable, taking its values in the graph domain [LB, UB].
+        An instantiation of a graph variable is a graph composed of nodes and edges.
+        lb is the kernel graph (or lower bound), that must be a subgraph of any instantiation.
+        ub is the envelope graph (or upper bound), such that any instantiation is a subgraph of it.
+
+        :param lb: Lower bound of the graphvar (or kernel), an UndirectedGraph.
+        :param ub: Upper bound of the graphvar (or envelope), an UndirectedGraph.
+        :param name: Name of the graphvar.
+        :return: An undirected graph variable taking its values in the graph domain [lb, ub].
+        """
+        handle = backend.create_graphvar(self.handle, name, lb.handle, ub.handle)
+        return UndirectedGraphVar(handle, self, lb, ub)
+
+    def node_induced_graphvar(self, lb: "UndirectedGraphVar", ub: "UndirectedGraphVar", name: str):
+        """
+        Creates a node-induced undirected graph variable guaranteeing that any instantiation is a node-induced subgraph
+        of the envelope used to construct the graph variable. Any two nodes that are connected in the envelope
+        are connected by an edge in any instantiation containing these two nodes. More formally:
+        - G = (V, E) in [G_lb, G_ub], with G_ub = (V_ub, E_ub);
+        - E = { (x, y) in E_ub | x in V and y in V }.
+
+        :param lb: Lower bound of the graphvar (or kernel), an UndirectedGraph.
+        :param ub: Upper bound of the graphvar (or envelope), an UndirectedGraph.
+        :param name: Name of the graphvar.
+        :return: An UndirectedGraphVar taking its values in the graph domain [lb, ub] and such that any value is
+            a node-induced subgraph of UB.
+        """
+        handle = backend.create_node_induced_graphvar(self.handle, name, lb.handle, ub.handle)
+        return UndirectedGraphVar(handle, self, lb, ub)
+
+    def digraphvar(self, lb: "DirectedGraph", ub: "DirectedGraph", name: str):
+        """
+        Creates a directed graph variable, taking its values in the graph domain [lb, ub].
+        An instantiation of a graph variable is a graph composed of nodes and edges.
+        lb is the kernel graph (or lower bound), that must be a subgraph of any instantiation.
+        ub is the envelope graph (or upper bound), such that any instantiation is a subgraph of it.
+
+        :param lb: Lower bound of the digraphvar (or kernel), a DirectedGraph.
+        :param ub: Upper bound of the digraphvar (or Envelope), a DirectedGraph.
+        :param name: The name of the digraphvar.
+        :return: A DirectedGraphVariable.
+        """
+        handle = backend.create_digraphvar(self.handle, name, lb.handle, ub.handle)
+        return DirectedGraphVar(handle, self, lb, ub)
+
+    def node_induced_digraphvar(self, lb: "DirectedGraphVar", ub: "DirectedGraphVar", name: str):
+        """
+        Creates a node-induced directed graph variable guaranteeing that any instantiation is a node-induced subgraph
+        of the envelope used to construct the graph variable. Any two nodes that are connected in the envelope
+        are connected by an edge in any instantiation containing these two nodes. More formally:
+        - G = (V, E) in [G_lb, G_ub], with G_ub = (V_ub, E_ub);
+        - E = { (x, y) in E_ub | x in V and y in V }.
+
+        :param lb: Lower bound of the graphvar (or kernel), a DirectedGraph.
+        :param ub: Upper bound of the graphvar (or envelope), a DirectedGraph.
+        :param name: Name of the graphvar.
+        :return: An DirectedGraphVar taking its values in the graph domain [lb, ub] and such that any value is
+            a node-induced subgraph of UB.
+        """
+        handle = backend.create_node_induced_digraphvar(self.handle, name, lb.handle, ub.handle)
+        return DirectedGraphVar(handle, self, lb, ub)
