@@ -77,3 +77,36 @@ Set variables also include additional parameters and methods the generic Variabl
    :undoc-members:
    :noindex:
 
+GraphVar
+--------
+
+Graph variables represent a graph (directed or undirected), which value must belong to a graph interval [lb, ub].
+The lower bound lb (or kernel) is a graph that must be included in any instantiation of the variable,
+while the upper bound ub (or envelope) is such that any instantiation of the
+variable is a subgraph of it.
+
+The bounds of a graph variable must be created using the graph API of pychoco.
+
+UndirectedGraph API
+^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: pychoco.variables.undirected_graph.create_undirected_graph
+   :noindex:
+
+.. autoclass:: pychoco.objects.undirected_graph.UndirectedGraph
+   :members:
+   :inherited-members:
+   :undoc-members:
+   :noindex:
+
+DirectedGraph API
+^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: pychoco.variables.undirected_graph.create_directed_graph
+   :noindex:
+
+.. autoclass:: pychoco.objects.directed_graph.DirectedGraph
+   :members:
+   :inherited-members:
+   :undoc-members:
+   :noindex:
