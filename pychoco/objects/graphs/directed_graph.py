@@ -2,7 +2,6 @@ from typing import List
 
 from pychoco import backend
 from pychoco._utils import get_int_array
-from pychoco.model import Model
 from pychoco.objects.graphs.graph import Graph
 
 
@@ -11,7 +10,7 @@ class DirectedGraph(Graph):
     Class representing directed graphs.
     """
 
-    def __init__(self, model: Model, nb_max_nodes: int, node_set_type: str = "BITSET",
+    def __init__(self, model: "Model", nb_max_nodes: int, node_set_type: str = "BITSET",
                  edge_set_type: str = "BIPARTITE_SET", all_node: bool = False):
         """
         Constructor for a directed graph. Nodes are represented by integers ranging from 0 to nb_max_nodes - 1.
@@ -54,7 +53,7 @@ class DirectedGraph(Graph):
         return "Directed Graph"
 
 
-def create_directed_graph(model: Model, nb_max_nodes: int, nodes: List[int], edges: List[List[int]],
+def create_directed_graph(model: "Model", nb_max_nodes: int, nodes: List[int], edges: List[List[int]],
                           node_set_type: str = "BITSET", edge_set_type: str = "BIPARTITE_SET"):
     """
     Creates a directed graph from a list of nodes and edges.
