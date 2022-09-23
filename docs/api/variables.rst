@@ -85,15 +85,20 @@ The lower bound lb (or kernel) is a graph that must be included in any instantia
 while the upper bound ub (or envelope) is such that any instantiation of the
 variable is a subgraph of it.
 
-The bounds of a graph variable must be created using the graph API of pychoco.
+The bounds of a graph variable must be created using the graph API of pychoco (see below).
 
 UndirectedGraph API
 ^^^^^^^^^^^^^^^^^^^
 
-.. autofunction:: pychoco.variables.undirected_graph.create_undirected_graph
+The `create_undirected_graph` factory function allows to instantiate a directed graph
+from a list of nodes and a list of edges:
+
+.. autofunction:: pychoco.objects.graphs.undirected_graph.create_undirected_graph
    :noindex:
 
-.. autoclass:: pychoco.objects.undirected_graph.UndirectedGraph
+This function returns an `UndirectedGraph` object:
+
+.. autoclass:: pychoco.objects.graphs.undirected_graph.UndirectedGraph
    :members:
    :inherited-members:
    :undoc-members:
@@ -102,10 +107,15 @@ UndirectedGraph API
 DirectedGraph API
 ^^^^^^^^^^^^^^^^^^^
 
-.. autofunction:: pychoco.variables.undirected_graph.create_directed_graph
+The `create_directed_graph` factory function allows to instantiate a directed graph
+from a list of nodes and a list of edges:
+
+.. autofunction:: pychoco.objects.graphs.directed_graph.create_directed_graph
    :noindex:
 
-.. autoclass:: pychoco.objects.directed_graph.DirectedGraph
+This function returns a `DirectedGraph` object:
+
+.. autoclass:: pychoco.objects.graphs.directed_graph.DirectedGraph
    :members:
    :inherited-members:
    :undoc-members:

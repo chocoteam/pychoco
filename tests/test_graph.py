@@ -1,10 +1,10 @@
 import unittest
 
-from objects.graphs.directed_graph import create_directed_graph
-from objects.graphs.undirected_graph import create_undirected_graph
 from pychoco.model import Model
 from pychoco.objects.graphs.directed_graph import DirectedGraph
+from pychoco.objects.graphs.directed_graph import create_directed_graph
 from pychoco.objects.graphs.undirected_graph import UndirectedGraph
+from pychoco.objects.graphs.undirected_graph import create_undirected_graph
 
 
 class TestGraph(unittest.TestCase):
