@@ -605,6 +605,171 @@ def set_intersection_view(arg1):
 def set_difference_view(arg1, arg2):
     return _backend.set_difference_view(arg1, arg2)
 
+def graph_nb_nodes(arg1, arg2, arg3):
+    return _backend.graph_nb_nodes(arg1, arg2, arg3)
+
+def graph_nb_edges(arg1, arg2, arg3):
+    return _backend.graph_nb_edges(arg1, arg2, arg3)
+
+def graph_loop_set(arg1, arg2, arg3):
+    return _backend.graph_loop_set(arg1, arg2, arg3)
+
+def graph_nb_loops(arg1, arg2, arg3):
+    return _backend.graph_nb_loops(arg1, arg2, arg3)
+
+def graph_symmetric(arg1, arg2):
+    return _backend.graph_symmetric(arg1, arg2)
+
+def graph_anti_symmetric(arg1, arg2):
+    return _backend.graph_anti_symmetric(arg1, arg2)
+
+def graph_transitivity(arg1, arg2):
+    return _backend.graph_transitivity(arg1, arg2)
+
+def graph_subgraph(arg1, arg2, arg3):
+    return _backend.graph_subgraph(arg1, arg2, arg3)
+
+def graph_nodes_channeling_set(arg1, arg2, arg3):
+    return _backend.graph_nodes_channeling_set(arg1, arg2, arg3)
+
+def graph_nodes_channeling_bools(arg1, arg2, arg3):
+    return _backend.graph_nodes_channeling_bools(arg1, arg2, arg3)
+
+def graph_node_channeling(arg1, arg2, arg3, arg4):
+    return _backend.graph_node_channeling(arg1, arg2, arg3, arg4)
+
+def graph_edge_channeling(arg1, arg2, arg3, arg4, arg5):
+    return _backend.graph_edge_channeling(arg1, arg2, arg3, arg4, arg5)
+
+def graph_neighbors_channeling_sets(arg1, arg2, arg3):
+    return _backend.graph_neighbors_channeling_sets(arg1, arg2, arg3)
+
+def graph_neighbors_channeling_bools(arg1, arg2, arg3):
+    return _backend.graph_neighbors_channeling_bools(arg1, arg2, arg3)
+
+def graph_neighbors_channeling_node_set(arg1, arg2, arg3, arg4):
+    return _backend.graph_neighbors_channeling_node_set(arg1, arg2, arg3, arg4)
+
+def graph_neighbors_channeling_node_bools(arg1, arg2, arg3, arg4):
+    return _backend.graph_neighbors_channeling_node_bools(arg1, arg2, arg3, arg4)
+
+def graph_successors_channeling_sets(arg1, arg2, arg3):
+    return _backend.graph_successors_channeling_sets(arg1, arg2, arg3)
+
+def graph_successors_channeling_bools(arg1, arg2, arg3):
+    return _backend.graph_successors_channeling_bools(arg1, arg2, arg3)
+
+def graph_successors_channeling_node_set(arg1, arg2, arg3, arg4):
+    return _backend.graph_successors_channeling_node_set(arg1, arg2, arg3, arg4)
+
+def graph_successors_channeling_node_bools(arg1, arg2, arg3, arg4):
+    return _backend.graph_successors_channeling_node_bools(arg1, arg2, arg3, arg4)
+
+def graph_predecessors_channeling_node_set(arg1, arg2, arg3, arg4):
+    return _backend.graph_predecessors_channeling_node_set(arg1, arg2, arg3, arg4)
+
+def graph_predecessors_channeling_node_bools(arg1, arg2, arg3, arg4):
+    return _backend.graph_predecessors_channeling_node_bools(arg1, arg2, arg3, arg4)
+
+def graph_min_degree(arg1, arg2, arg3):
+    return _backend.graph_min_degree(arg1, arg2, arg3)
+
+def graph_min_degrees(arg1, arg2, arg3):
+    return _backend.graph_min_degrees(arg1, arg2, arg3)
+
+def graph_max_degree(arg1, arg2, arg3):
+    return _backend.graph_max_degree(arg1, arg2, arg3)
+
+def graph_max_degrees(arg1, arg2, arg3):
+    return _backend.graph_max_degrees(arg1, arg2, arg3)
+
+def graph_degrees(arg1, arg2, arg3):
+    return _backend.graph_degrees(arg1, arg2, arg3)
+
+def graph_min_in_degree(arg1, arg2, arg3):
+    return _backend.graph_min_in_degree(arg1, arg2, arg3)
+
+def graph_min_in_degrees(arg1, arg2, arg3):
+    return _backend.graph_min_in_degrees(arg1, arg2, arg3)
+
+def graph_max_in_degree(arg1, arg2, arg3):
+    return _backend.graph_max_in_degree(arg1, arg2, arg3)
+
+def graph_max_in_degrees(arg1, arg2, arg3):
+    return _backend.graph_max_in_degrees(arg1, arg2, arg3)
+
+def graph_in_degrees(arg1, arg2, arg3):
+    return _backend.graph_in_degrees(arg1, arg2, arg3)
+
+def graph_min_out_degree(arg1, arg2, arg3):
+    return _backend.graph_min_out_degree(arg1, arg2, arg3)
+
+def graph_min_out_degrees(arg1, arg2, arg3):
+    return _backend.graph_min_out_degrees(arg1, arg2, arg3)
+
+def graph_max_out_degree(arg1, arg2, arg3):
+    return _backend.graph_max_out_degree(arg1, arg2, arg3)
+
+def graph_max_out_degrees(arg1, arg2, arg3):
+    return _backend.graph_max_out_degrees(arg1, arg2, arg3)
+
+def graph_out_degrees(arg1, arg2, arg3):
+    return _backend.graph_out_degrees(arg1, arg2, arg3)
+
+def graph_cycle(arg1, arg2):
+    return _backend.graph_cycle(arg1, arg2)
+
+def graph_no_cycle(arg1, arg2):
+    return _backend.graph_no_cycle(arg1, arg2)
+
+def graph_no_circuit(arg1, arg2):
+    return _backend.graph_no_circuit(arg1, arg2)
+
+def graph_connected(arg1, arg2):
+    return _backend.graph_connected(arg1, arg2)
+
+def graph_biconnected(arg1, arg2):
+    return _backend.graph_biconnected(arg1, arg2)
+
+def graph_nb_connected_components(arg1, arg2, arg3):
+    return _backend.graph_nb_connected_components(arg1, arg2, arg3)
+
+def graph_size_connected_components(arg1, arg2, arg3, arg4):
+    return _backend.graph_size_connected_components(arg1, arg2, arg3, arg4)
+
+def graph_size_min_connected_components(arg1, arg2, arg3):
+    return _backend.graph_size_min_connected_components(arg1, arg2, arg3)
+
+def graph_size_max_connected_components(arg1, arg2, arg3):
+    return _backend.graph_size_max_connected_components(arg1, arg2, arg3)
+
+def graph_strongly_connected(arg1, arg2):
+    return _backend.graph_strongly_connected(arg1, arg2)
+
+def graph_nb_strongly_connected_components(arg1, arg2, arg3):
+    return _backend.graph_nb_strongly_connected_components(arg1, arg2, arg3)
+
+def graph_tree(arg1, arg2):
+    return _backend.graph_tree(arg1, arg2)
+
+def graph_forest(arg1, arg2):
+    return _backend.graph_forest(arg1, arg2)
+
+def graph_directed_tree(arg1, arg2, arg3):
+    return _backend.graph_directed_tree(arg1, arg2, arg3)
+
+def graph_directed_forest(arg1, arg2):
+    return _backend.graph_directed_forest(arg1, arg2)
+
+def graph_reachability(arg1, arg2, arg3):
+    return _backend.graph_reachability(arg1, arg2, arg3)
+
+def graph_nb_cliques(arg1, arg2, arg3):
+    return _backend.graph_nb_cliques(arg1, arg2, arg3)
+
+def graph_diameter(arg1, arg2, arg3):
+    return _backend.graph_diameter(arg1, arg2, arg3)
+
 def create_intvar_array(arg1):
     return _backend.create_intvar_array(arg1)
 

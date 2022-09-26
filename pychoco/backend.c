@@ -996,6 +996,229 @@ void* set_lt(void* modelHandle, void* setVarHandle1, void* setVarHandle2) {
     return Java_org_chocosolver_capi_ConstraintApi_set_lt(thread, modelHandle, setVarHandle1, setVarHandle2);
 }
 
+// GraphVar constraints
+
+void* graph_nb_nodes(void* modelHandle, void* graphVarHandle, void* intVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_nb_nodes(thread, modelHandle, graphVarHandle, intVarHandle);
+}
+void* graph_nb_edges(void* modelHandle, void* graphVarHandle, void* intVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_nb_edges(thread, modelHandle, graphVarHandle, intVarHandle);
+}
+void* graph_loop_set(void* modelHandle, void* graphVarHandle, void* setVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_loop_set(thread, modelHandle, graphVarHandle, setVarHandle);
+}
+void* graph_nb_loops(void* modelHandle, void* graphVarHandle, void* intVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_nb_loops(thread, modelHandle, graphVarHandle, intVarHandle);
+}
+void* graph_symmetric(void* modelHandle, void* graphVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_symmetric(thread, modelHandle, graphVarHandle);
+}
+void* graph_anti_symmetric(void* modelHandle, void* graphVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_anti_symmetric(thread, modelHandle, graphVarHandle);
+}
+void* graph_transitivity(void* modelHandle, void* graphVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_transitivity(thread, modelHandle, graphVarHandle);
+}
+void* graph_subgraph(void* modelHandle, void* graphVarHandle1, void* graphVarHandle2) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_subgraph(thread, modelHandle, graphVarHandle1, graphVarHandle2);
+}
+void* graph_nodes_channeling_set(void* modelHandle, void* graphVarHandle, void* setVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_nodes_channeling_set(thread, modelHandle, graphVarHandle, setVarHandle);
+}
+void* graph_nodes_channeling_bools(void* modelHandle, void* graphVarHandle, void* boolVarsHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_nodes_channeling_bools(thread, modelHandle, graphVarHandle, boolVarsHandle);
+}
+void* graph_node_channeling(void* modelHandle, void* graphVarHandle, void* boolVarHandle, int node) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_node_channeling(thread, modelHandle, graphVarHandle, boolVarHandle, node);
+}
+void* graph_edge_channeling(void* modelHandle, void* graphVarHandle, void* boolVarHandle, int from, int to) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_edge_channeling(thread, modelHandle, graphVarHandle, boolVarHandle, from, to);
+}
+void* graph_neighbors_channeling_sets(void* modelHandle, void* graphVarHandle, void* setVarsHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_neighbors_channeling_sets(thread, modelHandle, graphVarHandle, setVarsHandle);
+}
+void* graph_neighbors_channeling_bools(void* modelHandle, void* graphVarHandle, void* boolVarsHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_neighbors_channeling_bools(thread, modelHandle, graphVarHandle, boolVarsHandle);
+}
+void* graph_neighbors_channeling_node_set(void* modelHandle, void* graphVarHandle, void* setVarHandle, int node) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_neighbors_channeling_node_set(thread, modelHandle, graphVarHandle, setVarHandle, node);
+}
+void* graph_neighbors_channeling_node_bools(void* modelHandle, void* graphVarHandle, void* boolVarsHandle, int node) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_neighbors_channeling_node_bools(thread, modelHandle, graphVarHandle, boolVarsHandle, node);
+}
+void* graph_successors_channeling_sets(void* modelHandle, void* graphVarHandle, void* setVarsHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_successors_channeling_sets(thread, modelHandle, graphVarHandle, setVarsHandle);
+}
+void* graph_successors_channeling_bools(void* modelHandle, void* graphVarHandle, void* boolVarsHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_successors_channeling_bools(thread, modelHandle, graphVarHandle, boolVarsHandle);
+}
+void* graph_successors_channeling_node_set(void* modelHandle, void* graphVarHandle, void* setVarHandle, int node) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_successors_channeling_node_set(thread, modelHandle, graphVarHandle, setVarHandle, node);
+}
+void* graph_successors_channeling_node_bools(void* modelHandle, void* graphVarHandle, void* boolVarsHandle, int node) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_successors_channeling_node_bools(thread, modelHandle, graphVarHandle, boolVarsHandle, node);
+}
+void* graph_predecessors_channeling_node_set(void* modelHandle, void* graphVarHandle, void* setVarHandle, int node) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_predecessors_channeling_node_set(thread, modelHandle, graphVarHandle, setVarHandle, node);
+}
+void* graph_predecessors_channeling_node_bools(void* modelHandle, void* graphVarHandle, void* boolVarsHandle, int node) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_predecessors_channeling_node_bools(thread, modelHandle, graphVarHandle, boolVarsHandle, node);
+}
+void* graph_min_degree(void* modelHandle, void* graphVarHandle, int degree) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_min_degree(thread, modelHandle, graphVarHandle, degree);
+}
+void* graph_min_degrees(void* modelHandle, void* graphVarHandle, void* degrees) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_min_degrees(thread, modelHandle, graphVarHandle, degrees);
+}
+void* graph_max_degree(void* modelHandle, void* graphVarHandle, int degree) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_max_degree(thread, modelHandle, graphVarHandle, degree);
+}
+void* graph_max_degrees(void* modelHandle, void* graphVarHandle, void* degrees) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_max_degrees(thread, modelHandle, graphVarHandle, degrees);
+}
+void* graph_degrees(void* modelHandle, void* graphVarHandle, void* degrees) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_degrees(thread, modelHandle, graphVarHandle, degrees);
+}
+void* graph_min_in_degree(void* modelHandle, void* graphVarHandle, int degree) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_min_in_degree(thread, modelHandle, graphVarHandle, degree);
+}
+void* graph_min_in_degrees(void* modelHandle, void* graphVarHandle, void* degrees) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_min_in_degrees(thread, modelHandle, graphVarHandle, degrees);
+}
+void* graph_max_in_degree(void* modelHandle, void* graphVarHandle, int degree) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_max_in_degree(thread, modelHandle, graphVarHandle, degree);
+}
+void* graph_max_in_degrees(void* modelHandle, void* graphVarHandle, void* degrees) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_max_in_degrees(thread, modelHandle, graphVarHandle, degrees);
+}
+void* graph_in_degrees(void* modelHandle, void* graphVarHandle, void* degrees) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_in_degrees(thread, modelHandle, graphVarHandle, degrees);
+}
+void* graph_min_out_degree(void* modelHandle, void* graphVarHandle, int degree) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_min_out_degree(thread, modelHandle, graphVarHandle, degree);
+}
+void* graph_min_out_degrees(void* modelHandle, void* graphVarHandle, void* degrees) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_min_out_degrees(thread, modelHandle, graphVarHandle, degrees);
+}
+void* graph_max_out_degree(void* modelHandle, void* graphVarHandle, int degree) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_max_out_degree(thread, modelHandle, graphVarHandle, degree);
+}
+void* graph_max_out_degrees(void* modelHandle, void* graphVarHandle, void* degrees) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_max_out_degrees(thread, modelHandle, graphVarHandle, degrees);
+}
+void* graph_out_degrees(void* modelHandle, void* graphVarHandle, void* degrees) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_out_degrees(thread, modelHandle, graphVarHandle, degrees);
+}
+void* graph_cycle(void* modelHandle, void* graphVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_cycle(thread, modelHandle, graphVarHandle);
+}
+void* graph_no_cycle(void* modelHandle, void* graphVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_no_cycle(thread, modelHandle, graphVarHandle);
+}
+void* graph_no_circuit(void* modelHandle, void* graphVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_no_circuit(thread, modelHandle, graphVarHandle);
+}
+void* graph_connected(void* modelHandle, void* graphVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_connected(thread, modelHandle, graphVarHandle);
+}
+void* graph_biconnected(void* modelHandle, void* graphVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_biconnected(thread, modelHandle, graphVarHandle);
+}
+void* graph_nb_connected_components(void* modelHandle, void* graphVarHandle, void* intVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_nb_connected_components(thread, modelHandle, graphVarHandle, intVarHandle);
+}
+void* graph_size_connected_components(void* modelHandle, void* graphVarHandle, void* minHandle, void* maxHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_size_connected_components(thread, modelHandle, graphVarHandle, minHandle, maxHandle);
+}
+void* graph_size_min_connected_components(void* modelHandle, void* graphVarHandle, void* minHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_size_min_connected_components(thread, modelHandle, graphVarHandle, minHandle);
+}
+void* graph_size_max_connected_components(void* modelHandle, void* graphVarHandle, void* maxHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_size_max_connected_components(thread, modelHandle, graphVarHandle, maxHandle);
+}
+void* graph_strongly_connected(void* modelHandle, void* graphVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_strongly_connected(thread, modelHandle, graphVarHandle);
+}
+void* graph_nb_strongly_connected_components(void* modelHandle, void* graphVarHandle, void* intVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_nb_strongly_connected_components(thread, modelHandle, graphVarHandle, intVarHandle);
+}
+void* graph_tree(void* modelHandle, void* graphVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_tree(thread, modelHandle, graphVarHandle);
+}
+void* graph_forest(void* modelHandle, void* graphVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_forest(thread, modelHandle, graphVarHandle);
+}
+void* graph_directed_tree(void* modelHandle, void* graphVarHandle, int root) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_directed_tree(thread, modelHandle, graphVarHandle, root);
+}
+void* graph_directed_forest(void* modelHandle, void* graphVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_directed_forest(thread, modelHandle, graphVarHandle);
+}
+void* graph_reachability(void* modelHandle, void* graphVarHandle, int root) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_reachability(thread, modelHandle, graphVarHandle, root);
+}
+void* graph_nb_cliques(void* modelHandle, void* graphVarHandle, void* intVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_nb_cliques(thread, modelHandle, graphVarHandle, intVarHandle);
+}
+void* graph_diameter(void* modelHandle, void* graphVarHandle, void* intVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_graph_diameter(thread, modelHandle, graphVarHandle, intVarHandle);
+}
+
 // View API
 
 void* bool_not_view(void* boolVarHandle) {

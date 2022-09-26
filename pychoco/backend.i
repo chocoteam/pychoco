@@ -268,6 +268,64 @@ void* set_union_view(void*);
 void* set_intersection_view(void*);
 void* set_difference_view(void*, void*);
 
+// GraphVar constraints
+
+void* graph_nb_nodes(void*, void*, void*);
+void* graph_nb_edges(void*, void*, void*);
+void* graph_loop_set(void*, void*, void*);
+void* graph_nb_loops(void*, void*, void*);
+void* graph_symmetric(void*, void*);
+void* graph_anti_symmetric(void*, void*);
+void* graph_transitivity(void*, void*);
+void* graph_subgraph(void*, void*, void*);
+void* graph_nodes_channeling_set(void*, void*, void*);
+void* graph_nodes_channeling_bools(void*, void*, void*);
+void* graph_node_channeling(void*, void*, void*, int);
+void* graph_edge_channeling(void*, void*, void*, int, int);
+void* graph_neighbors_channeling_sets(void*, void*, void*);
+void* graph_neighbors_channeling_bools(void*, void*, void*);
+void* graph_neighbors_channeling_node_set(void*, void*, void*, int);
+void* graph_neighbors_channeling_node_bools(void*, void*, void*, int);
+void* graph_successors_channeling_sets(void*, void*, void*);
+void* graph_successors_channeling_bools(void*, void*, void*);
+void* graph_successors_channeling_node_set(void*, void*, void*, int);
+void* graph_successors_channeling_node_bools(void*, void*, void*, int);
+void* graph_predecessors_channeling_node_set(void*, void*, void*, int);
+void* graph_predecessors_channeling_node_bools(void*, void*, void*, int);
+void* graph_min_degree(void*, void*, int);
+void* graph_min_degrees(void*, void*, void*);
+void* graph_max_degree(void*, void*, int);
+void* graph_max_degrees(void*, void*, void*);
+void* graph_degrees(void*, void*, void*);
+void* graph_min_in_degree(void*, void*, int);
+void* graph_min_in_degrees(void*, void*, void*);
+void* graph_max_in_degree(void*, void*, int);
+void* graph_max_in_degrees(void*, void*, void*);
+void* graph_in_degrees(void*, void*, void*);
+void* graph_min_out_degree(void*, void*, int);
+void* graph_min_out_degrees(void*, void*, void*);
+void* graph_max_out_degree(void*, void*, int);
+void* graph_max_out_degrees(void*, void*, void*);
+void* graph_out_degrees(void*, void*, void*);
+void* graph_cycle(void*, void*);
+void* graph_no_cycle(void*, void*);
+void* graph_no_circuit(void*, void*);
+void* graph_connected(void*, void*);
+void* graph_biconnected(void*, void*);
+void* graph_nb_connected_components(void*, void*, void*);
+void* graph_size_connected_components(void*, void*, void*, void*);
+void* graph_size_min_connected_components(void*, void*, void*);
+void* graph_size_max_connected_components(void*, void*, void*);
+void* graph_strongly_connected(void*, void*);
+void* graph_nb_strongly_connected_components(void*, void*, void*);
+void* graph_tree(void*, void*);
+void* graph_forest(void*, void*);
+void* graph_directed_tree(void*, void*, int);
+void* graph_directed_forest(void*, void*);
+void* graph_reachability(void*, void*, int);
+void* graph_nb_cliques(void*, void*, void*);
+void* graph_diameter(void*, void*, void*);
+
 // Array API
 
 // IntVar
