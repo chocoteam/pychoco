@@ -9,3 +9,6 @@ class BoolVar(IntVar):
 
     def get_type(self):
         return "BoolVar"
+
+    def get_value(self):
+        return bool(super().get_value())

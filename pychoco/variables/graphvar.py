@@ -22,3 +22,17 @@ class GraphVar(Variable, ABC):
         :return: True if the graphvar is directed, False otherwise.
         """
         pass
+
+    @abstractmethod
+    def get_lb(self):
+        pass
+
+    @abstractmethod
+    def get_ub(self):
+        pass
+
+    def get_max_node_index(self):
+        """
+        :return: The highest possible node index in the graph variables (i.e. from the ub).
+        """
+        return max(self.get_ub().get_nodes())

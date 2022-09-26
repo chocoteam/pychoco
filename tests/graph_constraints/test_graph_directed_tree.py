@@ -6,7 +6,7 @@ from pychoco.model import Model
 from pychoco.objects.graphs.directed_graph import create_directed_graph, create_complete_directed_graph
 
 
-class TestGraphDirectedForest(unittest.TestCase):
+class TestGraphDirectedTree(unittest.TestCase):
 
     def test1(self):
         m = Model()

@@ -806,6 +806,12 @@ def create_boolvar_array(arg1):
 def boolvar_array_set(arg1, arg2, arg3):
     return _backend.boolvar_array_set(arg1, arg2, arg3)
 
+def create_boolvar_2d_array(arg1):
+    return _backend.create_boolvar_2d_array(arg1)
+
+def boolvar_2d_array_set(arg1, arg2, arg3):
+    return _backend.boolvar_2d_array_set(arg1, arg2, arg3)
+
 def create_setvar_array(arg1):
     return _backend.create_setvar_array(arg1)
 

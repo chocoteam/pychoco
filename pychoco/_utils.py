@@ -105,6 +105,19 @@ def make_boolvar_array(boolvars: List["BoolVar"]):
     return vars_array
 
 
+def make_boolvar_2d_array(arrays: List[List["BoolVar"]]):
+    """
+    Creates a Java BoolVar[][] handle from a list of Python BoolVar lists.
+    :param arrays: A list of BoolVar lists.
+    :return: A Java BoolVar[][] handle.
+    """
+    boolvar_2d_array = backend.create_boolvar_2d_array(len(arrays))
+    for i in range(0, len(arrays)):
+        handle = make_boolvar_array(arrays[i])
+        backend.boolvar_2d_array_set(boolvar_2d_array, handle, i)
+    return boolvar_2d_array
+
+
 def get_boolvar_array(handle, model):
     """
     Return a Python List[BoolVar] from a Java BoolVar[] handle.

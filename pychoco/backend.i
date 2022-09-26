@@ -352,6 +352,11 @@ void task_array_set(void*, void*, int);
 void* create_boolvar_array(int);
 void boolvar_array_set(void*, void*, int);
 
+// BoolVar[][]
+
+void* create_boolvar_2d_array(int);
+void boolvar_2d_array_set(void*, void*, int);
+
 // SetVar
 
 void* create_setvar_array(int);

@@ -1329,6 +1329,7 @@ void intvar_2d_array_set(void* arrayHandle, void* intVarArrayHandle, int index) 
     LAZY_THREAD_ATTACH
     Java_org_chocosolver_capi_ArrayApi_intVar_2d_array_set(thread, arrayHandle, intVarArrayHandle, index);
 }
+
 // Tasks
 
 void* create_task_array(int size) {
@@ -1353,6 +1354,17 @@ void* create_boolvar_array(int size) {
 void boolvar_array_set(void* arrayHandle, void* boolVarHandle, int index) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ArrayApi_boolVar_set(thread, arrayHandle, boolVarHandle, index);
+}
+
+// BoolVar[][]
+
+void* create_boolvar_2d_array(int size) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_boolVar_2d_array_create(thread, size);
+}
+void boolvar_2d_array_set(void* arrayHandle, void* boolVarArrayHandle, int index) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ArrayApi_boolVar_2d_array_set(thread, arrayHandle, boolVarArrayHandle, index);
 }
 
 // SetVar
