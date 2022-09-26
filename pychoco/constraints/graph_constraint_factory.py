@@ -254,7 +254,7 @@ class GraphConstraintFactory(ABC):
             handle = backend.graph_successors_channeling_sets(self.handle, digraphvar.handle, sets_handle)
         else:
             assert len(setvars_or_boolvars[0]) > 0 and isinstance(setvars_or_boolvars[0][0], BoolVar)
-            bools_handle = make_boolvar_array(setvars_or_boolvars)
+            bools_handle = make_boolvar_2d_array(setvars_or_boolvars)
             handle = backend.graph_successors_channeling_bools(self.handle, digraphvar.handle, bools_handle)
         return Constraint(handle, self)
 

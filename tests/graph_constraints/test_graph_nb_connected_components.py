@@ -10,8 +10,8 @@ class TestGraphNbCliques(unittest.TestCase):
 
     def test1(self):
         m = Model()
-        lb = create_undirected_graph(m, 7)
-        ub = create_complete_undirected_graph(m, 7)
+        lb = create_undirected_graph(m, 5)
+        ub = create_complete_undirected_graph(m, 5)
         g = m.graphvar(lb, ub, "g")
         i = m.intvar(0, 10)
         m.graph_nb_connected_components(g, i).post()
