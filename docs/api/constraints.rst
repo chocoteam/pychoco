@@ -547,3 +547,306 @@ set_union_indices
 .. autofunction:: set_union_indices
    :noindex:
 
+
+Graph constraints
+-----------------
+
+All constraints over graph variables in the `GraphConstraintFactory` abstract class, which is implemented by the `Model`
+class. Graph constraints have the `graph_` prefix, indeed, as method Python does not support method overloading, we
+made the choice to semantically distinguish them to avoid method name conflicts.
+
+.. py:currentmodule:: pychoco.constraints.graph_constraint_factory.GraphConstraintFactory
+
+graph_anti_symmetric
+^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_anti_symmetric
+   :noindex:
+
+graph_biconnected
+^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_biconnected
+   :noindex:
+
+graph_connected
+^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_connected
+   :noindex:
+
+graph_cycle
+^^^^^^^^^^^
+
+.. autofunction:: graph_cycle
+   :noindex:
+
+graph_degrees
+^^^^^^^^^^^^^
+
+.. autofunction:: graph_degrees
+   :noindex:
+
+graph_diameter
+^^^^^^^^^^^^^^
+
+.. autofunction:: graph_diameter
+   :noindex:
+
+graph_directed_forest
+^^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_directed_forest
+   :noindex:
+
+graph_directed_tree
+^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_directed_tree
+   :noindex:
+
+graph_edge_channeling
+^^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_edge_channeling
+   :noindex:
+
+graph_forest
+^^^^^^^^^^^^
+
+.. autofunction:: graph_forest
+   :noindex:
+
+graph_in_degrees
+^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_in_degrees
+   :noindex:
+
+graph_loop_set
+^^^^^^^^^^^^^^
+
+.. autofunction:: graph_loop_set
+   :noindex:
+
+graph_max_degree
+^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_max_degree
+   :noindex:
+
+graph_max_degrees
+^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_max_degrees
+   :noindex:
+
+graph_max_in_degree
+^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_max_in_degree
+   :noindex:
+
+graph_max_in_degrees
+^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_max_in_degrees
+   :noindex:
+
+graph_max_out_degree
+^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_max_out_degree
+   :noindex:
+
+graph_max_out_degrees
+^^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_max_out_degrees
+   :noindex:
+
+graph_min_degree
+^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_min_degree
+   :noindex:
+
+graph_min_degrees
+^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_min_degrees
+   :noindex:
+
+graph_min_in_degree
+^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_min_in_degree
+   :noindex:
+
+graph_min_in_degrees
+^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_min_in_degrees
+   :noindex:
+
+graph_min_out_degree
+^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_min_out_degree
+   :noindex:
+
+graph_min_out_degrees
+^^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_min_out_degrees
+   :noindex:
+
+graph_nb_cliques
+^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_nb_cliques
+   :noindex:
+
+graph_nb_connected_components
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_nb_connected_components
+   :noindex:
+
+graph_nb_edges
+^^^^^^^^^^^^^^
+
+.. autofunction:: graph_nb_edges
+   :noindex:
+
+graph_nb_loops
+^^^^^^^^^^^^^^
+
+.. autofunction:: graph_nb_loops
+   :noindex:
+
+graph_nb_nodes
+^^^^^^^^^^^^^^
+
+.. autofunction:: graph_nb_nodes
+   :noindex:
+
+graph_nb_strongly_connected_components
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_nb_strongly_connected_components
+   :noindex:
+
+graph_neighbors_channeling
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_neighbors_channeling
+   :noindex:
+
+graph_no_circuit
+^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_no_circuit
+   :noindex:
+
+graph_no_cycle
+^^^^^^^^^^^^^^
+
+.. autofunction:: graph_no_cycle
+   :noindex:
+
+graph_node_channeling
+^^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_node_channeling
+   :noindex:
+
+graph_node_neighbors_channeling
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_node_neighbors_channeling
+   :noindex:
+
+graph_node_predecessors_channeling
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_node_predecessors_channeling
+   :noindex:
+
+graph_node_successors_channeling
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_node_successors_channeling
+   :noindex:
+
+graph_nodes_channeling
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_nodes_channeling
+   :noindex:
+
+graph_out_degrees
+^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_out_degrees
+   :noindex:
+
+graph_reachability
+^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_reachability
+   :noindex:
+
+graph_size_connected_components
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_size_connected_components
+   :noindex:
+
+graph_size_max_connected_components
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_size_max_connected_components
+   :noindex:
+
+graph_size_min_connected_components
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_size_min_connected_components
+   :noindex:
+
+graph_strongly_connected
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_strongly_connected
+   :noindex:
+
+graph_subgraph
+^^^^^^^^^^^^^^
+
+.. autofunction:: graph_subgraph
+   :noindex:
+
+graph_successors_channeling
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_successors_channeling
+   :noindex:
+
+graph_symmetric
+^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_symmetric
+   :noindex:
+
+graph_transitivity
+^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_transitivity
+   :noindex:
+
+graph_tree
+^^^^^^^^^^
+
+.. autofunction:: graph_tree
+   :noindex:
