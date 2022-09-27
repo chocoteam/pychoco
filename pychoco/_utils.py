@@ -144,6 +144,18 @@ def make_setvar_array(setvars: List["SetVar"]):
     return vars_array
 
 
+def make_graphvar_array(graphvars: List["GraphVar"]):
+    """
+    Creates a Java GraphVar[] handle from a list of Python GraphVars
+    :param graphvars: A list of Python GraphVars
+    :return: A Java GraphVar[] handle.
+    """
+    vars_array = backend.create_graphvar_array(len(graphvars))
+    for i in range(0, len(graphvars)):
+        backend.graphvar_array_set(vars_array, graphvars[i].handle, i)
+    return vars_array
+
+
 def make_task_array(tasks: List["Task"]):
     """
     Creates a Java Task[] handle from a list of Python Tasks

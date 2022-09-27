@@ -1,6 +1,8 @@
 import unittest
 
 from pychoco.model import Model
+from pychoco.objects.graphs.directed_graph import create_directed_graph, create_complete_directed_graph
+from pychoco.objects.graphs.undirected_graph import create_undirected_graph, create_complete_undirected_graph
 from pychoco.variables.boolvar import BoolVar
 
 
@@ -166,3 +168,160 @@ class TestViews(unittest.TestCase):
                 a.get_value().difference(b.get_value()),
                 diff.get_value()
             )
+
+    def test_graph_node_set_view(self):
+        m = Model()
+        lb = create_undirected_graph(m, 5)
+        ub = create_complete_undirected_graph(m, 5)
+        g = m.graphvar(lb, ub, "g")
+        s = m.graph_node_set_view(g)
+        self.assertTrue(s.is_view())
+        while m.get_solver().solve():
+            self.assertSetEqual(s.get_value(), set(g.get_value().get_nodes()))
+
+    def test_graph_successors_set_view(self):
+        m = Model()
+        lb = create_directed_graph(m, 4)
+        ub = create_complete_directed_graph(m, 4)
+        g = m.digraphvar(lb, ub, "g")
+        s = m.graph_successors_set_view(g, 2)
+        self.assertTrue(s.is_view())
+        while m.get_solver().solve():
+            self.assertSetEqual(s.get_value(), set(g.get_value().get_successors_of(2)))
+
+    def test_graph_predecessors_set_view(self):
+        m = Model()
+        lb = create_directed_graph(m, 4)
+        ub = create_complete_directed_graph(m, 4)
+        g = m.digraphvar(lb, ub, "g")
+        s = m.graph_predecessors_set_view(g, 2)
+        self.assertTrue(s.is_view())
+        while m.get_solver().solve():
+            self.assertSetEqual(s.get_value(), set(g.get_value().get_predecessors_of(2)))
+
+    def test_graph_neighbors_set_view(self):
+        m = Model()
+        lb = create_undirected_graph(m, 5)
+        ub = create_complete_undirected_graph(m, 5)
+        g = m.graphvar(lb, ub, "g")
+        s = m.graph_neighbors_set_view(g, 2)
+        self.assertTrue(s.is_view())
+        while m.get_solver().solve():
+            self.assertSetEqual(s.get_value(), set(g.get_value().get_neighbors_of(2)))
+
+    def test_node_induced_subgraph_view(self):
+        m = Model()
+        lb = create_undirected_graph(m, 5)
+        ub = create_complete_undirected_graph(m, 5)
+        g = m.graphvar(lb, ub, "g")
+        nodes = [0, 1, 2]
+        view = m.node_induced_subgraph_view(g, nodes)
+        self.assertTrue(view.is_view())
+        self.assertFalse(view.is_directed())
+        while m.get_solver().solve():
+            for i in g.get_value().get_nodes():
+                if i in nodes:
+                    self.assertTrue(i in view.get_value().get_nodes())
+                    for j in g.get_value().get_neighbors_of(i):
+                        if j in nodes:
+                            self.assertTrue(j in view.get_value().get_neighbors_of(i))
+                        else:
+                            self.assertFalse(view.get_value().contains_edge(i, j))
+                else:
+                    self.assertFalse(i in view.get_value().get_nodes())
+
+    def test_node_induced_subgraph_view_directed(self):
+        m = Model()
+        lb = create_directed_graph(m, 4)
+        ub = create_complete_directed_graph(m, 4)
+        g = m.digraphvar(lb, ub, "g")
+        nodes = [0, 1]
+        view = m.node_induced_subgraph_view(g, nodes)
+        self.assertTrue(view.is_directed())
+        self.assertTrue(view.is_view())
+        while m.get_solver().solve():
+            for i in g.get_value().get_nodes():
+                if i in nodes:
+                    self.assertTrue(i in view.get_value().get_nodes())
+                    for j in g.get_value().get_successors_of(i):
+                        if j in nodes:
+                            self.assertTrue(j in view.get_value().get_successors_of(i))
+                        else:
+                            self.assertFalse(view.get_value().contains_edge(i, j))
+                else:
+                    self.assertFalse(i in view.get_value().get_nodes())
+
+    def test_edge_induced_subgraph_view(self):
+        m = Model()
+        lb = create_undirected_graph(m, 5)
+        ub = create_complete_undirected_graph(m, 5)
+        g = m.graphvar(lb, ub, "g")
+        edges = [[0, 1], [1, 2], [2, 3]]
+        view = m.edge_induced_subgraph_view(g, edges)
+        self.assertTrue(view.is_view())
+        self.assertFalse(view.is_directed())
+        while m.get_solver().solve():
+            for i in g.get_value().get_nodes():
+                cond = i in [0, 1, 2, 3] \
+                       and len([j for j in g.get_value().get_neighbors_of(i) if [i, j] in edges or [j, i] in edges]) > 0
+                if cond:
+                    self.assertTrue(i in view.get_value().get_nodes())
+                    for j in g.get_value().get_neighbors_of(i):
+                        if [i, j] in edges or [j, i] in edges:
+                            self.assertTrue(view.get_value().contains_edge(i, j))
+                        else:
+                            self.assertFalse(view.get_value().contains_edge(i, j))
+                else:
+                    self.assertFalse(i in view.get_value().get_nodes())
+
+    def test_edge_induced_subgraph_view_directed(self):
+        m = Model()
+        lb = create_directed_graph(m, 4)
+        ub = create_complete_directed_graph(m, 4)
+        g = m.digraphvar(lb, ub, "g")
+        edges = [[0, 1], [1, 2]]
+        view = m.edge_induced_subgraph_view(g, edges)
+        self.assertTrue(view.is_directed())
+        self.assertTrue(view.is_view())
+        while m.get_solver().solve():
+            for i in g.get_value().get_nodes():
+                cond = i in [0, 1, 2] \
+                       and (len([j for j in g.get_value().get_successors_of(i) if [i, j] in edges]) > 0
+                            or len([j for j in g.get_value().get_predecessors_of(i) if [j, i] in edges]) > 0)
+                if cond:
+                    self.assertTrue(i in view.get_value().get_nodes())
+                    for j in g.get_value().get_successors_of(i):
+                        if [i, j] in edges:
+                            self.assertTrue(view.get_value().contains_edge(i, j))
+                        else:
+                            self.assertFalse(view.get_value().contains_edge(i, j))
+                else:
+                    self.assertFalse(i in view.get_value().get_nodes())
+
+    def test_graph_union_view(self):
+        m = Model()
+        lb = [create_undirected_graph(m, 3) for i in range(0, 3)]
+        ub = [create_complete_undirected_graph(m, 3) for i in range(0, 3)]
+        graphs = [m.graphvar(lb[i], ub[i], "g") for i in range(0, 3)]
+        union = m.graph_union_view(graphs)
+        self.assertTrue(union.is_view())
+        while m.get_solver().solve():
+            for g in graphs:
+                for i in g.get_value().get_nodes():
+                    self.assertTrue(i in union.get_value().get_nodes())
+                    for j in g.get_value().get_neighbors_of(i):
+                        self.assertTrue(union.get_value().contains_edge(i, j))
+
+    def test_graph_union_view_directed(self):
+        m = Model()
+        lb = [create_directed_graph(m, 3) for i in range(0, 2)]
+        ub = [create_complete_directed_graph(m, 3) for i in range(0, 2)]
+        graphs = [m.digraphvar(lb[i], ub[i], "g") for i in range(0, 2)]
+        union = m.graph_union_view(graphs)
+        self.assertTrue(union.is_view())
+        while m.get_solver().solve():
+            for g in graphs:
+                for i in g.get_value().get_nodes():
+                    self.assertTrue(i in union.get_value().get_nodes())
+                    for j in g.get_value().get_successors_of(i):
+                        self.assertTrue(union.get_value().contains_edge(i, j))

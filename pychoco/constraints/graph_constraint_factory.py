@@ -194,18 +194,18 @@ class GraphConstraintFactory(ABC):
         self._assert_undirected(graphvar, "graph_neighbors_channeling")
         assert len(setvars_or_boolvars) > 0
         if isinstance(setvars_or_boolvars[0], SetVar):
-            assert len(setvars_or_boolvars) == graphvar.get_max_node_index() + 1, \
+            assert len(setvars_or_boolvars) == graphvar.get_nb_max_nodes(), \
                 "[graph_neighbors_channeling] The number of set variables must be equal to" \
                 " the maximum number of nodes in the graphvar"
             sets_handle = make_setvar_array(setvars_or_boolvars)
             handle = backend.graph_neighbors_channeling_sets(self.handle, graphvar.handle, sets_handle)
         else:
             assert len(setvars_or_boolvars[0]) > 0 and isinstance(setvars_or_boolvars[0][0], BoolVar)
-            assert len(setvars_or_boolvars) == graphvar.get_max_node_index() + 1, \
+            assert len(setvars_or_boolvars) == graphvar.get_nb_max_nodes(), \
                 "[graph_neighbors_channeling] The number of rows in the boolvar matrix must be equal to" \
                 " the maximum number of nodes in the graphvar"
             for b in setvars_or_boolvars:
-                assert len(b) == graphvar.get_max_node_index() + 1, \
+                assert len(b) == graphvar.get_nb_max_nodes(), \
                     "[graph_neighbors_channeling] The number of columns in the boolvar matrix must be equal to" \
                     " the maximum number of nodes in the graphvar"
             bools_handle = make_boolvar_2d_array(setvars_or_boolvars)
@@ -229,7 +229,7 @@ class GraphConstraintFactory(ABC):
             handle = backend.graph_neighbors_channeling_node_set(self.handle, graphvar.handle,
                                                                  setvar_or_boolvars.handle, node)
         else:
-            assert len(setvar_or_boolvars) == graphvar.get_max_node_index() + 1, \
+            assert len(setvar_or_boolvars) == graphvar.get_nb_max_nodes(), \
                 "[graph_neighbors_channeling] The number of boolvars must be equal to" \
                 " the maximum number of nodes in the graphvar"
             bools_handle = make_boolvar_array(setvar_or_boolvars)
@@ -275,7 +275,7 @@ class GraphConstraintFactory(ABC):
             handle = backend.graph_successors_channeling_node_set(self.handle, digraphvar.handle,
                                                                   setvar_or_boolvars.handle, node)
         else:
-            assert len(setvar_or_boolvars) == digraphvar.get_max_node_index() + 1, \
+            assert len(setvar_or_boolvars) == digraphvar.get_nb_max_nodes(), \
                 "[graph_neighbors_channeling] The number of boolvars must be equal to" \
                 " the maximum number of nodes in the graphvar"
             bools_handle = make_boolvar_array(setvar_or_boolvars)
@@ -299,7 +299,7 @@ class GraphConstraintFactory(ABC):
             handle = backend.graph_predecessors_channeling_node_set(self.handle, digraphvar.handle,
                                                                     setvar_or_boolvars.handle, node)
         else:
-            assert len(setvar_or_boolvars) == digraphvar.get_max_node_index() + 1, \
+            assert len(setvar_or_boolvars) == digraphvar.get_nb_max_nodes(), \
                 "[graph_neighbors_channeling] The number of boolvars must be equal to" \
                 " the maximum number of nodes in the graphvar"
             bools_handle = make_boolvar_array(setvar_or_boolvars)

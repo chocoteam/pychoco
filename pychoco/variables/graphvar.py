@@ -31,8 +31,8 @@ class GraphVar(Variable, ABC):
     def get_ub(self):
         pass
 
-    def get_max_node_index(self):
+    def get_nb_max_nodes(self):
         """
-        :return: The highest possible node index in the graph variables (i.e. from the ub).
+        :return: The maximum number of node the graph variable may have.
         """
-        return max(self.get_ub().get_nodes())
+        return self.get_ub().get_nb_max_nodes()

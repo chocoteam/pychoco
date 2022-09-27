@@ -605,6 +605,27 @@ def set_intersection_view(arg1):
 def set_difference_view(arg1, arg2):
     return _backend.set_difference_view(arg1, arg2)
 
+def graph_node_set_view(arg1):
+    return _backend.graph_node_set_view(arg1)
+
+def graph_successors_set_view(arg1, arg2):
+    return _backend.graph_successors_set_view(arg1, arg2)
+
+def graph_predecessors_set_view(arg1, arg2):
+    return _backend.graph_predecessors_set_view(arg1, arg2)
+
+def graph_neighbors_set_view(arg1, arg2):
+    return _backend.graph_neighbors_set_view(arg1, arg2)
+
+def node_induced_subgraph_view(arg1, arg2, arg3):
+    return _backend.node_induced_subgraph_view(arg1, arg2, arg3)
+
+def edge_induced_subgraph_view(arg1, arg2, arg3):
+    return _backend.edge_induced_subgraph_view(arg1, arg2, arg3)
+
+def graph_union_view(arg1):
+    return _backend.graph_union_view(arg1)
+
 def graph_nb_nodes(arg1, arg2, arg3):
     return _backend.graph_nb_nodes(arg1, arg2, arg3)
 
@@ -820,6 +841,12 @@ def setvar_array_length(arg1):
 
 def setvar_array_set(arg1, arg2, arg3):
     return _backend.setvar_array_set(arg1, arg2, arg3)
+
+def create_graphvar_array(arg1):
+    return _backend.create_graphvar_array(arg1)
+
+def graphvar_array_set(arg1, arg2, arg3):
+    return _backend.graphvar_array_set(arg1, arg2, arg3)
 
 def create_constraint_array(arg1):
     return _backend.create_constraint_array(arg1)

@@ -130,3 +130,49 @@ set_difference_view
 
 .. autofunction:: set_difference_view
    :noindex:
+
+graph_node_set_view
+^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_node_set_view
+   :noindex:
+
+graph_successors_set_view
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_successors_set_view
+   :noindex:
+
+graph_predecessors_set_view
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_predecessors_set_view
+   :noindex:
+
+graph_neighbors_set_view
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_neighbors_set_view
+   :noindex:
+
+
+Graph views
+-----------
+
+node_induced_subgraph_view
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: node_induced_subgraph_view
+   :noindex:
+
+edge_induced_subgraph_view
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autofunction:: edge_induced_subgraph_view
+   :noindex:
+
+graph_union_view
+^^^^^^^^^^^^^^^^
+
+.. autofunction:: graph_union_view
+   :noindex:

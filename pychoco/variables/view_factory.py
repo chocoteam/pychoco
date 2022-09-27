@@ -3,9 +3,15 @@ from typing import List
 
 from pychoco import backend
 from pychoco._utils import make_boolvar_array, make_intvar_array, make_int_array, make_setvar_array, get_boolvar_array
+from pychoco._utils import make_int_2d_array, make_graphvar_array
+from pychoco.objects.graphs.directed_graph import DirectedGraph
+from pychoco.objects.graphs.undirected_graph import UndirectedGraph
 from pychoco.variables.boolvar import BoolVar
+from pychoco.variables.directed_graphvar import DirectedGraphVar
+from pychoco.variables.graphvar import GraphVar
 from pychoco.variables.intvar import IntVar
 from pychoco.variables.setvar import SetVar
+from pychoco.variables.undirected_graphvar import UndirectedGraphVar
 
 
 class ViewFactory(ABC):
@@ -229,3 +235,115 @@ class ViewFactory(ABC):
         """
         handle = backend.set_difference_view(setvar_1.handle, setvar_2.handle)
         return SetVar(handle, self)
+
+    # Graph views
+
+    def graph_node_set_view(self, graphvar: "GraphVar"):
+        """
+        Creates a set view over the set of nodes of a graph variable.
+
+        :param graphvar: A GraphVar (Directed or Undirected).
+        :return: A graph_node_set_view.
+        """
+        handle = backend.graph_node_set_view(graphvar.handle)
+        return SetVar(handle, self)
+
+    def graph_successors_set_view(self, digraphvar: "DirectedGraphVar", node: int):
+        """
+        Creates a set view over the set of successors of a node of a directed graph variable.
+
+        :param digraphvar: A DirectedGraphVar.
+        :param node: An int.
+        :return: A graph_successors_set_view.
+        """
+        handle = backend.graph_successors_set_view(digraphvar.handle, node)
+        return SetVar(handle, self)
+
+    def graph_predecessors_set_view(self, digraphvar: "DirectedGraphVar", node: int):
+        """
+        Creates a set view over the set of predecessors of a node of a directed graph variable.
+
+        :param digraphvar: A Directed GraphVar.
+        :param node: An int.
+        :return: A graph_predecessors_set_view.
+        """
+        handle = backend.graph_predecessors_set_view(digraphvar.handle, node)
+        return SetVar(handle, self)
+
+    def graph_neighbors_set_view(self, graphvar: "UndirectedGraphVar", node: int):
+        """
+        Creates a set view over the set of neighbors of a node of an undirected graph variable.
+
+        :param graphvar: An UndirectedGraphVar.
+        :param node: An int.
+        :return: A graph_neighbors_set_view.
+        """
+        handle = backend.graph_neighbors_set_view(graphvar.handle, node)
+        return SetVar(handle, self)
+
+    def node_induced_subgraph_view(self, graphvar: "GraphVar", nodes: List[int], exclude: bool = False):
+        """
+         Creates a graph view G' = (V', E') from another graph G = (V, E) such that:
+         - V' = V - nodes (set difference) if exclude = true, else V' = V intersection nodes (set intersection)
+         - E' = { (x, y) in E | x  in V' and y in V' }.
+
+        :param graphvar: A GraphVar (Directed or Undirected).
+        :param nodes: A list of ints.
+        :param exclude: A bool.
+        :return: A node_induced_subgraph_view.
+        """
+        assert len(nodes) > 0
+        nodes_handle = make_int_array(nodes)
+        handle = backend.node_induced_subgraph_view(graphvar.handle, nodes_handle, exclude)
+        return _make_graphview(handle, self, graphvar)
+
+    def edge_induced_subgraph_view(self, graphvar: "GraphVar", edges: List[List[int]], exclude: bool = False):
+        """
+        Construct an edge-induced subgraph view G = (V', E') from G = (V, E) such that:
+        - V' = { x in V | Exists y in V s.t. (x, y) in E' }
+        - E' = E - edges (set difference) if exclude = true, else E' = E intersection edges (set intersection).
+
+        :param graphvar: A GraphVar (Directed or Undirected).
+        :param edges: A list of edges.
+        :param exclude: A bool.
+        :return: An edge_induced_subgraph_view.
+        """
+        assert len(edges) > 0
+        for e in edges:
+            assert len(e) == 2
+        edges_handle = make_int_2d_array(edges)
+        handle = backend.edge_induced_subgraph_view(graphvar.handle, edges_handle, exclude)
+        return _make_graphview(handle, self, graphvar)
+
+    def graph_union_view(self, graphvars: List["GraphVar"]):
+        """
+        Construct an graph union view G = (V, E) from a set of graphs {G_1 = (V_1, E_1), ..., G_k = (V_k, E_k)}
+        such that :
+        - V = V_1 union ... union V_k (set union);
+        - E = E_1 union ... union E_k.
+        Note: all graphs in graphvar must be of the same type.
+
+        :param graphvars: A list of GraphVars (Directed or Undirected, but all the same type).
+        :return: A graph_union_view.
+        """
+        assert len(graphvars) >= 2
+        cls = graphvars[0].__class__
+        nb_max_nodes = graphvars[0].get_nb_max_nodes()
+        for g in graphvars:
+            assert g.get_nb_max_nodes() == nb_max_nodes, \
+                "[graph_union_view] All graphs must have the same maximum number of nodes"
+            assert isinstance(g, cls), "[graph_union_view] All graph variables must have the same type."
+        graphvars_handle = make_graphvar_array(graphvars)
+        handle = backend.graph_union_view(graphvars_handle)
+        return _make_graphview(handle, self, graphvars[0])
+
+
+def _make_graphview(handle, model, graphvar):
+    if isinstance(graphvar, UndirectedGraphVar):
+        lb = UndirectedGraph(model, 0, _handle=backend.get_graphvar_lb(handle))
+        ub = UndirectedGraph(model, 0, _handle=backend.get_graphvar_ub(handle))
+        return UndirectedGraphVar(handle, model, lb, ub)
+    else:
+        lb = DirectedGraph(graphvar.model, 0, _handle=backend.get_graphvar_lb(handle))
+        ub = DirectedGraph(graphvar.model, 0, _handle=backend.get_graphvar_ub(handle))
+        return DirectedGraphVar(handle, model, lb, ub)

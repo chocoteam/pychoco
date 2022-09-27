@@ -33,7 +33,7 @@ class Graph(ABC, _HandleWrapper):
         :return: True if the node was successfully added. False if it was already in the graph.
         """
         assert node >= 0, "[graph] Nodes cannot be negative."
-        assert node < self.get_nb_max_node(), "[graph] Nodes cannot be greater of equal to get_nb_max_nodes()"
+        assert node < self.get_nb_max_nodes(), "[graph] Nodes cannot be greater of equal to get_nb_max_nodes()"
         return bool(backend.add_node(self.handle, node))
 
     def remove_node(self, node: int):
@@ -44,7 +44,7 @@ class Graph(ABC, _HandleWrapper):
         :return: True if the node was successfully removed. False if it was not in the graph.
         """
         assert node >= 0, "[graph] Nodes cannot be negative."
-        assert node < self.get_nb_max_node(), "[graph] Nodes cannot be greater of equal to get_nb_max_nodes()"
+        assert node < self.get_nb_max_nodes(), "[graph] Nodes cannot be greater of equal to get_nb_max_nodes()"
         return bool(backend.remove_node(self.handle, node))
 
     def add_edge(self, source: int, destination: int):
@@ -56,7 +56,7 @@ class Graph(ABC, _HandleWrapper):
         :return: True if the edge was successfully added. False if it was already present.
         """
         assert source >= 0 and destination >= 0, "[graph] Nodes cannot be negative."
-        assert source < self.get_nb_max_node() and destination < self.get_nb_max_node(), \
+        assert source < self.get_nb_max_nodes() and destination < self.get_nb_max_nodes(), \
             "[graph] Nodes cannot be greater of equal to get_nb_max_nodes()"
         return bool(backend.add_edge(self.handle, source, destination))
 
@@ -69,11 +69,11 @@ class Graph(ABC, _HandleWrapper):
         :return: True if the edge was successfully removed. False if it was not in the graph.
         """
         assert source >= 0 and destination >= 0, "[graph] Nodes cannot be negative."
-        assert source < self.get_nb_max_node() and destination < self.get_nb_max_node(), \
+        assert source < self.get_nb_max_nodes() and destination < self.get_nb_max_nodes(), \
             "[graph] Nodes cannot be greater of equal to get_nb_max_nodes()"
         return bool(backend.remove_edge(self.handle, source, destination))
 
-    def get_nb_max_node(self):
+    def get_nb_max_nodes(self):
         """
         :return: The maximum number of nodes allowed in the graph.
         """
@@ -99,7 +99,7 @@ class Graph(ABC, _HandleWrapper):
         :return: True if the graph contains the node, False otherwise.
         """
         assert node >= 0, "[graph] Nodes cannot be negative."
-        assert node < self.get_nb_max_node(), "[graph] Nodes cannot be greater of equal to get_nb_max_nodes()"
+        assert node < self.get_nb_max_nodes(), "[graph] Nodes cannot be greater of equal to get_nb_max_nodes()"
         return bool(backend.contains_node(self.handle, node))
 
     def contains_edge(self, source: int, destination: int):
@@ -111,7 +111,7 @@ class Graph(ABC, _HandleWrapper):
         :return: True if the graph contains the edge, False otherwise.
         """
         assert source >= 0 and destination >= 0, "[graph] Nodes cannot be negative."
-        assert source < self.get_nb_max_node() and destination < self.get_nb_max_node(), \
+        assert source < self.get_nb_max_nodes() and destination < self.get_nb_max_nodes(), \
             "[graph] Nodes cannot be greater of equal to get_nb_max_nodes()"
         return bool(backend.contains_edge(self.handle, source, destination))
 

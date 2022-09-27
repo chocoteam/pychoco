@@ -288,6 +288,14 @@ void* set_union_view(void*);
 void* set_intersection_view(void*);
 void* set_difference_view(void*, void*);
 
+void* graph_node_set_view(void*);
+void* graph_successors_set_view(void*, int);
+void* graph_predecessors_set_view(void*, int);
+void* graph_neighbors_set_view(void*, int);
+void* node_induced_subgraph_view(void*, void*, int);
+void* edge_induced_subgraph_view(void*, void*, int);
+void* graph_union_view(void*);
+
 // Array API
 
 // IntVar
@@ -324,6 +332,11 @@ void boolvar_2d_array_set(void*, void*, int);
 void* create_setvar_array(int);
 int setvar_array_length(void*);
 void setvar_array_set(void*, void*, int);
+
+// GraphVar
+
+void* create_graphvar_array(int);
+void graphvar_array_set(void*, void*, int);
 
 
 // Constraint

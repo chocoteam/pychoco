@@ -11,7 +11,7 @@ class DirectedGraph(Graph):
     """
 
     def __init__(self, model: "Model", nb_max_nodes: int, node_set_type: str = "BITSET",
-                 edge_set_type: str = "BIPARTITE_SET", all_node: bool = False):
+                 edge_set_type: str = "BIPARTITE_SET", all_node: bool = False, _handle=None):
         """
         Constructor for a directed graph. Nodes are represented by integers ranging from 0 to nb_max_nodes - 1.
         The data structure used for representing nodes and edges can be chosen among:
@@ -25,10 +25,14 @@ class DirectedGraph(Graph):
             ["BITSET", "BIPARTITE_SET", "SMALL_BIPARTITE_SET", "RANGE_SET", "LINKED_LIST"]).
         :param all_node: If True, all nodes are present in the graph and cannot be removed.
         """
-        assert node_set_type in ["BITSET", "BIPARTITE_SET", "SMALL_BIPARTITE_SET", "RANGE_SET", "LINKED_LIST"]
-        self._model = model
-        handle = backend.create_digraph(model.handle, nb_max_nodes, node_set_type, edge_set_type, all_node)
-        super().__init__(handle)
+        if _handle is not None:
+            self._model = model
+            super().__init__(_handle)
+        else:
+            assert node_set_type in ["BITSET", "BIPARTITE_SET", "SMALL_BIPARTITE_SET", "RANGE_SET", "LINKED_LIST"]
+            self._model = model
+            handle = backend.create_digraph(model.handle, nb_max_nodes, node_set_type, edge_set_type, all_node)
+            super().__init__(handle)
 
     def is_directed(self):
         return True

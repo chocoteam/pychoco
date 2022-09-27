@@ -1292,6 +1292,34 @@ void* set_difference_view(void* setVarHandle1, void* setVarHandle2) {
     return Java_org_chocosolver_capi_ViewApi_set_difference_view(thread, setVarHandle1, setVarHandle2);
 }
 
+void* graph_node_set_view(void* graphVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ViewApi_graph_node_set_view(thread, graphVarHandle);
+}
+void* graph_successors_set_view(void* graphVarHandle, int node) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ViewApi_graph_successors_set_view(thread, graphVarHandle, node);
+}
+void* graph_predecessors_set_view(void* graphVarHandle, int node) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ViewApi_graph_predecessors_set_view(thread, graphVarHandle, node);
+}
+void* graph_neighbors_set_view(void* graphVarHandle, int node) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ViewApi_graph_neighbors_set_view(thread, graphVarHandle, node);
+}
+void* node_induced_subgraph_view(void* graphVarHandle, void* nodesHandle, int exclude) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ViewApi_node_induced_subgraph_view(thread, graphVarHandle, nodesHandle, exclude);
+}
+void* edge_induced_subgraph_view(void* graphVarHandle, void* edgesHandle, int exclude) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ViewApi_edge_induced_subgraph_view(thread, graphVarHandle, edgesHandle, exclude);
+}
+void* graph_union_view(void* graphVarsHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ViewApi_graph_union_view(thread, graphVarsHandle);
+}
 
 // Array API
 
@@ -1382,6 +1410,16 @@ void setvar_array_set(void* arrayHandle, void* setVarHandle, int index) {
     return Java_org_chocosolver_capi_ArrayApi_setVar_set(thread, arrayHandle, setVarHandle, index);
 }
 
+// GraphVar
+
+void* create_graphvar_array(int size) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_graphVar_create(thread, size);
+}
+void graphvar_array_set(void* arrayHandle, void* graphVarHandle, int index) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_graphVar_set(thread, arrayHandle, graphVarHandle, index);
+}
 
 // Constraint
 

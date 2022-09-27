@@ -3,6 +3,8 @@ from typing import Union, List
 
 from pychoco import backend
 from pychoco._utils import make_int_array
+from pychoco.objects.graphs.directed_graph import DirectedGraph
+from pychoco.objects.graphs.undirected_graph import UndirectedGraph
 from pychoco.variables.boolvar import BoolVar
 from pychoco.variables.directed_graphvar import DirectedGraphVar
 from pychoco.variables.intvar import IntVar
@@ -157,6 +159,8 @@ class VariableFactory(ABC):
         :param name: Name of the graphvar.
         :return: An undirected graph variable taking its values in the graph domain [lb, ub].
         """
+        assert isinstance(lb, UndirectedGraph) and isinstance(ub, UndirectedGraph), \
+            "[graphvar] Bounds must be Undirected graph."
         handle = backend.create_graphvar(self.handle, name, lb.handle, ub.handle)
         return UndirectedGraphVar(handle, self, lb, ub)
 
@@ -174,6 +178,8 @@ class VariableFactory(ABC):
         :return: An UndirectedGraphVar taking its values in the graph domain [lb, ub] and such that any value is
             a node-induced subgraph of UB.
         """
+        assert isinstance(lb, UndirectedGraph) and isinstance(ub, UndirectedGraph), \
+            "[graphvar] Bounds must be Undirected graph."
         handle = backend.create_node_induced_graphvar(self.handle, name, lb.handle, ub.handle)
         return UndirectedGraphVar(handle, self, lb, ub)
 
@@ -189,6 +195,8 @@ class VariableFactory(ABC):
         :param name: The name of the digraphvar.
         :return: A DirectedGraphVariable.
         """
+        assert isinstance(lb, DirectedGraph) and isinstance(ub, DirectedGraph), \
+            "[digraphvar] Bounds must be Directed graph."
         handle = backend.create_digraphvar(self.handle, name, lb.handle, ub.handle)
         return DirectedGraphVar(handle, self, lb, ub)
 
@@ -206,5 +214,7 @@ class VariableFactory(ABC):
         :return: An DirectedGraphVar taking its values in the graph domain [lb, ub] and such that any value is
             a node-induced subgraph of UB.
         """
+        assert isinstance(lb, DirectedGraph) and isinstance(ub, DirectedGraph), \
+            "[digraphvar] Bounds must be Directed graph."
         handle = backend.create_node_induced_digraphvar(self.handle, name, lb.handle, ub.handle)
         return DirectedGraphVar(handle, self, lb, ub)
