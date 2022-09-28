@@ -37,6 +37,26 @@ Integer variables also include additional parameters and methods to the generic 
    :undoc-members:
    :noindex:
 
+Operations between IntVars
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We took advantage of operators overloading in Python to provide some shortcuts in pychoco, so you can use the
+following operators between IntVars and ints.
+
+- `c = a + b`: c is and IntVar constrained to be equal to a + b (see `arithm` constraint in :ref:`constraints`).
+- `c = a - b`: c is and IntVar constrained to be equal to a - b (see `arithm` constraint in :ref:`constraints`).
+- `c = a * b`: c is and IntVar constrained to be equal to a * b (see `arithm` constraint in :ref:`constraints`).
+- `c = a / b`: c is and IntVar constrained to be equal to a / b (see `arithm` constraint in :ref:`constraints`).
+- `c = -a`: c is an `int_minus_view` (see ref:`views`)
+- `c = a % b`: c is the result rest of the integer division betwen a and b (see `mod` constraint in :ref:`constraints`).
+- `c = a ** c` c is equal to pow(a, c), c must be an int (see `pow` constraint in :ref:`constraints`).
+- `c = a == b` c is a BoolVar, which is True only if a == b.
+- `c = a <= b` c is a BoolVar, which is True only if a <= b.
+- `c = a < b` c is a BoolVar, which is True only if a < b.
+- `c = a >= b` c is a BoolVar, which is True only if a >= b.
+- `c = a > b` c is a BoolVar, which is True only if a > b.
+- `c = a != b` c is a BoolVar, which is True only if a != b.
+
 BoolVar
 -------
 
@@ -57,6 +77,17 @@ Boolean variables also include additional parameters and methods to the generic 
    :undoc-members:
    :noindex:
 
+Operations between BoolVars
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We took advantage of operators overloading in Python to provide some shortcuts in pychoco, so you can use the
+following operators between BoolVars and bools.
+
+- `b = b1 & b2`: b is a BoolVar which is True only if b1 and b2 are True (see `and_` constraint in :ref:`constraints`).
+- `b = b1 | b2`: b is a BoolVar which is True only if b1 or b2 is True (see `or_` constraint in :ref:`constraints`).
+- `b = ~b1`: b is a `bool_not_view` over b1 (see :ref:`views`).
+- `b = b1 == b2` is a BoolVar which is True only if `b1 == b2`.
+- `b = b1 != b2` is a BoolVar which is True only if `b1 != b2`.
 
 SetVar
 ------
