@@ -58,6 +58,61 @@ And voilà !
 
 ## Quickstart
 
+Pychoco's API is quite close to Choco's Java API. The first thing to do is to import the
+library and create a model object:
+
+```python
+from pychoco import Model
+
+model = Model("My Choco Model")
+```
+
+Then, you can use this model object to create variables:
+
+```python
+intvars = model.intvars(10, 0, 10)
+sum_var = model.intvar(0, 100)
+```
+
+You can also create views from this Model object:
+
+```python
+b6 = model.int_ge_view(intvars[6], 6)
+```
+
+Create and post (or reify) constraints:
+
+```python
+model.all_different(intvars).post()
+model.sum(intvars, "=", sum_var).post()
+b7 = model.arithm(intvars[7], ">=", 7).reify()
+```
+
+Solve your problem:
+
+```python
+model.get_solver().solve()
+```
+
+And retrieve the solution:
+
+```python
+print("intvars = {}".format([i.get_value() for i in intvars]))
+print("sum = {}".format(sum_var.get_value()))
+print("intvar[6] >= 6 ? {}".format(b6.get_value()))
+print("intvar[7] >= 7 ? {}".format(b7.get_value()))
+```
+
+```
+> intvars = [3, 5, 9, 6, 7, 2, 0, 1, 4, 8]
+> sum = 45
+> intvar[6] >= 6 ? False
+> intvar[7] >= 7 ? False
+```
+
 ## Citation
 
 ## Getting help or contribute
+
+If you have any questions about using the library, suggestions for improvements, or if you
+detect a bug, please [open an issue](https://github.com/dimitri-justeau/pychoco/issues/new/choose).
