@@ -73,7 +73,7 @@ class IntConstraintFactory(ABC):
             if isinstance(z, int):
                 constraint_handle = backend.arithm_iv_iv_cst(self.handle, x.handle, op1, yy.handle, op2, z)
             else:
-                constraint_handle = backend.arithm_iv_iv_iv(self.handle, x.handle, op1, yy.handle, op2, z)
+                constraint_handle = backend.arithm_iv_iv_iv(self.handle, x.handle, op1, yy.handle, op2, z.handle)
         if isinstance(y, IntVar) and op2 is None and z is None:
             constraint_handle = backend.arithm_iv_iv(self.handle, x.handle, op1, y.handle)
         if isinstance(y, IntVar) and op2 is not None and isinstance(z, int):
