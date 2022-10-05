@@ -1,9 +1,9 @@
 # PyChoco
 
-[![ubuntu_build](https://github.com/dimitri-justeau/pychoco/actions/workflows/ubuntu.yml/badge.svg)](https://github.com/dimitri-justeau/pychoco/actions)
-[![macos_build](https://github.com/dimitri-justeau/pychoco/actions/workflows/macos.yml/badge.svg)](https://github.com/dimitri-justeau/pychoco/actions)
-[![windows_build](https://github.com/dimitri-justeau/pychoco/actions/workflows/windows.yml/badge.svg)](https://github.com/dimitri-justeau/pychoco/actions)
-[![codecov](https://codecov.io/gh/dimitri-justeau/pychoco/branch/master/graph/badge.svg?token=JRW8NQG8I7)](https://codecov.io/gh/dimitri-justeau/pychoco)
+[![ubuntu_build](https://github.com/chocoteam/pychoco/actions/workflows/ubuntu.yml/badge.svg)](https://github.com/chocoteam/pychoco/actions)
+[![macos_build](https://github.com/chocoteam/pychoco/actions/workflows/macos.yml/badge.svg)](https://github.com/chocoteam/pychoco/actions)
+[![windows_build](https://github.com/chocoteam/pychoco/actions/workflows/windows.yml/badge.svg)](https://github.com/chocoteam/pychoco/actions)
+[![codecov](https://codecov.io/gh/chocoteam/pychoco/branch/master/graph/badge.svg?token=JRW8NQG8I7)](https://codecov.io/gh/chocoteam/pychoco)
 
 Python bindings for the Choco Constraint programming solver (https://choco-solver.org/).
 
@@ -28,7 +28,7 @@ Python wheels for various operating systems. Stay tuned!
 
 The following system dependencies are required to build PyChco from sources:
 
-- GraalVM >= 20 (see https://www.graalvm.org/)
+- GraalVM >= 22 (see https://www.graalvm.org/)
 - Native Image component for GraalVM (see https://www.graalvm.org/22.1/reference-manual/native-image/)
 - Apache Maven (see https://maven.apache.org/)
 - Python >= 3.6 (see https://www.python.org/)
@@ -36,7 +36,7 @@ The following system dependencies are required to build PyChco from sources:
 
 Once these dependencies are satisfied, clone the current repository:
 
-    git clone --recurse-submodules https://github.com/dimitri-justeau/pychoco.git
+    git clone --recurse-submodules https://github.com/chocoteam/pychoco.git
 
 The `--recurse-submodules` is necessary as the `choco-solver-capi` is a separate git project included
 as a submodule (see https://github.com/dimitri-justeau/choco-solver-capi). It contains all the necessary
@@ -115,4 +115,4 @@ print("intvar[7] >= 7 ? {}".format(b7.get_value()))
 ## Getting help or contribute
 
 If you have any questions about using the library, suggestions for improvements, or if you
-detect a bug, please [open an issue](https://github.com/dimitri-justeau/pychoco/issues/new/choose).
+detect a bug, please [open an issue](https://github.com/chocoteam/pychoco/issues/new/choose).
