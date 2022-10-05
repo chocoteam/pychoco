@@ -2,7 +2,8 @@ name: MacOS
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "**" ]
+    tags: [ '**' ]
 
 jobs:
   build-macos:

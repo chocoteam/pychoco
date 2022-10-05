@@ -2,7 +2,8 @@ name: Windows
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "**" ]
+    tags: [ '**' ]
 
 jobs:
   build-windows:
