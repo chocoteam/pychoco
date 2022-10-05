@@ -2,8 +2,7 @@ name: MacOS
 
 on:
   push:
-    branches: [ "**" ]
-    tags: [ '**' ]
+    branches: [ "master" ]
 
 jobs:
   build-macos:
@@ -46,10 +45,3 @@ jobs:
           coverage run -m unittest
       - name: Upload Coverage to Codecov
         uses: codecov/codecov-action@v2
-      - name: Upload to PyPi
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          user: __token__
-          password: ${{ secrets.PYPI_API_TOKEN }}
-          verbose: true
