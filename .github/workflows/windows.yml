@@ -40,6 +40,8 @@ jobs:
         uses: egor-tensin/vs-shell@v2
         with:
           arch: x64
+      - name: setup msvc command
+        uses: ilammy/msvc-dev-cmd@v1
       - name: Build
         run: |
           sh build.sh
@@ -55,13 +57,14 @@ jobs:
           coverage run -m unittest
       - name: Upload Coverage to Codecov
         uses: codecov/codecov-action@v2
-      - name: Upload to PyPi
+      - name: Upload wheel artifacts
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
-        uses: pypa/gh-action-pypi-publish@release/v1
+        uses: actions/upload-artifact@v2
         with:
-          user: __token__
-          password: ${{ secrets.PYPI_API_TOKEN }}
-          verbose: true
+          name: wheel-${{matrix.config.os}}-${{matrix.config.python-version}}-artifact
+          path: dist/
+          if-no-files-found: error
+
 
   upload-pypi-windows:
     needs: build-windows
