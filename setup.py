@@ -74,6 +74,10 @@ lib_choco = Extension(
     extra_link_args=extra_link_args
 )
 
+
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
 setup(
     name='pychoco',
     cmdclass={
@@ -83,9 +87,11 @@ setup(
     },
     version='0.1',
     author="Dimitri Justeau-Allaire, Charles Prud'homme",
-    description="""Python bindings to the Choco Constraint Programming solver""",
-    license="BSD-4",
     author_email="dimitri.justeau@gmail.com, charles.prudhomme@imt-atlantique.fr",
+    description="Python bindings to the Choco Constraint Programming solver",
+    long_description=long_description,
+    long_description_content_type='text/markdown',
+    license="BSD-4",
     platforms=['any'],
     classifiers = [
         'Development Status :: 4 - Beta',

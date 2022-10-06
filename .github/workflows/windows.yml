@@ -40,7 +40,6 @@ jobs:
         uses: egor-tensin/vs-shell@v2
         with:
           arch: x64
-      - uses: ilammy/msvc-dev-cmd@v1
       - name: Build
         run: |
           sh build.sh
