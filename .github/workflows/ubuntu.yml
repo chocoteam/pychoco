@@ -2,7 +2,7 @@ name: Ubuntu
 
 on:
   push:
-    branches: [ "**" ]
+    branches: [ "master" ]
     tags: [ '**' ]
 
 jobs:
@@ -21,6 +21,14 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
+      - name: Setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.config.python-version }}
+          architecture: x64
+      - name: Display Python version
+        run: |
+          python -c "import sys; print(sys.version)"
       - name: Set up GraalVM Native Image toolchain
         uses: helpermethod/graalvm-native-image-toolchain@0.0.2
         with:
