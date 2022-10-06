@@ -1,6 +1,6 @@
 name: Windows
 
-oon:
+on:
   push:
     branches: [ "master" ]
     tags: [ '**' ]
@@ -44,15 +44,15 @@ jobs:
       - name: Build
         run: |
           sh build.sh
-          pip3 install pychoco -f dist/
+          pip install pychoco -f dist/
       - name: Test
         run: |
-          pip3 install -U pytest
-          pip3 install -r requirements_tests.txt
+          pip install -U pytest
+          pip install -r requirements_tests.txt
           pytest
       - name: Generate Report
         run: |
-          pip3 install coverage
+          pip install coverage
           coverage run -m unittest
       - name: Upload Coverage to Codecov
         uses: codecov/codecov-action@v2
