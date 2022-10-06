@@ -11,10 +11,10 @@ import sys
 
 sys.path.insert(0, os.path.abspath('../pychoco'))
 
-project = 'PyChoco'
-copyright = '2022, Dimitri Justeau-Allaire'
-author = 'Dimitri Justeau-Allaire'
-release = '0.1'
+project = 'pychoco'
+copyright = "2022, Dimitri Justeau-Allaire & Charles Prud'homme"
+author = "Dimitri Justeau-Allaire, Charles Prud'homme"
+release = '0.1.1'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

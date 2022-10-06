@@ -7,6 +7,14 @@ We are still in the process of implementing and releasing PyChoco. So currently 
 it and try it is to follow the entire build-from-source process. However, we plan to release pre-built
 Python wheels for various operating systems. Stay tuned!
 
+Installation from PyPI
+----------------------
+
+We automatically build 64-bit wheels for Python versions 3.6, 3.7, 3.8, 3.9, and 3.10 on Linux, Windows and
+MacOSX. They can be directly downloaded from PyPI (https://pypi.org/project/pychoco/) or using pip:
+
+    $ pip install pychoco
+
 Build from source
 -----------------
 

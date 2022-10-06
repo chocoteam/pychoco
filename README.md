@@ -4,6 +4,10 @@
 [![macos_build](https://github.com/chocoteam/pychoco/actions/workflows/macos.yml/badge.svg)](https://github.com/chocoteam/pychoco/actions)
 [![windows_build](https://github.com/chocoteam/pychoco/actions/workflows/windows.yml/badge.svg)](https://github.com/chocoteam/pychoco/actions)
 [![codecov](https://codecov.io/gh/chocoteam/pychoco/branch/master/graph/badge.svg?token=JRW8NQG8I7)](https://codecov.io/gh/chocoteam/pychoco)
+[![PyPI version](https://badge.fury.io/py/pychoco.svg)](https://pypi.org/project/pychoco/)
+[![Documentation Status](https://readthedocs.org/projects/pychoco/badge/?version=latest)](https://pychoco.readthedocs.io/en/latest/?badge=latest)
+[![License](https://img.shields.io/badge/License-BSD_4--Clause-blue.svg)](https://directory.fsf.org/wiki/License:BSD-4-Clause)
+
 
 Python bindings for the Choco Constraint programming solver (https://choco-solver.org/).
 
@@ -20,41 +24,16 @@ understand how such a thing could be achieved, so many thanks to JGraphT authors
 
 ## Installation
 
-We are still in the process of implementing and releasing PyChoco. So currently the only way to install
-it and try it is to follow the entire build-from-source process. However, we plan to release pre-built
-Python wheels for various operating systems. Stay tuned!
+We automatically build 64-bit wheels for Python versions 3.6, 3.7, 3.8, 3.9, and 3.10 on Linux, Windows and
+MacOSX. They can be directly downloaded from PyPI (https://pypi.org/project/pychoco/) or using pip:
 
-## Build from source
+    pip install pychoco
 
-The following system dependencies are required to build PyChco from sources:
+## Documentation
 
-- GraalVM >= 22 (see https://www.graalvm.org/)
-- Native Image component for GraalVM (see https://www.graalvm.org/22.1/reference-manual/native-image/)
-- Apache Maven (see https://maven.apache.org/)
-- Python >= 3.6 (see https://www.python.org/)
-- SWIG >= 3 (see https://www.swig.org/)
-
-Once these dependencies are satisfied, clone the current repository:
-
-    git clone --recurse-submodules https://github.com/chocoteam/pychoco.git
-
-The `--recurse-submodules` is necessary as the `choco-solver-capi` is a separate git project included
-as a submodule (see https://github.com/dimitri-justeau/choco-solver-capi). It contains all the necessary
-to compile Choco-solver as a shared native library using GraalVM native-image.
-
-Ensure that the `$JAVA_HOME` environment variable is pointing to GraalVM, and from the cloned repository
-execute the following command:
-
-    sh build.sh
-
-This command will compile Choco-solver into a shared native library and compile the Python bindings
-to this native API using SWIG.
-
-Finally, run:
-
-    pip install .
-
-And voilà !
+If you do not have any knowledge about Constraint Programming (CP) and Choco-solver, you can have a look at 
+https://choco-solver.org/tutos/ for a quick introduction to CP and to Choco-solver features. For this Python API,
+we also provide an API documentation which is available online at https://pychoco.readthedocs.io/ .
 
 ## Quickstart
 
@@ -110,7 +89,41 @@ print("intvar[7] >= 7 ? {}".format(b7.get_value()))
 > intvar[7] >= 7 ? False
 ```
 
+## Build from source
+
+The following system dependencies are required to build PyChco from sources:
+
+- GraalVM >= 22 (see https://www.graalvm.org/)
+- Native Image component for GraalVM (see https://www.graalvm.org/22.1/reference-manual/native-image/)
+- Apache Maven (see https://maven.apache.org/)
+- Python >= 3.6 (see https://www.python.org/)
+- SWIG >= 3 (see https://www.swig.org/)
+
+Once these dependencies are satisfied, clone the current repository:
+
+    git clone --recurse-submodules https://github.com/chocoteam/pychoco.git
+
+The `--recurse-submodules` is necessary as the `choco-solver-capi` is a separate git project included
+as a submodule (see https://github.com/chocoteam/choco-solver-capi). It contains all the necessary
+to compile Choco-solver as a shared native library using GraalVM native-image.
+
+Ensure that the `$JAVA_HOME` environment variable is pointing to GraalVM, and from the cloned repository
+execute the following command:
+
+    sh build.sh
+
+This command will compile Choco-solver into a shared native library and compile the Python bindings
+to this native API using SWIG.
+
+Finally, run:
+
+    pip install .
+
+And voilà !
+
 ## Citation
+
+Coming soon.
 
 ## Getting help or contribute
 
