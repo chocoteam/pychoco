@@ -56,3 +56,38 @@ jobs:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
           verbose: true
+      - name: Upload wheel artifacts
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+        uses: actions/upload-artifact@v2
+        with:
+          name: wheel-${{matrix.config.os}}-${{matrix.config.python-version}}-artifact
+          path: dist/
+          if-no-files-found: error
+
+  upload-pypi-windows:
+    needs: build-windows
+    runs-on: ubuntu-20.04
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+    strategy:
+      matrix:
+        config: 
+          - { os: windows-latest, python-version: "3.10" }
+          - { os: windows-latest, python-version: "3.9" }
+          - { os: windows-latest, python-version: "3.8" }
+          - { os: windows-latest, python-version: "3.7" }
+          - { os: windows-latest, python-version: "3.6" }
+    steps:
+    - name: Download artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: wheel-${{matrix.config.os}}-${{matrix.config.python-version}}-artifact
+        path: dist
+    - name: List files
+      run: ls -R
+    - name: Upload to PyPi
+      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        user: __token__
+        password: ${{ secrets.PYPI_API_TOKEN }}
+        verbose: true

@@ -21,4 +21,8 @@ swig -python -py3 pychoco/backend.i
 
 python3 setup.py develop -e -b .
 pip3 install wheel
-python3 setup.py bdist_wheel
+if [ "$OS" = "Linux" ]; then
+    python3 setup.py bdist_wheel --plat manylinux2014_x86_64
+else
+    python3 setup.py bdist_wheel
+fi
