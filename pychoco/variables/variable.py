@@ -48,4 +48,4 @@ class Variable(_HandleWrapper, ABC):
         pass
 
     def __repr__(self):
-        return "Choco {} ('{}')".format(self.get_type(), self.name)
+        return "{} '{}'".format(self.get_type(), self.name)

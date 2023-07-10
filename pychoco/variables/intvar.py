@@ -32,6 +32,9 @@ class IntVar(Variable):
     def get_type(self):
         return "IntVar"
 
+    def __repr__(self):
+        return super().__repr__() + " = [{}, {}]".format(self.get_lb(), self.get_ub())
+
     def __add__(self, other):
         if isinstance(other, IntVar):
             res = self.model.intvar(self.get_lb() + other.get_lb(), self.get_ub() + other.get_ub())

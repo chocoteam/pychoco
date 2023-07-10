@@ -32,3 +32,6 @@ class SetVar(Variable):
 
     def get_type(self):
         return "SetVar"
+
+    def __repr__(self):
+        return super().__repr__() + " = [{}, {}]".format(self.get_lb(), self.get_ub())
