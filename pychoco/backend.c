@@ -874,11 +874,11 @@ void* set_union(void* modelHandle, void* setVarsHandle, void* unionVarHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ConstraintApi_set_union(thread, modelHandle, setVarsHandle, unionVarHandle);
 }
-void* set_union_indices(void* modelHandle, void* setVarsHandle, void* indicesHandle, void* unionHandle, int vOffset,
+void* set_union_indices(void* modelHandle, void* setVarsHandle, void* indicesHandle, void* unionHandle,
                         int iOffset) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ConstraintApi_set_union_indices(thread, modelHandle, setVarsHandle, indicesHandle,
-                                                                     unionHandle, vOffset, iOffset);
+                                                                     unionHandle, iOffset);
 }
 void* set_intersection(void* modelHandle, void* setVarsHandle, void* intersectionHandle, int bc) {
     LAZY_THREAD_ATTACH

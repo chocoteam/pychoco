@@ -1,6 +1,6 @@
 import unittest
 
-from networkx import graph_number_of_cliques
+import networkx as nx
 
 from pychoco.model import Model
 from pychoco.objects.graphs.undirected_graph import create_undirected_graph, create_complete_undirected_graph
@@ -20,4 +20,4 @@ class TestGraphNbCliques(unittest.TestCase):
             # The cycle constraint of Choco allows empty graphs,
             # whereas networkx does not return cycle for empty graphs.
             if val.number_of_nodes() > 0:
-                self.assertEqual(graph_number_of_cliques(val), i.get_value())
+                self.assertEqual(sum(1 for _ in nx.find_cliques(val)), i.get_value())

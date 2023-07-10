@@ -36,8 +36,7 @@ class SetConstraintFactory(ABC):
             constraint_handle = backend.set_union(self.handle, vars_handle, union.handle)
         return Constraint(constraint_handle, self)
 
-    def set_union_indices(self, setvars: List[SetVar], indices: SetVar, union: SetVar, v_offset: int = 0,
-                          i_offset: int = 0):
+    def set_union_indices(self, setvars: List[SetVar], indices: SetVar, union: SetVar, i_offset: int = 0):
         """
         Creates a constraint which ensures that the union of setvars_i, where i in indices,
         is equal to union.
@@ -45,7 +44,6 @@ class SetConstraintFactory(ABC):
         :param setvars: A list of SetVars.
         :param indices: A SetVar.
         :param union: A SetVar.
-        :param v_offset: Value offset.
         :param i_offset: Indices offset.
         :return: A union_indices constraint.
         """
@@ -55,7 +53,7 @@ class SetConstraintFactory(ABC):
             "[set_union_indices] Values of the 'indices' setvar are out of bound with 'setvars'"
         setvars_handle = make_setvar_array(setvars)
         constraint_handle = backend.set_union_indices(self.handle, setvars_handle, indices.handle, union.handle,
-                                                      v_offset, i_offset)
+                                                      i_offset)
         return Constraint(constraint_handle, self)
 
     def set_intersection(self, setvars: List[SetVar], intersection: SetVar, bc: bool = False):
@@ -387,7 +385,7 @@ class SetConstraintFactory(ABC):
 
     def set_le(self, setvar_1: SetVar, setvar_2: SetVar):
         """
-        Creates a "less or equal" constraint stating that the constant setvar_1 <= setvar_1.
+        Creates a "less or equal" constraint stating that setvar_1 <= setvar_2.
         Lexicographic order of the sorted lists of elements.
 
         :param setvar_1: A SetVar.
@@ -399,7 +397,7 @@ class SetConstraintFactory(ABC):
 
     def set_lt(self, setvar_1: SetVar, setvar_2: SetVar):
         """
-        Creates a "strictly less" constraint stating that the constant setvar_1 < setvar_2.
+        Creates a "strictly less" constraint stating that setvar_1 < setvar_2.
         Lexicographic order of the sorted lists of elements.
 
         :param setvar_1: A SetVar.

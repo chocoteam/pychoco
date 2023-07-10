@@ -7675,19 +7675,16 @@ SWIGINTERN PyObject *_wrap_set_union_indices(PyObject *SWIGUNUSEDPARM(self), PyO
   void *arg3 = (void *) 0 ;
   void *arg4 = (void *) 0 ;
   int arg5 ;
-  int arg6 ;
   int res1 ;
   int res2 ;
   int res3 ;
   int res4 ;
   int val5 ;
   int ecode5 = 0 ;
-  int val6 ;
-  int ecode6 = 0 ;
-  PyObject *swig_obj[6] ;
+  PyObject *swig_obj[5] ;
   void *result = 0 ;
   
-  if (!SWIG_Python_UnpackTuple(args, "set_union_indices", 6, 6, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "set_union_indices", 5, 5, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "set_union_indices" "', argument " "1"" of type '" "void *""'"); 
@@ -7709,12 +7706,7 @@ SWIGINTERN PyObject *_wrap_set_union_indices(PyObject *SWIGUNUSEDPARM(self), PyO
     SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "set_union_indices" "', argument " "5"" of type '" "int""'");
   } 
   arg5 = (int)(val5);
-  ecode6 = SWIG_AsVal_int(swig_obj[5], &val6);
-  if (!SWIG_IsOK(ecode6)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode6), "in method '" "set_union_indices" "', argument " "6"" of type '" "int""'");
-  } 
-  arg6 = (int)(val6);
-  result = (void *)set_union_indices(arg1,arg2,arg3,arg4,arg5,arg6);
+  result = (void *)set_union_indices(arg1,arg2,arg3,arg4,arg5);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
   return resultobj;
 fail:

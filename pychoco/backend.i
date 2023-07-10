@@ -218,7 +218,7 @@ void* tree(void*, void*, void*, int);
 
 void* set_union_ints(void*, void*, void*);
 void* set_union(void*, void*, void*);
-void* set_union_indices(void*, void*, void*, void*, int, int);
+void* set_union_indices(void*, void*, void*, void*, int);
 void* set_intersection(void*, void*, void*, int);
 void* set_subset_eq(void*, void*);
 void* set_nb_empty(void*, void*, void*);

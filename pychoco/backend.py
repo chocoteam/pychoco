@@ -473,8 +473,8 @@ def set_union_ints(arg1, arg2, arg3):
 def set_union(arg1, arg2, arg3):
     return _backend.set_union(arg1, arg2, arg3)
 
-def set_union_indices(arg1, arg2, arg3, arg4, arg5, arg6):
-    return _backend.set_union_indices(arg1, arg2, arg3, arg4, arg5, arg6)
+def set_union_indices(arg1, arg2, arg3, arg4, arg5):
+    return _backend.set_union_indices(arg1, arg2, arg3, arg4, arg5)
 
 def set_intersection(arg1, arg2, arg3, arg4):
     return _backend.set_intersection(arg1, arg2, arg3, arg4)

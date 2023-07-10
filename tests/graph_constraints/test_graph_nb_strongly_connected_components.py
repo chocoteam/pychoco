@@ -18,4 +18,4 @@ class TestGraphNbStronglyConnectedComponents(unittest.TestCase):
         while m.get_solver().solve():
             val = g.get_value().to_networkx_graph()
             if val.number_of_nodes() > 0:
-                self.assertEquals(number_strongly_connected_components(val), nb.get_value())
+                self.assertEqual(number_strongly_connected_components(val), nb.get_value())
