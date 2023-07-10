@@ -25,22 +25,30 @@ class VariableFactory(ABC):
 
     # Integer variables #
 
-    def intvar(self, lb: int, ub: Union[int, None] = None, name: Union[str, None] = None):
+    def intvar(self, lb: Union[int, List[int]], ub: Union[int, None] = None, name: Union[str, None] = None):
         """
         Creates an intvar.
 
-        :param lb: Lower bound (integer).
+        :param lb: Lower bound (integer), or list of (enumerated) possible values.
         :param ub: upper bound (integer). If None: the variable is a constant equals to lb.
         :param name: The name of the intvar (automatically given if None).
         :return: An intvar.
         """
         if name is None:
-            if ub is None:
+            if isinstance(lb, list):
+                assert ub is None, "If lb is a list of enumerated values, ub parameter cannot be used"
+                vals = make_int_array(lb)
+                var_handle = backend.intvar_arr(self.handle, vals)
+            elif ub is None:
                 var_handle = backend.intvar_i(self.handle, lb)
             else:
                 var_handle = backend.intvar_ii(self.handle, lb, ub)
         else:
-            if ub is None:
+            if isinstance(lb, list):
+                assert ub is None, "If lb is a list of enumerated values, ub parameter cannot be used"
+                vals = make_int_array(lb)
+                var_handle = backend.intvar_s_arr(self.handle, name, vals)
+            elif ub is None:
                 var_handle = backend.intvar_si(self.handle, name, lb)
             else:
                 var_handle = backend.intvar_sii(self.handle, name, lb, ub)

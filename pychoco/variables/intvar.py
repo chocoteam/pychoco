@@ -1,4 +1,5 @@
 from pychoco import backend
+from pychoco._utils import get_int_array
 from pychoco.variables.variable import Variable
 
 
@@ -29,11 +30,28 @@ class IntVar(Variable):
         assert self.is_instantiated(), "{} is not instantiated".format(self.name)
         return backend.get_intvar_value(self.handle)
 
+    def has_enumerated_domain(self):
+        """
+        :return: True if the domain of this variable is enumerated.
+        """
+        return backend.has_enumerated_domain(self.handle)
+
+    def get_domain_values(self):
+        """
+        :return The enumerated values of this variable's domain.
+        """
+        val_handle = backend.get_domain_values(self.handle)
+        vals = get_int_array(val_handle)
+        return vals
+
     def get_type(self):
         return "IntVar"
 
     def __repr__(self):
-        return super().__repr__() + " = [{}, {}]".format(self.get_lb(), self.get_ub())
+        if self.has_enumerated_domain():
+            return super().__repr__() + " = {}".format(self.get_domain_values())
+        else:
+            return super().__repr__() + " = [{}, {}]".format(self.get_lb(), self.get_ub())
 
     def __add__(self, other):
         if isinstance(other, IntVar):

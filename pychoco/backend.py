@@ -143,6 +143,12 @@ def intvar_sii(arg1, arg2, arg3, arg4):
 def intvar_ii(arg1, arg2, arg3):
     return _backend.intvar_ii(arg1, arg2, arg3)
 
+def intvar_s_arr(arg1, arg2, arg3):
+    return _backend.intvar_s_arr(arg1, arg2, arg3)
+
+def intvar_arr(arg1, arg2):
+    return _backend.intvar_arr(arg1, arg2)
+
 def intvar_i(arg1, arg2):
     return _backend.intvar_i(arg1, arg2)
 
@@ -160,6 +166,12 @@ def get_intvar_ub(arg1):
 
 def get_intvar_value(arg1):
     return _backend.get_intvar_value(arg1)
+
+def has_enumerated_domain(arg1):
+    return _backend.has_enumerated_domain(arg1)
+
+def get_domain_values(arg1):
+    return _backend.get_domain_values(arg1)
 
 def boolvar_s(arg1, arg2):
     return _backend.boolvar_s(arg1, arg2)

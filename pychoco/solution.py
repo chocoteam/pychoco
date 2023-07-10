@@ -1,6 +1,5 @@
 from pychoco import backend
 from pychoco._handle_wrapper import _HandleWrapper
-from pychoco.variables.intvar import IntVar
 
 
 class Solution(_HandleWrapper):
@@ -14,7 +13,7 @@ class Solution(_HandleWrapper):
         """
         super().__init__(handle)
 
-    def get_int_val(self, x: IntVar):
+    def get_int_val(self, x: "IntVar"):
         """
         The value of the IntVar `x` in this solution.
         :param x: An IntVar.

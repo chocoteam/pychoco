@@ -164,6 +164,17 @@ void* intvar_ii(void* modelHandle, int lb, int ub) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_IntVarApi_intVar_ii(thread, modelHandle, lb, ub);
 }
+
+void* intvar_s_arr(void* modelHandle, char* name, void* valuesHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_IntVarApi_intVar_s_arr(thread, modelHandle, name, valuesHandle);
+}
+
+void* intvar_arr(void* modelHandle, void* valuesHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_IntVarApi_intVar_arr(thread, modelHandle, valuesHandle);
+}
+
 void* intvar_i(void* modelHandle, int value) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_IntVarApi_intVar_i(thread, modelHandle, value);
@@ -188,6 +199,16 @@ int get_intvar_value(void* varHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_IntVarApi_getValue(thread, varHandle);
 }
+int has_enumerated_domain(void* varHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_IntVarApi_hasEnumeratedDomain(thread, varHandle);
+}
+void* get_domain_values(void* varHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_IntVarApi_getDomainValues(thread, varHandle);
+}
+
+
 
 
 // Boolvars

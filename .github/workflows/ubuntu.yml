@@ -30,10 +30,10 @@ jobs:
         run: |
           python -c "import sys; print(sys.version)"
       - name: Set up GraalVM Native Image toolchain
-        uses: helpermethod/graalvm-native-image-toolchain@0.0.2
+        uses: graalvm/setup-graalvm@v1
         with:
-          graalvm-version: 22.2.0
-          java-version: 11
+          java-version: '20'
+          distribution: 'graalvm'
       - name: Install Swig
         run: sudo apt-get install swig
       - name: Update repository

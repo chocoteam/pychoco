@@ -2,7 +2,6 @@ from typing import List
 
 from pychoco import backend
 from pychoco.solution import Solution
-from pychoco.variables.boolvar import BoolVar
 
 
 def make_int_array(ints: List[int]):
@@ -128,6 +127,7 @@ def get_boolvar_array(handle, model):
     array = []
     for i in range(0, backend.array_length(handle)):
         var_handle = backend.intvar_array_get(handle, i)
+        from pychoco.variables.boolvar import BoolVar
         array.append(BoolVar(var_handle, model))
     return array
 

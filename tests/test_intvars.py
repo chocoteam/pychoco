@@ -15,6 +15,16 @@ class TestIntVar(unittest.TestCase):
         self.assertEqual(b.get_lb(), 1)
         self.assertEqual(b.get_ub(), 2)
 
+    def test_created_enumerated(self):
+        m = Model()
+        a = m.intvar([0, 1, 4, 5], name="enum_a")
+        vals = a.get_domain_values()
+        self.assertEqual(vals, [0, 1, 4, 5])
+        bb = m.intvars(10, 0, 4)
+        self.assertTrue(a.has_enumerated_domain())
+        for b in bb:
+            self.assertTrue(b.has_enumerated_domain())
+
     def test_add(self):
         m = Model()
         a = m.intvar(-10, 10)

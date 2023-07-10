@@ -90,12 +90,16 @@ int is_view(void*);
 
 void* intvar_sii(void*, char*, int, int);
 void* intvar_ii(void*, int, int);
+void* intvar_s_arr(void*, char*, void*);
+void* intvar_arr(void*, void*);
 void* intvar_i(void*, int);
 void* intvar_si(void*, char*, int);
 char* get_intvar_name(void*);
 int get_intvar_lb(void*);
 int get_intvar_ub(void*);
 int get_intvar_value(void*);
+int has_enumerated_domain(void*);
+void* get_domain_values(void*);
 
 // Boolvars
 
