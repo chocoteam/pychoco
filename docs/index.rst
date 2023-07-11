@@ -25,6 +25,11 @@ Documentation
    quickstart
    api/index
 
+Notebooks
+=========
+
+.. nbgallery::
+    notebooks/introduction
 
 Indices and tables
 ==================
