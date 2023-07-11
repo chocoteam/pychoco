@@ -19,11 +19,11 @@ swig -python -py3 pychoco/backend.i
 # Build extensions
 #pip3 install .
 
-python setup.py develop -e -b .
+python3 setup.py develop -e -b .
 pip install wheel
 OS=`uname`
 if [ "$OS" = "Linux" ]; then
     python setup.py bdist_wheel --plat manylinux2014_x86_64
 else
-    python setup.py bdist_wheel
+    python3 setup.py bdist_wheel
 fi
