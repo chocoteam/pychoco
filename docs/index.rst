@@ -29,7 +29,7 @@ Notebooks
 =========
 
 .. nbgallery::
-    notebooks/introduction
+    notebooks/graph_colouring
 
 Indices and tables
 ==================
