@@ -30,6 +30,7 @@ Notebooks
 
 .. nbgallery::
     notebooks/graph_colouring
+    notebooks/coloured_nonogram
 
 Indices and tables
 ==================
