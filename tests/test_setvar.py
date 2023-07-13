@@ -17,3 +17,5 @@ class TestSetVar(unittest.TestCase):
         ss = model.setvar(lb, name="ss")
         self.assertEqual(ss.name, "ss")
         self.assertEqual(ss.get_value(), lb)
+        sol = model.get_solver().find_solution()
+        val = sol.get_set_val(s)

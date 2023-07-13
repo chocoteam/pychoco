@@ -1,5 +1,6 @@
 from pychoco import backend
 from pychoco._handle_wrapper import _HandleWrapper
+from pychoco._utils import get_int_array
 
 
 class Solution(_HandleWrapper):
@@ -20,6 +21,16 @@ class Solution(_HandleWrapper):
         :return: The value of `x` in this solution.
         """
         return backend.get_int_val(self.handle, x.handle)
+
+    def get_set_val(self, s: "SetVar"):
+        """
+        The value of the SetVar `s` in this solution.
+        :param s: A SetVar.
+        :return: The value of `s` in this solution.
+        """
+        val_handle = backend.get_set_val(self.handle, s.handle)
+        val = get_int_array(val_handle)
+        return set(val)
 
     def __repr__(self):
         return "Choco Solution"

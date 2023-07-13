@@ -17,6 +17,7 @@ void* create_model();
 void* create_model_s(char*);
 char* get_model_name(void*);
 void* get_solver(void*);
+void set_objective(void*, int, void*);
 
 // Solver API
 
@@ -28,10 +29,12 @@ void* find_all_optimal_solutions(void*, void*, int, void*);
 void show_statistics(void*);
 void show_short_statistics(void*);
 long get_solution_count(void*);
+void limit_time(void*, char*);
 
 // Solution API
 
 int get_int_val(void*, void*);
+void* get_set_val(void*, void*);
 
 // Criterion API
 

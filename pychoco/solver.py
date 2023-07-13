@@ -229,6 +229,13 @@ class Solver(SearchStrategies, _HandleWrapper):
         """
         return self._model
 
+    def limit_time(self, time_limit: str):
+        """
+        Limit the solving time.
+        :param: String which states the duration like "WWd XXh YYm ZZs".
+        """
+        backend.limit_time(self.handle, time_limit)
+
     def __repr__(self):
         return "Choco Solver"
 

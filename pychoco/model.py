@@ -46,5 +46,13 @@ class Model(VariableFactory, ViewFactory, IntConstraintFactory, SetConstraintFac
         solver_handler = backend.get_solver(self.handle)
         return Solver(solver_handler, self)
 
+    def set_objective(self, objective: "Variable", maximize: bool = True):
+        """
+        Define an optimization objective.
+        :param objective: The optimization objective.
+        :param maximize: if True, maximizes objective, otherwise minimizes it.
+        """
+        backend.set_objective(self.handle, maximize, objective.handle)
+
     def __repr__(self):
         return "Choco Model ('" + self.name + "')"

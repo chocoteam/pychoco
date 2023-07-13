@@ -69,6 +69,10 @@ void* get_solver(void* modelHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ModelApi_getSolver(thread, modelHandle);
 }
+void set_objective(void* modelHandle, int maximize, void* objectiveHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ModelApi_setObjective(thread, modelHandle, maximize, objectiveHandle);
+}
 
 // Solver API
 
@@ -104,6 +108,11 @@ long get_solution_count(void* solverHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_SolverApi_getSolutionCount(thread, solverHandle);
 }
+void limit_time(void* solverHandle, char* timeLimit) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SolverApi_limitTime(thread, solverHandle, timeLimit);
+}
+
 
 // Criterion API
 
@@ -137,6 +146,11 @@ void* backtrack_counter(void* modelHandle, long backtrackLimit) {
 int get_int_val(void* solutionHandle, void* intVarHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_SolutionApi_getIntVal(thread, solutionHandle, intVarHandle);
+}
+
+void* get_set_val(void* solutionHandle, void* setVarHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SolutionApi_getSetVal(thread, solutionHandle, setVarHandle);
 }
 
 // Variable (generic)

@@ -1,8 +1,6 @@
 from typing import List
 
 from pychoco import backend
-from pychoco.solution import Solution
-
 
 def make_int_array(ints: List[int]):
     """

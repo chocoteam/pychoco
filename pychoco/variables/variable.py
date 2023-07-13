@@ -32,7 +32,7 @@ class Variable(_HandleWrapper, ABC):
         """
         :return: True if the variable is instantiated.
         """
-        return backend.is_instantiated(self.handle)
+        return bool(backend.is_instantiated(self.handle))
 
     def is_view(self):
         """
