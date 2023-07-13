@@ -9,3 +9,5 @@ matplotlib~=3.7.2
 numpy~=1.25.1
 libpysal~=4.7.0
 geopandas~=0.13.2
+rasterio==1.3.8
+shapely==2.0.1
