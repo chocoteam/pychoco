@@ -201,7 +201,7 @@ class Solver(SearchStrategies, _HandleWrapper):
         if backtrack_limit is not None:
             criterion.append(backend.backtrack_counter(self.handle, restart_limit))
         stop = make_criterion_var_array(criterion)
-        solutions_list_handle = backend.find_all_optimal_solution(self.handle, objective.handle, maximize, stop)
+        solutions_list_handle = backend.find_all_optimal_solutions(self.handle, objective.handle, maximize, stop)
         return extract_solutions(solutions_list_handle)
 
     def show_statistics(self):

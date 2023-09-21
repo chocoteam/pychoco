@@ -29,7 +29,7 @@ class TestSolver(unittest.TestCase):
         self.assertTrue(solution.get_int_val(c) + solution.get_int_val(e) <= solution.get_int_val(a))
 
     def test_find_10_solutions(self):
-        model = Model("MyModel")
+        model = Model()
         a = model.intvar(0, 10)
         b = model.intvar(0, 5)
         c = model.intvar(2, 7)
@@ -40,3 +40,12 @@ class TestSolver(unittest.TestCase):
         solver = model.get_solver()
         solutions = solver.find_all_solutions(solution_limit=10)
         self.assertEqual(len(solutions), 10)
+
+    def test_find_all_optimal_solutions(self):
+        model = Model()
+        x = model.intvars(4, 0, 3)
+        n = model.intvar(0, 10)
+        model.n_values(x, n).post()
+        solver = model.get_solver()
+        solver.find_all_optimal_solutions(n, True)
+

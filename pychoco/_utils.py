@@ -122,10 +122,10 @@ def get_boolvar_array(handle, model):
     :param A Python model object.
     :return: A python BoolVar list.
     """
+    from pychoco.variables.boolvar import BoolVar
     array = []
     for i in range(0, backend.array_length(handle)):
         var_handle = backend.intvar_array_get(handle, i)
-        from pychoco.variables.boolvar import BoolVar
         array.append(BoolVar(var_handle, model))
     return array
 
@@ -196,6 +196,7 @@ def extract_solutions(solution_list_handle) -> List["Solution"]:
     :param solution_list_handle: Java List<Solution> handle.
     :return: a list of Solutions.
     """
+    from pychoco.solution import Solution
     solutions = list()
     size = backend.list_size(solution_list_handle)
     for i in range(0, size):
