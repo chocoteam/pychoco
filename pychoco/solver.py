@@ -35,7 +35,7 @@ class Solver(SearchStrategies, _HandleWrapper):
         - OPTIMISATION : Computes a feasible solution, wrt to the objective defined. Use while solve(): to find the
         optimal solution. Indeed, each new solution improves the objective. If no new solution is
         found (and no stop criterion encountered), the last one is guaranteed to be the optimal one.
-        :param time_limit: Time limit for search, None => no time limit.
+        :param time_limit: Time limit for search in milliseconds, None => no time limit.
         :param node_limit: Number of nodes limit for search, None => no node limit.
         :param fail_limit: Number of fails limit for search, None => no fail limit.
         :param restart_limit: Number of restarts limit for search, None => no restart limit.
@@ -64,7 +64,7 @@ class Solver(SearchStrategies, _HandleWrapper):
                       backtrack_limit: Union[None, int] = None) -> Solution:
         """
         Finds a solution and retrieve it.
-        :param time_limit: Time limit for search, None => no time limit.
+        :param time_limit: Time limit for search in milliseconds, None => no time limit.
         :param node_limit: Number of nodes limit for search, None => no node limit.
         :param fail_limit: Number of fails limit for search, None => no fail limit.
         :param restart_limit: Number of restarts limit for search, None => no restart limit.
@@ -97,7 +97,7 @@ class Solver(SearchStrategies, _HandleWrapper):
                            backtrack_limit: Union[None, int] = None) -> List[Solution]:
         """
         Finds all the solutions to a problem, eventually with respect to search limits.
-        :param time_limit: Time limit for search, None => no time limit.
+        :param time_limit: Time limit for search in milliseconds, None => no time limit.
         :param solution_limit: Number of solutions limit for search, None => no solution limit.
         :param node_limit: Number of nodes limit for search, None => no node limit.
         :param fail_limit: Number of fails limit for search, None => no fail limit.
@@ -137,7 +137,7 @@ class Solver(SearchStrategies, _HandleWrapper):
         best found so far.
         :param objective: Objective variable.
         :param maximize: if True, maximizes the objective variable, otherwise minimizes it.
-        :param time_limit: Time limit for search, None => no time limit.
+        :param time_limit: Time limit for search in milliseconds, None => no time limit.
         :param solution_limit: Number of solutions limit for search, None => no solution limit.
         :param node_limit: Number of nodes limit for search, None => no node limit.
         :param fail_limit: Number of fails limit for search, None => no fail limit.
@@ -179,7 +179,7 @@ class Solver(SearchStrategies, _HandleWrapper):
         best found so far.
         :param objective: Objective variable.
         :param maximize: if True, maximizes the objective variable, otherwise minimizes it.
-        :param time_limit: Time limit for search, None => no time limit.
+        :param time_limit: Time limit for search in milliseconds, None => no time limit.
         :param solution_limit: Number of solutions limit for search, None => no solution limit.
         :param node_limit: Number of nodes limit for search, None => no node limit.
         :param fail_limit: Number of fails limit for search, None => no fail limit.

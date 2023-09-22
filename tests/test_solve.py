@@ -41,6 +41,19 @@ class TestSolver(unittest.TestCase):
         solutions = solver.find_all_solutions(solution_limit=10)
         self.assertEqual(len(solutions), 10)
 
+    def test_time_limit(self):
+        model = Model("MyModel")
+        a = model.intvar(0, 10)
+        b = model.intvar(0, 10)
+        c = model.intvar(0, 10)
+        d = model.intvar(0, 10)
+        e = model.intvar(0, 10)
+        model.all_different([a, b, c, d, e]).post()
+        model.square(a, d).post()
+        solver = model.get_solver()
+        solver.show_statistics()
+        solver.find_all_solutions(time_limit=2)
+
     def test_find_all_optimal_solutions(self):
         model = Model()
         x = model.intvars(4, 0, 3)
@@ -49,3 +62,15 @@ class TestSolver(unittest.TestCase):
         solver = model.get_solver()
         solver.find_all_optimal_solutions(n, True)
 
+    def test_propagate(self):
+        model = Model("MyModel")
+        a = model.intvar(0, 2)
+        b = model.intvar(0, 1)
+        c = model.intvar(0, 1)
+        model.all_different([a, b, c]).post()
+        solver = model.get_solver()
+        solver.pushState()
+        solver.propagate()
+        self.assertEqual(a.get_lb(), 2)
+        solver.popState()
+        self.assertEqual(a.get_lb(), 0)
