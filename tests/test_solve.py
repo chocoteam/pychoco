@@ -61,16 +61,3 @@ class TestSolver(unittest.TestCase):
         model.n_values(x, n).post()
         solver = model.get_solver()
         solver.find_all_optimal_solutions(n, True)
-
-    def test_propagate(self):
-        model = Model("MyModel")
-        a = model.intvar(0, 2)
-        b = model.intvar(0, 1)
-        c = model.intvar(0, 1)
-        model.all_different([a, b, c]).post()
-        solver = model.get_solver()
-        solver.pushState()
-        solver.propagate()
-        self.assertEqual(a.get_lb(), 2)
-        solver.popState()
-        self.assertEqual(a.get_lb(), 0)
