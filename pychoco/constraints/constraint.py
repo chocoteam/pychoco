@@ -57,6 +57,14 @@ class Constraint(_HandleWrapper):
         return BoolVar(var_handle, self.model)
 
     @abstractmethod
+    def reify_with(self, boolvar):
+        """
+        Reifies the constraint with a given boolvar whose instantiation in a solution
+        correspond to the satisfaction state of the constraint in this solution.
+        """
+        backend.reify_with(self.handle, boolvar.handle)
+
+    @abstractmethod
     def is_satisfied(self):
         """
         Check whether the constraint is satisfied (ESat.TRUE), not satisfied (ESat.FALSE),

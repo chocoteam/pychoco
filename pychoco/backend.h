@@ -98,6 +98,8 @@ void* get_graphvar_value(void*);
 char* get_constraint_name(void*);
 void post(void*);
 void* reify(void*);
+void reify_with(void*, void*);
+void if_then(void*, void*, void*);
 int is_satisfied(void*);
 
 // IntVar and BoolVar constraints

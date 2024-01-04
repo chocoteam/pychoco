@@ -1113,3 +1113,11 @@ class IntConstraintFactory(ABC):
         successors_handle = make_intvar_array(successors)
         constraint_handle = backend.tree(self.handle, successors_handle, nb_trees.handle, offset)
         return Constraint(constraint_handle, self)
+
+    def if_then(self, ifcons: Constraint, thencons: Constraint):
+        """
+        Creates an if-then constraint: ifcons -> thencons
+        :param ifcons: a Constraint
+        :param thencons: a Constraint
+        """
+        return backend.if_then(self.handle, ifcons.handle, thencons.handle)
