@@ -324,6 +324,14 @@ void reify_with(void* constraintHandle, void* boolvarHandle){
     LAZY_THREAD_ATTACH
     Java_org_chocosolver_capi_ConstraintApi_reify_with(thread, constraintHandle, boolvarHandle);
 }
+void implies(void* constraintHandle, void* boolvarHandle){
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ConstraintApi_implies(thread, constraintHandle, boolvarHandle);
+}
+void implied_by(void* constraintHandle, void* boolvarHandle){
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ConstraintApi_implied_by(thread, constraintHandle, boolvarHandle);
+}
 void if_then(void* modelHandle, void* ifHandle, void* thenHandle){
     LAZY_THREAD_ATTACH
     Java_org_chocosolver_capi_ConstraintApi_if_then(thread, modelHandle, ifHandle, thenHandle);
