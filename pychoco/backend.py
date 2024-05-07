@@ -245,6 +245,18 @@ def post(arg1):
 def reify(arg1):
     return _backend.reify(arg1)
 
+def reify_with(arg1, arg2):
+    return _backend.reify_with(arg1, arg2)
+
+def implies(arg1, arg2):
+    return _backend.implies(arg1, arg2)
+
+def implied_by(arg1, arg2):
+    return _backend.implied_by(arg1, arg2)
+
+def if_then(arg1, arg2, arg3):
+    return _backend.if_then(arg1, arg2, arg3)
+
 def is_satisfied(arg1):
     return _backend.is_satisfied(arg1)
 

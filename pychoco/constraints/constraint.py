@@ -57,6 +57,31 @@ class Constraint(_HandleWrapper):
         return BoolVar(var_handle, self.model)
 
     @abstractmethod
+    def reify_with(self, boolvar):
+        """
+        Reifies the constraint with a given boolvar whose instantiation in a solution
+        correspond to the satisfaction state of the constraint in this solution.
+        """
+        backend.reify_with(self.handle, boolvar.handle)
+
+
+    @abstractmethod
+    def implies(self, boolvar):
+        """
+            Encapsulate this constraint in an implication relationship.
+            The truth value of this constraints implies the truth value of te boolvar.
+        """
+        backend.implies(self.handle, boolvar.handle)
+
+    @abstractmethod
+    def implied_by(self, boolvar):
+        """
+            Encapsulate this constraint in an implication relationship.
+            Represents half-reification of the constraint.
+        """
+        backend.implied_by(self.handle, boolvar.handle)
+
+    @abstractmethod
     def is_satisfied(self):
         """
         Check whether the constraint is satisfied (ESat.TRUE), not satisfied (ESat.FALSE),
