@@ -2,7 +2,7 @@ name: Windows
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master", "dev_actions" ]
     tags: [ '**' ]
 
 jobs:
