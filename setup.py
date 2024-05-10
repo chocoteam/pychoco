@@ -1,5 +1,6 @@
 import os
 import sys
+from distutils.command.build import build
 
 from setuptools import Extension, setup, find_packages, Command
 from setuptools.command.build_ext import build_ext
@@ -48,6 +49,15 @@ class CopySharedLibrary(Command):
         os.environ["ORIGIN"] = os.path.abspath(lib_target_path)
 
 
+class CustomBuild(build):
+    sub_commands = [
+        ('build_clib', build.has_c_libraries),
+        ('build_ext', build.has_ext_modules),
+        ('build_py', build.has_pure_modules),
+        ('build_scripts', build.has_scripts),
+    ]
+
+
 class CustomBuildExt(build_ext):
 
     def run(self):
@@ -73,6 +83,7 @@ setup(
     cmdclass={
         'copy_chocolib': CopySharedLibrary,
         'build_ext': CustomBuildExt,
+        'build': CustomBuild,
     },
     version='0.1.2',
     author="Dimitri Justeau-Allaire, Charles Prud'homme",
