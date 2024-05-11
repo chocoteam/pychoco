@@ -30,6 +30,9 @@ void show_statistics(void*);
 void show_short_statistics(void*);
 long get_solution_count(void*);
 void limit_time(void*, char*);
+int propagate(void*);
+void push_state(void*);
+void pop_state(void*);
 
 // Solution API
 
@@ -408,6 +411,8 @@ void set_input_order_lb_search(void*, void*);
 void set_input_order_ub_search(void*, void*);
 void set_failure_length_based_search(void*, void*);
 void set_failure_rate_based_search(void*, void*);
+void add_hint(void*, void*, int);
+void rem_hints(void*);
 
 // Automaton API
 

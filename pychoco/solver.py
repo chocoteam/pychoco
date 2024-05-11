@@ -297,3 +297,9 @@ class Solver(SearchStrategies, _HandleWrapper):
         assert len(intvars) > 0, "No variables were declared for the search"
         var_array_handle = make_intvar_array(intvars)
         backend.set_failure_rate_based_search(self.handle, var_array_handle)
+
+    def add_hint(self, intvar, value):
+        backend.add_hint(self.handle, intvar.handle, value)
+
+    def rem_hints(self):
+        backend.rem_hints(self.handle)

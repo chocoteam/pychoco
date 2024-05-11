@@ -113,6 +113,15 @@ def get_solution_count(arg1):
 def limit_time(arg1, arg2):
     return _backend.limit_time(arg1, arg2)
 
+def propagate(arg1):
+    return _backend.propagate(arg1)
+
+def push_state(arg1):
+    return _backend.push_state(arg1)
+
+def pop_state(arg1):
+    return _backend.pop_state(arg1)
+
 def time_counter(arg1, arg2):
     return _backend.time_counter(arg1, arg2)
 
@@ -976,6 +985,12 @@ def set_failure_length_based_search(arg1, arg2):
 
 def set_failure_rate_based_search(arg1, arg2):
     return _backend.set_failure_rate_based_search(arg1, arg2)
+
+def add_hint(arg1, arg2, arg3):
+    return _backend.add_hint(arg1, arg2, arg3)
+
+def rem_hints(arg1):
+    return _backend.rem_hints(arg1)
 
 def create_fa():
     return _backend.create_fa()

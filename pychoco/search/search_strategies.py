@@ -127,3 +127,23 @@ class SearchStrategies(ABC):
         :param intvars: IntVars to use in the search strategy.
         """
         pass
+
+    @abstractmethod
+    def add_hint(self, intvar, value):
+        """
+        Declare a warm start strategy that consists of a set of variables and a set of values.
+        It allows to define either a solution or at least a partial solution in order to drive the search toward
+        a solution.
+        Such a (partial) solution serves only once.
+        Note that a variable can appears more than once.
+        :param intvar An IntVar
+        :param value The hint value
+        """
+        pass
+
+    @abstractmethod
+    def rem_hints(self):
+        """
+        Remove declared hints
+        """
+        pass

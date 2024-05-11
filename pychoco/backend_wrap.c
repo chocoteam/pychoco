@@ -3423,6 +3423,67 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_propagate(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  int res1 ;
+  PyObject *swig_obj[1] ;
+  int result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "propagate" "', argument " "1"" of type '" "void *""'"); 
+  }
+  result = (int)propagate(arg1);
+  resultobj = SWIG_From_int((int)(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_push_state(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  int res1 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "push_state" "', argument " "1"" of type '" "void *""'"); 
+  }
+  push_state(arg1);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_pop_state(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  int res1 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "pop_state" "', argument " "1"" of type '" "void *""'"); 
+  }
+  pop_state(arg1);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_time_counter(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   void *arg1 = (void *) 0 ;
@@ -12726,6 +12787,59 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_add_hint(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  void *arg2 = (void *) 0 ;
+  int arg3 ;
+  int res1 ;
+  int res2 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "add_hint", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "add_hint" "', argument " "1"" of type '" "void *""'"); 
+  }
+  res2 = SWIG_ConvertPtr(swig_obj[1],SWIG_as_voidptrptr(&arg2), 0, 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "add_hint" "', argument " "2"" of type '" "void *""'"); 
+  }
+  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "add_hint" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = (int)(val3);
+  add_hint(arg1,arg2,arg3);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_rem_hints(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  int res1 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "rem_hints" "', argument " "1"" of type '" "void *""'"); 
+  }
+  rem_hints(arg1);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_create_fa(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   void *result = 0 ;
@@ -14190,6 +14304,9 @@ static PyMethodDef SwigMethods[] = {
 	 { "show_short_statistics", _wrap_show_short_statistics, METH_O, NULL},
 	 { "get_solution_count", _wrap_get_solution_count, METH_O, NULL},
 	 { "limit_time", _wrap_limit_time, METH_VARARGS, NULL},
+	 { "propagate", _wrap_propagate, METH_O, NULL},
+	 { "push_state", _wrap_push_state, METH_O, NULL},
+	 { "pop_state", _wrap_pop_state, METH_O, NULL},
 	 { "time_counter", _wrap_time_counter, METH_VARARGS, NULL},
 	 { "solution_counter", _wrap_solution_counter, METH_VARARGS, NULL},
 	 { "node_counter", _wrap_node_counter, METH_VARARGS, NULL},
@@ -14478,6 +14595,8 @@ static PyMethodDef SwigMethods[] = {
 	 { "set_input_order_ub_search", _wrap_set_input_order_ub_search, METH_VARARGS, NULL},
 	 { "set_failure_length_based_search", _wrap_set_failure_length_based_search, METH_VARARGS, NULL},
 	 { "set_failure_rate_based_search", _wrap_set_failure_rate_based_search, METH_VARARGS, NULL},
+	 { "add_hint", _wrap_add_hint, METH_VARARGS, NULL},
+	 { "rem_hints", _wrap_rem_hints, METH_O, NULL},
 	 { "create_fa", _wrap_create_fa, METH_NOARGS, NULL},
 	 { "create_fa_regexp", _wrap_create_fa_regexp, METH_O, NULL},
 	 { "create_fa_regexp_min_max", _wrap_create_fa_regexp_min_max, METH_VARARGS, NULL},

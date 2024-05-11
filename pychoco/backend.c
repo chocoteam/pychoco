@@ -112,6 +112,19 @@ void limit_time(void* solverHandle, char* timeLimit) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_SolverApi_limitTime(thread, solverHandle, timeLimit);
 }
+int propagate(void* solverHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SolverApi_propagate(thread, solverHandle);
+}
+void push_state(void* solverHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_SolverApi_push_state(thread, solverHandle);
+}
+void pop_state(void* solverHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_SolverApi_pop_state(thread, solverHandle);
+}
+
 
 
 // Criterion API
@@ -1625,6 +1638,14 @@ void set_failure_length_based_search(void* solverHandle, void* intVarArrayHandle
 void set_failure_rate_based_search(void* solverHandle, void* intVarArrayHandle) {
     LAZY_THREAD_ATTACH
     Java_org_chocosolver_capi_SearchApi_set_failure_rate_based_search(thread, solverHandle, intVarArrayHandle);
+}
+void add_hint(void* solverHandle, void* intVarHandle, int value) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_SearchApi_add_hint(thread, solverHandle, intVarHandle, value);
+}
+void rem_hints(void* solverHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_SearchApi_rem_hints(thread, solverHandle);
 }
 
 // Automaton API
