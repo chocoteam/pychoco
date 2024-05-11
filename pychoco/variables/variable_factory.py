@@ -82,11 +82,13 @@ class VariableFactory(ABC):
         """
         if name is not None:
             if value is not None:
+                assert value in [0, 1], "The 'value' parameter must be either a boolean, or an int in [0, 1]"
                 var_handle = backend.boolvar_sb(self.handle, name, value)
             else:
                 var_handle = backend.boolvar_s(self.handle, name)
         else:
             if value is not None:
+                assert value in [0, 1], "The 'value' parameter must be either a boolean, or an int in [0, 1]"
                 var_handle = backend.boolvar_b(self.handle, value)
             else:
                 var_handle = backend.boolvar(self.handle)
@@ -99,14 +101,17 @@ class VariableFactory(ABC):
         :param size: Number of boolvars.
         :param value: If not None, a fixed value for the variables (which is thus a constant). This value is either
             the same for all variables (bool), or given as a list of bools.
-        :param name: The name of the variable (optional).
+        :param name: Prefix name of the variable (optional).
         :return: A list of boolvars.
         """
+        names = [None for i in range(0, size)]
+        if name is not None:
+            names = ["{}_{}".format(name, i) for i in range(0, size)]
         if isinstance(value, list):
             assert len(value) == size
-            return [self.boolvar(value[i], name) for i in range(0, size)]
+            return [self.boolvar(value[i], names[i]) for i in range(0, size)]
         else:
-            return [self.boolvar(value, name) for i in range(0, size)]
+            return [self.boolvar(value, names[i]) for i in range(0, size)]
 
     # Task variables #
 
