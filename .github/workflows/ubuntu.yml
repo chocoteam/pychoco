@@ -30,7 +30,7 @@ jobs:
       - name: Set up GraalVM Native Image toolchain
         uses: graalvm/setup-graalvm@v1
         with:
-          java-version: '20'
+          java-version: '21'
           distribution: 'graalvm'
       - name: Install Swig
         run: sudo apt-get install swig
