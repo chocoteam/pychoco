@@ -76,3 +76,13 @@ class TestSolver(unittest.TestCase):
         solver.show_short_statistics()
         solver.find_optimal_solution(n, True)
         solver.rem_hints()
+
+    def test_propagate_push_pop_state(self):
+        model = Model()
+        x = model.intvars(4, 0, 3)
+        n = model.intvar(0, 10)
+        model.n_values(x, n).post()
+        solver = model.get_solver()
+        solver._propagate()
+        solver._push_state()
+        solver._pop_state()

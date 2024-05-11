@@ -236,6 +236,29 @@ class Solver(SearchStrategies, _HandleWrapper):
         """
         backend.limit_time(self.handle, time_limit)
 
+    def _propagate(self):
+        """
+        Propagates constraints and related events through the constraint network until a fix point is find,
+        or a contradiction is detected.
+        Throws ContradictionException inconsistency is detected, the problem has no solution with the current set of domains and constraints.
+        The propagation engine is ensured to be empty (no pending events) after this method.
+        Indeed, if no contradiction occurs, a fix point is reached.
+        Otherwise, a call to PropagationEngine#flush() is made.
+        """
+        backend.propagate(self.handle)
+
+    def _push_state(self):
+        """
+        Starts a new branch in the search tree
+        """
+        backend.push_state(self.handle)
+
+    def _pop_state(self):
+        """
+        Backtracks to the previous choice point in the search tree
+        """
+        backend.pop_state(self.handle)
+
     def __repr__(self):
         return "Choco Solver"
 
