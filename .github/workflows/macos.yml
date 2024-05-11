@@ -2,7 +2,7 @@ name: MacOS
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master", "dev_actions" ]
     tags: [ '**' ]
 
 jobs:
@@ -22,10 +22,12 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           architecture: x64
+      - name: Install setuptools (needed from Python 3.12)
+        run: pip install setuptools
       - name: Set up GraalVM Native Image toolchain
         uses: graalvm/setup-graalvm@v1
         with:
-          java-version: '20'
+          java-version: '21'
           distribution: 'graalvm'
       - name: Install Swig
         run: brew install swig

@@ -2,7 +2,7 @@ name: Ubuntu
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master", "dev_actions" ]
     tags: [ '**' ]
 
 jobs:
@@ -25,10 +25,12 @@ jobs:
       - name: Display Python version
         run: |
           python -c "import sys; print(sys.version)"
+      - name: Install setuptools (needed from Python 3.12)
+        run: pip install setuptools
       - name: Set up GraalVM Native Image toolchain
         uses: graalvm/setup-graalvm@v1
         with:
-          java-version: '20'
+          java-version: '21'
           distribution: 'graalvm'
       - name: Install Swig
         run: sudo apt-get install swig
