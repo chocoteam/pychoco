@@ -64,11 +64,14 @@ class VariableFactory(ABC):
         :param name: Prefix name of the intvars (automatically given if None).
         :return: A list of intvars.
         """
+        names = [None for i in range(0, size)]
+        if name is not None:
+            names = ["{}_{}".format(name, i) for i in range(0, size)]
         if isinstance(lb, list):
             assert len(lb) == size
-            return [self.intvar(lb[i], None, name) for i in range(0, size)]
+            return [self.intvar(lb[i], None, names[i]) for i in range(0, size)]
         else:
-            return [self.intvar(lb, ub, name) for i in range(0, size)]
+            return [self.intvar(lb, ub, names[i]) for i in range(0, size)]
 
     # Boolean variables #
 

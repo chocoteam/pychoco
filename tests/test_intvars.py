@@ -5,6 +5,12 @@ from pychoco.model import Model
 
 class TestIntVar(unittest.TestCase):
 
+    def test_array_with_name(self):
+        m = Model()
+        vs = m.intvars(5, -1, 1, name="vs")
+        for i in range(0, len(vs)):
+            self.assertEqual(vs[i].name, "vs_{}".format(i))
+
     def test_create_intvar(self):
         model = Model("MyModel")
         a = model.intvar(0, 10, "a")
