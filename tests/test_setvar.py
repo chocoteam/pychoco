@@ -19,3 +19,4 @@ class TestSetVar(unittest.TestCase):
         self.assertEqual(ss.get_value(), lb)
         sol = model.get_solver().find_solution()
         val = sol.get_set_val(s)
+        s1 = model.setvar({}, {1, 2, 3, 5, 12}, name="y")

@@ -155,7 +155,7 @@ class VariableFactory(ABC):
             if name is None:
                 handle = backend.setvar_iviv(self.handle, lb_handle, ub_handle)
             else:
-                handle = backend.setvar_s_iviv(self.handle, lb_handle, ub_handle)
+                handle = backend.setvar_s_iviv(self.handle, name, lb_handle, ub_handle)
         return SetVar(handle, self)
 
     # Graph variables
