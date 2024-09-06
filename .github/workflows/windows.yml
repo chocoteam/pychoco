@@ -12,9 +12,18 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os : [windows-2022]
+        os : [windows-2022, windows-2019]
         python-version: ["3.12", "3.11", "3.10", "3.9", "3.8", "3.7"]
+        include:
+          - os: windows-2022
+            python-version: "3.12"
+            force: true
     steps:
+      # if matrix.force is not true or event is not tag, skip
+      - if: ${{ matrix.force }} != true || (github.event_name == 'push' && !startsWith(github.ref, 'refs/tags'))
+        run: 
+          echo "Skipping job for ${{ matrix.os }} ${{ matrix.python-version }}"
+          exit 0
       - name: Check out repository
         uses: actions/checkout@v2
       - name: Setup python
