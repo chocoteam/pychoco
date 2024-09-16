@@ -82,35 +82,39 @@ int solve(void* solverHandle, void* stopArrayHandle) {
 }
 void* find_solution(void* solverHandle, void* stopArrayHandle) {
     LAZY_THREAD_ATTACH
-    return Java_org_chocosolver_capi_SolverApi_findSolution(thread, solverHandle, stopArrayHandle);
+    return Java_org_chocosolver_capi_SolverApi_find_solution(thread, solverHandle, stopArrayHandle);
 }
 void* find_all_solutions(void* solverHandle, void* stopArrayHandle) {
     LAZY_THREAD_ATTACH
-    return Java_org_chocosolver_capi_SolverApi_findAllSolutions(thread, solverHandle, stopArrayHandle);
+    return Java_org_chocosolver_capi_SolverApi_find_all_solutions(thread, solverHandle, stopArrayHandle);
 }
 void* find_optimal_solution(void* solverHandle, void* objectiveVarHandle, int maximize, void* stop) {
     LAZY_THREAD_ATTACH
-    return Java_org_chocosolver_capi_SolverApi_findOptimalSolution(thread, solverHandle, objectiveVarHandle, maximize, stop);
+    return Java_org_chocosolver_capi_SolverApi_find_optimal_solution(thread, solverHandle, objectiveVarHandle, maximize, stop);
 }
 void* find_all_optimal_solutions(void* solverHandle, void* objectiveVarHandle, int maximize, void* stop) {
     LAZY_THREAD_ATTACH
-    return Java_org_chocosolver_capi_SolverApi_findAllOptimalSolutions(thread, solverHandle, objectiveVarHandle, maximize, stop);
+    return Java_org_chocosolver_capi_SolverApi_find_all_optimal_solutions(thread, solverHandle, objectiveVarHandle, maximize, stop);
 }
 void show_statistics(void* solverHandle) {
     LAZY_THREAD_ATTACH
-    return Java_org_chocosolver_capi_SolverApi_showStatistics(thread, solverHandle);
+    return Java_org_chocosolver_capi_SolverApi_show_statistics(thread, solverHandle);
 }
 void show_short_statistics(void* solverHandle) {
     LAZY_THREAD_ATTACH
-    return Java_org_chocosolver_capi_SolverApi_showShortStatistics(thread, solverHandle);
+    return Java_org_chocosolver_capi_SolverApi_show_short_statistics(thread, solverHandle);
+}
+void show_restarts(void* solverHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SolverApi_show_restarts(thread, solverHandle);
 }
 long get_solution_count(void* solverHandle) {
     LAZY_THREAD_ATTACH
-    return Java_org_chocosolver_capi_SolverApi_getSolutionCount(thread, solverHandle);
+    return Java_org_chocosolver_capi_SolverApi_get_solution_count(thread, solverHandle);
 }
 void limit_time(void* solverHandle, char* timeLimit) {
     LAZY_THREAD_ATTACH
-    return Java_org_chocosolver_capi_SolverApi_limitTime(thread, solverHandle, timeLimit);
+    return Java_org_chocosolver_capi_SolverApi_limit_time(thread, solverHandle, timeLimit);
 }
 int propagate(void* solverHandle) {
     LAZY_THREAD_ATTACH
@@ -1730,6 +1734,14 @@ void set_failure_length_based_search(void* solverHandle, void* intVarArrayHandle
 void set_failure_rate_based_search(void* solverHandle, void* intVarArrayHandle) {
     LAZY_THREAD_ATTACH
     Java_org_chocosolver_capi_SearchApi_set_failure_rate_based_search(thread, solverHandle, intVarArrayHandle);
+}
+void set_pick_on_dom_search(void* solverHandle, void* intVarArrayHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_SearchApi_set_pick_on_dom_search(thread, solverHandle, intVarArrayHandle);
+}
+void set_pick_on_fil_search(void* solverHandle, void* intVarArrayHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_SearchApi_set_pick_on_fil_search(thread, solverHandle, intVarArrayHandle);
 }
 void add_hint(void* solverHandle, void* intVarHandle, int value) {
     LAZY_THREAD_ATTACH

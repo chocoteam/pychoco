@@ -22,6 +22,10 @@ class Solver(SearchStrategies, _HandleWrapper):
         super().__init__(handle)
         self._model = model
 
+    @property
+    def handle(self):
+        return self._handle
+
     def solve(self,
               time_limit: Union[None, str] = None,
               node_limit: Union[None, int] = None,
@@ -216,6 +220,12 @@ class Solver(SearchStrategies, _HandleWrapper):
         """
         backend.show_short_statistics(self.handle)
 
+    def show_restarts(self):
+        """
+        Configure the solver to show the number of restarts during the search.
+        """
+        backend.show_restarts(self.handle)
+
     def get_solution_count(self) -> int:
         """
         :return: The number of solution found so far.
@@ -261,68 +271,3 @@ class Solver(SearchStrategies, _HandleWrapper):
 
     def __repr__(self):
         return "Choco Solver"
-
-    def set_default_search(self):
-        backend.set_default_search(self.handle)
-
-    def set_dom_over_w_deg_search(self, *intvars):
-        assert len(intvars) > 0, "No variables were declared for the search"
-        var_array_handle = make_intvar_array(intvars)
-        backend.set_dom_over_w_deg_search(self.handle, var_array_handle)
-
-    def set_dom_over_w_deg_ref_search(self, *intvars):
-        assert len(intvars) > 0, "No variables were declared for the search"
-        var_array_handle = make_intvar_array(intvars)
-        backend.set_dom_over_w_deg_ref_search(self.handle, var_array_handle)
-
-    def set_activity_based_search(self, *intvars):
-        assert len(intvars) > 0, "No variables were declared for the search"
-        var_array_handle = make_intvar_array(intvars)
-        backend.set_activity_based_search(self.handle, var_array_handle)
-
-    def set_min_dom_lb_search(self, *intvars):
-        assert len(intvars) > 0, "No variables were declared for the search"
-        var_array_handle = make_intvar_array(intvars)
-        backend.set_min_dom_lb_search(self.handle, var_array_handle)
-
-    def set_min_dom_ub_search(self, *intvars):
-        assert len(intvars) > 0, "No variables were declared for the search"
-        var_array_handle = make_intvar_array(intvars)
-        backend.set_min_dom_ub_search(self.handle, var_array_handle)
-
-    def set_random_search(self, *intvars, seed: int = round(time.time())):
-        assert len(intvars) > 0, "No variables were declared for the search"
-        var_array_handle = make_intvar_array(intvars)
-        backend.set_random_search(self.handle, var_array_handle, seed)
-
-    def set_conflict_history_search(self, *intvars):
-        assert len(intvars) > 0, "No variables were declared for the search"
-        var_array_handle = make_intvar_array(intvars)
-        backend.set_conflict_history_search(self.handle, var_array_handle)
-
-    def set_input_order_lb_search(self, *intvars):
-        assert len(intvars) > 0, "No variables were declared for the search"
-        assert len(intvars) > 0, "No variables were declared for the search"
-        var_array_handle = make_intvar_array(intvars)
-        backend.set_input_order_lb_search(self.handle, var_array_handle)
-
-    def set_input_order_ub_search(self, *intvars):
-        assert len(intvars) > 0, "No variables were declared for the search"
-        var_array_handle = make_intvar_array(intvars)
-        backend.set_input_order_ub_search(self.handle, var_array_handle)
-
-    def set_failure_length_based_search(self, *intvars):
-        assert len(intvars) > 0, "No variables were declared for the search"
-        var_array_handle = make_intvar_array(intvars)
-        backend.set_failure_length_based_search(self.handle, var_array_handle)
-
-    def set_failure_rate_based_search(self, *intvars):
-        assert len(intvars) > 0, "No variables were declared for the search"
-        var_array_handle = make_intvar_array(intvars)
-        backend.set_failure_rate_based_search(self.handle, var_array_handle)
-
-    def add_hint(self, intvar, value):
-        backend.add_hint(self.handle, intvar.handle, value)
-
-    def rem_hints(self):
-        backend.rem_hints(self.handle)

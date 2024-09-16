@@ -38,6 +38,7 @@ class TestSolver(unittest.TestCase):
         model.all_different([a, b, c, d, e]).post()
         model.square(a, d).post()
         solver = model.get_solver()
+        solver.show_restarts()
         solutions = solver.find_all_solutions(solution_limit=10)
         self.assertEqual(len(solutions), 10)
 

@@ -28,6 +28,7 @@ void* find_optimal_solution(void*, void*, int, void*);
 void* find_all_optimal_solutions(void*, void*, int, void*);
 void show_statistics(void*);
 void show_short_statistics(void*);
+void show_restarts(void*);
 long get_solution_count(void*);
 void limit_time(void*, char*);
 int propagate(void*);
@@ -437,6 +438,8 @@ void set_input_order_lb_search(void*, void*);
 void set_input_order_ub_search(void*, void*);
 void set_failure_length_based_search(void*, void*);
 void set_failure_rate_based_search(void*, void*);
+void set_pick_on_dom_search(void*, void*);
+void set_pick_on_fil_search(void*, void*);
 void add_hint(void*, void*, int);
 void rem_hints(void*);
 

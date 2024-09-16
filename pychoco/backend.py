@@ -107,6 +107,9 @@ def show_statistics(arg1):
 def show_short_statistics(arg1):
     return _backend.show_short_statistics(arg1)
 
+def show_restarts(arg1):
+    return _backend.show_restarts(arg1)
+
 def get_solution_count(arg1):
     return _backend.get_solution_count(arg1)
 
@@ -1054,6 +1057,12 @@ def set_failure_length_based_search(arg1, arg2):
 
 def set_failure_rate_based_search(arg1, arg2):
     return _backend.set_failure_rate_based_search(arg1, arg2)
+
+def set_pick_on_dom_search(arg1, arg2):
+    return _backend.set_pick_on_dom_search(arg1, arg2)
+
+def set_pick_on_fil_search(arg1, arg2):
+    return _backend.set_pick_on_fil_search(arg1, arg2)
 
 def add_hint(arg1, arg2, arg3):
     return _backend.add_hint(arg1, arg2, arg3)
