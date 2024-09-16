@@ -160,7 +160,6 @@ int get_int_val(void* solutionHandle, void* intVarHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_SolutionApi_getIntVal(thread, solutionHandle, intVarHandle);
 }
-
 void* get_set_val(void* solutionHandle, void* setVarHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_SolutionApi_getSetVal(thread, solutionHandle, setVarHandle);
@@ -187,32 +186,26 @@ void* intvar_sii(void* modelHandle, char* name, int lb, int ub) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_IntVarApi_intVar_sii(thread, modelHandle, name, lb, ub);
 }
-
 void* intvar_siib(void* modelHandle, char* name, int lb, int ub, int boundedDomain) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_IntVarApi_intVar_siib(thread, modelHandle, name, lb, ub, boundedDomain);
 }
-
 void* intvar_ii(void* modelHandle, int lb, int ub) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_IntVarApi_intVar_ii(thread, modelHandle, lb, ub);
 }
-
 void* intvar_iib(void* modelHandle, int lb, int ub, int boundedDomain) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_IntVarApi_intVar_iib(thread, modelHandle, lb, ub, boundedDomain);
 }
-
 void* intvar_s_arr(void* modelHandle, char* name, void* valuesHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_IntVarApi_intVar_s_arr(thread, modelHandle, name, valuesHandle);
 }
-
 void* intvar_arr(void* modelHandle, void* valuesHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_IntVarApi_intVar_arr(thread, modelHandle, valuesHandle);
 }
-
 void* intvar_i(void* modelHandle, int value) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_IntVarApi_intVar_i(thread, modelHandle, value);
@@ -363,10 +356,95 @@ int is_satisfied(void* constraintHandle) {
 
 // Reification
 
+void if_then_else(void* modelHandle, void* ifHandle, void* thenHandle, void* elseHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ReificationApi_if_then_else(thread, modelHandle, ifHandle, thenHandle, elseHandle);
+}
+void if_then_else_bool(void* modelHandle, void* ifHandle, void* thenHandle, void* elseHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ReificationApi_if_then_else_bool(thread, modelHandle, ifHandle, thenHandle, elseHandle);
+}
 void if_then(void* modelHandle, void* ifHandle, void* thenHandle){
     LAZY_THREAD_ATTACH
     Java_org_chocosolver_capi_ReificationApi_if_then(thread, modelHandle, ifHandle, thenHandle);
 }
+void if_then_bool(void* modelHandle, void* ifHandle, void* thenHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ReificationApi_if_then_bool(thread, modelHandle, ifHandle, thenHandle);
+}
+void if_only_if(void* modelHandle, void* cstr1Handle, void* cstr2Handle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ReificationApi_if_only_if(thread, modelHandle, cstr1Handle, cstr2Handle);
+}
+void reification(void* modelHandle, void* boolVarHandle, void* cstrHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ReificationApi_reification(thread, modelHandle, boolVarHandle, cstrHandle);
+}
+void reify_x_eq_c(void* modelHandle, void* xHandle, int c, void* bHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ReificationApi_reify_x_eq_c(thread, modelHandle, xHandle, c, bHandle);
+}
+void reify_x_ne_c(void* modelHandle, void* xHandle, int c, void* bHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ReificationApi_reify_x_ne_c(thread, modelHandle, xHandle, c, bHandle);
+}
+void reify_x_eq_y(void* modelHandle, void* xHandle, void* yHandle, void* bHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ReificationApi_reify_x_eq_y(thread, modelHandle, xHandle, yHandle, bHandle);
+}
+void reify_x_ne_y(void* modelHandle, void* xHandle, void* yHandle, void* bHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ReificationApi_reify_x_ne_y(thread, modelHandle, xHandle, yHandle, bHandle);
+}
+void reify_x_eq_yc(void* modelHandle, void* xHandle, void* yHandle, int c, void* bHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ReificationApi_reify_x_eq_yc(thread, modelHandle, xHandle, yHandle, c, bHandle);
+}
+void reify_x_ne_yc(void* modelHandle, void* xHandle, void* yHandle, int c, void* bHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ReificationApi_reify_x_ne_yc(thread, modelHandle, xHandle, yHandle, c, bHandle);
+}
+void reify_x_lt_c(void* modelHandle, void* xHandle, int c, void* bHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ReificationApi_reify_x_lt_c(thread, modelHandle, xHandle, c, bHandle);
+}
+void reify_x_gt_c(void* modelHandle, void* xHandle, int c, void* bHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ReificationApi_reify_x_gt_c(thread, modelHandle, xHandle, c, bHandle);
+}
+void reify_x_lt_y(void* modelHandle, void* xHandle, void* yHandle, void* bHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ReificationApi_reify_x_lt_y(thread, modelHandle, xHandle, yHandle, bHandle);
+}
+void reify_x_gt_y(void* modelHandle, void* xHandle, void* yHandle, void* bHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ReificationApi_reify_x_gt_y(thread, modelHandle, xHandle, yHandle, bHandle);
+}
+void reify_x_le_y(void* modelHandle, void* xHandle, void* yHandle, void* bHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ReificationApi_reify_x_le_y(thread, modelHandle, xHandle, yHandle, bHandle);
+}
+void reify_x_ge_y(void* modelHandle, void* xHandle, void* yHandle, void* bHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ReificationApi_reify_x_ge_y(thread, modelHandle, xHandle, yHandle, bHandle);
+}
+void reify_x_lt_yc(void* modelHandle, void* xHandle, void* yHandle, int c, void* bHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ReificationApi_reify_x_lt_yc(thread, modelHandle, xHandle, yHandle, c, bHandle);
+}
+void reify_x_gt_yc(void* modelHandle, void* xHandle, void* yHandle, int c, void* bHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ReificationApi_reify_x_gt_yc(thread, modelHandle, xHandle, yHandle, c, bHandle);
+}
+void reify_x_in_s(void* modelHandle, void* xHandle, void* sArrayHandle, void* bHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ReificationApi_reify_x_in_s(thread, modelHandle, xHandle, sArrayHandle, bHandle);
+}
+void reify_x_not_in_s(void* modelHandle, void* xHandle, void* sArrayHandle, void* bHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ReificationApi_reify_x_not_in_s(thread, modelHandle, xHandle, sArrayHandle, bHandle);
+}
+
 
 // IntVar and BoolVar constraints
 

@@ -68,16 +68,16 @@ class Constraint(_HandleWrapper):
     @abstractmethod
     def implies(self, boolvar):
         """
-            Encapsulate this constraint in an implication relationship.
-            The truth value of this constraints implies the truth value of te boolvar.
+        Encapsulate this constraint in an implication relationship.
+        The truth value of this constraints implies the truth value of te boolvar.
         """
         backend.implies(self.handle, boolvar.handle)
 
     @abstractmethod
     def implied_by(self, boolvar):
         """
-            Encapsulate this constraint in an implication relationship.
-            Represents half-reification of the constraint.
+        Encapsulate this constraint in an implication relationship.
+        Represents half-reification of the constraint.
         """
         backend.implied_by(self.handle, boolvar.handle)
 

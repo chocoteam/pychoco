@@ -110,7 +110,28 @@ int is_satisfied(void*);
 
 // Reification
 
+void if_then_else(void*, void*, void*, void*);
+void if_then_else_bool(void*, void*, void*, void*);
 void if_then(void*, void*, void*);
+void if_then_bool(void*, void*, void*);
+void if_only_if(void*, void*, void*);
+void reification(void*, void*, void*);
+void reify_x_eq_c(void*, void*, int, void*);
+void reify_x_ne_c(void*, void*, int, void*);
+void reify_x_eq_y(void*, void*, void*, void*);
+void reify_x_ne_y(void*, void*, void*, void*);
+void reify_x_eq_yc(void*, void*, void*, int, void*);
+void reify_x_ne_yc(void*, void*, void*, int, void*);
+void reify_x_lt_c(void*, void*, int, void*);
+void reify_x_gt_c(void*, void*, int, void*);
+void reify_x_lt_y(void*, void*, void*, void*);
+void reify_x_gt_y(void*, void*, void*, void*);
+void reify_x_le_y(void*, void*, void*, void*);
+void reify_x_ge_y(void*, void*, void*, void*);
+void reify_x_lt_yc(void*, void*, void*, int, void*);
+void reify_x_gt_yc(void*, void*, void*, int, void*);
+void reify_x_in_s(void*, void*, void*, void*);
+void reify_x_not_in_s(void*, void*, void*, void*);
 
 // IntVar and BoolVar constraints
 

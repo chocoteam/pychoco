@@ -269,11 +269,74 @@ def implies(arg1, arg2):
 def implied_by(arg1, arg2):
     return _backend.implied_by(arg1, arg2)
 
+def is_satisfied(arg1):
+    return _backend.is_satisfied(arg1)
+
+def if_then_else(arg1, arg2, arg3, arg4):
+    return _backend.if_then_else(arg1, arg2, arg3, arg4)
+
+def if_then_else_bool(arg1, arg2, arg3, arg4):
+    return _backend.if_then_else_bool(arg1, arg2, arg3, arg4)
+
 def if_then(arg1, arg2, arg3):
     return _backend.if_then(arg1, arg2, arg3)
 
-def is_satisfied(arg1):
-    return _backend.is_satisfied(arg1)
+def if_then_bool(arg1, arg2, arg3):
+    return _backend.if_then_bool(arg1, arg2, arg3)
+
+def if_only_if(arg1, arg2, arg3):
+    return _backend.if_only_if(arg1, arg2, arg3)
+
+def reification(arg1, arg2, arg3):
+    return _backend.reification(arg1, arg2, arg3)
+
+def reify_x_eq_c(arg1, arg2, arg3, arg4):
+    return _backend.reify_x_eq_c(arg1, arg2, arg3, arg4)
+
+def reify_x_ne_c(arg1, arg2, arg3, arg4):
+    return _backend.reify_x_ne_c(arg1, arg2, arg3, arg4)
+
+def reify_x_eq_y(arg1, arg2, arg3, arg4):
+    return _backend.reify_x_eq_y(arg1, arg2, arg3, arg4)
+
+def reify_x_ne_y(arg1, arg2, arg3, arg4):
+    return _backend.reify_x_ne_y(arg1, arg2, arg3, arg4)
+
+def reify_x_eq_yc(arg1, arg2, arg3, arg4, arg5):
+    return _backend.reify_x_eq_yc(arg1, arg2, arg3, arg4, arg5)
+
+def reify_x_ne_yc(arg1, arg2, arg3, arg4, arg5):
+    return _backend.reify_x_ne_yc(arg1, arg2, arg3, arg4, arg5)
+
+def reify_x_lt_c(arg1, arg2, arg3, arg4):
+    return _backend.reify_x_lt_c(arg1, arg2, arg3, arg4)
+
+def reify_x_gt_c(arg1, arg2, arg3, arg4):
+    return _backend.reify_x_gt_c(arg1, arg2, arg3, arg4)
+
+def reify_x_lt_y(arg1, arg2, arg3, arg4):
+    return _backend.reify_x_lt_y(arg1, arg2, arg3, arg4)
+
+def reify_x_gt_y(arg1, arg2, arg3, arg4):
+    return _backend.reify_x_gt_y(arg1, arg2, arg3, arg4)
+
+def reify_x_le_y(arg1, arg2, arg3, arg4):
+    return _backend.reify_x_le_y(arg1, arg2, arg3, arg4)
+
+def reify_x_ge_y(arg1, arg2, arg3, arg4):
+    return _backend.reify_x_ge_y(arg1, arg2, arg3, arg4)
+
+def reify_x_lt_yc(arg1, arg2, arg3, arg4, arg5):
+    return _backend.reify_x_lt_yc(arg1, arg2, arg3, arg4, arg5)
+
+def reify_x_gt_yc(arg1, arg2, arg3, arg4, arg5):
+    return _backend.reify_x_gt_yc(arg1, arg2, arg3, arg4, arg5)
+
+def reify_x_in_s(arg1, arg2, arg3, arg4):
+    return _backend.reify_x_in_s(arg1, arg2, arg3, arg4)
+
+def reify_x_not_in_s(arg1, arg2, arg3, arg4):
+    return _backend.reify_x_not_in_s(arg1, arg2, arg3, arg4)
 
 def arithm_iv_cst(arg1, arg2, arg3, arg4):
     return _backend.arithm_iv_cst(arg1, arg2, arg3, arg4)
