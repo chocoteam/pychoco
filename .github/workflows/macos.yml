@@ -25,9 +25,9 @@ jobs:
           echo "Skipping job for ${{ matrix.os }} ${{ matrix.python-version }}"
           exit 0
       - name: Check out repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python-version }}
           architecture: x64
@@ -57,7 +57,7 @@ jobs:
           pip install coverage
           coverage run -m unittest
       - name: Upload Coverage to Codecov
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v3
       - name: Upload wheel artifacts
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
         uses: actions/upload-artifact@v4
