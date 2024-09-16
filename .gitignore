@@ -7,6 +7,7 @@ __pycache__/
 
 # C extensions
 *.so
+pychoco/backend_wrap.c
 
 # Distribution / packaging
 .Python
