@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os : [macos-14-large, macos-14-xlarge, macos-13-large, macos-13-xlarge, macos-12-large]
+        os : [macos-14, macos-13, macos-12]
         python-version: ["3.12", "3.11", "3.10", "3.9"]
         include:
           - os: macos-14-large
