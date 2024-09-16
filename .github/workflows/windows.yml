@@ -12,12 +12,8 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os : [windows-2022, windows-2019]
+        os : [windows-2022]
         python-version: ["3.12", "3.11", "3.10", "3.9"]
-        include:
-          - os: windows-2022
-            python-version: "3.12"
-            force: true
     steps:
       # if matrix.force is not true or event is not tag, skip
       - if: ${{ matrix.force }} != true || (github.event_name == 'push' && !startsWith(github.ref, 'refs/tags'))
