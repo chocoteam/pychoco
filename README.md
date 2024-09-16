@@ -1,4 +1,4 @@
-# PyChoco
+# pychoco
 
 [![ubuntu_build](https://github.com/chocoteam/pychoco/actions/workflows/ubuntu.yml/badge.svg)](https://github.com/chocoteam/pychoco/actions)
 [![macos_build](https://github.com/chocoteam/pychoco/actions/workflows/macos.yml/badge.svg)](https://github.com/chocoteam/pychoco/actions)
@@ -8,6 +8,7 @@
 [![Documentation Status](https://readthedocs.org/projects/pychoco/badge/?version=latest)](https://pychoco.readthedocs.io/en/latest/?badge=latest)
 [![License](https://img.shields.io/badge/License-BSD_4--Clause-blue.svg)](https://directory.fsf.org/wiki/License:BSD-4-Clause)
 
+*Current choco-solver version: 4.10.16*
 
 Python bindings for the Choco Constraint programming solver (https://choco-solver.org/).
 
@@ -15,7 +16,7 @@ Choco-solver is an open-source Java library for Constraint Programming (see http
 It comes with many features such as various types of variables, various state-of-the-art constraint,
 various search strategies, etc.
 
-The PyChoco library uses a *native-build* of the original Java Choco-solver library, in the form
+The pychoco library uses a *native-build* of the original Java Choco-solver library, in the form
 of a shared library, which means that it can be used without any JVM. This native-build is created
 with [GraalVM](https://www.graalvm.org/) native-image tool.
 
@@ -37,7 +38,7 @@ we also provide an API documentation which is available online at https://pychoc
 
 ## Quickstart
 
-Pychoco's API is quite close to Choco's Java API. The first thing to do is to import the
+pychoco's API is quite close to Choco's Java API. The first thing to do is to import the
 library and create a model object:
 
 ```python
@@ -127,5 +128,6 @@ Coming soon.
 
 ## Getting help or contribute
 
-If you have any questions about using the library, suggestions for improvements, or if you
+We do our best to maintain pychoco and keep it up-to-date with choco-solver. However, if you see missing
+features, if you have any questions about using the library, suggestions for improvements, or if you
 detect a bug, please [open an issue](https://github.com/chocoteam/pychoco/issues/new/choose).
