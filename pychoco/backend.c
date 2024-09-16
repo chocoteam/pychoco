@@ -356,13 +356,16 @@ void implied_by(void* constraintHandle, void* boolvarHandle){
     LAZY_THREAD_ATTACH
     Java_org_chocosolver_capi_ConstraintApi_implied_by(thread, constraintHandle, boolvarHandle);
 }
-void if_then(void* modelHandle, void* ifHandle, void* thenHandle){
-    LAZY_THREAD_ATTACH
-    Java_org_chocosolver_capi_ConstraintApi_if_then(thread, modelHandle, ifHandle, thenHandle);
-}
 int is_satisfied(void* constraintHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ConstraintApi_is_satisfied(thread, constraintHandle);
+}
+
+// Reification
+
+void if_then(void* modelHandle, void* ifHandle, void* thenHandle){
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ReificationApi_if_then(thread, modelHandle, ifHandle, thenHandle);
 }
 
 // IntVar and BoolVar constraints
@@ -1806,13 +1809,13 @@ void* task_get_duration(void* taskHandle) {
 
 // MDD API
 
-void* create_mdd_tuples(void* intVarsHandle, void* tuplesHandle, int compactOnce, int sortTuples) {
+void* create_mdd_tuples(void* intVarsHandle, void* tuplesHandle, char* compact, int sortTuples) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_MDDApi_create_mdd_tuples(
         thread,
         intVarsHandle,
         tuplesHandle,
-        compactOnce,
+        compact,
         sortTuples
     );
 }

@@ -97,7 +97,7 @@ int is_view(void*);
 void* intvar_sii(void*, char*, int, int);
 void* intvar_siib(void*, char*, int, int, int);
 void* intvar_ii(void*, int, int);
-void* intVar_iib(void*, int, int, int);
+void* intvar_iib(void*, int, int, int);
 void* intvar_s_arr(void*, char*, void*);
 void* intvar_arr(void*, void*);
 void* intvar_i(void*, int);
@@ -144,8 +144,11 @@ void* reify(void*);
 void reify_with(void*, void*);
 void implies(void*, void*);
 void implied_by(void*, void*);
-void if_then(void*, void*, void*);
 int is_satisfied(void*);
+
+// Reification
+
+void if_then(void*, void*, void*);
 
 // IntVar and BoolVar constraints
 
@@ -493,7 +496,7 @@ void* task_get_duration(void*);
 
 // MDD API
 
-void* create_mdd_tuples(void*, void*, int, int);
+void* create_mdd_tuples(void*, void*, char*, int);
 void* create_mdd_transitions(void*, void*);
 
 // Graph API

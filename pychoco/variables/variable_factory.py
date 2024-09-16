@@ -25,12 +25,13 @@ class VariableFactory(ABC):
 
     # Integer variables #
 
-    def intvar(self, lb: Union[int, List[int]], ub: Union[int, None] = None, name: Union[str, None] = None):
+    def intvar(self, lb: Union[int, List[int]], ub: Union[int, None] = None, name: Union[str, None] = None, bounded_domain: Union[bool, None] = None):
         """
         Creates an intvar.
 
         :param lb: Lower bound (integer), or list of (enumerated) possible values.
-        :param ub: upper bound (integer). If None: the variable is a constant equals to lb.
+        :param ub: Upper bound (integer). If None: the variable is a constant equals to lb.
+        :param bounded_domain: Force bounded (True) or enumerated domain (False). If None, Choco will automatically choose the best option.
         :param name: The name of the intvar (automatically given if None).
         :return: An intvar.
         """
@@ -42,7 +43,8 @@ class VariableFactory(ABC):
             elif ub is None:
                 var_handle = backend.intvar_i(self.handle, lb)
             else:
-                var_handle = backend.intvar_ii(self.handle, lb, ub)
+                var_handle = backend.intvar_ii(self.handle, lb, ub) if bounded_domain is None \
+                    else backend.intvar_iib(self.handle, lb, ub, bounded_domain)
         else:
             if isinstance(lb, list):
                 assert ub is None, "If lb is a list of enumerated values, ub parameter cannot be used"
@@ -51,16 +53,18 @@ class VariableFactory(ABC):
             elif ub is None:
                 var_handle = backend.intvar_si(self.handle, name, lb)
             else:
-                var_handle = backend.intvar_sii(self.handle, name, lb, ub)
+                var_handle = backend.intvar_sii(self.handle, name, lb, ub) if bounded_domain is None \
+                    else backend.intvar_siib(self.handle, name, lb, ub, bounded_domain)
         return IntVar(var_handle, self)
 
-    def intvars(self, size: int, lb: Union[List[int], int], ub: Union[int, None] = None, name: Union[str, None] = None):
+    def intvars(self, size: int, lb: Union[List[int], int], ub: Union[int, None] = None, name: Union[str, None] = None, bounded_domain: Union[bool, None] = None):
         """
         Creates a list of intvars.
 
         :param size: Number of intvars.
         :param lb: Lower bound (integer). If lb is a list of ints, constant variables are created.
-        :param ub: upper bound (integer). If None: the variable is a constant equals to lb.
+        :param ub: Upper bound (integer). If None: the variable is a constant equals to lb.
+        :param bounded_domain: Force bounded (True) or enumerated domain (False). If None, Choco will automatically choose the best option.
         :param name: Prefix name of the intvars (automatically given if None).
         :return: A list of intvars.
         """
@@ -71,7 +75,7 @@ class VariableFactory(ABC):
             assert len(lb) == size
             return [self.intvar(lb[i], None, names[i]) for i in range(0, size)]
         else:
-            return [self.intvar(lb, ub, names[i]) for i in range(0, size)]
+            return [self.intvar(lb, ub, names[i], bounded_domain) for i in range(0, size)]
 
     # Boolean variables #
 

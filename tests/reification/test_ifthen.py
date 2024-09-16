@@ -12,7 +12,7 @@ class TestIfThen(unittest.TestCase):
         y = m.intvar(0,100)
 
         m.if_then(m.arithm(x, "<", 10),
-                  m.arithm(y,">", 42))
+                  m.arithm(y, ">", 42))
 
         solutions = m.get_solver().find_all_solutions()
         for s in solutions:

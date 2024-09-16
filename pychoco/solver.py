@@ -23,7 +23,7 @@ class Solver(SearchStrategies, _HandleWrapper):
         self._model = model
 
     def solve(self,
-              time_limit: Union[None, int] = None,
+              time_limit: Union[None, str] = None,
               node_limit: Union[None, int] = None,
               fail_limit: Union[None, int] = None,
               restart_limit: Union[None, int] = None,
@@ -35,7 +35,7 @@ class Solver(SearchStrategies, _HandleWrapper):
         - OPTIMISATION : Computes a feasible solution, wrt to the objective defined. Use while solve(): to find the
         optimal solution. Indeed, each new solution improves the objective. If no new solution is
         found (and no stop criterion encountered), the last one is guaranteed to be the optimal one.
-        :param time_limit: Time limit for search in milliseconds, None => no time limit.
+        :param time_limit: Time limit for search (e.g. "10s", "2m"), None => no time limit.
         :param node_limit: Number of nodes limit for search, None => no node limit.
         :param fail_limit: Number of fails limit for search, None => no fail limit.
         :param restart_limit: Number of restarts limit for search, None => no restart limit.
@@ -44,7 +44,7 @@ class Solver(SearchStrategies, _HandleWrapper):
         """
         criterion = list()
         if time_limit is not None:
-            criterion.append(backend.time_counter(self.model.handle, time_limit))
+            self.limit_time(time_limit)
         if node_limit is not None:
             criterion.append(backend.node_counter(self.model.handle, node_limit))
         if fail_limit is not None:
@@ -57,14 +57,14 @@ class Solver(SearchStrategies, _HandleWrapper):
         return bool(backend.solve(self.handle, stop))
 
     def find_solution(self,
-                      time_limit: Union[None, int] = None,
+                      time_limit: Union[None, str] = None,
                       node_limit: Union[None, int] = None,
                       fail_limit: Union[None, int] = None,
                       restart_limit: Union[None, int] = None,
                       backtrack_limit: Union[None, int] = None) -> Solution:
         """
         Finds a solution and retrieve it.
-        :param time_limit: Time limit for search in milliseconds, None => no time limit.
+        :param time_limit: Time limit for search (e.g. "10s", "2m"), None => no time limit.
         :param node_limit: Number of nodes limit for search, None => no node limit.
         :param fail_limit: Number of fails limit for search, None => no fail limit.
         :param restart_limit: Number of restarts limit for search, None => no restart limit.
@@ -73,7 +73,7 @@ class Solver(SearchStrategies, _HandleWrapper):
         """
         criterion = list()
         if time_limit is not None:
-            criterion.append(backend.time_counter(self.model.handle, time_limit))
+            self.limit_time(time_limit)
         if node_limit is not None:
             criterion.append(backend.node_counter(self.model.handle, node_limit))
         if fail_limit is not None:
@@ -89,7 +89,7 @@ class Solver(SearchStrategies, _HandleWrapper):
         return Solution(solution_handle)
 
     def find_all_solutions(self,
-                           time_limit: Union[None, int] = None,
+                           time_limit: Union[None, str] = None,
                            solution_limit: Union[None, int] = None,
                            node_limit: Union[None, int] = None,
                            fail_limit: Union[None, int] = None,
@@ -97,7 +97,7 @@ class Solver(SearchStrategies, _HandleWrapper):
                            backtrack_limit: Union[None, int] = None) -> List[Solution]:
         """
         Finds all the solutions to a problem, eventually with respect to search limits.
-        :param time_limit: Time limit for search in milliseconds, None => no time limit.
+        :param time_limit: Time limit for search (e.g. "10s", "2m"), None => no time limit.
         :param solution_limit: Number of solutions limit for search, None => no solution limit.
         :param node_limit: Number of nodes limit for search, None => no node limit.
         :param fail_limit: Number of fails limit for search, None => no fail limit.
@@ -107,7 +107,7 @@ class Solver(SearchStrategies, _HandleWrapper):
         """
         criterion = list()
         if time_limit is not None:
-            criterion.append(backend.time_counter(self.model.handle, time_limit))
+            self.limit_time(time_limit)
         if solution_limit is not None:
             criterion.append(backend.solution_counter(self.model.handle, solution_limit))
         if node_limit is not None:
@@ -125,7 +125,7 @@ class Solver(SearchStrategies, _HandleWrapper):
     def find_optimal_solution(self,
                               objective: IntVar,
                               maximize: bool,
-                              time_limit: Union[None, int] = None,
+                              time_limit: Union[None, str] = None,
                               solution_limit: Union[None, int] = None,
                               node_limit: Union[None, int] = None,
                               fail_limit: Union[None, int] = None,
@@ -137,7 +137,7 @@ class Solver(SearchStrategies, _HandleWrapper):
         best found so far.
         :param objective: Objective variable.
         :param maximize: if True, maximizes the objective variable, otherwise minimizes it.
-        :param time_limit: Time limit for search in milliseconds, None => no time limit.
+        :param time_limit: Time limit for search (e.g. "10s", "2m"), None => no time limit.
         :param solution_limit: Number of solutions limit for search, None => no solution limit.
         :param node_limit: Number of nodes limit for search, None => no node limit.
         :param fail_limit: Number of fails limit for search, None => no fail limit.
@@ -147,7 +147,7 @@ class Solver(SearchStrategies, _HandleWrapper):
         """
         criterion = list()
         if time_limit is not None:
-            criterion.append(backend.time_counter(self.model.handle, time_limit))
+            self.limit_time(time_limit)
         if solution_limit is not None:
             criterion.append(backend.solution_counter(self.model.handle, solution_limit))
         if node_limit is not None:
@@ -167,7 +167,7 @@ class Solver(SearchStrategies, _HandleWrapper):
     def find_all_optimal_solutions(self,
                                    objective: IntVar,
                                    maximize: bool,
-                                   time_limit: Union[None, int] = None,
+                                   time_limit: Union[None, str] = None,
                                    solution_limit: Union[None, int] = None,
                                    node_limit: Union[None, int] = None,
                                    fail_limit: Union[None, int] = None,
@@ -179,7 +179,7 @@ class Solver(SearchStrategies, _HandleWrapper):
         best found so far.
         :param objective: Objective variable.
         :param maximize: if True, maximizes the objective variable, otherwise minimizes it.
-        :param time_limit: Time limit for search in milliseconds, None => no time limit.
+        :param time_limit: Time limit for search (e.g. "10s", "2m"), None => no time limit.
         :param solution_limit: Number of solutions limit for search, None => no solution limit.
         :param node_limit: Number of nodes limit for search, None => no node limit.
         :param fail_limit: Number of fails limit for search, None => no fail limit.
@@ -189,7 +189,7 @@ class Solver(SearchStrategies, _HandleWrapper):
         """
         criterion = list()
         if time_limit is not None:
-            criterion.append(backend.time_counter(self.model.handle, time_limit))
+            self.limit_time(time_limit)
         if solution_limit is not None:
             criterion.append(backend.solution_counter(self.model.handle, solution_limit))
         if node_limit is not None:

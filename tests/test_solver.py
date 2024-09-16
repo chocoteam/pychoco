@@ -52,7 +52,7 @@ class TestSolver(unittest.TestCase):
         model.square(a, d).post()
         solver = model.get_solver()
         solver.show_statistics()
-        solver.find_all_solutions(time_limit=2)
+        solver.find_all_solutions(time_limit="2s")
 
     def test_find_all_optimal_solutions(self):
         model = Model()

@@ -3814,6 +3814,61 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_intvar_siib(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  int arg4 ;
+  int arg5 ;
+  int res1 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  int val4 ;
+  int ecode4 = 0 ;
+  int val5 ;
+  int ecode5 = 0 ;
+  PyObject *swig_obj[5] ;
+  void *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "intvar_siib", 5, 5, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "intvar_siib" "', argument " "1"" of type '" "void *""'"); 
+  }
+  res2 = SWIG_AsCharPtrAndSize(swig_obj[1], &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "intvar_siib" "', argument " "2"" of type '" "char *""'");
+  }
+  arg2 = (char *)(buf2);
+  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "intvar_siib" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = (int)(val3);
+  ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "intvar_siib" "', argument " "4"" of type '" "int""'");
+  } 
+  arg4 = (int)(val4);
+  ecode5 = SWIG_AsVal_int(swig_obj[4], &val5);
+  if (!SWIG_IsOK(ecode5)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "intvar_siib" "', argument " "5"" of type '" "int""'");
+  } 
+  arg5 = (int)(val5);
+  result = (void *)intvar_siib(arg1,arg2,arg3,arg4,arg5);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
+  if (alloc2 == SWIG_NEWOBJ) free((char*)buf2);
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) free((char*)buf2);
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_intvar_ii(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   void *arg1 = (void *) 0 ;
@@ -3843,6 +3898,50 @@ SWIGINTERN PyObject *_wrap_intvar_ii(PyObject *SWIGUNUSEDPARM(self), PyObject *a
   } 
   arg3 = (int)(val3);
   result = (void *)intvar_ii(arg1,arg2,arg3);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_intvar_iib(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  void *arg1 = (void *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  int arg4 ;
+  int res1 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  int val4 ;
+  int ecode4 = 0 ;
+  PyObject *swig_obj[4] ;
+  void *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "intvar_iib", 4, 4, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0],SWIG_as_voidptrptr(&arg1), 0, 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "intvar_iib" "', argument " "1"" of type '" "void *""'"); 
+  }
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "intvar_iib" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = (int)(val2);
+  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "intvar_iib" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = (int)(val3);
+  ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "intvar_iib" "', argument " "4"" of type '" "int""'");
+  } 
+  arg4 = (int)(val4);
+  result = (void *)intvar_iib(arg1,arg2,arg3,arg4);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
   return resultobj;
 fail:
@@ -13711,12 +13810,13 @@ SWIGINTERN PyObject *_wrap_create_mdd_tuples(PyObject *SWIGUNUSEDPARM(self), PyO
   PyObject *resultobj = 0;
   void *arg1 = (void *) 0 ;
   void *arg2 = (void *) 0 ;
-  int arg3 ;
+  char *arg3 = (char *) 0 ;
   int arg4 ;
   int res1 ;
   int res2 ;
-  int val3 ;
-  int ecode3 = 0 ;
+  int res3 ;
+  char *buf3 = 0 ;
+  int alloc3 = 0 ;
   int val4 ;
   int ecode4 = 0 ;
   PyObject *swig_obj[4] ;
@@ -13731,11 +13831,11 @@ SWIGINTERN PyObject *_wrap_create_mdd_tuples(PyObject *SWIGUNUSEDPARM(self), PyO
   if (!SWIG_IsOK(res2)) {
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "create_mdd_tuples" "', argument " "2"" of type '" "void *""'"); 
   }
-  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "create_mdd_tuples" "', argument " "3"" of type '" "int""'");
-  } 
-  arg3 = (int)(val3);
+  res3 = SWIG_AsCharPtrAndSize(swig_obj[2], &buf3, NULL, &alloc3);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "create_mdd_tuples" "', argument " "3"" of type '" "char *""'");
+  }
+  arg3 = (char *)(buf3);
   ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
   if (!SWIG_IsOK(ecode4)) {
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "create_mdd_tuples" "', argument " "4"" of type '" "int""'");
@@ -13743,8 +13843,10 @@ SWIGINTERN PyObject *_wrap_create_mdd_tuples(PyObject *SWIGUNUSEDPARM(self), PyO
   arg4 = (int)(val4);
   result = (void *)create_mdd_tuples(arg1,arg2,arg3,arg4);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_void, 0 |  0 );
+  if (alloc3 == SWIG_NEWOBJ) free((char*)buf3);
   return resultobj;
 fail:
+  if (alloc3 == SWIG_NEWOBJ) free((char*)buf3);
   return NULL;
 }
 
@@ -14319,7 +14421,9 @@ static PyMethodDef SwigMethods[] = {
 	 { "is_instantiated", _wrap_is_instantiated, METH_O, NULL},
 	 { "is_view", _wrap_is_view, METH_O, NULL},
 	 { "intvar_sii", _wrap_intvar_sii, METH_VARARGS, NULL},
+	 { "intvar_siib", _wrap_intvar_siib, METH_VARARGS, NULL},
 	 { "intvar_ii", _wrap_intvar_ii, METH_VARARGS, NULL},
+	 { "intvar_iib", _wrap_intvar_iib, METH_VARARGS, NULL},
 	 { "intvar_s_arr", _wrap_intvar_s_arr, METH_VARARGS, NULL},
 	 { "intvar_arr", _wrap_intvar_arr, METH_VARARGS, NULL},
 	 { "intvar_i", _wrap_intvar_i, METH_VARARGS, NULL},

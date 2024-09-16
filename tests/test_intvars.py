@@ -30,6 +30,15 @@ class TestIntVar(unittest.TestCase):
         self.assertTrue(a.has_enumerated_domain())
         for b in bb:
             self.assertTrue(b.has_enumerated_domain())
+        c = m.intvar(0, 10, bounded_domain=True)
+        d = m.intvar(0, 10, bounded_domain=False)
+        e = m.intvar(0, 10, name="e", bounded_domain=True)
+        ff = m.intvars(3, 0, 10, bounded_domain=False)
+        self.assertFalse(c.has_enumerated_domain())
+        self.assertTrue(d.has_enumerated_domain())
+        self.assertFalse(e.has_enumerated_domain())
+        for f in ff:
+            self.assertTrue(f.has_enumerated_domain())
 
     def test_add(self):
         m = Model()

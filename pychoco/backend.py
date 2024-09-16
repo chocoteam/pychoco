@@ -158,8 +158,14 @@ def is_view(arg1):
 def intvar_sii(arg1, arg2, arg3, arg4):
     return _backend.intvar_sii(arg1, arg2, arg3, arg4)
 
+def intvar_siib(arg1, arg2, arg3, arg4, arg5):
+    return _backend.intvar_siib(arg1, arg2, arg3, arg4, arg5)
+
 def intvar_ii(arg1, arg2, arg3):
     return _backend.intvar_ii(arg1, arg2, arg3)
+
+def intvar_iib(arg1, arg2, arg3, arg4):
+    return _backend.intvar_iib(arg1, arg2, arg3, arg4)
 
 def intvar_s_arr(arg1, arg2, arg3):
     return _backend.intvar_s_arr(arg1, arg2, arg3)
