@@ -95,7 +95,9 @@ int is_view(void*);
 // Intvars
 
 void* intvar_sii(void*, char*, int, int);
+void* intvar_siib(void*, char*, int, int, int);
 void* intvar_ii(void*, int, int);
+void* intVar_iib(void*, int, int, int);
 void* intvar_s_arr(void*, char*, void*);
 void* intvar_arr(void*, void*);
 void* intvar_i(void*, int);

@@ -187,9 +187,20 @@ void* intvar_sii(void* modelHandle, char* name, int lb, int ub) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_IntVarApi_intVar_sii(thread, modelHandle, name, lb, ub);
 }
+
+void* intvar_siib(void* modelHandle, char* name, int lb, int ub, int boundedDomain) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_IntVarApi_intVar_siib(thread, modelHandle, name, lb, ub, boundedDomain);
+}
+
 void* intvar_ii(void* modelHandle, int lb, int ub) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_IntVarApi_intVar_ii(thread, modelHandle, lb, ub);
+}
+
+void* intvar_iib(void* modelHandle, int lb, int ub, int boundedDomain) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_IntVarApi_intVar_iib(thread, modelHandle, lb, ub, boundedDomain);
 }
 
 void* intvar_s_arr(void* modelHandle, char* name, void* valuesHandle) {

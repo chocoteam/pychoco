@@ -64,7 +64,7 @@ jobs:
         uses: codecov/codecov-action@v2
       - name: Upload wheel artifacts
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: wheel-${{matrix.os}}-${{matrix.python-version}}-artifact
           path: dist/
