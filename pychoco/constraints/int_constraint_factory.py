@@ -3,8 +3,9 @@ from typing import Union, List
 
 from pychoco import backend
 from pychoco._utils import make_int_array, make_intvar_array, make_int_2d_array, make_boolvar_array, \
-    make_constraint_array, make_task_array, make_intvar_2d_array
+    make_constraint_array, make_task_array, make_intvar_2d_array, make_supportable_2d_array
 from pychoco.constraints.constraint import Constraint
+from pychoco.constraints.extension.hybrid.supportable import Supportable
 from pychoco.objects.automaton.cost_automaton import CostAutomaton
 from pychoco.objects.automaton.finite_automaton import FiniteAutomaton
 from pychoco.objects.graphs.multivalued_decision_diagram import MultivaluedDecisionDiagram
@@ -291,6 +292,19 @@ class IntConstraintFactory(ABC):
         vars_handle = make_intvar_array(intvars)
         tuples_handle = make_int_2d_array(tuples)
         constraint_handle = backend.table(self.handle, vars_handle, tuples_handle, feasible, algo)
+        return Constraint(constraint_handle, self)
+
+    def hybrid_table(self, intvars: List[IntVar], hybrid_tuples: List[List[Supportable]]):
+        """
+        Create a table constraint based on hybrid tuples.
+        Such tuples make possible to declare expressions as restriction on values a variable can take.
+
+        :param intvars: scope of the constraint
+        :param hybrid_tuples: hybrid tuples
+        """
+        vars_handle = make_intvar_array(intvars)
+        tuples_handles = make_supportable_2d_array(hybrid_tuples)
+        constraint_handle = backend.hybrid_table(self.handle, vars_handle, tuples_handles)
         return Constraint(constraint_handle, self)
 
     def times(self, x: IntVar, y: Union[int, IntVar], z: Union[int, IntVar]):

@@ -555,6 +555,10 @@ void* table(void* modelHandle, void* varsHandle, void* tuplesHandle, int feasibl
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ConstraintApi_table(thread, modelHandle, varsHandle, tuplesHandle, feasible, algo);
 }
+void* hybrid_table(void* modelHandle, void* varsHandle, void* tuplesHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_hybrid_table(thread, modelHandle, varsHandle, tuplesHandle);
+}
 void* times_iv_i_iv(void* modelHandle, void* intVarHandle1, int y, void* intVarHandle2) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ConstraintApi_times_iv_i_iv(thread, modelHandle, intVarHandle1, y, intVarHandle2);
@@ -1656,6 +1660,29 @@ void int_4d_array_set(void* arrayHandle, void* elementHandle, int index) {
     return Java_org_chocosolver_capi_ArrayApi_int_4d_array_set(thread, arrayHandle, elementHandle, index);
 }
 
+// ISupportable[]
+
+void* create_isupportable_array(int size) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_isupportable_array_create(thread, size);
+}
+void isupportable_array_set(void* arrayHandle, void* elementHandle, int index) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_isupportable_array_set(thread, arrayHandle, elementHandle, index);
+}
+
+// ISupportable[][]
+
+void* create_isupportable_2d_array(int size) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_isupportable_2d_array_create(thread, size);
+}
+void isupportable_2d_array_set(void* arrayHandle, void* elementHandle, int index) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_isupportable_2d_array_set(thread, arrayHandle, elementHandle, index);
+}
+
+
 // Criterion
 
 void* create_criterion_array(int size) {
@@ -1984,6 +2011,73 @@ void* get_predecessors_of(void* graphHandle, int x) {
 char* graphviz_export(void* graphHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_GraphApi_graphviz_export(thread, graphHandle);
+}
+
+// ISupportable API
+
+void* any() {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISupportableApi_any(thread);
+}
+void* col(int idx) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISupportableApi_col(thread, idx);
+}
+void* eq(int val) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISupportableApi_eq(thread, val);
+}
+void* ne(int val) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISupportableApi_ne(thread, val);
+}
+void* ge(int val)  {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISupportableApi_ge(thread, val);
+}
+void* gt(int val) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISupportableApi_gt(thread, val);
+}
+void* le(int val) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISupportableApi_le(thread, val);
+}
+void* lt(int val) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISupportableApi_lt(thread, val);
+}
+void* in(void* arrayHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISupportableApi_in(thread, arrayHandle);
+}
+void* nin(void* arrayHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISupportableApi_nin(thread, arrayHandle);
+}
+void* eq_col(void* colHandle, int inc) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISupportableApi_eq_col(thread, colHandle, inc);
+}
+void* ne_col(void* colHandle, int inc) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISupportableApi_ne_col(thread, colHandle, inc);
+}
+void* ge_col(void* colHandle, int inc) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISupportableApi_ge_col(thread, colHandle, inc);
+}
+void* gt_col(void* colHandle, int inc) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISupportableApi_gt_col(thread, colHandle, inc);
+}
+void* le_col(void* colHandle, int inc) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISupportableApi_le_col(thread, colHandle, inc);
+}
+void* lt_col(void* colHandle, int inc) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISupportableApi_lt_col(thread, colHandle, inc);
 }
 
 // Handle API

@@ -5,9 +5,9 @@
 - Add reification constraints
 - Add `pick_on_dom` and `pick_on_fil` search strategies
 - Add `show_restarts` in solver
+- Add hybrid table constraint
 
 Todo:
-- Add smart tables (or hybrid tables)
 - Add partial assignment generator
 
 # pychoco 0.1.2

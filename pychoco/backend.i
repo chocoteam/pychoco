@@ -193,6 +193,7 @@ void* element_iv_iarray_iv_i(void*, void*, void*, void*, int);
 void* element_iv_ivarray_iv_i(void*, void*, void*, void*, int);
 void* square(void*, void*, void*);
 void* table(void*, void*, void*, int, char*);
+void* hybrid_table(void*, void*, void*);
 void* times_iv_i_iv(void*, void*, int, void*);
 void* times_iv_iv_i(void*, void*, void*, int);
 void* times_iv_iv_iv(void*, void*, void*, void*);
@@ -447,6 +448,16 @@ void* create_int_4d_array(int);
 int int_4d_array_length(void*);
 void int_4d_array_set(void*, void*, int);
 
+// ISupportable[]
+
+void* create_isupportable_array(int);
+void isupportable_array_set(void*, void*, int);
+
+// ISupportable[][]
+
+void* create_isupportable_2d_array(int);
+void isupportable_2d_array_set(void*, void*, int);
+
 // Criterion
 
 void* create_criterion_array(int);
@@ -542,6 +553,25 @@ int is_directed(void*);
 void* get_successors_of(void*, int);
 void* get_predecessors_of(void*, int);
 char* graphviz_export(void*);
+
+// ISupportable API
+
+void* any();
+void* col(int);
+void* eq(int);
+void* ne(int);
+void* ge(int);
+void* gt(int);
+void* le(int);
+void* lt(int);
+void* in(void*);
+void* nin(void*);
+void* eq_col(void*, int);
+void* ne_col(void*, int);
+void* ge_col(void*, int);
+void* gt_col(void*, int);
+void* le_col(void*, int);
+void* lt_col(void*, int);
 
 // Handle API
 

@@ -190,6 +190,27 @@ def make_criterion_var_array(criterion):
     return criterion_array
 
 
+def make_supportable_array(supportable: List["Supportable"]):
+    """
+    Creates a Java ISupportable[] handler.
+    """
+    array = backend.create_isupportable_array(len(supportable))
+    for i in range(0, len(supportable)):
+        backend.isupportable_array_set(array, supportable[i].handle, i)
+    return array
+
+
+def make_supportable_2d_array(arrays: List[List["Supportable"]]):
+    """
+    Creates a Java Supportable[][] handle.
+    """
+    array = backend.create_isupportable_2d_array(len(arrays))
+    for i in range(0, len(arrays)):
+        handle = make_supportable_array(arrays[i])
+        backend.isupportable_2d_array_set(array, handle, i)
+    return array
+
+
 def extract_solutions(solution_list_handle) -> List["Solution"]:
     """
     Convert a Java List<Solution> handler into a Python list of Solutions.
