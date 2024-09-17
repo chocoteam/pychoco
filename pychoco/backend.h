@@ -159,6 +159,7 @@ void* element_iv_iarray_iv_i(void*, void*, void*, void*, int);
 void* element_iv_ivarray_iv_i(void*, void*, void*, void*, int);
 void* square(void*, void*, void*);
 void* table(void*, void*, void*, int, char*);
+void* table_universal_value(void*, void*, void*, int, char*, int);
 void* hybrid_table(void*, void*, void*);
 void* times_iv_i_iv(void*, void*, int, void*);
 void* times_iv_iv_i(void*, void*, void*, int);

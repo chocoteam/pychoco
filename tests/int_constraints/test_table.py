@@ -33,3 +33,14 @@ class TestTable(unittest.TestCase):
         m.table([x, y, z], tuples, algo="CT+").post()
         m.get_solver().find_all_solutions()
         self.assertEqual(m.get_solver().get_solution_count(), 2)
+
+    def testTable3(self):
+        m = Model()
+        x = m.intvar(0, 3)
+        y = m.boolvar()
+        tuples = [
+            [-1, 1],
+        ]
+        m.table([x, y], tuples, algo="CT+", universal_value=-1).post()
+        m.get_solver().find_all_solutions()
+        self.assertEqual(m.get_solver().get_solution_count(), 4)

@@ -266,7 +266,8 @@ class IntConstraintFactory(ABC):
         constraint_handle = backend.square(self.handle, x.handle, y.handle)
         return Constraint(constraint_handle, self)
 
-    def table(self, intvars: List[IntVar], tuples: List[List[int]], feasible: bool = True, algo: str = "GAC3rm"):
+    def table(self, intvars: List[IntVar], tuples: List[List[int]], feasible: bool = True, algo: str = "GAC3rm",
+              universal_value: Union[None, int] = None):
         """
         Creates a table constraint, with the specified algorithm defined algo
         - CT+: Compact-Table algorithm (AC),
@@ -284,6 +285,7 @@ class IntConstraintFactory(ABC):
         :param feasible: if True, the tuples describe allowed tuples, otherwise forbidden tuples.
         :param algo: filtering algorithm, to choose among: "CT+", "GAC3rm", "GAC2001", "GACSTR", "GAC2001+", "GAC3rm+",
             "FC", "STR2+". Default is "GAC3rm".
+        :param universal_value If not None, set an universal value to the tuples.
         :return: A table constraint.
         """
         assert algo in ["CT+", "GAC3rm", "GAC2001", "GACSTR", "GAC2001+", "GAC3rm+",
@@ -291,7 +293,10 @@ class IntConstraintFactory(ABC):
                                         '"GAC3rm+", "FC", "STR2+"]'
         vars_handle = make_intvar_array(intvars)
         tuples_handle = make_int_2d_array(tuples)
-        constraint_handle = backend.table(self.handle, vars_handle, tuples_handle, feasible, algo)
+        if universal_value is None:
+            constraint_handle = backend.table(self.handle, vars_handle, tuples_handle, feasible, algo)
+        else:
+            constraint_handle = backend.table_universal_value(self.handle, vars_handle, tuples_handle, feasible, algo, universal_value)
         return Constraint(constraint_handle, self)
 
     def hybrid_table(self, intvars: List[IntVar], hybrid_tuples: List[List[Supportable]]):

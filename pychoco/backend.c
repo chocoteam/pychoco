@@ -555,6 +555,10 @@ void* table(void* modelHandle, void* varsHandle, void* tuplesHandle, int feasibl
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ConstraintApi_table(thread, modelHandle, varsHandle, tuplesHandle, feasible, algo);
 }
+void* table_universal_value(void* modelHandle, void* varsHandle, void* tuplesHandle, int feasible, char* algo, int star) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ConstraintApi_table_universal_value(thread, modelHandle, varsHandle, tuplesHandle, feasible, algo, star);
+}
 void* hybrid_table(void* modelHandle, void* varsHandle, void* tuplesHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ConstraintApi_hybrid_table(thread, modelHandle, varsHandle, tuplesHandle);
