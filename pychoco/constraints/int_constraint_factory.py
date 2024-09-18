@@ -838,29 +838,37 @@ class IntConstraintFactory(ABC):
                                              weight_handle, energy_handle)
         return Constraint(constraint_handle, self)
 
-    def lex_chain_less(self, intvars: List[IntVar]):
+    def lex_chain_less(self, *intvars: List[IntVar]):
         """
         Creates a lex_chain_less constraint.
         For each pair of consecutive vectors intvars<sub>i</sub> and intvars<sub>i+1</sub> of the intvars collection
         intvars<sub>i</sub> is lexicographically strictly less than intvars<sub>i+1</sub>
 
-        :param intvars: A list of IntVars.
+        :param intvars: A 2D list of IntVars.
         :return: A lex_chain_less constraint.
         """
-        intvars_handle = make_intvar_array(intvars)
+        if len(intvars) == 1 and isinstance(intvars[0], list):
+            vars = intvars[0]
+        else:
+            vars = intvars
+        intvars_handle = make_intvar_2d_array(vars)
         constraint_handle = backend.lex_chain_less(self.handle, intvars_handle)
         return Constraint(constraint_handle, self)
 
-    def lex_chain_less_eq(self, intvars: List[IntVar]):
+    def lex_chain_less_eq(self, *intvars: List[IntVar]):
         """
         Creates a lex_chain_less_eq constraint.
         For each pair of consecutive vectors intvars<sub>i</sub> and intvars<sub>i+1</sub> of the intvars collection
         intvars<sub>i</sub> is lexicographically less or equal than intvars<sub>i+1</sub>
 
-        :param intvars: A list of IntVars.
+        :param intvars: A 2D list of IntVars.
         :return: A lex_chain_less_eq constraint.
         """
-        intvars_handle = make_intvar_array(intvars)
+        if len(intvars) == 1 and isinstance(intvars[0], list):
+            vars = intvars[0]
+        else:
+            vars = intvars
+        intvars_handle = make_intvar_2d_array(vars)
         constraint_handle = backend.lex_chain_less_eq(self.handle, intvars_handle)
         return Constraint(constraint_handle, self)
 
