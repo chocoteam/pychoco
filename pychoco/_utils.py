@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Union
 
 from pychoco import backend
 
@@ -190,13 +190,23 @@ def make_criterion_var_array(criterion):
     return criterion_array
 
 
-def make_supportable_array(supportable: List["Supportable"]):
+def make_supportable_array(sarray: List["Supportable"]):
     """
     Creates a Java ISupportable[] handler.
     """
-    array = backend.create_isupportable_array(len(supportable))
-    for i in range(0, len(supportable)):
-        backend.isupportable_array_set(array, supportable[i].handle, i)
+    array = backend.create_isupportable_array(len(sarray))
+    for i in range(0, len(sarray)):
+        backend.isupportable_array_set(array, sarray[i].handle, i)
+    return array
+
+
+def make_logical_array(logicals: List[Union["LogOp", "BoolVar"]]):
+    """
+    Creates a Java ILogical[] handler.
+    """
+    array = backend.create_ilogical_array(len(logicals))
+    for i in range(0, len(logicals)):
+        backend.logop_array_set(array, logicals[i].handle, i)
     return array
 
 

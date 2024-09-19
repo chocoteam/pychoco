@@ -1686,6 +1686,16 @@ void isupportable_2d_array_set(void* arrayHandle, void* elementHandle, int index
     return Java_org_chocosolver_capi_ArrayApi_isupportable_2d_array_set(thread, arrayHandle, elementHandle, index);
 }
 
+// ILogical[]
+
+void* create_ilogical_array(int size) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_ilogical_array_create(thread, size);
+}
+void ilogical_array_set(void* array, void* element, int index) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ArrayApi_ilogical_array_set(thread, array, element, index);
+}
 
 // Criterion
 
@@ -2082,6 +2092,147 @@ void* le_col(void* colHandle, int inc) {
 void* lt_col(void* colHandle, int inc) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ISupportableApi_lt_col(thread, colHandle, inc);
+}
+
+// LogOp API
+
+void* and_op(void* ops) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_LogOpApi_and(thread, ops);
+}
+void* if_only_if_op(void* opA, void* opB) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_LogOpApi_if_only_if(thread, opA, opB);
+}
+void* if_then_else_op(void* opA, void* opB, void* opC) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_LogOpApi_if_then_else(thread, opA, opB, opC);
+}
+void* implies_op(void* opA, void* opB) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_LogOpApi_implies(thread, opA, opB);
+}
+void* reified_op(void* b, void* tree) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_LogOpApi_reified(thread, b, tree);
+}
+void* or_op(void* ops) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_LogOpApi_or(thread, ops);
+}
+void* nand_op(void* ops) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_LogOpApi_nand(thread, ops);
+}
+void* nor_op(void* ops) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_LogOpApi_nor(thread, ops);
+}
+void* xor_op(void* opA, void* opB) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_LogOpApi_xor(thread, opA, opB);
+}
+// ISatFactory API
+
+int add_clauses_logop(void* modelHandle, void* TREE) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISatFactoryApi_add_clauses_logop(thread, modelHandle, TREE);
+}
+int add_clauses(void* modelHandle, void* POSLITS, void* NEGLITS) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISatFactoryApi_add_clauses(thread, modelHandle, POSLITS, NEGLITS);
+}
+int add_clause_true(void* modelHandle, void* BOOLVAR) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISatFactoryApi_add_clause_true(thread, modelHandle, BOOLVAR);
+}
+int add_clause_false(void* modelHandle, void* BOOLVAR) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISatFactoryApi_add_clause_false(thread, modelHandle, BOOLVAR);
+}
+int add_clauses_bool_eq(void* modelHandle, void* LEFT, void* RIGHT) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISatFactoryApi_add_clauses_bool_eq(thread, modelHandle, LEFT, RIGHT);
+}
+int add_clauses_bool_le(void* modelHandle, void* LEFT, void* RIGHT) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISatFactoryApi_add_clauses_bool_le(thread, modelHandle, LEFT, RIGHT);
+}
+int add_clauses_bool_lt(void* modelHandle, void* LEFT, void* RIGHT) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISatFactoryApi_add_clauses_bool_lt(thread, modelHandle, LEFT, RIGHT);
+}
+int add_clauses_bool_not(void* modelHandle, void* LEFT, void* RIGHT) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISatFactoryApi_add_clauses_bool_not(thread, modelHandle, LEFT, RIGHT);
+}
+int add_clauses_bool_or_array_eq_var(void* modelHandle, void* BOOLVARS, void* TARGET) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISatFactoryApi_add_clauses_bool_or_array_eq_var(thread, modelHandle, BOOLVARS, TARGET);
+}
+int add_clauses_bool_and_array_eq_var(void* modelHandle, void* BOOLVARS, void* TARGET) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISatFactoryApi_add_clauses_bool_and_array_eq_var(thread, modelHandle, BOOLVARS, TARGET);
+}
+int add_clauses_bool_or_eq_var(void* modelHandle, void* LEFT, void* RIGHT, void* TARGET) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISatFactoryApi_add_clauses_bool_or_eq_var(thread, modelHandle, LEFT, RIGHT, TARGET);
+}
+int add_clauses_bool_and_eq_var(void* modelHandle, void* LEFT, void* RIGHT, void* TARGET) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISatFactoryApi_add_clauses_bool_and_eq_var(thread, modelHandle, LEFT, RIGHT, TARGET);
+}
+int add_clauses_bool_xor_eq_var(void* modelHandle, void* LEFT, void* RIGHT, void* TARGET) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISatFactoryApi_add_clauses_bool_xor_eq_var(thread, modelHandle, LEFT, RIGHT, TARGET);
+}
+int add_clauses_bool_is_eq_var(void* modelHandle, void* LEFT, void* RIGHT, void* TARGET) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISatFactoryApi_add_clauses_bool_is_eq_var(thread, modelHandle, LEFT, RIGHT, TARGET);
+}
+int add_clauses_bool_is_neq_var(void* modelHandle, void* LEFT, void* RIGHT, void* TARGET) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISatFactoryApi_add_clauses_bool_is_neq_var(thread, modelHandle, LEFT, RIGHT, TARGET);
+}
+int add_clauses_bool_is_le_var(void* modelHandle, void* LEFT, void* RIGHT, void* TARGET) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISatFactoryApi_add_clauses_bool_is_le_var(thread, modelHandle, LEFT, RIGHT, TARGET);
+}
+int add_clauses_bool_is_lt_var(void* modelHandle, void* LEFT, void* RIGHT, void* TARGET) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISatFactoryApi_add_clauses_bool_is_lt_var(thread, modelHandle, LEFT, RIGHT, TARGET);
+}
+int add_clauses_bool_or_array_equal_true(void* modelHandle, void* BOOLVARS) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISatFactoryApi_add_clauses_bool_or_array_equal_true(thread, modelHandle, BOOLVARS);
+}
+int add_clauses_bool_and_array_equal_false(void* modelHandle, void* BOOLVARS) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISatFactoryApi_add_clauses_bool_and_array_equal_false(thread, modelHandle, BOOLVARS);
+}
+int add_clauses_at_most_one(void* modelHandle, void* BOOLVARS) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISatFactoryApi_add_clauses_at_most_one(thread, modelHandle, BOOLVARS);
+}
+int add_clauses_at_most_nminus_one(void* modelHandle, void* BOOLVARS) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISatFactoryApi_add_clauses_at_most_nminus_one(thread, modelHandle, BOOLVARS);
+}
+int add_clauses_sum_bool_array_greater_eq_var(void* modelHandle, void* BOOLVARS, void* TARGET) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISatFactoryApi_add_clauses_sum_bool_array_greater_eq_var(thread, modelHandle, BOOLVARS, TARGET);
+}
+int add_clauses_max_bool_array_less_eq_var(void* modelHandle, void* BOOLVARS, void* TARGET) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISatFactoryApi_add_clauses_max_bool_array_less_eq_var(thread, modelHandle, BOOLVARS, TARGET);
+}
+int add_clauses_sum_bool_array_less_eq_var(void* modelHandle, void* BOOLVARS, void* TARGET) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISatFactoryApi_add_clauses_sum_bool_array_less_eq_var(thread, modelHandle, BOOLVARS, TARGET);
+}
+int add_constructive_disjunction(void* modelHandle, void* cstrs) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ISatFactoryApi_add_constructive_disjunction(thread, modelHandle, cstrs);
 }
 
 // Handle API

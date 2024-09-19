@@ -422,6 +422,11 @@ void isupportable_array_set(void*, void*, int);
 void* create_isupportable_2d_array(int);
 void isupportable_2d_array_set(void*, void*, int);
 
+// LogOp[]
+
+void* create_ilogical_array(int);
+void ilogical_array_set(void*, void*, int);
+
 // Criterion
 
 void* create_criterion_array(int);
@@ -536,6 +541,46 @@ void* ge_col(void*, int);
 void* gt_col(void*, int);
 void* le_col(void*, int);
 void* lt_col(void*, int);
+
+// LogOp API
+
+void* and_op(void*);
+void* if_only_if_op(void*, void*);
+void* if_then_else_op(void*, void*, void*);
+void* implies_op(void*, void*);
+void* reified_op(void*, void*);
+void* or_op(void*);
+void* nand_op(void*);
+void* nor_op(void*);
+void* xor_op(void*, void*);
+
+// ISatFactory API
+
+int add_clauses_logop(void*, void*);
+int add_clauses(void*, void*, void*);
+int add_clause_true(void*, void*);
+int add_clause_false(void*, void*);
+int add_clauses_bool_eq(void*, void*, void*);
+int add_clauses_bool_le(void*, void*, void*);
+int add_clauses_bool_lt(void*, void*, void*);
+int add_clauses_bool_not(void*, void*, void*);
+int add_clauses_bool_or_array_eq_var(void*, void*, void*);
+int add_clauses_bool_and_array_eq_var(void*, void*, void*);
+int add_clauses_bool_or_eq_var(void*, void*, void*, void*);
+int add_clauses_bool_and_eq_var(void*, void*, void*, void*);
+int add_clauses_bool_xor_eq_var(void*, void*, void*, void*);
+int add_clauses_bool_is_eq_var(void*, void*, void*, void*);
+int add_clauses_bool_is_neq_var(void*, void*, void*, void*);
+int add_clauses_bool_is_le_var(void*, void*, void*, void*);
+int add_clauses_bool_is_lt_var(void*, void*, void*, void*);
+int add_clauses_bool_or_array_equal_true(void*, void*);
+int add_clauses_bool_and_array_equal_false(void*, void*);
+int add_clauses_at_most_one(void*, void*);
+int add_clauses_at_most_nminus_one(void*, void*);
+int add_clauses_sum_bool_array_greater_eq_var(void*, void*, void*);
+int add_clauses_max_bool_array_less_eq_var(void*, void*, void*);
+int add_clauses_sum_bool_array_less_eq_var(void*, void*, void*);
+int add_constructive_disjunction(void*, void*);
 
 // Handle API
 
