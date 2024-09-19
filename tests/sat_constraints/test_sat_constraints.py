@@ -42,7 +42,7 @@ class TestIfThen(unittest.TestCase):
     def test_add_clause_true(self):
         m = Model()
         b = m.boolvar()
-        m.add_clause_false(b)
+        m.add_clause_true(b)
         sols = m.get_solver().find_all_solutions()
         for s in sols:
             self.assertTrue(s.get_int_val(b) == 1)
