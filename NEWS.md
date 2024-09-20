@@ -1,4 +1,4 @@
-# pychoco 0.2.0
+# pychoco 0.2.0 (?)
 
 - Update to choco-solver 4.10.16
 - Add `bounded_domain` option in intvar
@@ -6,9 +6,10 @@
 - Add `pick_on_dom` and `pick_on_fil` search strategies
 - Add `show_restarts` in solver
 - Add hybrid table constraint
-
-Todo:
-- Add partial assignment generator
+- Add universal value in table constraint
+- Add 2D shape intvars and boolvars constructor
+- Add Sat API (clauses)
+- Fix `lex_chain_less` and `lex_chain_less_eq
 
 # pychoco 0.1.2
 
