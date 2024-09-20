@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Union, List
+from typing import Union, List, Tuple
 
 from pychoco import backend
 from pychoco._utils import make_int_array
@@ -57,25 +57,40 @@ class VariableFactory(ABC):
                     else backend.intvar_siib(self.handle, name, lb, ub, bounded_domain)
         return IntVar(var_handle, self)
 
-    def intvars(self, size: int, lb: Union[List[int], int], ub: Union[int, None] = None, name: Union[str, None] = None, bounded_domain: Union[bool, None] = None):
+    def intvars(self, size: Union[int, Tuple[int]], lb: Union[List[Union[int, List[int]]], int], ub: Union[int, None] = None, name: Union[str, None] = None, bounded_domain: Union[bool, None] = None):
         """
         Creates a list of intvars.
 
-        :param size: Number of intvars.
+        :param size: Number of intvars. Either an int or a two-values tuple describing matrix dimensions (nrows, ncols)
         :param lb: Lower bound (integer). If lb is a list of ints, constant variables are created.
         :param ub: Upper bound (integer). If None: the variable is a constant equals to lb.
         :param bounded_domain: Force bounded (True) or enumerated domain (False). If None, Choco will automatically choose the best option.
         :param name: Prefix name of the intvars (automatically given if None).
         :return: A list of intvars.
         """
-        names = [None for i in range(0, size)]
-        if name is not None:
-            names = ["{}_{}".format(name, i) for i in range(0, size)]
-        if isinstance(lb, list):
-            assert len(lb) == size
-            return [self.intvar(lb[i], None, names[i]) for i in range(0, size)]
-        else:
-            return [self.intvar(lb, ub, names[i], bounded_domain) for i in range(0, size)]
+        # Case 1D array
+        if isinstance(size, int):
+            names = [None for i in range(0, size)]
+            if name is not None:
+                names = ["{}_{}".format(name, i) for i in range(0, size)]
+            if isinstance(lb, list):
+                assert len(lb) == size
+                return [self.intvar(lb[i], None, names[i]) for i in range(0, size)]
+            else:
+                return [self.intvar(lb, ub, names[i], bounded_domain) for i in range(0, size)]
+        elif isinstance(size, tuple):
+            # Case 2D array
+            assert len(size) == 2, "Only 2D matrix of intvars are currently supported"
+            nrows = size[0]
+            ncols = size[1]
+            names = [[None for i in range(0, ncols)] for j in range(0, nrows)]
+            if name is not None:
+                names = [["{}_{},{}".format(name, j, i) for i in range(0, ncols)] for j in range(0, nrows)]
+            if isinstance(lb, list):
+                assert len(lb) == nrows and len(lb[0]) == ncols, "The value list has wrong dimensions"
+                return [[self.intvar(lb[j][i], None, names[j][i]) for i in range(0, ncols)] for j in range(0, nrows)]
+            else:
+                return [[self.intvar(lb, ub, names[j][i], bounded_domain) for i in range(0, ncols)] for j in range(0, nrows)]
 
     # Boolean variables #
 
@@ -101,24 +116,38 @@ class VariableFactory(ABC):
                 var_handle = backend.boolvar(self.handle)
         return BoolVar(var_handle, self)
 
-    def boolvars(self, size: int, value: Union[List[bool], bool, None] = None, name: Union[str, None] = None):
+    def boolvars(self, size: Union[int, Tuple[int]], value: Union[List[Union[bool, List[bool]]], None] = None, name: Union[str, None] = None):
         """
         Creates a list of boolvars.
 
-        :param size: Number of boolvars.
+        :param size: Number of boolvars. Either an int or a two-values tuple describing matrix dimensions (nrows, ncols)
         :param value: If not None, a fixed value for the variables (which is thus a constant). This value is either
             the same for all variables (bool), or given as a list of bools.
         :param name: Prefix name of the variable (optional).
         :return: A list of boolvars.
         """
-        names = [None for i in range(0, size)]
-        if name is not None:
-            names = ["{}_{}".format(name, i) for i in range(0, size)]
-        if isinstance(value, list):
-            assert len(value) == size
-            return [self.boolvar(value[i], names[i]) for i in range(0, size)]
-        else:
-            return [self.boolvar(value, names[i]) for i in range(0, size)]
+        if isinstance(size, int):
+            names = [None for i in range(0, size)]
+            if name is not None:
+                names = ["{}_{}".format(name, i) for i in range(0, size)]
+            if isinstance(value, list):
+                assert len(value) == size
+                return [self.boolvar(value[i], names[i]) for i in range(0, size)]
+            else:
+                return [self.boolvar(value, names[i]) for i in range(0, size)]
+        elif isinstance(size, tuple):
+            # Case 2D array
+            assert len(size) == 2, "Only 2D matrix of boolvars are currently supported"
+            nrows = size[0]
+            ncols = size[1]
+            names = [[None for i in range(0, ncols)] for j in range(0, nrows)]
+            if name is not None:
+                names = [["{}_{},{}".format(name, j, i) for i in range(0, ncols)] for j in range(0, nrows)]
+            if isinstance(value, list):
+                assert len(value) == nrows and len(value[0]) == ncols, "The value list has wrong dimensions"
+                return [[self.boolvar(value[j][i], name=names[j][i]) for i in range(0, ncols)] for j in range(0, nrows)]
+            else:
+                return [[self.boolvar(name=names[j][i]) for i in range(0, ncols)] for j in range(0, nrows)]
 
     # Task variables #
 

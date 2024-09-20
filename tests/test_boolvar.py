@@ -68,6 +68,17 @@ class TestIntVar(unittest.TestCase):
             s = True
         self.assertTrue(s)
 
+    def test_create_shape(self):
+        model = Model()
+        vars = model.boolvars((3, 4), name="var")
+        self.assertTrue(len(vars) == 3)
+        self.assertTrue(len(vars[0]) == 4)
+        self.assertTrue(vars[1][2].name == "var_1,2")
+        vals = [[False, False, True],
+                [True, True, False]]
+        others = model.boolvars((2, 3), vals)
+        self.assertEqual(others[1][1].get_value(), True)
+
     def test_and(self):
         m = Model()
         a = m.boolvar()

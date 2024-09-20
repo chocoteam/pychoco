@@ -21,6 +21,17 @@ class TestIntVar(unittest.TestCase):
         self.assertEqual(b.get_lb(), 1)
         self.assertEqual(b.get_ub(), 2)
 
+    def test_create_shape(self):
+        model = Model()
+        vars = model.intvars((3, 4), 0, 10, name="var")
+        self.assertTrue(len(vars) == 3)
+        self.assertTrue(len(vars[0]) == 4)
+        self.assertTrue(vars[1][2].name == "var_1,2")
+        vals = [[0, 1, 2],
+                [3, 4, 5]]
+        others = model.intvars((2, 3), vals)
+        self.assertEqual(others[1][1].get_ub(), 4)
+
     def test_created_enumerated(self):
         m = Model()
         a = m.intvar([0, 1, 4, 5], name="enum_a")
