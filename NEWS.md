@@ -10,6 +10,7 @@
 - Add 2D shape intvars and boolvars constructor
 - Add Sat API (clauses)
 - Fix `lex_chain_less` and `lex_chain_less_eq
+- Add interface to parallel portfolio
 
 # pychoco 0.1.2
 
