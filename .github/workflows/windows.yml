@@ -67,7 +67,7 @@ jobs:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
     strategy:
       matrix:
-        os : [windows-2022, windows-2019]
+        os : [windows-2022]
         python-version: ["3.12", "3.11", "3.10", "3.9"]
     steps:
     - name: Download artifacts
