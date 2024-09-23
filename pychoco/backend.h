@@ -582,6 +582,15 @@ int add_clauses_max_bool_array_less_eq_var(void*, void*, void*);
 int add_clauses_sum_bool_array_less_eq_var(void*, void*, void*);
 int add_constructive_disjunction(void*, void*);
 
+// Parallel Portfolio API
+
+void* create_parallel_portfolio(int);
+void steal_nogoods_on_restarts(void*);
+void add_model(void*, void*, int);
+int pf_solve(void*);
+void* get_best_model(void*);
+void* get_best_solution(void*);
+
 // Handle API
 
 void chocosolver_handles_destroy(void*);

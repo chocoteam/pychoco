@@ -2235,6 +2235,37 @@ int add_constructive_disjunction(void* modelHandle, void* cstrs) {
     return Java_org_chocosolver_capi_ISatFactoryApi_add_constructive_disjunction(thread, modelHandle, cstrs);
 }
 
+// Parallel Portfolio API
+
+void* create_parallel_portfolio(int searchAutoConf) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ParallelPortfolio_create_parallel_portfolio(thread, searchAutoConf);
+}
+void steal_nogoods_on_restarts(void* pfHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ParallelPortfolio_steal_nogoods_on_restarts(thread, pfHandle);
+
+}
+void add_model(void* pfHandle, void* modelHandle, int reliable) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ParallelPortfolio_add_model(thread, pfHandle, modelHandle, reliable);
+
+}
+int pf_solve(void* pfHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ParallelPortfolio_solve(thread, pfHandle);
+
+}
+void* get_best_model(void* pfHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ParallelPortfolio_get_best_model(thread, pfHandle);
+}
+
+void* get_best_solution(void* pfHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ParallelPortfolio_get_best_solution(thread, pfHandle);
+}
+
 // Handle API
 
 void chocosolver_handles_destroy(void* handle) {

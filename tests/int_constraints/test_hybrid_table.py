@@ -10,7 +10,7 @@ class TestHybridTable(unittest.TestCase):
         m = Model()
         intvars = m.intvars(3, 0, 5)
         htuples = [
-            # [eq(1), gt(2), le(col(0))],  ==> To uncomment when https://github.com/chocoteam/choco-solver/issues/1102 will be solved
+            [eq(1), gt(2), le(col(0))],
             [eq(2), le(2), ne(col(1))],
             [eq(3), eq(0), any_val()],
             [eq(4), ne(0), eq(col(1))]

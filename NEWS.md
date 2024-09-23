@@ -1,4 +1,4 @@
-# pychoco 0.2.0 (?)
+# pychoco 0.2.0
 
 - Update to choco-solver 4.10.16
 - Add `bounded_domain` option in intvar

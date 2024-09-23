@@ -18,17 +18,20 @@ class Model(VariableFactory, ViewFactory, IntConstraintFactory, SetConstraintFac
     pilot the propagation.
     """
 
-    def __init__(self, name=None):
+    def __init__(self, name=None, **kwargs):
         """
         Choco Model constructor.
 
         :param name: The name of the model (optional).
         """
-        if name is not None:
-            handle = backend.create_model_s(name)
+        if "_handle" in kwargs:
+            super(Model, self).__init__(kwargs["_handle"])
         else:
-            handle = backend.create_model()
-        super(Model, self).__init__(handle)
+            if name is not None:
+                handle = backend.create_model_s(name)
+            else:
+                handle = backend.create_model()
+            super(Model, self).__init__(handle)
 
     @property
     def handle(self):
