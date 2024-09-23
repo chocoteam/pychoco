@@ -8,7 +8,7 @@
 [![Documentation Status](https://readthedocs.org/projects/pychoco/badge/?version=latest)](https://pychoco.readthedocs.io/en/latest/?badge=latest)
 [![License](https://img.shields.io/badge/License-BSD_4--Clause-blue.svg)](https://directory.fsf.org/wiki/License:BSD-4-Clause)
 
-*Current choco-solver version: 4.10.16*
+*Current choco-solver version: 4.10.17*
 
 Python bindings for the Choco Constraint programming solver (https://choco-solver.org/).
 
