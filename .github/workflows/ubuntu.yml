@@ -53,7 +53,7 @@ jobs:
         env:
           CIBW_SKIP: "*-musllinux*"
           CIBW_BUILD_FRONTEND: build
-          CIBW_ARCHS: x86_64
+          CIBW_ARCHS: ${{ matrix.arch }}
         with:
           output-dir: dist
       - name: Test
@@ -68,7 +68,7 @@ jobs:
       - name: Upload Coverage to Codecov
         uses: codecov/codecov-action@v3
       - name: Upload to PyPi
-        #if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__

@@ -12,9 +12,26 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-14, macos-13, macos-12]
-        platform: [arm64, x86_x64]
         python-version: ["3.11"]
+        include:
+          - os: macos-14
+            arch: arm64
+            CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=14.0
+          - os: macos-13
+            arch: arm64
+            CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=13.0
+          - os: macos-12
+            arch: arm64
+            CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=12.0
+          - os: macos-14
+            arch: x86_64
+            CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=14.0
+          - os: macos-13
+            arch: x86_64
+            CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=13.0
+          - os: macos-12
+            arch: x86_64
+            CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=12.0
     steps:
       # if matrix.force is not true or event is not tag, skip
       - if: ${{ matrix.force }} != true || (github.event_name == 'push' && !startsWith(github.ref, 'refs/tags'))
@@ -47,7 +64,8 @@ jobs:
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.21.1
         env:
-          MACOSX_DEPLOYMENT_TARGET: 14
+          CIBW_ARCHS: ${{ matrix.arch }}
+          CIBW_ENVIRONMENT: ${{ matrix.CIBW_ENVIRONMENT }}
         with:
           output-dir: dist
       - name: Test
@@ -56,7 +74,7 @@ jobs:
           pip install -r requirements_tests.txt
           pytest
       - name: Upload wheel artifacts
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+        #if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
         uses: actions/upload-artifact@v4
         with:
           name: wheel-${{matrix.os}}-${{matrix.python-version}}-${{matrix.platform}}-artifact
@@ -66,12 +84,23 @@ jobs:
   upload-pypi-macos:
     needs: build-macos
     runs-on: ubuntu-20.04
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+    #if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
     strategy:
       matrix:
-        os: [macos-14, macos-13, macos-12]
-        platform: [arm64, x86_x64]
         python-version: [ "3.11" ]
+        include:
+          - os: macos-14
+            arch: arm64
+          - os: macos-13
+            arch: arm64
+          - os: macos-12
+            arch: arm64
+          - os: macos-14
+            arch: x86_64
+          - os: macos-13
+            arch: x86_64
+          - os: macos-12
+            arch: x86_64
     steps:
     - name: Download artifacts
       uses: actions/download-artifact@v4
@@ -81,7 +110,7 @@ jobs:
     - name: List files
       run: ls -R
     - name: Upload to PyPi
-      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+      #if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         user: __token__
