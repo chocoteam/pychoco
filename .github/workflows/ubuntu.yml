@@ -13,6 +13,7 @@ jobs:
       fail-fast: true
       matrix:
         os : [ubuntu-latest]
+        arch: [x86_64]
         python-version: ["3.11"]
         #python-version: ["3.12", "3.11", "3.10", "3.9"]
     steps:
@@ -50,6 +51,7 @@ jobs:
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.21.1
         env:
+          CIBW_BUILD_FRONTEND: build
           CIBW_ARCHS: x86_64
         with:
           output-dir: dist
