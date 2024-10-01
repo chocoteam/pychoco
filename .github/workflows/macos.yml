@@ -93,6 +93,7 @@ jobs:
     #if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
     strategy:
       matrix:
+        os : [macos-14, macos-13, macos-12]
         python-version: [ "3.11" ]
         include:
           - os: macos-14
