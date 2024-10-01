@@ -12,8 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-12]
-        #os: [macos-13, macos-12]
+        os: [macos-14, macos-13, macos-12]
         platform: [arm64, x86_x64]
         python-version: ["3.9"]
         #python-version: ["3.12", "3.11", "3.10", "3.9"]
@@ -66,7 +65,7 @@ jobs:
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.21.1
         env:
-          MACOSX_DEPLOYMENT_TARGET: 12
+          MACOSX_DEPLOYMENT_TARGET: 14
         with:
           output-dir: dist
       - name: Test
@@ -88,9 +87,8 @@ jobs:
     #if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
     strategy:
       matrix:
-        os: [ macos-12 ]
-        #os: [macos-13, macos-12]
-        platform: [ arm64, x86_x64 ]
+        os: [macos-14, macos-13, macos-12]
+        platform: [arm64, x86_x64]
         python-version: [ "3.9" ]
 #        os: [macos-13, macos-12]
 #        platform: [arm64, x86_x64]
@@ -121,7 +119,7 @@ jobs:
     - name: List files
       run: ls -R
     - name: Upload to PyPi
-      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+      #if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         user: __token__
