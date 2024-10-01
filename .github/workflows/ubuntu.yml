@@ -50,7 +50,7 @@ jobs:
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.21.1
         env:
-          CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
+          CIBW_ARCHS: x86_x64
         with:
           output-dir: dist
       - name: Test
@@ -71,3 +71,4 @@ jobs:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
           verbose: true
+          skip-existing: true
