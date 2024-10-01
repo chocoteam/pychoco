@@ -70,7 +70,7 @@ jobs:
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
         uses: actions/upload-artifact@v4
         with:
-          name: wheel-${{matrix.os}}-${{matrix.python-version}}-artifact
+          name: wheel-${{matrix.os}}-${{matrix.python-version}}-${{matrix.platform}}-artifact
           path: dist/
           if-no-files-found: error
 
