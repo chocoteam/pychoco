@@ -20,7 +20,7 @@ swig -python -py3 pychoco/backend.i
 #pip3 install .
 
 python3 setup.py develop -e -b .
-if [$1 != "nowheel"]
+if [$1 != "nowheel"]; then
   pip install wheel
   OS=`uname`
   if [ "$OS" = "Linux" ]; then
