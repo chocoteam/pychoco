@@ -85,7 +85,7 @@ setup(
         'build_ext': CustomBuildExt,
         'build': CustomBuild,
     },
-    version='0.2.0',
+    version='0.2.1',
     author="Dimitri Justeau-Allaire, Charles Prud'homme",
     author_email="dimitri.justeau@gmail.com, charles.prudhomme@imt-atlantique.fr",
     description="Python bindings to the Choco Constraint Programming solver",

@@ -1,3 +1,7 @@
+# pychoco 0.2.1
+
+Same as 0.2.0 but fixing a wheel distribution issue.
+
 # pychoco 0.2.0
 
 - Update to choco-solver 4.10.16
