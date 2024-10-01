@@ -12,13 +12,24 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os : [macos-13, macos-12]
+        os: [macos-13, macos-12]
+        platform: [arm64, x86_x64]
         python-version: ["3.12", "3.11", "3.10", "3.9"]
         include:
           - os: macos-14
+            platform: arm64
             python-version: "3.12"
             force: true
           - os: macos-14
+            platform: arm64
+            python-version: "3.11"
+            force: true
+          - os: macos-14
+            platform: x86_x64
+            python-version: "3.12"
+            force: true
+          - os: macos-14
+            platform: x86_x64
             python-version: "3.11"
             force: true
     steps:
@@ -69,13 +80,24 @@ jobs:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
     strategy:
       matrix:
-        os : [macos-13, macos-12]
+        os: [macos-13, macos-12]
+        platform: [arm64, x86_x64]
         python-version: ["3.12", "3.11", "3.10", "3.9"]
         include:
           - os: macos-14
+            platform: arm64
             python-version: "3.12"
             force: true
           - os: macos-14
+            platform: arm64
+            python-version: "3.11"
+            force: true
+          - os: macos-14
+            platform: x86_x64
+            python-version: "3.12"
+            force: true
+          - os: macos-14
+            platform: x86_x64
             python-version: "3.11"
             force: true
     steps:
