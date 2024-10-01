@@ -17,21 +17,27 @@ jobs:
           - os: macos-14
             arch: arm64
             CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=14.0
+            force: true
           - os: macos-13
             arch: arm64
             CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=13.0
+            force: true
           - os: macos-12
             arch: arm64
             CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=12.0
+            force: true
           - os: macos-14
             arch: x86_64
             CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=14.0
+            force: true
           - os: macos-13
             arch: x86_64
             CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=13.0
+            force: true
           - os: macos-12
             arch: x86_64
             CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=12.0
+            force: true
     steps:
       # if matrix.force is not true or event is not tag, skip
       - if: ${{ matrix.force }} != true || (github.event_name == 'push' && !startsWith(github.ref, 'refs/tags'))
@@ -91,16 +97,22 @@ jobs:
         include:
           - os: macos-14
             arch: arm64
+            force: true
           - os: macos-13
             arch: arm64
+            force: true
           - os: macos-12
             arch: arm64
+            force: true
           - os: macos-14
             arch: x86_64
+            force: true
           - os: macos-13
             arch: x86_64
+            force: true
           - os: macos-12
             arch: x86_64
+            force: true
     steps:
     - name: Download artifacts
       uses: actions/download-artifact@v4
