@@ -50,7 +50,7 @@ jobs:
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.21.1
         env:
-          CIBW_ARCHS: x86_x64
+          CIBW_ARCHS: x86_64
         with:
           output-dir: dist
       - name: Test

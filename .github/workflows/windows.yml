@@ -13,7 +13,6 @@ jobs:
       fail-fast: false
       matrix:
         os : [windows-2022]
-#        python-version: ["3.12", "3.11", "3.10", "3.9"]
         python-version: ["3.11"]
     steps:
       # if matrix.force is not true or event is not tag, skip
@@ -60,7 +59,7 @@ jobs:
           pip install -r requirements_tests.txt
           pytest
       - name: Upload wheel artifacts
-        #if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
         uses: actions/upload-artifact@v3
         with:
           name: wheel-${{matrix.os}}-${{matrix.python-version}}-artifact
@@ -71,12 +70,11 @@ jobs:
   upload-pypi-windows:
     needs: build-windows
     runs-on: ubuntu-20.04
-    #if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
     strategy:
       matrix:
         os : [windows-2022]
         python-version: ["3.11"]
-#        python-version: ["3.12", "3.11", "3.10", "3.9"]
     steps:
     - name: Download artifacts
       uses: actions/download-artifact@v3
@@ -86,7 +84,7 @@ jobs:
     - name: List files
       run: ls -R
     - name: Upload to PyPi
-      #if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         user: __token__
