@@ -25,7 +25,7 @@ understand how such a thing could be achieved, so many thanks to JGraphT authors
 
 ## Installation
 
-We automatically build 64-bit wheels for Python versions 3.6, 3.7, 3.8, 3.9, and 3.10 on Linux, Windows and
+We automatically build 64-bit wheels for Python versions >= 3.6 on Linux, Windows and
 MacOSX. They can be directly downloaded from PyPI (https://pypi.org/project/pychoco/) or using pip:
 
     pip install pychoco
