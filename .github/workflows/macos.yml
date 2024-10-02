@@ -92,7 +92,7 @@ jobs:
   upload-pypi-macos:
     needs: build-macos
     runs-on: ubuntu-20.04
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+    #if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
     strategy:
       matrix:
         os : [macos-14, macos-13, macos-12]
