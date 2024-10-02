@@ -82,7 +82,7 @@ jobs:
           pip install -r requirements_tests.txt
           pytest
       - name: Upload wheel artifacts
-        #if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
         uses: actions/upload-artifact@v4
         with:
           name: wheel-${{matrix.os}}-${{matrix.python-version}}-${{matrix.arch}}-artifact
@@ -92,7 +92,7 @@ jobs:
   upload-pypi-macos:
     needs: build-macos
     runs-on: ubuntu-20.04
-    #if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
     strategy:
       matrix:
         os : [macos-14, macos-13, macos-12]
@@ -125,7 +125,7 @@ jobs:
     - name: List files
       run: ls -R
     - name: Upload to PyPi
-      #if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         user: __token__
