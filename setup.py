@@ -124,4 +124,7 @@ setup(
     python_requires='>=3.6',
     packages=find_packages(),
     ext_modules=[lib_choco],
+    package_data={
+        'pychoco': ['py.typed'],
+    },
 )
