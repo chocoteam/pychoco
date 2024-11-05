@@ -19,7 +19,10 @@ class BoolVar(IntVar):
         elif isinstance(other, bool):
             return self.model.and_([self, self.model.boolvar(other)]).reify()
         else:
-            raise TypeError("Unsupported operation between BoolVar and {}".format(other.__class__))
+            raise NotImplementedError("Unsupported operation between BoolVar and {}".format(other.__class__))
+
+    def __rand__(self, other):
+        return self.__and__(other)
 
     def __or__(self, other):
         if isinstance(other, BoolVar):
@@ -27,7 +30,10 @@ class BoolVar(IntVar):
         elif isinstance(other, bool):
             return self.model.or_([self, self.model.boolvar(other)]).reify()
         else:
-            raise TypeError("Unsupported operation between BoolVar and {}".format(other.__class__))
+            raise NotImplementedError("Unsupported operation between BoolVar and {}".format(other.__class__))
+
+    def __ror__(self, other):
+        return self.__or__(other)
 
     def __invert__(self):
         return self.model.bool_not_view(self)
@@ -36,14 +42,14 @@ class BoolVar(IntVar):
         if isinstance(other, (IntVar, BoolVar)):
             return self.model.arithm(self, "=", other).reify()
         elif isinstance(other, bool):
-            return self.model.int_eq_view(self, 1)
+            return self.model.int_eq_view(self, other)
         else:
-            raise TypeError("Unsupported operation between BoolVar and {}".format(other.__class__))
+            raise NotImplementedError("Unsupported operation between BoolVar and {}".format(other.__class__))
 
     def __ne__(self, other):
         if isinstance(other, (IntVar, BoolVar)):
             return self.model.arithm(self, "!=", other).reify()
         elif isinstance(other, bool):
-            return self.model.int_ne_view(self, 1)
+            return self.model.int_ne_view(self, other)
         else:
-            raise TypeError("Unsupported operation between BoolVar and {}".format(other.__class__))
+            raise NotImplementedError("Unsupported operation between BoolVar and {}".format(other.__class__))

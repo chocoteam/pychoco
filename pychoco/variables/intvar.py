@@ -53,6 +53,9 @@ class IntVar(Variable):
         else:
             return super().__repr__() + " = [{}, {}]".format(self.get_lb(), self.get_ub())
 
+    def __abs__(self):
+        return self.model.int_abs_view(self)
+
     def __add__(self, other):
         if isinstance(other, IntVar):
             res = self.model.intvar(self.get_lb() + other.get_lb(), self.get_ub() + other.get_ub())
@@ -61,7 +64,10 @@ class IntVar(Variable):
         elif isinstance(other, int):
             return self.model.int_offset_view(self, other)
         else:
-            raise TypeError("Unsupported operation between IntVar and {}".format(other.__class__))
+            raise NotImplementedError("Unsupported operation between IntVar and {}".format(other.__class__))
+
+    def __radd__(self, other):
+        return self.__add__(other)
 
     def __sub__(self, other):
         if isinstance(other, IntVar):
@@ -71,7 +77,10 @@ class IntVar(Variable):
         elif isinstance(other, int):
             return self.model.int_offset_view(self, -other)
         else:
-            raise TypeError("Unsupported operation between IntVar and {}".format(other.__class__))
+            raise NotImplementedError("Unsupported operation between IntVar and {}".format(other.__class__))
+
+    def __rsub__(self, other):
+        return - self.__sub__(other)
 
     def __neg__(self):
         return self.model.int_minus_view(self)
@@ -86,7 +95,10 @@ class IntVar(Variable):
         elif isinstance(other, int):
             return self.model.int_scale_view(self, other)
         else:
-            raise TypeError("Unsupported operation between IntVar and {}".format(other.__class__))
+            raise NotImplementedError("Unsupported operation between IntVar and {}".format(other.__class__))
+
+    def __rmul__(self, other):
+        return self.__mul__(other)
 
     def __truediv__(self, other):
         if isinstance(other, IntVar):
@@ -102,18 +114,18 @@ class IntVar(Variable):
             self.model.arithm(self, "/", other, "=", res).post()
             return res
         else:
-            raise TypeError("Unsupported operation between IntVar and {}".format(other.__class__))
+            raise NotImplementedError("Unsupported operation between IntVar and {}".format(other.__class__))
 
     def __pow__(self, power):
         if isinstance(power, int):
             if power <= 0:
-                raise TypeError("Unsupported operation between IntVar and int <= 0")
+                raise NotImplementedError("Unsupported operation between IntVar and int <= 0")
             a = [self.get_lb() ** power, self.get_ub() ** power]
             res = self.model.intvar(min(a), max(a))
             self.model.pow(self, power, res).post()
             return res
         else:
-            raise TypeError("Unsupported operation between IntVar and {}".format(power.__class__))
+            raise NotImplementedError("Unsupported operation between IntVar and {}".format(power.__class__))
 
     def __mod__(self, other):
         if isinstance(other, IntVar):
@@ -128,7 +140,7 @@ class IntVar(Variable):
             self.model.mod(self, other, res).post()
             return res
         else:
-            raise TypeError("Unsupported operation between IntVar and {}".format(other.__class__))
+            raise NotImplementedError("Unsupported operation between IntVar and {}".format(other.__class__))
 
     def __eq__(self, other):
         if isinstance(other, IntVar):
@@ -136,7 +148,7 @@ class IntVar(Variable):
         elif isinstance(other, int):
             return self.model.int_eq_view(self, other)
         else:
-            raise TypeError("Unsupported operation between IntVar and {}".format(other.__class__))
+            raise NotImplementedError("Unsupported operation between IntVar and {}".format(other.__class__))
 
     def __ne__(self, other):
         if isinstance(other, IntVar):
@@ -144,7 +156,7 @@ class IntVar(Variable):
         elif isinstance(other, int):
             return self.model.int_ne_view(self, other)
         else:
-            raise TypeError("Unsupported operation between IntVar and {}".format(other.__class__))
+            raise NotImplementedError("Unsupported operation between IntVar and {}".format(other.__class__))
 
     def __le__(self, other):
         if isinstance(other, IntVar):
@@ -152,7 +164,7 @@ class IntVar(Variable):
         elif isinstance(other, int):
             return self.model.int_le_view(self, other)
         else:
-            raise TypeError("Unsupported operation between IntVar and {}".format(other.__class__))
+            raise NotImplementedError("Unsupported operation between IntVar and {}".format(other.__class__))
 
     def __ge__(self, other):
         if isinstance(other, IntVar):
@@ -160,7 +172,7 @@ class IntVar(Variable):
         elif isinstance(other, int):
             return self.model.int_ge_view(self, other)
         else:
-            raise TypeError("Unsupported operation between IntVar and {}".format(other.__class__))
+            raise NotImplementedError("Unsupported operation between IntVar and {}".format(other.__class__))
 
     def __lt__(self, other):
         if isinstance(other, IntVar):
@@ -168,7 +180,7 @@ class IntVar(Variable):
         elif isinstance(other, int):
             return self.model.int_le_view(self, other - 1)
         else:
-            raise TypeError("Unsupported operation between IntVar and {}".format(other.__class__))
+            raise NotImplementedError("Unsupported operation between IntVar and {}".format(other.__class__))
 
     def __gt__(self, other):
         if isinstance(other, IntVar):
@@ -176,4 +188,4 @@ class IntVar(Variable):
         elif isinstance(other, int):
             return self.model.int_ge_view(self, other + 1)
         else:
-            raise TypeError("Unsupported operation between IntVar and {}".format(other.__class__))
+            raise NotImplementedError("Unsupported operation between IntVar and {}".format(other.__class__))
