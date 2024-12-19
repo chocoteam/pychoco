@@ -206,7 +206,7 @@ def make_logical_array(logicals: List[Union["LogOp", "BoolVar"]]):
     """
     array = backend.create_ilogical_array(len(logicals))
     for i in range(0, len(logicals)):
-        backend.logop_array_set(array, logicals[i].handle, i)
+        backend.ilogical_array_set(array, logicals[i].handle, i)
     return array
 
 
