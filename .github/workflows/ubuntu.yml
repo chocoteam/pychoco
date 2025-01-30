@@ -8,54 +8,38 @@ on:
 jobs:
   build-ubuntu:
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 30
+    timeout-minutes: 20
     strategy:
-      fail-fast: true
       matrix:
-        os : [ubuntu-20.04]
+        os : [ubuntu-22.04]
         arch: [x86_64]
         python-version: ["3.11"]
         #python-version: ["3.12", "3.11", "3.10", "3.9"]
     steps:
-      # if matrix.force is not true or event is not tag, skip
-      - if: ${{ matrix.force }} != true || (github.event_name == 'push' && !startsWith(github.ref, 'refs/tags'))
-        run: 
-          echo "Skipping job for ${{ matrix.os }} ${{ matrix.python-version }}"
-          exit 0
       - name: Check out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
       - name: Setup python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
           architecture: x64
-      - name: Display Python version
-        run: |
-          python -c "import sys; print(sys.version)"
+          cache: 'pip'
+          cache-dependency-path: '**/requirements*.txt'
       - name: Install setuptools (needed from Python 3.12)
         run: pip install setuptools
-      - name: Set up GraalVM Native Image toolchain
-        uses: graalvm/setup-graalvm@v1
-        with:
-          java-version: '22'
-          distribution: 'graalvm'
       - name: Install Swig
         run: sudo apt-get install swig
-      - name: Update repository
-        run: |
-          git submodule update --init --recursive
-      - name: Build
-        run: |
-          sh build.sh nowheel
-          pip install pychoco -f dist/
-      - name: Build wheels
-        uses: pypa/cibuildwheel@v2.21.1
-        env:
-          CIBW_SKIP: "*-musllinux*"
-          CIBW_BUILD_FRONTEND: build
-          CIBW_ARCHS: ${{ matrix.arch }}
+      - name: Build choco-solver-capi
+        uses: ./.github/actions/build-choco-solver-capi
         with:
-          output-dir: dist
+          os: ${{ runner.os }}
+          arch: ${{ matrix.arch }}
+      - name: Build pychoco
+        run: |
+          sh build.sh nocapibuild nowheel
+          pip install pychoco -f dist/
       - name: Test
         run: |
           pip install pytest
@@ -67,8 +51,17 @@ jobs:
           coverage run -m unittest
       - name: Upload Coverage to Codecov
         uses: codecov/codecov-action@v3
-      - name: Upload to PyPi
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+      - if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+        name: Build wheels
+        uses: pypa/cibuildwheel@v2.21.1
+        env:
+          CIBW_SKIP: "*-musllinux*"
+          CIBW_BUILD_FRONTEND: build
+          CIBW_ARCHS: ${{ matrix.arch }}
+        with:
+          output-dir: dist
+      - if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+        name: Upload to PyPi
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__

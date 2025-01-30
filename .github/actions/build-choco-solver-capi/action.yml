@@ -1,0 +1,54 @@
+name: "Build choco-solver-capi"
+
+description: "build choco-solver-capi and caches it"
+
+inputs:
+  os:
+    description: target OS
+    required: true
+    type: string
+  arch:
+    description: target arch
+    required: true
+    type: string
+  cache:
+    description: if true, caches the result
+    required: false
+    default: true
+    type: string
+
+runs:
+  using: composite
+  steps:
+    - name: Check out repository
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+    - name: Check choco-solver-capi latest commit
+      shell: bash
+      run: echo "CHOCO_CAPI_LATEST_HASH=$(git -C choco-solver-capi log HEAD -n 1 --pretty=format:%h)" >> "$GITHUB_ENV"
+    - if: ${{ inputs.cache == 'true' }}
+      name: Cache choco-solver-capi build
+      id: cache-choco-solver-capi
+      uses: actions/cache@v4
+      env:
+        cache-name: cache-choco-solver-capi-build
+      with:
+        path: choco-solver-capi
+        key: ${{ inputs.os }}-${{ inputs.arch }}-build-${{ env.cache-name }}-${{ env.CHOCO_CAPI_LATEST_HASH }}
+    - if: ${{ (inputs.cache != 'true') || (steps.cache-choco-solver-capi.outputs.cache-hit != 'true') }}
+      name: Set up Visual Studio shell (only for Windows)
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: x64
+    - if: ${{ (inputs.cache != 'true') || (steps.cache-choco-solver-capi.outputs.cache-hit != 'true') }}
+      name: Set up GraalVM Native Image toolchain
+      uses: graalvm/setup-graalvm@v1
+      with:
+        java-version: '22'
+        distribution: 'graalvm'
+        cache: 'maven'
+    - if: ${{ (inputs.cache != 'true') || (steps.cache-choco-solver-capi.outputs.cache-hit != 'true') }}
+      name: Build choco-solver-capi
+      shell: bash
+      run: (cd choco-solver-capi ; sh build.sh)

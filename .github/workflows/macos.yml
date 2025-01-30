@@ -8,81 +8,64 @@ on:
 jobs:
   build-macos:
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 30
+    timeout-minutes: 20
     strategy:
-      fail-fast: false
       matrix:
-        os: [macos-14, macos-13, macos-12]
-        python-version: ["3.11"]
-        arch: [arm64, x86_64]
         include:
-          - os: macos-14
-            arch: arm64
-            CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=14.0
-            force: true
-          - os: macos-13
-            arch: arm64
-            CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=13.0
-            force: true
-          - os: macos-12
-            arch: arm64
-            CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=12.0
-            force: true
-          - os: macos-14
+          - os: "macos-13"
             arch: x86_64
-            CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=14.0
-            force: true
-          - os: macos-13
-            arch: x86_64
-            CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=13.0
-            force: true
-          - os: macos-12
-            arch: x86_64
-            CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=12.0
-            force: true
+            python-version: "3.11"
+            CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=11.0
+          - os: "macos-14"
+            arch: arm64
+            python-version: "3.11"
+            CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=11.0
+          - os: "macos-15"
+            arch: arm64
+            python-version: "3.11"
+            CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=11.0
     steps:
-      # if matrix.force is not true or event is not tag, skip
-      - if: ${{ matrix.force }} != true || (github.event_name == 'push' && !startsWith(github.ref, 'refs/tags'))
-        run: 
-          echo "Skipping job for ${{ matrix.os }} ${{ matrix.python-version }}"
-          exit 0
+      - name: Print system info
+        run: echo $(uname -o) $(uname -r) $(uname -m)
       - name: Check out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
       - name: Setup python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
           architecture: x64
+          cache: 'pip'
+          cache-dependency-path: '**/requirements*.txt'
       - name: Install setuptools (needed from Python 3.12)
         run: pip install setuptools
-      - name: Set up GraalVM Native Image toolchain
-        uses: graalvm/setup-graalvm@v1
-        with:
-          java-version: '22'
-          distribution: 'graalvm'
       - name: Install Swig
         run: brew install swig
-      - name: Update repository
+      - name: Build choco-solver-capi
+        uses: ./.github/actions/build-choco-solver-capi
+        with:
+          os: ${{ runner.os }}
+          arch: ${{ matrix.arch }}
+      - name: Build pychoco
         run: |
-          git submodule update --init --recursive
-      - name: Build
-        run: |
-          sh build.sh nowheel
+          sh build.sh nocapibuild nowheel
           pip install pychoco -f dist/
-      - name: Build wheels
+      - name: Test
+        run: |
+          pip install pytest
+          pip install -r requirements_tests.txt
+          pytest
+      - if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+        name: Build wheels
         uses: pypa/cibuildwheel@v2.21.1
         env:
           CIBW_ARCHS: ${{ matrix.arch }}
           CIBW_ENVIRONMENT: ${{ matrix.CIBW_ENVIRONMENT }}
         with:
           output-dir: dist
-      - name: Test
-        run: |
-          pip install pytest
-          pip install -r requirements_tests.txt
-          pytest
-      - name: Upload wheel artifacts
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+      - if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+        name: Upload wheel artifacts
         uses: actions/upload-artifact@v4
         with:
           name: wheel-${{matrix.os}}-${{matrix.python-version}}-${{matrix.arch}}-artifact
@@ -91,32 +74,20 @@ jobs:
 
   upload-pypi-macos:
     needs: build-macos
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
     strategy:
       matrix:
-        os : [macos-14, macos-13, macos-12]
-        arch: [arm64, x86_64]
-        python-version: [ "3.11" ]
         include:
-          - os: macos-14
-            arch: arm64
-            force: true
-          - os: macos-13
-            arch: arm64
-            force: true
-          - os: macos-12
-            arch: arm64
-            force: true
-          - os: macos-14
+          - os: "macos-13"
             arch: x86_64
-            force: true
-          - os: macos-13
-            arch: x86_64
-            force: true
-          - os: macos-12
-            arch: x86_64
-            force: true
+            python-version: "3.11"
+          - os: "macos-14"
+            arch: arm64
+            python-version: "3.11"
+          - os: "macos-15"
+            arch: arm64
+            python-version: "3.11"
     steps:
     - name: Download artifacts
       uses: actions/download-artifact@v4
@@ -126,7 +97,6 @@ jobs:
     - name: List files
       run: ls -R
     - name: Upload to PyPi
-      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         user: __token__
