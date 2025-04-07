@@ -11,7 +11,7 @@ jobs:
     timeout-minutes: 20
     strategy:
       matrix:
-        os : [ubuntu-22.04]
+        os : [ubuntu-20]
         arch: [x86_64]
         python-version: ["3.11"]
         #python-version: ["3.12", "3.11", "3.10", "3.9"]
