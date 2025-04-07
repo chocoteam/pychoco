@@ -13,7 +13,7 @@ jobs:
       matrix:
         os : [ubuntu-22.04]
         arch: [x86_64]
-        python-version: ["3.6"]
+        python-version: ["3.11"]
         #python-version: ["3.12", "3.11", "3.10", "3.9"]
     steps:
       - name: Check out repository
@@ -55,7 +55,7 @@ jobs:
         name: Build wheels
         uses: pypa/cibuildwheel@v2.23.2
         env:
-          CIBW_SKIP: "*-musllinux*"
+          CIBW_SKIP: "*-musllinux* *-manylinux2014*"
           CIBW_BUILD_FRONTEND: build
           CIBW_ARCHS: ${{ matrix.arch }}
         with:
