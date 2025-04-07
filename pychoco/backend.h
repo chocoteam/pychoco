@@ -34,6 +34,13 @@ void limit_time(void*, char*);
 int propagate(void*);
 void push_state(void*);
 void pop_state(void*);
+float get_time_count(void*);
+long get_node_count(void*);
+long get_backtrack_count(void*);
+long get_fail_count(void*);
+long get_restart_count(void*);
+int is_objective_optimal(void*);
+char* get_search_state(void*);
 
 // Solution API
 

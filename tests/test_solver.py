@@ -64,6 +64,16 @@ class TestSolver(unittest.TestCase):
         solver.show_short_statistics()
         solver.find_all_optimal_solutions(n, True)
 
+    def test_find_optimal_solutions(self):
+        model = Model()
+        x = model.intvars(4, 0, 3)
+        n = model.intvar(0, 10)
+        model.n_values(x, n).post()
+        solver = model.get_solver()
+        solver.show_short_statistics()
+        solver.find_optimal_solution(n, True)
+        self.assertTrue(solver.is_objective_optimal())
+
     def test_add_rem_hints(self):
         model = Model()
         x = model.intvars(4, 0, 3)
@@ -87,3 +97,23 @@ class TestSolver(unittest.TestCase):
         solver._propagate()
         solver._push_state()
         solver._pop_state()
+
+    def test_getters(self):
+        model = Model("MyModel")
+        a = model.intvar(0, 10)
+        b = model.intvar(0, 10)
+        c = model.intvar(0, 10)
+        d = model.intvar(0, 10)
+        e = model.intvar(0, 10)
+        model.all_different([a, b, c, d, e]).post()
+        model.square(a, d).post()
+        solver = model.get_solver()
+        solver.show_statistics()
+        solver.find_all_solutions(time_limit="2s")
+        self.assertLessEqual(solver.get_time_count(), 2)
+        self.assertEqual(solver.get_search_state(), "TERMINATED")
+        self.assertGreaterEqual(solver.get_node_count(), 0)
+        self.assertGreaterEqual(solver.get_backtrack_count(), 0)
+        self.assertGreaterEqual(solver.get_fail_count(), 0)
+        self.assertGreaterEqual(solver.get_restart_count(), 0)
+

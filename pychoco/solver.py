@@ -246,6 +246,43 @@ class Solver(SearchStrategies, _HandleWrapper):
         """
         backend.limit_time(self.handle, time_limit)
 
+    def get_time_count(self):
+        """
+        :return: the time count (in seconds)
+        """
+        return backend.get_time_count(self.handle)
+
+    def get_node_count(self):
+        """
+        :return: the time count (in seconds)
+        """
+        return backend.get_time_count(self.handle)
+    def get_backtrack_count(self):
+        """
+        :return: the backtrack count
+        """
+        return backend.get_backtrack_count(self.handle)
+    def get_fail_count(self):
+        """
+        :return: the fail count (in seconds)
+        """
+        return backend.get_fail_count(self.handle)
+    def get_restart_count(self):
+        """
+        :return: the restart count (in seconds)
+        """
+        return backend.get_restart_count(self.handle)
+    def is_objective_optimal(self):
+        """
+        :return: true if the objective is optimal
+        """
+        return backend.is_objective_optimal(self.handle)
+    def get_search_state(self):
+        """
+        :return: the search state
+        """
+        return backend.get_search_state(self.handle)
+
     def _propagate(self):
         """
         Propagates constraints and related events through the constraint network until a fix point is find,

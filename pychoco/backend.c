@@ -128,6 +128,34 @@ void pop_state(void* solverHandle) {
     LAZY_THREAD_ATTACH
     Java_org_chocosolver_capi_SolverApi_pop_state(thread, solverHandle);
 }
+float get_time_count(void* solverHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SolverApi_get_time_count(thread, solverHandle);
+}
+long get_node_count(void* solverHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SolverApi_get_node_count(thread, solverHandle);
+}
+long get_backtrack_count(void* solverHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SolverApi_get_backtrack_count(thread, solverHandle);
+}
+long get_fail_count(void* solverHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SolverApi_get_fail_count(thread, solverHandle);
+}
+long get_restart_count(void* solverHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_SolverApi_get_restart_count(thread, solverHandle);
+}
+int is_objective_optimal(void* solverHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SolverApi_is_objective_optimal(thread, solverHandle);
+}
+char* get_search_state(void* solverHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SolverApi_get_search_state(thread, solverHandle);
+}
 
 
 
