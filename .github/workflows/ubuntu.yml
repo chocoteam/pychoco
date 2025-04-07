@@ -55,8 +55,7 @@ jobs:
         name: Build wheels
         uses: pypa/cibuildwheel@v2.23.2
         env:
-          CIBW_MANYLINUX_X86_64_IMAGE: "manylinux_x86_64"
-          CIBW_SKIP: "*-musllinux*"
+          CIBW_BUILD: "*-manylinux_x86_64*"
           CIBW_BUILD_FRONTEND: build
           CIBW_ARCHS: ${{ matrix.arch }}
         with:
