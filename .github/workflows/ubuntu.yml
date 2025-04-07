@@ -11,7 +11,7 @@ jobs:
     timeout-minutes: 20
     strategy:
       matrix:
-        os : [ubuntu-latest]
+        os : [ubuntu-20.04]
         arch: [x86_64]
         python-version: ["3.11"]
         #python-version: ["3.12", "3.11", "3.10", "3.9"]
@@ -55,7 +55,7 @@ jobs:
         name: Build wheels
         uses: pypa/cibuildwheel@v2.23.2
         env:
-          CIBW_BUILD: "cp38-manylinux* cp39-manylinux* cp310-manylinux* cp311-manylinux* cp312-manylinux* cp313-manylinux*"
+          #CIBW_BUILD: "cp38-manylinux* cp39-manylinux* cp310-manylinux* cp311-manylinux* cp312-manylinux* cp313-manylinux*"
           CIBW_SKIP: "*-musllinux*"
           CIBW_BUILD_FRONTEND: build
           CIBW_ARCHS: ${{ matrix.arch }}
