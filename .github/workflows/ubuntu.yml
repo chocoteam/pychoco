@@ -54,6 +54,7 @@ jobs:
           CIBW_SKIP: "*-musllinux*"
           CIBW_BUILD_FRONTEND: build
           CIBW_ARCHS: x86_64
+          CIBW_REPAIR_WHEEL_COMMAND_LINUX: ""
         with:
           output-dir: dist
       - name: Test
