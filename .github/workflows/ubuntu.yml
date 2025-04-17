@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os : [ubuntu-20.04]
+        os : [ubuntu-22.04]
         arch: [x86_64]
         python-version: ["3.11"]
         #python-version: ["3.12", "3.11", "3.10", "3.9"]
