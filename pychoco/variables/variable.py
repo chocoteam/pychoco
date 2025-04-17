@@ -19,7 +19,7 @@ class Variable(_HandleWrapper, ABC):
         """
         The name of the variable.
         """
-        return backend.get_variable_name(self.handle)
+        return backend.get_variable_name(self._handle)
 
     @property
     def model(self):
@@ -32,13 +32,13 @@ class Variable(_HandleWrapper, ABC):
         """
         :return: True if the variable is instantiated.
         """
-        return bool(backend.is_instantiated(self.handle))
+        return bool(backend.is_instantiated(self._handle))
 
     def is_view(self):
         """
         :return: True if this variable is a view
         """
-        return backend.is_view(self.handle)
+        return backend.is_view(self._handle)
 
     @abstractmethod
     def get_type(self):

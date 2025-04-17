@@ -21,7 +21,7 @@ class IntConstraintFactory(ABC):
 
     @property
     @abstractmethod
-    def handle(self):
+    def _handle(self):
         pass
 
     def arithm(self, x: IntVar, op1: str, y: Union[int, IntVar],
@@ -68,19 +68,19 @@ class IntConstraintFactory(ABC):
             assert (op1 in eq_operators and op2 in alg_operators) or (op1 in alg_operators and op2 in eq_operators)
         # Case 1
         if isinstance(y, int) and op2 is None and z is None:
-            constraint_handle = backend.arithm_iv_cst(self.handle, x.handle, op1, y)
+            constraint_handle = backend.arithm_iv_cst(self._handle, x._handle, op1, y)
         if isinstance(y, int) and op2 is not None and z is not None:
             yy = self.intvar(y)
             if isinstance(z, int):
-                constraint_handle = backend.arithm_iv_iv_cst(self.handle, x.handle, op1, yy.handle, op2, z)
+                constraint_handle = backend.arithm_iv_iv_cst(self._handle, x._handle, op1, yy._handle, op2, z)
             else:
-                constraint_handle = backend.arithm_iv_iv_iv(self.handle, x.handle, op1, yy.handle, op2, z.handle)
+                constraint_handle = backend.arithm_iv_iv_iv(self._handle, x._handle, op1, yy._handle, op2, z._handle)
         if isinstance(y, IntVar) and op2 is None and z is None:
-            constraint_handle = backend.arithm_iv_iv(self.handle, x.handle, op1, y.handle)
+            constraint_handle = backend.arithm_iv_iv(self._handle, x._handle, op1, y._handle)
         if isinstance(y, IntVar) and op2 is not None and isinstance(z, int):
-            constraint_handle = backend.arithm_iv_iv_cst(self.handle, x.handle, op1, y.handle, op2, z)
+            constraint_handle = backend.arithm_iv_iv_cst(self._handle, x._handle, op1, y._handle, op2, z)
         if isinstance(y, IntVar) and op2 is not None and isinstance(z, IntVar):
-            constraint_handle = backend.arithm_iv_iv_iv(self.handle, x.handle, op1, y.handle, op2, z.handle)
+            constraint_handle = backend.arithm_iv_iv_iv(self._handle, x._handle, op1, y._handle, op2, z._handle)
         if constraint_handle is None:
             raise AttributeError("Invalid parameters combination for arithm constraint. Please refer to the doc")
         return Constraint(constraint_handle, self)
@@ -99,9 +99,9 @@ class IntConstraintFactory(ABC):
         """
         if table is not None:
             ints_array = make_int_array(table)
-            constraint_handle = backend.member_iv_iarray(self.handle, x.handle, ints_array)
+            constraint_handle = backend.member_iv_iarray(self._handle, x._handle, ints_array)
         else:
-            constraint_handle = backend.member_iv_i_i(self.handle, x.handle, lb, ub)
+            constraint_handle = backend.member_iv_i_i(self._handle, x._handle, lb, ub)
         return Constraint(constraint_handle, self)
 
     def not_member(self, x: IntVar, table: Union[list, tuple, None] = None,
@@ -118,9 +118,9 @@ class IntConstraintFactory(ABC):
         """
         if table is not None:
             ints_array = make_int_array(table)
-            constraint_handle = backend.not_member_iv_iarray(self.handle, x.handle, ints_array)
+            constraint_handle = backend.not_member_iv_iarray(self._handle, x._handle, ints_array)
         else:
-            constraint_handle = backend.not_member_iv_i_i(self.handle, x.handle, lb, ub)
+            constraint_handle = backend.not_member_iv_i_i(self._handle, x._handle, lb, ub)
         return Constraint(constraint_handle, self)
 
     def all_different(self, intvars: List[IntVar]):
@@ -131,7 +131,7 @@ class IntConstraintFactory(ABC):
         :return: An allDifferent constraint.
         """
         vars_array = make_intvar_array(intvars)
-        constraint_handle = backend.all_different(self.handle, vars_array)
+        constraint_handle = backend.all_different(self._handle, vars_array)
         return Constraint(constraint_handle, self)
 
     def all_different_except_0(self, intvars: List[IntVar]):
@@ -143,7 +143,7 @@ class IntConstraintFactory(ABC):
         :return: An allDifferent constraint.
         """
         vars_array = make_intvar_array(intvars)
-        constraint_handle = backend.all_different_except_0(self.handle, vars_array)
+        constraint_handle = backend.all_different_except_0(self._handle, vars_array)
         return Constraint(constraint_handle, self)
 
     def all_different_prec(self, intvars: List[IntVar], predecessors: List[List[int]], successors: List[List[int]]):
@@ -162,7 +162,7 @@ class IntConstraintFactory(ABC):
         intvars_handle = make_intvar_array(intvars)
         predHandle = make_int_2d_array(predecessors)
         succHandle = make_int_2d_array(successors)
-        constraint_handle = backend.all_different_prec_pred_succ(self.handle, intvars_handle, predHandle, succHandle)
+        constraint_handle = backend.all_different_prec_pred_succ(self._handle, intvars_handle, predHandle, succHandle)
         return Constraint(constraint_handle, self)
 
     def mod(self, x, mod: Union[int, IntVar], res: Union[int, IntVar]):
@@ -179,11 +179,11 @@ class IntConstraintFactory(ABC):
         """
         constraint_handle = None
         if isinstance(mod, int) and isinstance(res, int):
-            constraint_handle = backend.mod_iv_i_i(self.handle, x.handle, mod, res)
+            constraint_handle = backend.mod_iv_i_i(self._handle, x._handle, mod, res)
         if isinstance(mod, int) and isinstance(res, IntVar):
-            constraint_handle = backend.mod_iv_i_iv(self.handle, x.handle, mod, res.handle)
+            constraint_handle = backend.mod_iv_i_iv(self._handle, x._handle, mod, res._handle)
         if isinstance(mod, IntVar) and isinstance(res, IntVar):
-            constraint_handle = backend.mod_iv_iv_iv(self.handle, x.handle, mod.handle, res.handle)
+            constraint_handle = backend.mod_iv_iv_iv(self._handle, x._handle, mod._handle, res._handle)
         return Constraint(constraint_handle, self)
 
     def not_(self, constraint: Constraint):
@@ -194,7 +194,7 @@ class IntConstraintFactory(ABC):
         :param constraint: A constraint.
         :return: A not constraint.
         """
-        constraint_handle = backend.not_(self.handle, constraint.handle)
+        constraint_handle = backend.not_(self._handle, constraint._handle)
         return Constraint(constraint_handle, self)
 
     def absolute(self, x: IntVar, y: IntVar):
@@ -205,7 +205,7 @@ class IntConstraintFactory(ABC):
         :param y: An IntVar.
         :return: An absolute constraint.
         """
-        constraint_handle = backend.absolute(self.handle, x.handle, y.handle)
+        constraint_handle = backend.absolute(self._handle, x._handle, y._handle)
         return Constraint(constraint_handle, self)
 
     def distance(self, x: IntVar, y: IntVar, op: str, z: Union[int, IntVar]):
@@ -227,9 +227,9 @@ class IntConstraintFactory(ABC):
         else:
             assert op in {"=", "!=", ">", "<"}, "[distance] op must be in ['=', '!=', '>', '<']"
         if isinstance(z, int):
-            constraint_handle = backend.distance_iv_iv_i(self.handle, x.handle, y.handle, op, z)
+            constraint_handle = backend.distance_iv_iv_i(self._handle, x._handle, y._handle, op, z)
         else:
-            constraint_handle = backend.distance_iv_iv_iv(self.handle, x.handle, y.handle, op, z.handle)
+            constraint_handle = backend.distance_iv_iv_iv(self._handle, x._handle, y._handle, op, z._handle)
         return Constraint(constraint_handle, self)
 
     def element(self, x: IntVar, table: Union[List[int], List[IntVar]], index: IntVar, offset: int = 0):
@@ -247,12 +247,12 @@ class IntConstraintFactory(ABC):
             raise AttributeError("table parameter in element constraint must have a length > 0")
         if isinstance(table[0], int):
             ints_array_handle = make_int_array(table)
-            constraint_handle = backend.element_iv_iarray_iv_i(self.handle, x.handle, ints_array_handle,
-                                                               index.handle, offset)
+            constraint_handle = backend.element_iv_iarray_iv_i(self._handle, x._handle, ints_array_handle,
+                                                               index._handle, offset)
         else:
             int_var_array_handle = make_intvar_array(table)
-            constraint_handle = backend.element_iv_ivarray_iv_i(self.handle, x.handle, int_var_array_handle,
-                                                                index.handle, offset)
+            constraint_handle = backend.element_iv_ivarray_iv_i(self._handle, x._handle, int_var_array_handle,
+                                                                index._handle, offset)
         return Constraint(constraint_handle, self)
 
     def square(self, x: IntVar, y: IntVar):
@@ -263,7 +263,7 @@ class IntConstraintFactory(ABC):
         :param y: An IntVar.
         :return: A square constraint.
         """
-        constraint_handle = backend.square(self.handle, x.handle, y.handle)
+        constraint_handle = backend.square(self._handle, x._handle, y._handle)
         return Constraint(constraint_handle, self)
 
     def table(self, intvars: List[IntVar], tuples: List[List[int]], feasible: bool = True, algo: str = "GAC3rm",
@@ -294,9 +294,9 @@ class IntConstraintFactory(ABC):
         vars_handle = make_intvar_array(intvars)
         tuples_handle = make_int_2d_array(tuples)
         if universal_value is None:
-            constraint_handle = backend.table(self.handle, vars_handle, tuples_handle, feasible, algo)
+            constraint_handle = backend.table(self._handle, vars_handle, tuples_handle, feasible, algo)
         else:
-            constraint_handle = backend.table_universal_value(self.handle, vars_handle, tuples_handle, feasible, algo, universal_value)
+            constraint_handle = backend.table_universal_value(self._handle, vars_handle, tuples_handle, feasible, algo, universal_value)
         return Constraint(constraint_handle, self)
 
     def hybrid_table(self, intvars: List[IntVar], hybrid_tuples: List[List[Supportable]]):
@@ -309,7 +309,7 @@ class IntConstraintFactory(ABC):
         """
         vars_handle = make_intvar_array(intvars)
         tuples_handles = make_supportable_2d_array(hybrid_tuples)
-        constraint_handle = backend.hybrid_table(self.handle, vars_handle, tuples_handles)
+        constraint_handle = backend.hybrid_table(self._handle, vars_handle, tuples_handles)
         return Constraint(constraint_handle, self)
 
     def times(self, x: IntVar, y: Union[int, IntVar], z: Union[int, IntVar]):
@@ -323,11 +323,11 @@ class IntConstraintFactory(ABC):
         """
         constraint_handle = None
         if isinstance(z, IntVar) and isinstance(y, int):
-            constraint_handle = backend.times_iv_i_iv(self.handle, x.handle, y, z.handle)
+            constraint_handle = backend.times_iv_i_iv(self._handle, x._handle, y, z._handle)
         if isinstance(y, IntVar) and isinstance(z, int):
-            constraint_handle = backend.times_iv_iv_i(self.handle, x.handle, y.handle, z)
+            constraint_handle = backend.times_iv_iv_i(self._handle, x._handle, y._handle, z)
         if isinstance(y, IntVar) and isinstance(z, IntVar):
-            constraint_handle = backend.times_iv_iv_iv(self.handle, x.handle, y.handle, z.handle)
+            constraint_handle = backend.times_iv_iv_iv(self._handle, x._handle, y._handle, z._handle)
         return Constraint(constraint_handle, self)
 
     def pow(self, x: IntVar, c: int, y: IntVar):
@@ -339,7 +339,7 @@ class IntConstraintFactory(ABC):
         :param y: An IntVar.
         :return: A pow constraint.
         """
-        constraint_handle = backend.pow_(self.handle, x.handle, c, y.handle)
+        constraint_handle = backend.pow_(self._handle, x._handle, c, y._handle)
         return Constraint(constraint_handle, self)
 
     def div(self, dividend: IntVar, divisor: IntVar, result: IntVar):
@@ -352,7 +352,7 @@ class IntConstraintFactory(ABC):
         :param result: An IntVar.
         :return: A div constraint.
         """
-        constraint_handle = backend.div_(self.handle, dividend.handle, divisor.handle, result.handle)
+        constraint_handle = backend.div_(self._handle, dividend._handle, divisor._handle, result._handle)
         return Constraint(constraint_handle, self)
 
     def max(self, x: IntVar, intvars: List[IntVar]):
@@ -364,7 +364,7 @@ class IntConstraintFactory(ABC):
         :return: A max constraint.
         """
         int_var_array_handle = make_intvar_array(intvars)
-        constraint_hande = backend.max_iv_ivarray(self.handle, x.handle, int_var_array_handle)
+        constraint_hande = backend.max_iv_ivarray(self._handle, x._handle, int_var_array_handle)
         return Constraint(constraint_hande, self)
 
     def mddc(self, intvars: List[IntVar], mdd: MultivaluedDecisionDiagram):
@@ -377,7 +377,7 @@ class IntConstraintFactory(ABC):
         :return: A mddc constraint.
         """
         intvars_handle = make_intvar_array(intvars)
-        constraint_handle = backend.mddc(self.handle, intvars_handle, mdd.handle)
+        constraint_handle = backend.mddc(self._handle, intvars_handle, mdd._handle)
         return Constraint(constraint_handle, self)
 
     def min(self, x: IntVar, intvars: List[IntVar]):
@@ -389,7 +389,7 @@ class IntConstraintFactory(ABC):
         :return: A min constraint.
         """
         int_var_array_handle = make_intvar_array(intvars)
-        constraint_hande = backend.min_iv_ivarray(self.handle, x.handle, int_var_array_handle)
+        constraint_hande = backend.min_iv_ivarray(self._handle, x._handle, int_var_array_handle)
         return Constraint(constraint_hande, self)
 
     def multi_cost_regular(self, intvars: List[IntVar], costs: List[IntVar], cost_automaton: CostAutomaton):
@@ -408,8 +408,8 @@ class IntConstraintFactory(ABC):
         """
         intvar_array_handle = make_intvar_array(intvars)
         costs_handle = make_intvar_array(costs)
-        constraint_handle = backend.multi_cost_regular(self.handle, intvar_array_handle, costs_handle,
-                                                       cost_automaton.handle)
+        constraint_handle = backend.multi_cost_regular(self._handle, intvar_array_handle, costs_handle,
+                                                       cost_automaton._handle)
         return Constraint(constraint_handle, self)
 
     def all_equal(self, intvars: List[IntVar]):
@@ -421,7 +421,7 @@ class IntConstraintFactory(ABC):
         :return: An all_equal constraint.
         """
         vars_array = make_intvar_array(intvars)
-        constraint_handle = backend.all_equal(self.handle, vars_array)
+        constraint_handle = backend.all_equal(self._handle, vars_array)
         return Constraint(constraint_handle, self)
 
     def not_all_equal(self, intvars: List[IntVar]):
@@ -433,7 +433,7 @@ class IntConstraintFactory(ABC):
         :return: A not_all_equal constraint.
         """
         vars_array = make_intvar_array(intvars)
-        constraint_handle = backend.not_all_equal(self.handle, vars_array)
+        constraint_handle = backend.not_all_equal(self._handle, vars_array)
         return Constraint(constraint_handle, self)
 
     def among(self, nb_var: IntVar, intvars: List[IntVar], values: List[int]):
@@ -452,7 +452,7 @@ class IntConstraintFactory(ABC):
         """
         vars_array = make_intvar_array(intvars)
         values_array = make_int_array(values)
-        constraint_handle = backend.among(self.handle, nb_var.handle, vars_array, values_array)
+        constraint_handle = backend.among(self._handle, nb_var._handle, vars_array, values_array)
         return Constraint(constraint_handle, self)
 
     def and_(self, bools_or_constraints: Union[List[BoolVar], List[Constraint]]):
@@ -466,10 +466,10 @@ class IntConstraintFactory(ABC):
         assert len(bools_or_constraints) >= 1, "[and_] bools_or_constraints must not be empty"
         if isinstance(bools_or_constraints[0], BoolVar):
             vars_array = make_boolvar_array(bools_or_constraints)
-            constraint_handle = backend.and_bv_bv(self.handle, vars_array)
+            constraint_handle = backend.and_bv_bv(self._handle, vars_array)
         else:
             cons_array = make_constraint_array(bools_or_constraints)
-            constraint_handle = backend.and_cs_cs(self.handle, cons_array)
+            constraint_handle = backend.and_cs_cs(self._handle, cons_array)
         return Constraint(constraint_handle, self)
 
     def at_least_n_values(self, intvars: List[IntVar], n_values: IntVar, ac: bool = False):
@@ -487,7 +487,7 @@ class IntConstraintFactory(ABC):
         :return: An at_least_n_values constraint.
         """
         vars_array = make_intvar_array(intvars)
-        constraint_handle = backend.at_least_n_values(self.handle, vars_array, n_values.handle, ac)
+        constraint_handle = backend.at_least_n_values(self._handle, vars_array, n_values._handle, ac)
         return Constraint(constraint_handle, self)
 
     def at_most_n_values(self, intvars: List[IntVar], n_values: IntVar, strong: bool = False):
@@ -507,7 +507,7 @@ class IntConstraintFactory(ABC):
         :return: An at_most_n_values constraint.
         """
         vars_array = make_intvar_array(intvars)
-        constraint_handle = backend.at_most_n_values(self.handle, vars_array, n_values.handle, strong)
+        constraint_handle = backend.at_most_n_values(self._handle, vars_array, n_values._handle, strong)
         return Constraint(constraint_handle, self)
 
     def bin_packing(self, item_bin: List[IntVar], item_size: List[int], bin_load: List[IntVar], offset: int = 0):
@@ -528,7 +528,7 @@ class IntConstraintFactory(ABC):
         item_bin_handle = make_intvar_array(item_bin)
         item_size_handle = make_int_array(item_size)
         bin_load_handle = make_intvar_array(bin_load)
-        constraint_handle = backend.bin_packing(self.handle, item_bin_handle, item_size_handle,
+        constraint_handle = backend.bin_packing(self._handle, item_bin_handle, item_size_handle,
                                                 bin_load_handle, offset)
         return Constraint(constraint_handle, self)
 
@@ -546,7 +546,7 @@ class IntConstraintFactory(ABC):
         :return: A bools_int_channeling constraint.
         """
         boolvars_handle = make_boolvar_array(boolvars)
-        constraint_handle = backend.bools_int_channeling(self.handle, boolvars_handle, intvar.handle, offset)
+        constraint_handle = backend.bools_int_channeling(self._handle, boolvars_handle, intvar._handle, offset)
         return Constraint(constraint_handle, self)
 
     def bits_int_channeling(self, bits: List[BoolVar], intvar: IntVar):
@@ -562,7 +562,7 @@ class IntConstraintFactory(ABC):
         :return: A bits_int_channeling constraint.
         """
         bits_handle = make_boolvar_array(bits)
-        constraint_handle = backend.bits_int_channeling(self.handle, bits_handle, intvar.handle)
+        constraint_handle = backend.bits_int_channeling(self._handle, bits_handle, intvar._handle)
         return Constraint(constraint_handle, self)
 
     def clauses_int_channeling(self, intvar: IntVar, e_vars: List[BoolVar], l_vars: List[BoolVar]):
@@ -585,7 +585,7 @@ class IntConstraintFactory(ABC):
         assert not isinstance(intvar, BoolVar), "[clauses_int_channeling] intvar cannot be a BoolVar"
         e_vars_handle = make_boolvar_array(e_vars)
         l_vars_handle = make_boolvar_array(l_vars)
-        constraint_handle = backend.clauses_int_channeling(self.handle, intvar.handle, e_vars_handle, l_vars_handle)
+        constraint_handle = backend.clauses_int_channeling(self._handle, intvar._handle, e_vars_handle, l_vars_handle)
         return Constraint(constraint_handle, self)
 
     def circuit(self, intvars: List[IntVar], offset: int = 0, conf: str = "RD"):
@@ -611,7 +611,7 @@ class IntConstraintFactory(ABC):
         """
         intvars_handle = make_intvar_array(intvars)
         assert conf in ["LIGHT", "FIRST", "RD", "ALL"], "[circuit] conf must be in ['LIGHT', 'FIRST', 'RD', 'ALL']"
-        constraint_handle = backend.circuit(self.handle, intvars_handle, offset, conf)
+        constraint_handle = backend.circuit(self._handle, intvars_handle, offset, conf)
         return Constraint(constraint_handle, self)
 
     def cost_regular(self, intvars: List[IntVar], cost: IntVar, cost_automaton: CostAutomaton):
@@ -628,7 +628,7 @@ class IntConstraintFactory(ABC):
         :return: A cost_regular constraint.
         """
         intvars_handle = make_intvar_array(intvars)
-        constraint_handle = backend.cost_regular(self.handle, intvars_handle, cost.handle, cost_automaton.handle)
+        constraint_handle = backend.cost_regular(self._handle, intvars_handle, cost._handle, cost_automaton._handle)
         return Constraint(constraint_handle, self)
 
     def count(self, value: Union[int, IntVar], intvars: List[IntVar], limit: IntVar):
@@ -644,9 +644,9 @@ class IntConstraintFactory(ABC):
         """
         intvars_handle = make_intvar_array(intvars)
         if isinstance(value, int):
-            constraint_handle = backend.count_i(self.handle, value, intvars_handle, limit.handle)
+            constraint_handle = backend.count_i(self._handle, value, intvars_handle, limit._handle)
         else:
-            constraint_handle = backend.count_iv(self.handle, value.handle, intvars_handle, limit.handle)
+            constraint_handle = backend.count_iv(self._handle, value._handle, intvars_handle, limit._handle)
         return Constraint(constraint_handle, self)
 
     def cumulative(self, tasks: List[Task], heights: List[IntVar], capacity: IntVar, incremental: bool = True):
@@ -666,7 +666,7 @@ class IntConstraintFactory(ABC):
         """
         tasks_handle = make_task_array(tasks)
         vars_handle = make_intvar_array(heights)
-        constraint_handle = backend.cumulative(self.handle, tasks_handle, vars_handle, capacity.handle, incremental)
+        constraint_handle = backend.cumulative(self._handle, tasks_handle, vars_handle, capacity._handle, incremental)
         return Constraint(constraint_handle, self)
 
     def diff_n(self, x: List[IntVar], y: List[IntVar], width: List[IntVar], height: List[IntVar],
@@ -687,7 +687,7 @@ class IntConstraintFactory(ABC):
         y_handle = make_intvar_array(y)
         width_handle = make_intvar_array(width)
         height_handle = make_intvar_array(height)
-        constraint_handle = backend.diff_n(self.handle, x_handle, y_handle, width_handle, height_handle,
+        constraint_handle = backend.diff_n(self._handle, x_handle, y_handle, width_handle, height_handle,
                                            add_cumulative_reasoning)
         return Constraint(constraint_handle, self)
 
@@ -702,7 +702,7 @@ class IntConstraintFactory(ABC):
         :return: A decreasing constraint.
         """
         intvars_handle = make_intvar_array(intvars)
-        constraint_handle = backend.decreasing(self.handle, intvars_handle, delta)
+        constraint_handle = backend.decreasing(self._handle, intvars_handle, delta)
         return Constraint(constraint_handle, self)
 
     def increasing(self, intvars: List[IntVar], delta: int = 0):
@@ -716,7 +716,7 @@ class IntConstraintFactory(ABC):
         :return: An increasing constraint.
         """
         intvars_handle = make_intvar_array(intvars)
-        constraint_handle = backend.increasing(self.handle, intvars_handle, delta)
+        constraint_handle = backend.increasing(self._handle, intvars_handle, delta)
         return Constraint(constraint_handle, self)
 
     def global_cardinality(self, intvars: List[IntVar], values: List[int], occurrences: List[IntVar],
@@ -735,7 +735,7 @@ class IntConstraintFactory(ABC):
         intvars_handle = make_intvar_array(intvars)
         values_handle = make_int_array(values)
         occurrences_handle = make_intvar_array(occurrences)
-        constraint_handle = backend.global_cardinality(self.handle, intvars_handle, values_handle, occurrences_handle,
+        constraint_handle = backend.global_cardinality(self._handle, intvars_handle, values_handle, occurrences_handle,
                                                        closed)
         return Constraint(constraint_handle, self)
 
@@ -758,7 +758,7 @@ class IntConstraintFactory(ABC):
         """
         intvars1_handle = make_intvar_array(intvars1)
         intvars2_handle = make_intvar_array(intvars2)
-        constraint_handle = backend.inverse_channeling(self.handle, intvars1_handle, intvars2_handle,
+        constraint_handle = backend.inverse_channeling(self._handle, intvars1_handle, intvars2_handle,
                                                        offset1, offset2, ac)
         return Constraint(constraint_handle, self)
 
@@ -775,7 +775,7 @@ class IntConstraintFactory(ABC):
         """
         intvars_handle = make_intvar_array(intvars)
         values_handle = make_int_array(values)
-        constraint_handle = backend.int_value_precede_chain(self.handle, intvars_handle, values_handle)
+        constraint_handle = backend.int_value_precede_chain(self._handle, intvars_handle, values_handle)
         return Constraint(constraint_handle, self)
 
     def keysort(self, intvars: List[List[IntVar]], permutation_intvars: Union[List[IntVar], None],
@@ -797,7 +797,7 @@ class IntConstraintFactory(ABC):
         if permutation_intvars is not None:
             permutation_intvars_handle = make_intvar_array(permutation_intvars)
         sorted_intvars_handle = make_intvar_2d_array(sorted_intvars)
-        constraint_handle = backend.keysort(self.handle, intvars_handle, permutation_intvars_handle,
+        constraint_handle = backend.keysort(self._handle, intvars_handle, permutation_intvars_handle,
                                             sorted_intvars_handle, k)
         return Constraint(constraint_handle, self)
 
@@ -834,7 +834,7 @@ class IntConstraintFactory(ABC):
         occ_handle = make_intvar_array(occurrences)
         weight_handle = make_int_array(weight)
         energy_handle = make_int_array(energy)
-        constraint_handle = backend.knapsack(self.handle, occ_handle, weight_sum.handle, energy_sum.handle,
+        constraint_handle = backend.knapsack(self._handle, occ_handle, weight_sum._handle, energy_sum._handle,
                                              weight_handle, energy_handle)
         return Constraint(constraint_handle, self)
 
@@ -852,7 +852,7 @@ class IntConstraintFactory(ABC):
         else:
             vars = intvars
         intvars_handle = make_intvar_2d_array(vars)
-        constraint_handle = backend.lex_chain_less(self.handle, intvars_handle)
+        constraint_handle = backend.lex_chain_less(self._handle, intvars_handle)
         return Constraint(constraint_handle, self)
 
     def lex_chain_less_eq(self, *intvars: List[IntVar]):
@@ -869,7 +869,7 @@ class IntConstraintFactory(ABC):
         else:
             vars = intvars
         intvars_handle = make_intvar_2d_array(vars)
-        constraint_handle = backend.lex_chain_less_eq(self.handle, intvars_handle)
+        constraint_handle = backend.lex_chain_less_eq(self._handle, intvars_handle)
         return Constraint(constraint_handle, self)
 
     def lex_less(self, intvars1: List[IntVar], intvars2: List[IntVar]):
@@ -883,7 +883,7 @@ class IntConstraintFactory(ABC):
         """
         intvars_handle1 = make_intvar_array(intvars1)
         intvars_handle2 = make_intvar_array(intvars2)
-        constraint_handle = backend.lex_less(self.handle, intvars_handle1, intvars_handle2)
+        constraint_handle = backend.lex_less(self._handle, intvars_handle1, intvars_handle2)
         return Constraint(constraint_handle, self)
 
     def lex_less_eq(self, intvars1: List[IntVar], intvars2: List[IntVar]):
@@ -897,7 +897,7 @@ class IntConstraintFactory(ABC):
         """
         intvars_handle1 = make_intvar_array(intvars1)
         intvars_handle2 = make_intvar_array(intvars2)
-        constraint_handle = backend.lex_less_eq(self.handle, intvars_handle1, intvars_handle2)
+        constraint_handle = backend.lex_less_eq(self._handle, intvars_handle1, intvars_handle2)
         return Constraint(constraint_handle, self)
 
     def argmax(self, intvar: IntVar, offset: int, intvars: List[IntVar]):
@@ -911,7 +911,7 @@ class IntConstraintFactory(ABC):
         :return: An argmax constraint.
         """
         intvars_handle = make_intvar_array(intvars)
-        constraint_handle = backend.argmax(self.handle, intvar.handle, offset, intvars_handle)
+        constraint_handle = backend.argmax(self._handle, intvar._handle, offset, intvars_handle)
         return Constraint(constraint_handle, self)
 
     def argmin(self, intvar: IntVar, offset: int, intvars: List[IntVar]):
@@ -925,7 +925,7 @@ class IntConstraintFactory(ABC):
         :return: An argmin constraint.
         """
         intvars_handle = make_intvar_array(intvars)
-        constraint_handle = backend.argmin(self.handle, intvar.handle, offset, intvars_handle)
+        constraint_handle = backend.argmin(self._handle, intvar._handle, offset, intvars_handle)
         return Constraint(constraint_handle, self)
 
     def n_values(self, intvars: List[IntVar], n_values: IntVar):
@@ -939,7 +939,7 @@ class IntConstraintFactory(ABC):
         :return: An n_values constraint.
         """
         intvars_handle = make_intvar_array(intvars)
-        constraint_handle = backend.n_values(self.handle, intvars_handle, n_values.handle)
+        constraint_handle = backend.n_values(self._handle, intvars_handle, n_values._handle)
         return Constraint(constraint_handle, self)
 
     def or_(self, bools_or_constraints: Union[List[BoolVar], List[Constraint]]):
@@ -953,10 +953,10 @@ class IntConstraintFactory(ABC):
         assert len(bools_or_constraints) >= 1, "[or_] bools_or_constraint must not be empty"
         if isinstance(bools_or_constraints[0], BoolVar):
             vars_array = make_boolvar_array(bools_or_constraints)
-            constraint_handle = backend.or_bv_bv(self.handle, vars_array)
+            constraint_handle = backend.or_bv_bv(self._handle, vars_array)
         else:
             cons_array = make_constraint_array(bools_or_constraints)
-            constraint_handle = backend.or_cs_cs(self.handle, cons_array)
+            constraint_handle = backend.or_cs_cs(self._handle, cons_array)
         return Constraint(constraint_handle, self)
 
     def path(self, intvars: List[IntVar], start: IntVar, end: IntVar, offset: int = 0):
@@ -977,7 +977,7 @@ class IntConstraintFactory(ABC):
         :return: A path constraint.
         """
         intvars_handle = make_intvar_array(intvars)
-        constraint_handle = backend.path(self.handle, intvars_handle, start.handle, end.handle, offset)
+        constraint_handle = backend.path(self._handle, intvars_handle, start._handle, end._handle, offset)
         return Constraint(constraint_handle, self)
 
     def regular(self, intvars: List[IntVar], automaton: FiniteAutomaton):
@@ -993,7 +993,7 @@ class IntConstraintFactory(ABC):
         :return: A regular constraint.
         """
         intvars_handle = make_intvar_array(intvars)
-        constraint_handle = backend.regular(self.handle, intvars_handle, automaton.handle)
+        constraint_handle = backend.regular(self._handle, intvars_handle, automaton._handle)
         return Constraint(constraint_handle, self)
 
     def scalar(self, intvars: List[IntVar], coeffs: List[int], operator: str, scalar: Union[int, IntVar]):
@@ -1012,9 +1012,9 @@ class IntConstraintFactory(ABC):
         intvars_handle = make_intvar_array(intvars)
         coeffs_handle = make_int_array(coeffs)
         if isinstance(scalar, IntVar):
-            constraint_handle = backend.scalar_iv(self.handle, intvars_handle, coeffs_handle, operator, scalar.handle)
+            constraint_handle = backend.scalar_iv(self._handle, intvars_handle, coeffs_handle, operator, scalar._handle)
         else:
-            constraint_handle = backend.scalar_i(self.handle, intvars_handle, coeffs_handle, operator, scalar)
+            constraint_handle = backend.scalar_i(self._handle, intvars_handle, coeffs_handle, operator, scalar)
         return Constraint(constraint_handle, self)
 
     def sort(self, intvars: List[IntVar], sorted_intvars: List[IntVar]):
@@ -1033,7 +1033,7 @@ class IntConstraintFactory(ABC):
         """
         intvars_handle = make_intvar_array(intvars)
         sorted_intvars_handle = make_intvar_array(sorted_intvars)
-        constraint_handle = backend.sort(self.handle, intvars_handle, sorted_intvars_handle)
+        constraint_handle = backend.sort(self._handle, intvars_handle, sorted_intvars_handle)
         return Constraint(constraint_handle, self)
 
     def sub_circuit(self, intvars: List[IntVar], offset: int, sub_circuit_length: IntVar):
@@ -1058,7 +1058,7 @@ class IntConstraintFactory(ABC):
         :return: A sub_circuit constraint.
         """
         intvars_handle = make_intvar_array(intvars)
-        constraint_handle = backend.sub_circuit(self.handle, intvars_handle, offset, sub_circuit_length.handle)
+        constraint_handle = backend.sub_circuit(self._handle, intvars_handle, offset, sub_circuit_length._handle)
         return Constraint(constraint_handle, self)
 
     def sub_path(self, intvars: List[IntVar], start: IntVar, end: IntVar, offset: int, sub_path_length: IntVar):
@@ -1083,8 +1083,8 @@ class IntConstraintFactory(ABC):
         """
         assert len(intvars) > 0, "[sub_path] intvars must not be empty"
         intvars_handle = make_intvar_array(intvars)
-        constraint_handle = backend.sub_path(self.handle, intvars_handle, start.handle, end.handle, offset,
-                                             sub_path_length.handle)
+        constraint_handle = backend.sub_path(self._handle, intvars_handle, start._handle, end._handle, offset,
+                                             sub_path_length._handle)
         return Constraint(constraint_handle, self)
 
     def sum(self, intvars_or_boolvars: Union[List[IntVar], List[BoolVar]], operator: str,
@@ -1104,21 +1104,21 @@ class IntConstraintFactory(ABC):
         if isinstance(intvars_or_boolvars[0], IntVar):
             vars_handle = make_intvar_array(intvars_or_boolvars)
             if isinstance(sum_result, int):
-                constraint_handle = backend.sum_iv_i(self.handle, vars_handle, operator, sum_result)
+                constraint_handle = backend.sum_iv_i(self._handle, vars_handle, operator, sum_result)
             elif isinstance(sum_result, IntVar):
-                constraint_handle = backend.sum_iv_iv(self.handle, vars_handle, operator, sum_result.handle)
+                constraint_handle = backend.sum_iv_iv(self._handle, vars_handle, operator, sum_result._handle)
             else:
                 sum_result_handle = make_intvar_array(sum_result)
-                constraint_handle = backend.sum_ivarray_ivarray(self.handle, vars_handle, operator, sum_result_handle)
+                constraint_handle = backend.sum_ivarray_ivarray(self._handle, vars_handle, operator, sum_result_handle)
         else:
             vars_handle = make_boolvar_array(intvars_or_boolvars)
             if isinstance(sum_result, int):
-                constraint_handle = backend.sum_bv_i(self.handle, vars_handle, operator, sum_result)
+                constraint_handle = backend.sum_bv_i(self._handle, vars_handle, operator, sum_result)
             elif isinstance(sum_result, IntVar):
-                constraint_handle = backend.sum_bv_iv(self.handle, vars_handle, operator, sum_result.handle)
+                constraint_handle = backend.sum_bv_iv(self._handle, vars_handle, operator, sum_result._handle)
             else:
                 sum_result_handle = make_intvar_array(sum_result)
-                constraint_handle = backend.sum_ivarray_ivarray(self.handle, vars_handle, operator, sum_result_handle)
+                constraint_handle = backend.sum_ivarray_ivarray(self._handle, vars_handle, operator, sum_result_handle)
         return Constraint(constraint_handle, self)
 
     def tree(self, successors: List[IntVar], nb_trees: IntVar, offset: int = 0):
@@ -1138,5 +1138,5 @@ class IntConstraintFactory(ABC):
         :return: A tree constraint.
         """
         successors_handle = make_intvar_array(successors)
-        constraint_handle = backend.tree(self.handle, successors_handle, nb_trees.handle, offset)
+        constraint_handle = backend.tree(self._handle, successors_handle, nb_trees._handle, offset)
         return Constraint(constraint_handle, self)

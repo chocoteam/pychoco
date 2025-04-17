@@ -20,7 +20,7 @@ class VariableFactory(ABC):
 
     @property
     @abstractmethod
-    def handle(self):
+    def _handle(self):
         pass
 
     # Integer variables #
@@ -39,22 +39,22 @@ class VariableFactory(ABC):
             if isinstance(lb, list):
                 assert ub is None, "If lb is a list of enumerated values, ub parameter cannot be used"
                 vals = make_int_array(lb)
-                var_handle = backend.intvar_arr(self.handle, vals)
+                var_handle = backend.intvar_arr(self._handle, vals)
             elif ub is None:
-                var_handle = backend.intvar_i(self.handle, lb)
+                var_handle = backend.intvar_i(self._handle, lb)
             else:
-                var_handle = backend.intvar_ii(self.handle, lb, ub) if bounded_domain is None \
-                    else backend.intvar_iib(self.handle, lb, ub, bounded_domain)
+                var_handle = backend.intvar_ii(self._handle, lb, ub) if bounded_domain is None \
+                    else backend.intvar_iib(self._handle, lb, ub, bounded_domain)
         else:
             if isinstance(lb, list):
                 assert ub is None, "If lb is a list of enumerated values, ub parameter cannot be used"
                 vals = make_int_array(lb)
-                var_handle = backend.intvar_s_arr(self.handle, name, vals)
+                var_handle = backend.intvar_s_arr(self._handle, name, vals)
             elif ub is None:
-                var_handle = backend.intvar_si(self.handle, name, lb)
+                var_handle = backend.intvar_si(self._handle, name, lb)
             else:
-                var_handle = backend.intvar_sii(self.handle, name, lb, ub) if bounded_domain is None \
-                    else backend.intvar_siib(self.handle, name, lb, ub, bounded_domain)
+                var_handle = backend.intvar_sii(self._handle, name, lb, ub) if bounded_domain is None \
+                    else backend.intvar_siib(self._handle, name, lb, ub, bounded_domain)
         return IntVar(var_handle, self)
 
     def intvars(self, size: Union[int, Tuple[int]], lb: Union[List[Union[int, List[int]]], int], ub: Union[int, None] = None, name: Union[str, None] = None, bounded_domain: Union[bool, None] = None):
@@ -105,15 +105,15 @@ class VariableFactory(ABC):
         if name is not None:
             if value is not None:
                 assert value in [0, 1], "The 'value' parameter must be either a boolean, or an int in [0, 1]"
-                var_handle = backend.boolvar_sb(self.handle, name, value)
+                var_handle = backend.boolvar_sb(self._handle, name, value)
             else:
-                var_handle = backend.boolvar_s(self.handle, name)
+                var_handle = backend.boolvar_s(self._handle, name)
         else:
             if value is not None:
                 assert value in [0, 1], "The 'value' parameter must be either a boolean, or an int in [0, 1]"
-                var_handle = backend.boolvar_b(self.handle, value)
+                var_handle = backend.boolvar_b(self._handle, value)
             else:
-                var_handle = backend.boolvar(self.handle)
+                var_handle = backend.boolvar(self._handle)
         return BoolVar(var_handle, self)
 
     def boolvars(self, size: Union[int, Tuple[int]], value: Union[List[Union[bool, List[bool]]], None] = None, name: Union[str, None] = None):
@@ -183,15 +183,15 @@ class VariableFactory(ABC):
         lb_handle = make_int_array(list(lb_or_value))
         if ub is None:
             if name is None:
-                handle = backend.setvar_iv(self.handle, lb_handle)
+                handle = backend.setvar_iv(self._handle, lb_handle)
             else:
-                handle = backend.setvar_s_iv(self.handle, name, lb_handle)
+                handle = backend.setvar_s_iv(self._handle, name, lb_handle)
         else:
             ub_handle = make_int_array(list(ub))
             if name is None:
-                handle = backend.setvar_iviv(self.handle, lb_handle, ub_handle)
+                handle = backend.setvar_iviv(self._handle, lb_handle, ub_handle)
             else:
-                handle = backend.setvar_s_iviv(self.handle, name, lb_handle, ub_handle)
+                handle = backend.setvar_s_iviv(self._handle, name, lb_handle, ub_handle)
         return SetVar(handle, self)
 
     # Graph variables
@@ -210,7 +210,7 @@ class VariableFactory(ABC):
         """
         assert isinstance(lb, UndirectedGraph) and isinstance(ub, UndirectedGraph), \
             "[graphvar] Bounds must be Undirected graph."
-        handle = backend.create_graphvar(self.handle, name, lb.handle, ub.handle)
+        handle = backend.create_graphvar(self._handle, name, lb._handle, ub._handle)
         return UndirectedGraphVar(handle, self, lb, ub)
 
     def node_induced_graphvar(self, lb: "UndirectedGraphVar", ub: "UndirectedGraphVar", name: str):
@@ -229,7 +229,7 @@ class VariableFactory(ABC):
         """
         assert isinstance(lb, UndirectedGraph) and isinstance(ub, UndirectedGraph), \
             "[graphvar] Bounds must be Undirected graph."
-        handle = backend.create_node_induced_graphvar(self.handle, name, lb.handle, ub.handle)
+        handle = backend.create_node_induced_graphvar(self._handle, name, lb._handle, ub._handle)
         return UndirectedGraphVar(handle, self, lb, ub)
 
     def digraphvar(self, lb: "DirectedGraph", ub: "DirectedGraph", name: str):
@@ -246,7 +246,7 @@ class VariableFactory(ABC):
         """
         assert isinstance(lb, DirectedGraph) and isinstance(ub, DirectedGraph), \
             "[digraphvar] Bounds must be Directed graph."
-        handle = backend.create_digraphvar(self.handle, name, lb.handle, ub.handle)
+        handle = backend.create_digraphvar(self._handle, name, lb._handle, ub._handle)
         return DirectedGraphVar(handle, self, lb, ub)
 
     def node_induced_digraphvar(self, lb: "DirectedGraphVar", ub: "DirectedGraphVar", name: str):
@@ -265,5 +265,5 @@ class VariableFactory(ABC):
         """
         assert isinstance(lb, DirectedGraph) and isinstance(ub, DirectedGraph), \
             "[digraphvar] Bounds must be Directed graph."
-        handle = backend.create_node_induced_digraphvar(self.handle, name, lb.handle, ub.handle)
+        handle = backend.create_node_induced_digraphvar(self._handle, name, lb._handle, ub._handle)
         return DirectedGraphVar(handle, self, lb, ub)

@@ -146,7 +146,7 @@ long get_fail_count(void* solverHandle) {
 }
 long get_restart_count(void* solverHandle) {
     LAZY_THREAD_ATTACH
-    Java_org_chocosolver_capi_SolverApi_get_restart_count(thread, solverHandle);
+    return Java_org_chocosolver_capi_SolverApi_get_restart_count(thread, solverHandle);
 }
 int is_objective_optimal(void* solverHandle) {
     LAZY_THREAD_ATTACH
@@ -2089,7 +2089,7 @@ void* lt(int val) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ISupportableApi_lt(thread, val);
 }
-void* in(void* arrayHandle) {
+void* in_(void* arrayHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ISupportableApi_in(thread, arrayHandle);
 }

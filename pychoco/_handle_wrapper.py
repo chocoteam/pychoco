@@ -8,16 +8,16 @@ class _HandleWrapper:
     """
 
     def __init__(self, handle):
-        self._handle = handle
+        self._handle_ = handle
 
     @property
-    def handle(self):
-        return self._handle
+    def _handle(self):
+        return self._handle_
 
     def __del__(self):
         if backend.chocosolver_is_initialized():
-            if self._handle is not None:
-                backend.chocosolver_handles_destroy(self._handle)
+            if self._handle_ is not None:
+                backend.chocosolver_handles_destroy(self._handle_)
 
     def __repr__(self):
-        return "_HandleWrapper(%r)" % self._handle
+        return "_HandleWrapper(%r)" % self._handle_

@@ -540,7 +540,7 @@ void* ge(int);
 void* gt(int);
 void* le(int);
 void* lt(int);
-void* in(void*);
+void* in_(void*);
 void* nin(void*);
 void* eq_col(void*, int);
 void* ne_col(void*, int);

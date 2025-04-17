@@ -20,7 +20,7 @@ class Solution(_HandleWrapper):
         :param x: An IntVar.
         :return: The value of `x` in this solution.
         """
-        return backend.get_int_val(self.handle, x.handle)
+        return backend.get_int_val(self._handle, x._handle)
 
     def get_set_val(self, s: "SetVar"):
         """
@@ -28,7 +28,7 @@ class Solution(_HandleWrapper):
         :param s: A SetVar.
         :return: The value of `s` in this solution.
         """
-        val_handle = backend.get_set_val(self.handle, s.handle)
+        val_handle = backend.get_set_val(self._handle, s._handle)
         val = get_int_array(val_handle)
         return set(val)
 

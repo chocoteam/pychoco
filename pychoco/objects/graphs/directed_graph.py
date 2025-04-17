@@ -31,7 +31,7 @@ class DirectedGraph(Graph):
         else:
             assert node_set_type in ["BITSET", "BIPARTITE_SET", "SMALL_BIPARTITE_SET", "RANGE_SET", "LINKED_LIST"]
             self._model = model
-            handle = backend.create_digraph(model.handle, nb_max_nodes, node_set_type, edge_set_type, all_node)
+            handle = backend.create_digraph(model._handle, nb_max_nodes, node_set_type, edge_set_type, all_node)
             super().__init__(handle)
 
     def is_directed(self):
@@ -42,7 +42,7 @@ class DirectedGraph(Graph):
         :param node: A node of the graph.
         :return: The successors of the node.
         """
-        handle = backend.get_successors_of(self.handle, node)
+        handle = backend.get_successors_of(self._handle, node)
         return get_int_array(handle)
 
     def get_predecessors_of(self, node: int):
@@ -50,7 +50,7 @@ class DirectedGraph(Graph):
         :param node: A node of the graph.
         :return: The predecessors of the node.
         """
-        handle = backend.get_predecessors_of(self.handle, node)
+        handle = backend.get_predecessors_of(self._handle, node)
         return get_int_array(handle)
 
     def to_networkx_graph(self):

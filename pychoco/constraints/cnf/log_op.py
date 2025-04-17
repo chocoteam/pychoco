@@ -35,7 +35,7 @@ def if_only_if_op(a: Union[LogOp, BoolVar], b: Union[LogOp, BoolVar]):
     :param a: operand (LogOp/Boolvar).
     :param b: operand (LogOp/Boolvar).
     """
-    handle = backend.if_only_if_op(a.handle, b.handle)
+    handle = backend.if_only_if_op(a._handle, b._handle)
     return LogOp(handle)
 
 
@@ -46,7 +46,7 @@ def if_then_else_op(a: Union[LogOp, BoolVar], b: Union[LogOp, BoolVar], c: Union
     :param b: operand (LogOp/Boolvar).
     :param c: operand (LogOp/Boolvar).
     """
-    handle = backend.if_then_else_op(a.handle, b.handle, c.handle)
+    handle = backend.if_then_else_op(a._handle, b._handle, c._handle)
     return LogOp(handle)
 
 
@@ -56,7 +56,7 @@ def implies_op(a: Union[LogOp, BoolVar], b: Union[LogOp, BoolVar]):
     :param a: operand (LogOp/Boolvar).
     :param b: operand (LogOp/Boolvar).
     """
-    handle = backend.implies_op(a.handle, b.handle)
+    handle = backend.implies_op(a._handle, b._handle)
     return LogOp(handle)
 
 
@@ -66,7 +66,7 @@ def reified_op(b: BoolVar, tree: Union[LogOp, BoolVar]):
     :param b: A BoolVar.
     :param tree: operand (LogOp/Boolvar).
     """
-    handle = backend.reified_op(b.handle, tree.handle)
+    handle = backend.reified_op(b._handle, tree._handle)
     return LogOp(handle)
 
 
@@ -118,5 +118,5 @@ def xor_op(a: Union[LogOp, BoolVar], b: Union[LogOp, BoolVar]):
     :param a: operand (LogOp/Boolvar).
     :param b: operand (LogOp/Boolvar).
     """
-    handle = backend.xor_op(a.handle, b.handle)
+    handle = backend.xor_op(a._handle, b._handle)
     return LogOp(handle)

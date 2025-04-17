@@ -20,7 +20,7 @@ class GraphConstraintFactory(ABC):
 
     @property
     @abstractmethod
-    def handle(self):
+    def _handle(self):
         pass
 
     @staticmethod
@@ -40,7 +40,7 @@ class GraphConstraintFactory(ABC):
         :param nb_nodes: An IntVar.
         :return: A graph_nb_nodes constraint.
         """
-        handle = backend.graph_nb_nodes(self.handle, graphvar.handle, nb_nodes.handle)
+        handle = backend.graph_nb_nodes(self._handle, graphvar._handle, nb_nodes._handle)
         return Constraint(handle, self)
 
     def graph_nb_edges(self, graphvar: GraphVar, nb_edges: IntVar):
@@ -51,7 +51,7 @@ class GraphConstraintFactory(ABC):
         :param nb_edges: An IntVar.
         :return: A graph_nb_edges constraint.
         """
-        handle = backend.graph_nb_edges(self.handle, graphvar.handle, nb_edges.handle)
+        handle = backend.graph_nb_edges(self._handle, graphvar._handle, nb_edges._handle)
         return Constraint(handle, self)
 
     def graph_loop_set(self, graphvar: GraphVar, loop_set: SetVar):
@@ -64,7 +64,7 @@ class GraphConstraintFactory(ABC):
         :param loop_set: A SetVar.
         :return: A graph_loop_set constraint.
         """
-        handle = backend.graph_loop_set(self.handle, graphvar.handle, loop_set.handle)
+        handle = backend.graph_loop_set(self._handle, graphvar._handle, loop_set._handle)
         return Constraint(handle, self)
 
     def graph_nb_loops(self, graphvar: GraphVar, nb_loops: IntVar):
@@ -75,7 +75,7 @@ class GraphConstraintFactory(ABC):
         :param nb_loops: An IntVar.
         :return: A graph_nb_loops constraint.
         """
-        handle = backend.graph_nb_loops(self.handle, graphvar.handle, nb_loops.handle)
+        handle = backend.graph_nb_loops(self._handle, graphvar._handle, nb_loops._handle)
         return Constraint(handle, self)
 
     def graph_symmetric(self, digraphvar: DirectedGraphVar):
@@ -88,7 +88,7 @@ class GraphConstraintFactory(ABC):
         :return: A graph_symmetric constraint.
         """
         self._assert_directed(digraphvar, "graph_symmetric")
-        handle = backend.graph_symmetric(self.handle, digraphvar.handle)
+        handle = backend.graph_symmetric(self._handle, digraphvar._handle)
         return Constraint(handle, self)
 
     def graph_anti_symmetric(self, digraphvar: DirectedGraphVar):
@@ -100,7 +100,7 @@ class GraphConstraintFactory(ABC):
         :return: A graph_anti_symmetric constraint.
         """
         self._assert_directed(digraphvar, "graph_anti_symmetric")
-        handle = backend.graph_anti_symmetric(self.handle, digraphvar.handle)
+        handle = backend.graph_anti_symmetric(self._handle, digraphvar._handle)
         return Constraint(handle, self)
 
     def graph_transitivity(self, graphvar: GraphVar):
@@ -111,7 +111,7 @@ class GraphConstraintFactory(ABC):
         :param graphvar: A GraphVar (Directed or Undirected).
         :return: A graph_transitivity constraint.
         """
-        handle = backend.graph_transitivity(self.handle, graphvar.handle)
+        handle = backend.graph_transitivity(self._handle, graphvar._handle)
         return Constraint(handle, self)
 
     def graph_subgraph(self, graphvar_1: Union[UndirectedGraphVar, DirectedGraphVar],
@@ -135,7 +135,7 @@ class GraphConstraintFactory(ABC):
                               DirectedGraphVar), "[graph_subgraph] Both graph variables must have the same type"
         else:
             raise Exception("[graph_subgraph] Only applies to graph variables")
-        handle = backend.graph_subgraph(self.handle, graphvar_1.handle, graphvar_2.handle)
+        handle = backend.graph_subgraph(self._handle, graphvar_1._handle, graphvar_2._handle)
         return Constraint(handle, self)
 
     def graph_nodes_channeling(self, graphvar: GraphVar, setvar_or_boolvars: Union[SetVar, List[BoolVar]]):
@@ -149,10 +149,10 @@ class GraphConstraintFactory(ABC):
         :return: A graph_nodes_channeling constraint.
         """
         if isinstance(setvar_or_boolvars, SetVar):
-            handle = backend.graph_nodes_channeling_set(self.handle, graphvar.handle, setvar_or_boolvars.handle)
+            handle = backend.graph_nodes_channeling_set(self._handle, graphvar._handle, setvar_or_boolvars._handle)
         else:
             bools_handle = make_boolvar_array(setvar_or_boolvars)
-            handle = backend.graph_nodes_channeling_bools(self.handle, graphvar.handle, bools_handle)
+            handle = backend.graph_nodes_channeling_bools(self._handle, graphvar._handle, bools_handle)
         return Constraint(handle, self)
 
     def graph_node_channeling(self, graphvar: GraphVar, is_in: BoolVar, node: int):
@@ -164,7 +164,7 @@ class GraphConstraintFactory(ABC):
         :param node: An int.
         :return: A graph_node_channeling constraint.
         """
-        handle = backend.graph_node_channeling(self.handle, graphvar.handle, is_in.handle, node)
+        handle = backend.graph_node_channeling(self._handle, graphvar._handle, is_in._handle, node)
         return Constraint(handle, self)
 
     def graph_edge_channeling(self, graphvar: GraphVar, is_in: BoolVar, source: int, destination: int):
@@ -177,7 +177,7 @@ class GraphConstraintFactory(ABC):
         :param destination: An int.
         :return: A graph_edge_channeling constraint.
         """
-        handle = backend.graph_edge_channeling(self.handle, graphvar.handle, is_in.handle, source, destination)
+        handle = backend.graph_edge_channeling(self._handle, graphvar._handle, is_in._handle, source, destination)
         return Constraint(handle, self)
 
     def graph_neighbors_channeling(self, graphvar: UndirectedGraphVar,
@@ -198,7 +198,7 @@ class GraphConstraintFactory(ABC):
                 "[graph_neighbors_channeling] The number of set variables must be equal to" \
                 " the maximum number of nodes in the graphvar"
             sets_handle = make_setvar_array(setvars_or_boolvars)
-            handle = backend.graph_neighbors_channeling_sets(self.handle, graphvar.handle, sets_handle)
+            handle = backend.graph_neighbors_channeling_sets(self._handle, graphvar._handle, sets_handle)
         else:
             assert len(setvars_or_boolvars[0]) > 0 and isinstance(setvars_or_boolvars[0][0], BoolVar)
             assert len(setvars_or_boolvars) == graphvar.get_nb_max_nodes(), \
@@ -209,7 +209,7 @@ class GraphConstraintFactory(ABC):
                     "[graph_neighbors_channeling] The number of columns in the boolvar matrix must be equal to" \
                     " the maximum number of nodes in the graphvar"
             bools_handle = make_boolvar_2d_array(setvars_or_boolvars)
-            handle = backend.graph_neighbors_channeling_bools(self.handle, graphvar.handle, bools_handle)
+            handle = backend.graph_neighbors_channeling_bools(self._handle, graphvar._handle, bools_handle)
         return Constraint(handle, self)
 
     def graph_node_neighbors_channeling(self, graphvar: UndirectedGraphVar,
@@ -226,14 +226,14 @@ class GraphConstraintFactory(ABC):
         """
         self._assert_undirected(graphvar, "graph_node_neighbors_channeling")
         if isinstance(setvar_or_boolvars, SetVar):
-            handle = backend.graph_neighbors_channeling_node_set(self.handle, graphvar.handle,
-                                                                 setvar_or_boolvars.handle, node)
+            handle = backend.graph_neighbors_channeling_node_set(self._handle, graphvar._handle,
+                                                                 setvar_or_boolvars._handle, node)
         else:
             assert len(setvar_or_boolvars) == graphvar.get_nb_max_nodes(), \
                 "[graph_neighbors_channeling] The number of boolvars must be equal to" \
                 " the maximum number of nodes in the graphvar"
             bools_handle = make_boolvar_array(setvar_or_boolvars)
-            handle = backend.graph_neighbors_channeling_node_bools(self.handle, graphvar.handle, bools_handle, node)
+            handle = backend.graph_neighbors_channeling_node_bools(self._handle, graphvar._handle, bools_handle, node)
         return Constraint(handle, self)
 
     def graph_successors_channeling(self, digraphvar: DirectedGraphVar,
@@ -251,11 +251,11 @@ class GraphConstraintFactory(ABC):
         assert len(setvars_or_boolvars) > 0
         if isinstance(setvars_or_boolvars[0], SetVar):
             sets_handle = make_setvar_array(setvars_or_boolvars)
-            handle = backend.graph_successors_channeling_sets(self.handle, digraphvar.handle, sets_handle)
+            handle = backend.graph_successors_channeling_sets(self._handle, digraphvar._handle, sets_handle)
         else:
             assert len(setvars_or_boolvars[0]) > 0 and isinstance(setvars_or_boolvars[0][0], BoolVar)
             bools_handle = make_boolvar_2d_array(setvars_or_boolvars)
-            handle = backend.graph_successors_channeling_bools(self.handle, digraphvar.handle, bools_handle)
+            handle = backend.graph_successors_channeling_bools(self._handle, digraphvar._handle, bools_handle)
         return Constraint(handle, self)
 
     def graph_node_successors_channeling(self, digraphvar: DirectedGraphVar,
@@ -272,14 +272,14 @@ class GraphConstraintFactory(ABC):
         """
         self._assert_directed(digraphvar, "graph_node_successors_channeling")
         if isinstance(setvar_or_boolvars, SetVar):
-            handle = backend.graph_successors_channeling_node_set(self.handle, digraphvar.handle,
-                                                                  setvar_or_boolvars.handle, node)
+            handle = backend.graph_successors_channeling_node_set(self._handle, digraphvar._handle,
+                                                                  setvar_or_boolvars._handle, node)
         else:
             assert len(setvar_or_boolvars) == digraphvar.get_nb_max_nodes(), \
                 "[graph_neighbors_channeling] The number of boolvars must be equal to" \
                 " the maximum number of nodes in the graphvar"
             bools_handle = make_boolvar_array(setvar_or_boolvars)
-            handle = backend.graph_successors_channeling_node_bools(self.handle, digraphvar.handle, bools_handle, node)
+            handle = backend.graph_successors_channeling_node_bools(self._handle, digraphvar._handle, bools_handle, node)
         return Constraint(handle, self)
 
     def graph_node_predecessors_channeling(self, digraphvar: DirectedGraphVar,
@@ -296,14 +296,14 @@ class GraphConstraintFactory(ABC):
         """
         self._assert_directed(digraphvar, "graph_node_predecessors_channeling")
         if isinstance(setvar_or_boolvars, SetVar):
-            handle = backend.graph_predecessors_channeling_node_set(self.handle, digraphvar.handle,
-                                                                    setvar_or_boolvars.handle, node)
+            handle = backend.graph_predecessors_channeling_node_set(self._handle, digraphvar._handle,
+                                                                    setvar_or_boolvars._handle, node)
         else:
             assert len(setvar_or_boolvars) == digraphvar.get_nb_max_nodes(), \
                 "[graph_neighbors_channeling] The number of boolvars must be equal to" \
                 " the maximum number of nodes in the graphvar"
             bools_handle = make_boolvar_array(setvar_or_boolvars)
-            handle = backend.graph_predecessors_channeling_node_bools(self.handle, digraphvar.handle, bools_handle,
+            handle = backend.graph_predecessors_channeling_node_bools(self._handle, digraphvar._handle, bools_handle,
                                                                       node)
         return Constraint(handle, self)
 
@@ -317,7 +317,7 @@ class GraphConstraintFactory(ABC):
         :return: A graph_min_degree constraint.
         """
         self._assert_undirected(graphvar, "graph_min_degree")
-        handle = backend.graph_min_degree(self.handle, graphvar.handle, min_degree)
+        handle = backend.graph_min_degree(self._handle, graphvar._handle, min_degree)
         return Constraint(handle, self)
 
     def graph_min_degrees(self, graphvar: UndirectedGraphVar, min_degrees: List[int]):
@@ -331,7 +331,7 @@ class GraphConstraintFactory(ABC):
         """
         self._assert_undirected(graphvar, "graph_min_degrees")
         degrees_handle = make_int_array(min_degrees)
-        handle = backend.graph_min_degrees(self.handle, graphvar.handle, degrees_handle)
+        handle = backend.graph_min_degrees(self._handle, graphvar._handle, degrees_handle)
         return Constraint(handle, self)
 
     def graph_max_degree(self, graphvar: UndirectedGraphVar, max_degree: int):
@@ -344,7 +344,7 @@ class GraphConstraintFactory(ABC):
         :return: A graph_max_degree constraint.
         """
         self._assert_undirected(graphvar, "graph_max_degree")
-        handle = backend.graph_max_degree(self.handle, graphvar.handle, max_degree)
+        handle = backend.graph_max_degree(self._handle, graphvar._handle, max_degree)
         return Constraint(handle, self)
 
     def graph_max_degrees(self, graphvar: UndirectedGraphVar, max_degrees: List[int]):
@@ -358,7 +358,7 @@ class GraphConstraintFactory(ABC):
         """
         self._assert_undirected(graphvar, "graph_max_degrees")
         degrees_handle = make_int_array(max_degrees)
-        handle = backend.graph_max_degrees(self.handle, graphvar.handle, degrees_handle)
+        handle = backend.graph_max_degrees(self._handle, graphvar._handle, degrees_handle)
         return Constraint(handle, self)
 
     def graph_degrees(self, graphvar: UndirectedGraphVar, degrees: List[IntVar]):
@@ -372,7 +372,7 @@ class GraphConstraintFactory(ABC):
         """
         self._assert_undirected(graphvar, "graph_degrees")
         degrees_handle = make_intvar_array(degrees)
-        handle = backend.graph_degrees(self.handle, graphvar.handle, degrees_handle)
+        handle = backend.graph_degrees(self._handle, graphvar._handle, degrees_handle)
         return Constraint(handle, self)
 
     def graph_min_in_degree(self, digraphvar: DirectedGraphVar, min_in_degree: int):
@@ -385,7 +385,7 @@ class GraphConstraintFactory(ABC):
         :return: A graph_min_in_degree constraint.
         """
         self._assert_directed(digraphvar, "graph_min_in_degree")
-        handle = backend.graph_min_in_degree(self.handle, digraphvar.handle, min_in_degree)
+        handle = backend.graph_min_in_degree(self._handle, digraphvar._handle, min_in_degree)
         return Constraint(handle, self)
 
     def graph_min_in_degrees(self, digraphvar: DirectedGraphVar, min_in_degrees: List[int]):
@@ -399,7 +399,7 @@ class GraphConstraintFactory(ABC):
         """
         self._assert_directed(digraphvar, "graph_min_in_degrees")
         degrees_handle = make_int_array(min_in_degrees)
-        handle = backend.graph_min_in_degrees(self.handle, digraphvar.handle, degrees_handle)
+        handle = backend.graph_min_in_degrees(self._handle, digraphvar._handle, degrees_handle)
         return Constraint(handle, self)
 
     def graph_max_in_degree(self, digraphvar: DirectedGraphVar, max_in_degree: int):
@@ -412,7 +412,7 @@ class GraphConstraintFactory(ABC):
         :return: A graph_max_in_degree constraint.
         """
         self._assert_directed(digraphvar, "graph_max_in_degree")
-        handle = backend.graph_max_in_degree(self.handle, digraphvar.handle, max_in_degree)
+        handle = backend.graph_max_in_degree(self._handle, digraphvar._handle, max_in_degree)
         return Constraint(handle, self)
 
     def graph_max_in_degrees(self, digraphvar: DirectedGraphVar, max_in_degrees: List[int]):
@@ -426,7 +426,7 @@ class GraphConstraintFactory(ABC):
         """
         self._assert_directed(digraphvar, "graph_max_in_degrees")
         degrees_handle = make_int_array(max_in_degrees)
-        handle = backend.graph_max_in_degrees(self.handle, digraphvar.handle, degrees_handle)
+        handle = backend.graph_max_in_degrees(self._handle, digraphvar._handle, degrees_handle)
         return Constraint(handle, self)
 
     def graph_in_degrees(self, digraphvar: DirectedGraphVar, in_degrees: List[IntVar]):
@@ -440,7 +440,7 @@ class GraphConstraintFactory(ABC):
         """
         self._assert_directed(digraphvar, "graph_in_degrees")
         degrees_handle = make_intvar_array(in_degrees)
-        handle = backend.graph_in_degrees(self.handle, digraphvar.handle, degrees_handle)
+        handle = backend.graph_in_degrees(self._handle, digraphvar._handle, degrees_handle)
         return Constraint(handle, self)
 
     def graph_min_out_degree(self, digraphvar: DirectedGraphVar, min_out_degree: int):
@@ -453,7 +453,7 @@ class GraphConstraintFactory(ABC):
         :return: A graph_min_out_degree constraint.
         """
         self._assert_directed(digraphvar, "graph_min_out_degree")
-        handle = backend.graph_min_out_degree(self.handle, digraphvar.handle, min_out_degree)
+        handle = backend.graph_min_out_degree(self._handle, digraphvar._handle, min_out_degree)
         return Constraint(handle, self)
 
     def graph_min_out_degrees(self, digraphvar: DirectedGraphVar, min_out_degrees: List[int]):
@@ -467,7 +467,7 @@ class GraphConstraintFactory(ABC):
         """
         self._assert_directed(digraphvar, "graph_min_out_degrees")
         degrees_handle = make_int_array(min_out_degrees)
-        handle = backend.graph_min_out_degrees(self.handle, digraphvar.handle, degrees_handle)
+        handle = backend.graph_min_out_degrees(self._handle, digraphvar._handle, degrees_handle)
         return Constraint(handle, self)
 
     def graph_max_out_degree(self, digraphvar: DirectedGraphVar, max_out_degree: int):
@@ -480,7 +480,7 @@ class GraphConstraintFactory(ABC):
         :return: A graph_max_out_degree constraint.
         """
         self._assert_directed(digraphvar, "graph_max_in_degree")
-        handle = backend.graph_max_out_degree(self.handle, digraphvar.handle, max_out_degree)
+        handle = backend.graph_max_out_degree(self._handle, digraphvar._handle, max_out_degree)
         return Constraint(handle, self)
 
     def graph_max_out_degrees(self, digraphvar: DirectedGraphVar, max_out_degrees: List[int]):
@@ -494,7 +494,7 @@ class GraphConstraintFactory(ABC):
         """
         self._assert_directed(digraphvar, "graph_max_out_degrees")
         degrees_handle = make_int_array(max_out_degrees)
-        handle = backend.graph_max_out_degrees(self.handle, digraphvar.handle, degrees_handle)
+        handle = backend.graph_max_out_degrees(self._handle, digraphvar._handle, degrees_handle)
         return Constraint(handle, self)
 
     def graph_out_degrees(self, digraphvar: DirectedGraphVar, out_degrees: List[IntVar]):
@@ -508,7 +508,7 @@ class GraphConstraintFactory(ABC):
         """
         self._assert_directed(digraphvar, "graph_out_degree")
         degrees_handle = make_intvar_array(out_degrees)
-        handle = backend.graph_out_degrees(self.handle, digraphvar.handle, degrees_handle)
+        handle = backend.graph_out_degrees(self._handle, digraphvar._handle, degrees_handle)
         return Constraint(handle, self)
 
     def graph_cycle(self, graphvar: UndirectedGraphVar):
@@ -519,7 +519,7 @@ class GraphConstraintFactory(ABC):
         :return: A graph_cycle constraint.
         """
         self._assert_undirected(graphvar, "graph_cycle")
-        handle = backend.graph_cycle(self.handle, graphvar.handle)
+        handle = backend.graph_cycle(self._handle, graphvar._handle)
         return Constraint(handle, self)
 
     def graph_no_cycle(self, graphvar: UndirectedGraphVar):
@@ -531,7 +531,7 @@ class GraphConstraintFactory(ABC):
         :return: A graph_cycle constraint.
         """
         self._assert_undirected(graphvar, "graph_no_cycle")
-        handle = backend.graph_no_cycle(self.handle, graphvar.handle)
+        handle = backend.graph_no_cycle(self._handle, graphvar._handle)
         return Constraint(handle, self)
 
     def graph_no_circuit(self, digraphvar: DirectedGraphVar):
@@ -543,7 +543,7 @@ class GraphConstraintFactory(ABC):
         :return: A graph_no_circuit constraint.
         """
         self._assert_directed(digraphvar, "graph_no_circuit")
-        handle = backend.graph_no_circuit(self.handle, digraphvar.handle)
+        handle = backend.graph_no_circuit(self._handle, digraphvar._handle)
         return Constraint(handle, self)
 
     def graph_connected(self, graphvar: UndirectedGraphVar):
@@ -561,7 +561,7 @@ class GraphConstraintFactory(ABC):
         :return: A graph_connected_constraint.
         """
         self._assert_undirected(graphvar, "graph_connected")
-        handle = backend.graph_connected(self.handle, graphvar.handle)
+        handle = backend.graph_connected(self._handle, graphvar._handle)
         return Constraint(handle, self)
 
     def graph_biconnected(self, graphvar: UndirectedGraphVar):
@@ -574,7 +574,7 @@ class GraphConstraintFactory(ABC):
         :return: A graph_biconnected constraint.
         """
         self._assert_undirected(graphvar, "graph_biconnected")
-        handle = backend.graph_biconnected(self.handle, graphvar.handle)
+        handle = backend.graph_biconnected(self._handle, graphvar._handle)
         return Constraint(handle, self)
 
     def graph_nb_connected_components(self, graphvar: UndirectedGraphVar, nb_cc: IntVar):
@@ -586,7 +586,7 @@ class GraphConstraintFactory(ABC):
         :return: A graph_nc_connected_components constraints.
         """
         self._assert_undirected(graphvar, "graph_nb_connected components")
-        handle = backend.graph_nb_connected_components(self.handle, graphvar.handle, nb_cc.handle)
+        handle = backend.graph_nb_connected_components(self._handle, graphvar._handle, nb_cc._handle)
         return Constraint(handle, self)
 
     def graph_size_connected_components(self, graphvar: UndirectedGraphVar, min_size: IntVar, max_size: IntVar):
@@ -600,7 +600,7 @@ class GraphConstraintFactory(ABC):
         :return: A graph_size_connected_components constraint.
         """
         self._assert_undirected(graphvar, "graph_size_connected_components")
-        handle = backend.graph_size_connected_components(self.handle, graphvar.handle, min_size.handle, max_size.handle)
+        handle = backend.graph_size_connected_components(self._handle, graphvar._handle, min_size._handle, max_size._handle)
         return Constraint(handle, self)
 
     def graph_size_min_connected_components(self, graphvar: UndirectedGraphVar, min_size: IntVar):
@@ -613,7 +613,7 @@ class GraphConstraintFactory(ABC):
         :return: A graph_size_min_connected_components constraint.
         """
         self._assert_undirected(graphvar, "graph_size_min_connected_components")
-        handle = backend.graph_size_min_connected_components(self.handle, graphvar.handle, min_size.handle)
+        handle = backend.graph_size_min_connected_components(self._handle, graphvar._handle, min_size._handle)
         return Constraint(handle, self)
 
     def graph_size_max_connected_components(self, graphvar: UndirectedGraphVar, max_size: IntVar):
@@ -626,7 +626,7 @@ class GraphConstraintFactory(ABC):
         :return: A graph_size_max_connected_components constraint.
         """
         self._assert_undirected(graphvar, "graph_size_max_connected_components")
-        handle = backend.graph_size_max_connected_components(self.handle, graphvar.handle, max_size.handle)
+        handle = backend.graph_size_max_connected_components(self._handle, graphvar._handle, max_size._handle)
         return Constraint(handle, self)
 
     def graph_strongly_connected(self, digraphvar: DirectedGraphVar):
@@ -638,7 +638,7 @@ class GraphConstraintFactory(ABC):
         :return: A graph_strongly_connected constraint.
         """
         self._assert_directed(digraphvar, "graph_strongly_connected")
-        handle = backend.graph_strongly_connected(self.handle, digraphvar.handle)
+        handle = backend.graph_strongly_connected(self._handle, digraphvar._handle)
         return Constraint(handle, self)
 
     def graph_nb_strongly_connected_components(self, digraphvar: DirectedGraphVar, nb_scc: IntVar):
@@ -651,7 +651,7 @@ class GraphConstraintFactory(ABC):
         :return: A graph_nb_strongly_connected_components constraint.
         """
         self._assert_directed(digraphvar, "graph_nb_strongly_connected_components")
-        handle = backend.graph_nb_strongly_connected_components(self.handle, digraphvar.handle, nb_scc.handle)
+        handle = backend.graph_nb_strongly_connected_components(self._handle, digraphvar._handle, nb_scc._handle)
         return Constraint(handle, self)
 
     def graph_tree(self, graphvar: UndirectedGraphVar):
@@ -662,7 +662,7 @@ class GraphConstraintFactory(ABC):
         :return: A graph_tree constraint.
         """
         self._assert_undirected(graphvar, "graph_tree")
-        handle = backend.graph_tree(self.handle, graphvar.handle)
+        handle = backend.graph_tree(self._handle, graphvar._handle)
         return Constraint(handle, self)
 
     def graph_forest(self, graphvar: UndirectedGraphVar):
@@ -673,7 +673,7 @@ class GraphConstraintFactory(ABC):
         :return: A graph_forest constraint.
         """
         self._assert_undirected(graphvar, "graph_forest")
-        handle = backend.graph_forest(self.handle, graphvar.handle)
+        handle = backend.graph_forest(self._handle, graphvar._handle)
         return Constraint(handle, self)
 
     def graph_directed_tree(self, digraphvar: DirectedGraphVar, root: int):
@@ -686,7 +686,7 @@ class GraphConstraintFactory(ABC):
         :return: A graph_directed_tree constraint.
         """
         self._assert_directed(digraphvar, "graph_directed_tree")
-        handle = backend.graph_directed_tree(self.handle, digraphvar.handle, root)
+        handle = backend.graph_directed_tree(self._handle, digraphvar._handle, root)
         return Constraint(handle, self)
 
     def graph_directed_forest(self, digraphvar: DirectedGraphVar):
@@ -698,7 +698,7 @@ class GraphConstraintFactory(ABC):
         :return: A graph_directed_forest constraint.
         """
         self._assert_directed(digraphvar, "graph_directed_forest")
-        handle = backend.graph_directed_forest(self.handle, digraphvar.handle)
+        handle = backend.graph_directed_forest(self._handle, digraphvar._handle)
         return Constraint(handle, self)
 
     def graph_reachability(self, digraphvar: DirectedGraphVar, root: int):
@@ -710,7 +710,7 @@ class GraphConstraintFactory(ABC):
         :return: A graph_reachability constraint.
         """
         self._assert_directed(digraphvar, "graph_reachability")
-        handle = backend.graph_reachability(self.handle, digraphvar.handle, root)
+        handle = backend.graph_reachability(self._handle, digraphvar._handle, root)
         return Constraint(handle, self)
 
     def graph_nb_cliques(self, graphvar: UndirectedGraphVar, nb_cliques: IntVar):
@@ -722,7 +722,7 @@ class GraphConstraintFactory(ABC):
         :return: A graph_nb_cliques constraint.
         """
         self._assert_undirected(graphvar, "graph_nb_cliques")
-        handle = backend.graph_nb_cliques(self.handle, graphvar.handle, nb_cliques.handle)
+        handle = backend.graph_nb_cliques(self._handle, graphvar._handle, nb_cliques._handle)
         return Constraint(handle, self)
 
     def graph_diameter(self, graphvar: UndirectedGraphVar, diameter: IntVar):
@@ -736,5 +736,5 @@ class GraphConstraintFactory(ABC):
         :return: A graph_diameter constraint.
         """
         self._assert_undirected(graphvar, "graph_diameter")
-        handle = backend.graph_diameter(self.handle, graphvar.handle, diameter.handle)
+        handle = backend.graph_diameter(self._handle, graphvar._handle, diameter._handle)
         return Constraint(handle, self)

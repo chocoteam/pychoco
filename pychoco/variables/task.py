@@ -33,18 +33,18 @@ class Task(_HandleWrapper):
         if end is None:
             if isinstance(duration, IntVar):
                 self._end = model.intvar(start.get_lb() + duration.get_lb(), start.get_ub() + duration.get_ub())
-                handle = backend.create_task_iv_iv_iv(start.handle, duration.handle, self._end.handle)
+                handle = backend.create_task_iv_iv_iv(start._handle, duration._handle, self._end._handle)
             else:
-                handle = backend.create_task_iv_i(start.handle, duration)
+                handle = backend.create_task_iv_i(start._handle, duration)
                 self._has_monitor = False
                 self._end = IntVar(backend.task_get_end(handle), model)
                 self._duration = IntVar(backend.task_get_duration(handle), model)
         else:
             self._end = end
             if isinstance(duration, IntVar):
-                handle = backend.create_task_iv_iv_iv(start.handle, duration.handle, end.handle)
+                handle = backend.create_task_iv_iv_iv(start._handle, duration._handle, end._handle)
             else:
-                handle = backend.create_task_iv_i_iv(start.handle, duration, end.handle)
+                handle = backend.create_task_iv_i_iv(start._handle, duration, end._handle)
                 self._duration = IntVar(backend.task_get_duration(handle), model)
         self._model = model
         super().__init__(handle)
@@ -75,4 +75,4 @@ class Task(_HandleWrapper):
         Apply supplementary filtering to ensure bound consistency.
         """
         if self._has_monitor:
-            backend.task_ensure_bound_consistency(self.handle)
+            backend.task_ensure_bound_consistency(self._handle)

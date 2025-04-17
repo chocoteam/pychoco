@@ -45,7 +45,7 @@ def eq(value: Union[int, SupportableCol], inc: int = 0):
     :param inc: If value refers to a column, value to be added or subtracted to col
     """
     if isinstance(value, SupportableCol):
-        handle = backend.eq_col(value.handle, inc)
+        handle = backend.eq_col(value._handle, inc)
     else:
         handle = backend.eq(value)
     return Supportable(handle)
@@ -58,7 +58,7 @@ def ne(value: Union[int, SupportableCol], inc: int = 0):
     :param inc: If value refers to a column, value to be added or subtracted to col
     """
     if isinstance(value, SupportableCol):
-        handle = backend.ne_col(value.handle, inc)
+        handle = backend.ne_col(value._handle, inc)
     else:
         handle = backend.ne(value)
     return Supportable(handle)
@@ -71,7 +71,7 @@ def ge(value: Union[int, SupportableCol], inc: int = 0):
     :param inc: If value refers to a column, value to be added or subtracted to col
     """
     if isinstance(value, SupportableCol):
-        handle = backend.ge_col(value.handle, inc)
+        handle = backend.ge_col(value._handle, inc)
     else:
         handle = backend.ge(value)
     return Supportable(handle)
@@ -84,7 +84,7 @@ def gt(value: Union[int, SupportableCol], inc: int = 0):
     :param inc: If value refers to a column, value to be added or subtracted to col
     """
     if isinstance(value, SupportableCol):
-        handle = backend.gt_col(value.handle, inc)
+        handle = backend.gt_col(value._handle, inc)
     else:
         handle = backend.gt(value)
     return Supportable(handle)
@@ -97,7 +97,7 @@ def le(value: Union[int, SupportableCol], inc: int = 0):
     :param inc: If value refers to a column, value to be added or subtracted to col
     """
     if isinstance(value, SupportableCol):
-        handle = backend.le_col(value.handle, inc)
+        handle = backend.le_col(value._handle, inc)
     else:
         handle = backend.le(value)
     return Supportable(handle)
@@ -110,7 +110,7 @@ def lt(value: Union[int, SupportableCol], inc: int = 0):
     :param inc: If value refers to a column, value to be added or subtracted to col
     """
     if isinstance(value, SupportableCol):
-        handle = backend.lt_col(value.handle, inc)
+        handle = backend.lt_col(value._handle, inc)
     else:
         handle = backend.lt(value)
     return Supportable(handle)
@@ -122,7 +122,7 @@ def in_values(values: List[int]):
     :param values A list of ints.
     """
     values_handle = create_int_array(values)
-    handle = backend._in(values_handle)
+    handle = backend.in_(values_handle)
     return Supportable(handle)
 
 

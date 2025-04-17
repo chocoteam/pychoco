@@ -31,7 +31,7 @@ class UndirectedGraph(Graph):
         else:
             assert node_set_type in ["BITSET", "BIPARTITE_SET", "SMALL_BIPARTITE_SET", "RANGE_SET", "LINKED_LIST"]
             self._model = model
-            handle = backend.create_graph(model.handle, nb_max_nodes, node_set_type, edge_set_type, all_node)
+            handle = backend.create_graph(model._handle, nb_max_nodes, node_set_type, edge_set_type, all_node)
             super().__init__(handle)
 
     def is_directed(self):
@@ -42,7 +42,7 @@ class UndirectedGraph(Graph):
         :param node: A node of the graph.
         :return: The neighbors of the node.
         """
-        handle = backend.get_successors_of(self.handle, node)
+        handle = backend.get_successors_of(self._handle, node)
         return get_int_array(handle)
 
     def to_networkx_graph(self):

@@ -15,32 +15,32 @@ class IntVar(Variable):
         """
         :return: The lower bound of the variable.
         """
-        return backend.get_intvar_lb(self.handle)
+        return backend.get_intvar_lb(self._handle)
 
     def get_ub(self):
         """
         :return: The upper bound of the variable.
         """
-        return backend.get_intvar_ub(self.handle)
+        return backend.get_intvar_ub(self._handle)
 
     def get_value(self):
         """
         :return: The value of the variable (only valid if it is instantiated).
         """
         assert self.is_instantiated(), "{} is not instantiated".format(self.name)
-        return backend.get_intvar_value(self.handle)
+        return backend.get_intvar_value(self._handle)
 
     def has_enumerated_domain(self):
         """
         :return: True if the domain of this variable is enumerated.
         """
-        return backend.has_enumerated_domain(self.handle)
+        return backend.has_enumerated_domain(self._handle)
 
     def get_domain_values(self):
         """
         :return The enumerated values of this variable's domain.
         """
-        val_handle = backend.get_domain_values(self.handle)
+        val_handle = backend.get_domain_values(self._handle)
         vals = get_int_array(val_handle)
         return vals
 

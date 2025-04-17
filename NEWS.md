@@ -1,3 +1,20 @@
+# pychoco 0.2.3
+
+Rename `handle` property to `_handle` to avoid including it in autocompletion for IDE users.
+Also introduce minor fixes.
+
+# pychoco 0.2.2
+
+Add accessors to solver statistics:
+
+- `get_time_count()`
+- `get_node_count()`
+- `get_backtrack_count()`
+- `get_fail_count()`
+- `get_restart_count()`
+- `is_objective_optimal()`
+- `get_search_state()`
+
 # pychoco 0.2.1
 
 Same as 0.2.0 but fixing a wheel distribution issue.

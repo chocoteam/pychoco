@@ -21,7 +21,7 @@ class ViewFactory(ABC):
 
     @property
     @abstractmethod
-    def handle(self):
+    def _handle(self):
         pass
 
     # Boolean views
@@ -32,7 +32,7 @@ class ViewFactory(ABC):
         :param boolvar: A BoolVar.
         :return: A bool_not_view.
         """
-        handle = backend.bool_not_view(boolvar.handle)
+        handle = backend.bool_not_view(boolvar._handle)
         return BoolVar(handle, self)
 
     def set_bool_view(self, setvar: SetVar, value: int):
@@ -44,7 +44,7 @@ class ViewFactory(ABC):
         :param value: An int.
         :return: A set_bool_view
         """
-        handle = backend.set_bool_view(setvar.handle, value)
+        handle = backend.set_bool_view(setvar._handle, value)
         return BoolVar(handle, self)
 
     def set_bools_view(self, setvar: SetVar, size: int, offset: int = 0):
@@ -57,7 +57,7 @@ class ViewFactory(ABC):
         :param offset: An int.
         :return: A list of boolean views.
         """
-        handle = backend.set_bools_view(setvar.handle, size, offset)
+        handle = backend.set_bools_view(setvar._handle, size, offset)
         boolvars = get_boolvar_array(handle, self)
         return boolvars
 
@@ -71,7 +71,7 @@ class ViewFactory(ABC):
         :param offset: An int.
         :return: An int_offset_view.
         """
-        handle = backend.int_offset_view(intvar.handle, offset)
+        handle = backend.int_offset_view(intvar._handle, offset)
         return IntVar(handle, self)
 
     def int_minus_view(self, intvar: IntVar):
@@ -80,7 +80,7 @@ class ViewFactory(ABC):
         :param intvar: An IntVar.
         :return: An int_minus_view.
         """
-        handle = backend.int_minus_view(intvar.handle)
+        handle = backend.int_minus_view(intvar._handle)
         return IntVar(handle, self)
 
     def int_scale_view(self, intvar: IntVar, scale: int):
@@ -98,7 +98,7 @@ class ViewFactory(ABC):
         :return: An int_scale_view.
         """
         assert scale > -2, "[int_scale_view] scale must be > -2"
-        handle = backend.int_scale_view(intvar.handle, scale)
+        handle = backend.int_scale_view(intvar._handle, scale)
         return IntVar(handle, self)
 
     def int_abs_view(self, intvar: IntVar):
@@ -112,7 +112,7 @@ class ViewFactory(ABC):
         :param intvar: An IntVar.
         :return: An int_abs_view
         """
-        handle = backend.int_abs_view(intvar.handle)
+        handle = backend.int_abs_view(intvar._handle)
         return IntVar(handle, self)
 
     def int_affine_view(self, a: int, intvar: IntVar, b: int):
@@ -124,7 +124,7 @@ class ViewFactory(ABC):
         :param b: An int.
         :return: An int_affine_view.
         """
-        handle = backend.int_affine_view(a, intvar.handle, b)
+        handle = backend.int_affine_view(a, intvar._handle, b)
         return IntVar(handle, self)
 
     def int_eq_view(self, intvar: IntVar, value: int):
@@ -135,7 +135,7 @@ class ViewFactory(ABC):
         :param value:  An int.
         :return:  An int_eq_view.
         """
-        handle = backend.int_eq_view(intvar.handle, value)
+        handle = backend.int_eq_view(intvar._handle, value)
         return BoolVar(handle, self)
 
     def int_ne_view(self, intvar: IntVar, value: int):
@@ -146,7 +146,7 @@ class ViewFactory(ABC):
         :param value:  An int.
         :return:  An int_ne_view.
         """
-        handle = backend.int_ne_view(intvar.handle, value)
+        handle = backend.int_ne_view(intvar._handle, value)
         return BoolVar(handle, self)
 
     def int_le_view(self, intvar: IntVar, value: int):
@@ -157,7 +157,7 @@ class ViewFactory(ABC):
         :param value:  An int.
         :return:  An int_le_view.
         """
-        handle = backend.int_le_view(intvar.handle, value)
+        handle = backend.int_le_view(intvar._handle, value)
         return BoolVar(handle, self)
 
     def int_ge_view(self, intvar: IntVar, value: int):
@@ -168,7 +168,7 @@ class ViewFactory(ABC):
         :param value:  An int.
         :return:  An int_ge_view.
         """
-        handle = backend.int_ge_view(intvar.handle, value)
+        handle = backend.int_ge_view(intvar._handle, value)
         return BoolVar(handle, self)
 
     # Set views
@@ -233,7 +233,7 @@ class ViewFactory(ABC):
         :param setvar_2: A SetVar.
         :return: A set_difference_view.
         """
-        handle = backend.set_difference_view(setvar_1.handle, setvar_2.handle)
+        handle = backend.set_difference_view(setvar_1._handle, setvar_2._handle)
         return SetVar(handle, self)
 
     # Graph views
@@ -245,7 +245,7 @@ class ViewFactory(ABC):
         :param graphvar: A GraphVar (Directed or Undirected).
         :return: A graph_node_set_view.
         """
-        handle = backend.graph_node_set_view(graphvar.handle)
+        handle = backend.graph_node_set_view(graphvar._handle)
         return SetVar(handle, self)
 
     def graph_successors_set_view(self, digraphvar: "DirectedGraphVar", node: int):
@@ -256,7 +256,7 @@ class ViewFactory(ABC):
         :param node: An int.
         :return: A graph_successors_set_view.
         """
-        handle = backend.graph_successors_set_view(digraphvar.handle, node)
+        handle = backend.graph_successors_set_view(digraphvar._handle, node)
         return SetVar(handle, self)
 
     def graph_predecessors_set_view(self, digraphvar: "DirectedGraphVar", node: int):
@@ -267,7 +267,7 @@ class ViewFactory(ABC):
         :param node: An int.
         :return: A graph_predecessors_set_view.
         """
-        handle = backend.graph_predecessors_set_view(digraphvar.handle, node)
+        handle = backend.graph_predecessors_set_view(digraphvar._handle, node)
         return SetVar(handle, self)
 
     def graph_neighbors_set_view(self, graphvar: "UndirectedGraphVar", node: int):
@@ -278,7 +278,7 @@ class ViewFactory(ABC):
         :param node: An int.
         :return: A graph_neighbors_set_view.
         """
-        handle = backend.graph_neighbors_set_view(graphvar.handle, node)
+        handle = backend.graph_neighbors_set_view(graphvar._handle, node)
         return SetVar(handle, self)
 
     def node_induced_subgraph_view(self, graphvar: "GraphVar", nodes: List[int], exclude: bool = False):
@@ -294,7 +294,7 @@ class ViewFactory(ABC):
         """
         assert len(nodes) > 0
         nodes_handle = make_int_array(nodes)
-        handle = backend.node_induced_subgraph_view(graphvar.handle, nodes_handle, exclude)
+        handle = backend.node_induced_subgraph_view(graphvar._handle, nodes_handle, exclude)
         return _make_graphview(handle, self, graphvar)
 
     def edge_induced_subgraph_view(self, graphvar: "GraphVar", edges: List[List[int]], exclude: bool = False):
@@ -312,7 +312,7 @@ class ViewFactory(ABC):
         for e in edges:
             assert len(e) == 2
         edges_handle = make_int_2d_array(edges)
-        handle = backend.edge_induced_subgraph_view(graphvar.handle, edges_handle, exclude)
+        handle = backend.edge_induced_subgraph_view(graphvar._handle, edges_handle, exclude)
         return _make_graphview(handle, self, graphvar)
 
     def graph_union_view(self, graphvars: List["GraphVar"]):

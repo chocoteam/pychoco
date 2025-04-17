@@ -15,20 +15,20 @@ class SetVar(Variable):
         """
         :return: The lower bound of this setvar (a set of integers).
         """
-        return set(get_int_array(backend.get_setvar_lb(self.handle)))
+        return set(get_int_array(backend.get_setvar_lb(self._handle)))
 
     def get_ub(self):
         """
         :return: The upper bound of this setvar (a set of integers).
         """
-        return set(get_int_array(backend.get_setvar_ub(self.handle)))
+        return set(get_int_array(backend.get_setvar_ub(self._handle)))
 
     def get_value(self):
         """
         :return: The value of this set variable (only valid if it is instantiated).
         """
         assert self.is_instantiated(), "{} is not instantiated".format(self.name)
-        return set(get_int_array(backend.get_setvar_value(self.handle)))
+        return set(get_int_array(backend.get_setvar_value(self._handle)))
 
     def get_type(self):
         return "SetVar"

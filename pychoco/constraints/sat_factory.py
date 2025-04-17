@@ -15,7 +15,7 @@ class SatFactory(ABC):
 
     @property
     @abstractmethod
-    def handle(self):
+    def _handle(self):
         pass
 
     def add_clauses_logop(self, tree: LogOp):
@@ -23,7 +23,7 @@ class SatFactory(ABC):
         Ensures that the clauses defined in the Boolean logic formula tree are satisfied.
         :param tree: A LogOp
         """
-        return backend.add_clauses_logop(self.handle, tree.handle)
+        return backend.add_clauses_logop(self._handle, tree._handle)
 
     def add_clauses(self, pos_lits: List[BoolVar], neg_lits: List[BoolVar]):
         """
@@ -33,21 +33,21 @@ class SatFactory(ABC):
         """
         poshandle = make_boolvar_array(pos_lits)
         neghandle = make_boolvar_array(neg_lits)
-        return backend.add_clauses(self.handle, poshandle, neghandle)
+        return backend.add_clauses(self._handle, poshandle, neghandle)
 
     def add_clause_true(self, boolvar: BoolVar):
         """
         Add a unit clause stating that boolvar must be true
         :param boolvar: A BoolVar.
         """
-        return backend.add_clause_true(self.handle, boolvar.handle)
+        return backend.add_clause_true(self._handle, boolvar._handle)
 
     def add_clause_false(self, boolvar: BoolVar):
         """
         Add a unit clause stating that boolvar must be false
         :param boolvar: A BoolVar.
         """
-        return backend.add_clause_false(self.handle, boolvar.handle)
+        return backend.add_clause_false(self._handle, boolvar._handle)
 
     def add_clauses_bool_eq(self, left: BoolVar, right: BoolVar):
         """
@@ -55,7 +55,7 @@ class SatFactory(ABC):
         :param left: A BoolVar.
         :param right: A BoolVar.
         """
-        return backend.add_clauses_bool_eq(self.handle, left.handle, right.handle)
+        return backend.add_clauses_bool_eq(self._handle, left._handle, right._handle)
 
     def add_clauses_bool_le(self, left: BoolVar, right: BoolVar):
         """
@@ -63,7 +63,7 @@ class SatFactory(ABC):
         :param left: A BoolVar.
         :param right: A BoolVar.
         """
-        return backend.add_clauses_bool_le(self.handle, left.handle, right.handle)
+        return backend.add_clauses_bool_le(self._handle, left._handle, right._handle)
 
     def add_clauses_bool_lt(self, left: BoolVar, right: BoolVar):
         """
@@ -71,7 +71,7 @@ class SatFactory(ABC):
         :param left: A BoolVar.
         :param right: A BoolVar.
         """
-        return backend.add_clauses_bool_lt(self.handle, left.handle, right.handle)
+        return backend.add_clauses_bool_lt(self._handle, left._handle, right._handle)
 
     def add_clauses_bool_not(self, left: BoolVar, right: BoolVar):
         """
@@ -79,7 +79,7 @@ class SatFactory(ABC):
         :param left: A BoolVar.
         :param right: A BoolVar.
         """
-        return backend.add_clauses_bool_not(self.handle, left.handle, right.handle)
+        return backend.add_clauses_bool_not(self._handle, left._handle, right._handle)
 
     def add_clauses_bool_or_array_eq_var(self, boolvars: List[BoolVar], target: BoolVar):
         """
@@ -88,7 +88,7 @@ class SatFactory(ABC):
         :param target: A BoolVar.
         """
         lhandle = make_boolvar_array(boolvars)
-        return backend.add_clauses_bool_or_array_eq_var(self.handle, lhandle, target.handle)
+        return backend.add_clauses_bool_or_array_eq_var(self._handle, lhandle, target._handle)
 
     def add_clauses_bool_and_array_eq_var(self, boolvars: List[BoolVar], target: BoolVar):
         """
@@ -97,7 +97,7 @@ class SatFactory(ABC):
         :param target: A BoolVar.
         """
         lhandle = make_boolvar_array(boolvars)
-        return backend.add_clauses_bool_and_array_eq_var(self.handle, lhandle, target.handle)
+        return backend.add_clauses_bool_and_array_eq_var(self._handle, lhandle, target._handle)
 
     def add_clauses_bool_or_eq_var(self, left: BoolVar, right: BoolVar, target: BoolVar):
         """
@@ -106,7 +106,7 @@ class SatFactory(ABC):
         :param right: A BoolVar.
         :param target: A BoolVar.
         """
-        return backend.add_clauses_bool_or_eq_var(self.handle, left.handle, right.handle, target.handle)
+        return backend.add_clauses_bool_or_eq_var(self._handle, left._handle, right._handle, target._handle)
 
     def add_clauses_bool_and_eq_var(self, left: BoolVar, right: BoolVar, target: BoolVar):
         """
@@ -115,7 +115,7 @@ class SatFactory(ABC):
         :param right: A BoolVar.
         :param target: A BoolVar.
         """
-        return backend.add_clauses_bool_and_eq_var(self.handle, left.handle, right.handle, target.handle)
+        return backend.add_clauses_bool_and_eq_var(self._handle, left._handle, right._handle, target._handle)
 
     def add_clauses_bool_xor_eq_var(self, left: BoolVar, right: BoolVar, target: BoolVar):
         """
@@ -124,7 +124,7 @@ class SatFactory(ABC):
         :param right: A BoolVar.
         :param target: A BoolVar.
         """
-        return backend.add_clauses_bool_xor_eq_var(self.handle, left.handle, right.handle, target.handle)
+        return backend.add_clauses_bool_xor_eq_var(self._handle, left._handle, right._handle, target._handle)
 
     def add_clauses_bool_is_eq_var(self, left: BoolVar, right: BoolVar, target: BoolVar):
         """
@@ -133,7 +133,7 @@ class SatFactory(ABC):
         :param right: A BoolVar.
         :param target: A BoolVar.
         """
-        return backend.add_clauses_bool_is_eq_var(self.handle, left.handle, right.handle, target.handle)
+        return backend.add_clauses_bool_is_eq_var(self._handle, left._handle, right._handle, target._handle)
 
     def add_clauses_bool_is_neq_var(self, left: BoolVar, right: BoolVar, target: BoolVar):
         """
@@ -142,7 +142,7 @@ class SatFactory(ABC):
         :param right: A BoolVar.
         :param target: A BoolVar.
         """
-        return backend.add_clauses_bool_is_neq_var(self.handle, left.handle, right.handle, target.handle)
+        return backend.add_clauses_bool_is_neq_var(self._handle, left._handle, right._handle, target._handle)
 
     def add_clauses_bool_is_le_var(self, left: BoolVar, right: BoolVar, target: BoolVar):
         """
@@ -151,7 +151,7 @@ class SatFactory(ABC):
         :param right: A BoolVar.
         :param target: A BoolVar.
         """
-        return backend.add_clauses_bool_is_le_var(self.handle, left.handle, right.handle, target.handle)
+        return backend.add_clauses_bool_is_le_var(self._handle, left._handle, right._handle, target._handle)
 
     def add_clauses_bool_is_lt_var(self, left: BoolVar, right: BoolVar, target: BoolVar):
         """
@@ -160,7 +160,7 @@ class SatFactory(ABC):
         :param right: A BoolVar.
         :param target: A BoolVar.
         """
-        return backend.add_clauses_bool_is_lt_var(self.handle, left.handle, right.handle, target.handle)
+        return backend.add_clauses_bool_is_lt_var(self._handle, left._handle, right._handle, target._handle)
 
     def add_clauses_bool_or_array_equal_true(self, boolvars: List[BoolVar]):
         """
@@ -168,7 +168,7 @@ class SatFactory(ABC):
         :param boolvars: A list of BoolVars.
         """
         lhandle = make_boolvar_array(boolvars)
-        return backend.add_clauses_bool_or_array_equal_true(self.handle, lhandle)
+        return backend.add_clauses_bool_or_array_equal_true(self._handle, lhandle)
 
     def add_clauses_bool_and_array_equal_false(self, boolvars: List[BoolVar]):
         """
@@ -176,7 +176,7 @@ class SatFactory(ABC):
         :param boolvars: A list of BoolVars.
         """
         lhandle = make_boolvar_array(boolvars)
-        return backend.add_clauses_bool_and_array_equal_false(self.handle, lhandle)
+        return backend.add_clauses_bool_and_array_equal_false(self._handle, lhandle)
 
     def add_clauses_at_most_one(self, boolvars: List[BoolVar]):
         """
@@ -184,7 +184,7 @@ class SatFactory(ABC):
         :param boolvars: A list of BoolVars.
         """
         lhandle = make_boolvar_array(boolvars)
-        return backend.add_clauses_at_most_one(self.handle, lhandle)
+        return backend.add_clauses_at_most_one(self._handle, lhandle)
 
     def add_clauses_at_most_n_minus_one(self, boolvars: List[BoolVar]):
         """
@@ -192,7 +192,7 @@ class SatFactory(ABC):
         :param boolvars: A list of BoolVars.
         """
         lhandle = make_boolvar_array(boolvars)
-        return backend.add_clauses_at_most_nminus_one(self.handle, lhandle)
+        return backend.add_clauses_at_most_nminus_one(self._handle, lhandle)
 
     def add_clauses_sum_bool_array_greater_eq_var(self, boolvars: List[BoolVar], target: BoolVar):
         """
@@ -201,7 +201,7 @@ class SatFactory(ABC):
         :param target: A BoolVar.
         """
         lhandle = make_boolvar_array(boolvars)
-        return backend.add_clauses_sum_bool_array_greater_eq_var(self.handle, lhandle, target.handle)
+        return backend.add_clauses_sum_bool_array_greater_eq_var(self._handle, lhandle, target._handle)
 
     def add_clauses_max_bool_array_less_eq_var(self, boolvars: List[BoolVar], target: BoolVar):
         """
@@ -210,7 +210,7 @@ class SatFactory(ABC):
         :param target: A BoolVar.
         """
         lhandle = make_boolvar_array(boolvars)
-        return backend.add_clauses_max_bool_array_less_eq_var(self.handle, lhandle, target.handle)
+        return backend.add_clauses_max_bool_array_less_eq_var(self._handle, lhandle, target._handle)
 
     def add_clauses_sum_bool_array_less_eq_var(self, boolvars: List[BoolVar], target: BoolVar):
         """
@@ -219,7 +219,7 @@ class SatFactory(ABC):
         :param target: A BoolVar.
         """
         lhandle = make_boolvar_array(boolvars)
-        return backend.add_clauses_sum_bool_array_less_eq_var(self.handle, lhandle, target.handle)
+        return backend.add_clauses_sum_bool_array_less_eq_var(self._handle, lhandle, target._handle)
 
     def add_constructive_disjunction(self, constraints: List[Constraint]):
         """
@@ -227,4 +227,4 @@ class SatFactory(ABC):
         :params constraints: A list of constraints
         """
         lhandle = make_constraint_array(constraints)
-        return backend.add_constructive_disjunction(self.handle, lhandle)
+        return backend.add_constructive_disjunction(self._handle, lhandle)

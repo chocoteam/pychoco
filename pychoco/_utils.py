@@ -73,7 +73,7 @@ def make_intvar_array(intvars: List["IntVar"]):
     """
     vars_array = backend.create_intvar_array(len(intvars))
     for i in range(0, len(intvars)):
-        backend.intvar_array_set(vars_array, intvars[i].handle, i)
+        backend.intvar_array_set(vars_array, intvars[i]._handle, i)
     return vars_array
 
 
@@ -98,7 +98,7 @@ def make_boolvar_array(boolvars: List["BoolVar"]):
     """
     vars_array = backend.create_boolvar_array(len(boolvars))
     for i in range(0, len(boolvars)):
-        backend.boolvar_array_set(vars_array, boolvars[i].handle, i)
+        backend.boolvar_array_set(vars_array, boolvars[i]._handle, i)
     return vars_array
 
 
@@ -138,7 +138,7 @@ def make_setvar_array(setvars: List["SetVar"]):
     """
     vars_array = backend.create_setvar_array(len(setvars))
     for i in range(0, len(setvars)):
-        backend.setvar_array_set(vars_array, setvars[i].handle, i)
+        backend.setvar_array_set(vars_array, setvars[i]._handle, i)
     return vars_array
 
 
@@ -150,7 +150,7 @@ def make_graphvar_array(graphvars: List["GraphVar"]):
     """
     vars_array = backend.create_graphvar_array(len(graphvars))
     for i in range(0, len(graphvars)):
-        backend.graphvar_array_set(vars_array, graphvars[i].handle, i)
+        backend.graphvar_array_set(vars_array, graphvars[i]._handle, i)
     return vars_array
 
 
@@ -162,7 +162,7 @@ def make_task_array(tasks: List["Task"]):
     """
     task_array = backend.create_task_array(len(tasks))
     for i in range(0, len(tasks)):
-        backend.task_array_set(task_array, tasks[i].handle, i)
+        backend.task_array_set(task_array, tasks[i]._handle, i)
     return task_array
 
 
@@ -174,7 +174,7 @@ def make_constraint_array(constraints: List["Constraint"]):
     """
     cons_array = backend.create_constraint_array(len(constraints))
     for i in range(0, len(constraints)):
-        backend.constraint_array_set(cons_array, constraints[i].handle, i)
+        backend.constraint_array_set(cons_array, constraints[i]._handle, i)
     return cons_array
 
 
@@ -196,7 +196,7 @@ def make_supportable_array(sarray: List["Supportable"]):
     """
     array = backend.create_isupportable_array(len(sarray))
     for i in range(0, len(sarray)):
-        backend.isupportable_array_set(array, sarray[i].handle, i)
+        backend.isupportable_array_set(array, sarray[i]._handle, i)
     return array
 
 
@@ -206,7 +206,7 @@ def make_logical_array(logicals: List[Union["LogOp", "BoolVar"]]):
     """
     array = backend.create_ilogical_array(len(logicals))
     for i in range(0, len(logicals)):
-        backend.ilogical_array_set(array, logicals[i].handle, i)
+        backend.ilogical_array_set(array, logicals[i]._handle, i)
     return array
 
 

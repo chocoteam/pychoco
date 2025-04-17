@@ -20,14 +20,14 @@ class SearchStrategies(ABC):
 
     @property
     @abstractmethod
-    def handle(self):
+    def _handle(self):
         pass
 
     def set_default_search(self):
         """
         Set the solver's default search strategy.
         """
-        backend.set_default_search(self.handle)
+        backend.set_default_search(self._handle)
 
     def set_dom_over_w_deg_search(self, *intvars):
         """
@@ -39,7 +39,7 @@ class SearchStrategies(ABC):
         """
         vars = _extract_star_arg(intvars)
         var_array_handle = make_intvar_array(vars)
-        backend.set_dom_over_w_deg_search(self.handle, var_array_handle)
+        backend.set_dom_over_w_deg_search(self._handle, var_array_handle)
 
     def set_dom_over_w_deg_ref_search(self, *intvars):
         """
@@ -51,7 +51,7 @@ class SearchStrategies(ABC):
         """
         vars = _extract_star_arg(intvars)
         var_array_handle = make_intvar_array(vars)
-        backend.set_dom_over_w_deg_ref_search(self.handle, var_array_handle)
+        backend.set_dom_over_w_deg_ref_search(self._handle, var_array_handle)
 
     def set_activity_based_search(self, *intvars):
         """
@@ -65,7 +65,7 @@ class SearchStrategies(ABC):
         """
         vars = _extract_star_arg(intvars)
         var_array_handle = make_intvar_array(vars)
-        backend.set_activity_based_search(self.handle, var_array_handle)
+        backend.set_activity_based_search(self._handle, var_array_handle)
 
     def set_min_dom_lb_search(self, *intvars):
         """
@@ -74,7 +74,7 @@ class SearchStrategies(ABC):
         """
         vars = _extract_star_arg(intvars)
         var_array_handle = make_intvar_array(vars)
-        backend.set_min_dom_lb_search(self.handle, var_array_handle)
+        backend.set_min_dom_lb_search(self._handle, var_array_handle)
 
     def set_min_dom_ub_search(self, *intvars):
         """
@@ -83,7 +83,7 @@ class SearchStrategies(ABC):
         """
         vars = _extract_star_arg(intvars)
         var_array_handle = make_intvar_array(vars)
-        backend.set_min_dom_ub_search(self.handle, var_array_handle)
+        backend.set_min_dom_ub_search(self._handle, var_array_handle)
 
     def set_random_search(self, *intvars, seed: int = round(time.time())):
         """
@@ -95,7 +95,7 @@ class SearchStrategies(ABC):
         """
         vars = _extract_star_arg(intvars)
         var_array_handle = make_intvar_array(vars)
-        backend.set_random_search(self.handle, var_array_handle, seed)
+        backend.set_random_search(self._handle, var_array_handle, seed)
 
     def set_conflict_history_search(self, *intvars):
         """
@@ -108,7 +108,7 @@ class SearchStrategies(ABC):
         """
         vars = _extract_star_arg(intvars)
         var_array_handle = make_intvar_array(vars)
-        backend.set_conflict_history_search(self.handle, var_array_handle)
+        backend.set_conflict_history_search(self._handle, var_array_handle)
 
     def set_input_order_lb_search(self, *intvars):
         """
@@ -117,7 +117,7 @@ class SearchStrategies(ABC):
         """
         vars = _extract_star_arg(intvars)
         var_array_handle = make_intvar_array(vars)
-        backend.set_input_order_lb_search(self.handle, var_array_handle)
+        backend.set_input_order_lb_search(self._handle, var_array_handle)
 
     def set_input_order_ub_search(self, *intvars):
         """
@@ -126,7 +126,7 @@ class SearchStrategies(ABC):
         """
         vars = _extract_star_arg(intvars)
         var_array_handle = make_intvar_array(vars)
-        backend.set_input_order_ub_search(self.handle, var_array_handle)
+        backend.set_input_order_ub_search(self._handle, var_array_handle)
 
     def set_failure_length_based_search(self, *intvars):
         """
@@ -139,7 +139,7 @@ class SearchStrategies(ABC):
         """
         vars = _extract_star_arg(intvars)
         var_array_handle = make_intvar_array(vars)
-        backend.set_failure_length_based_search(self.handle, var_array_handle)
+        backend.set_failure_length_based_search(self._handle, var_array_handle)
 
     def set_failure_rate_based_search(self, *intvars):
         """
@@ -152,7 +152,7 @@ class SearchStrategies(ABC):
         """
         vars = _extract_star_arg(intvars)
         var_array_handle = make_intvar_array(vars)
-        backend.set_failure_rate_based_search(self.handle, var_array_handle)
+        backend.set_failure_rate_based_search(self._handle, var_array_handle)
 
     def set_pick_on_dom_search(self, *intvars):
         """
@@ -164,7 +164,7 @@ class SearchStrategies(ABC):
         """
         vars = _extract_star_arg(intvars)
         var_array_handle = make_intvar_array(vars)
-        backend.set_pick_on_fil_search(self.handle, var_array_handle)
+        backend.set_pick_on_fil_search(self._handle, var_array_handle)
 
     def set_pick_on_fil_search(self, *intvars):
         """
@@ -176,7 +176,7 @@ class SearchStrategies(ABC):
         """
         vars = _extract_star_arg(intvars)
         var_array_handle = make_intvar_array(vars)
-        backend.set_pick_on_fil_search(self.handle, var_array_handle)
+        backend.set_pick_on_fil_search(self._handle, var_array_handle)
 
     def add_hint(self, intvar, value):
         """
@@ -188,10 +188,10 @@ class SearchStrategies(ABC):
         :param intvar An IntVar
         :param value The hint value
         """
-        backend.add_hint(self.handle, intvar.handle, value)
+        backend.add_hint(self._handle, intvar._handle, value)
 
     def rem_hints(self):
         """
         Remove declared hints
         """
-        backend.rem_hints(self.handle)
+        backend.rem_hints(self._handle)

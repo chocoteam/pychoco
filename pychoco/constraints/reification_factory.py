@@ -16,7 +16,7 @@ class ReificationFactory(ABC):
 
     @property
     @abstractmethod
-    def handle(self):
+    def _handle(self):
         pass
 
     def if_then_else(self, if_constraint_or_boolvar: Union[Constraint, BoolVar], then_constraint: Constraint,
@@ -30,9 +30,9 @@ class ReificationFactory(ABC):
         :param else_constraint: A Constraint.
         """
         if isinstance(if_constraint_or_boolvar, Constraint):
-            backend.if_then_else(self.handle, if_constraint_or_boolvar.handle, then_constraint.handle, else_constraint.handle)
+            backend.if_then_else(self._handle, if_constraint_or_boolvar._handle, then_constraint._handle, else_constraint._handle)
         else:
-            backend.if_then_else_bool(self.handle, if_constraint_or_boolvar.handle, then_constraint.handle, else_constraint.handle)
+            backend.if_then_else_bool(self._handle, if_constraint_or_boolvar._handle, then_constraint._handle, else_constraint._handle)
 
 
     def if_then(self, if_constraint_or_boolvar: Union[Constraint, BoolVar], then_constraint: Constraint):
@@ -43,9 +43,9 @@ class ReificationFactory(ABC):
         :param then_constraint: A Constraint.
         """
         if isinstance(if_constraint_or_boolvar, Constraint):
-            backend.if_then(self.handle, if_constraint_or_boolvar.handle, then_constraint.handle)
+            backend.if_then(self._handle, if_constraint_or_boolvar._handle, then_constraint._handle)
         else:
-            backend.if_then_bool(self.handle, if_constraint_or_boolvar.handle, then_constraint.handle)
+            backend.if_then_bool(self._handle, if_constraint_or_boolvar._handle, then_constraint._handle)
 
     def if_only_if(self, constraint1_or_boolvar: Union[Constraint, BoolVar], constraint2: Constraint):
         """
@@ -56,9 +56,9 @@ class ReificationFactory(ABC):
         :param constraint2: A Constraint.
         """
         if isinstance(constraint1_or_boolvar, Constraint):
-            backend.if_only_if(self.handle, constraint1_or_boolvar.handle, constraint2.handle)
+            backend.if_only_if(self._handle, constraint1_or_boolvar._handle, constraint2._handle)
         else:
-            backend.reification(self.handle, constraint1_or_boolvar.handle, constraint2.handle)
+            backend.reification(self._handle, constraint1_or_boolvar._handle, constraint2._handle)
 
     def reify_x_eq_y(self, x: IntVar, y: Union[IntVar, int], b: BoolVar):
         """
@@ -69,9 +69,9 @@ class ReificationFactory(ABC):
         :param b: A BoolVar.
         """
         if isinstance(y, IntVar):
-            backend.reify_x_eq_y(self.handle, x.handle, y.handle, b.handle)
+            backend.reify_x_eq_y(self._handle, x._handle, y._handle, b._handle)
         else:
-            backend.reify_x_eq_c(self.handle, x.handle, y, b.handle)
+            backend.reify_x_eq_c(self._handle, x._handle, y, b._handle)
 
     def reify_x_ne_y(self, x: IntVar, y: Union[IntVar, int], b: BoolVar):
         """
@@ -82,9 +82,9 @@ class ReificationFactory(ABC):
         :param b: A BoolVar.
         """
         if isinstance(y, IntVar):
-            backend.reify_x_ne_y(self.handle, x.handle, y.handle, b.handle)
+            backend.reify_x_ne_y(self._handle, x._handle, y._handle, b._handle)
         else:
-            backend.reify_x_ne_c(self.handle, x.handle, y, b.handle)
+            backend.reify_x_ne_c(self._handle, x._handle, y, b._handle)
 
     def reify_x_eq_yc(self, x: IntVar, y: IntVar, c: int, b: BoolVar):
         """
@@ -95,7 +95,7 @@ class ReificationFactory(ABC):
         :param c: An int.
         :param b: A BoolVar.
         """
-        backend.reify_x_eq_yc(self.handle, x.handle, y.handle, c, b.handle)
+        backend.reify_x_eq_yc(self._handle, x._handle, y._handle, c, b._handle)
 
     def reify_x_ne_yc(self, x: IntVar, y: IntVar, c: int, b: BoolVar):
         """
@@ -106,7 +106,7 @@ class ReificationFactory(ABC):
         :param c: An int.
         :param b: A BoolVar.
         """
-        backend.reify_x_ne_yc(self.handle, x.handle, y.handle, c, b.handle)
+        backend.reify_x_ne_yc(self._handle, x._handle, y._handle, c, b._handle)
 
     def reify_x_lt_y(self, x: IntVar, y: Union[IntVar, int], b: BoolVar):
         """
@@ -117,9 +117,9 @@ class ReificationFactory(ABC):
         :param b: A BoolVar.
         """
         if isinstance(y, IntVar):
-            backend.reify_x_lt_y(self.handle, x.handle, y.handle, b.handle)
+            backend.reify_x_lt_y(self._handle, x._handle, y._handle, b._handle)
         else:
-            backend.reify_x_lt_c(self.handle, x.handle, y, b.handle)
+            backend.reify_x_lt_c(self._handle, x._handle, y, b._handle)
 
     def reify_x_gt_y(self, x: IntVar, y: Union[IntVar, int], b: BoolVar):
         """
@@ -130,9 +130,9 @@ class ReificationFactory(ABC):
         :param b: A BoolVar.
         """
         if isinstance(y, IntVar):
-            backend.reify_x_gt_y(self.handle, x.handle, y.handle, b.handle)
+            backend.reify_x_gt_y(self._handle, x._handle, y._handle, b._handle)
         else:
-            backend.reify_x_gt_c(self.handle, x.handle, y, b.handle)
+            backend.reify_x_gt_c(self._handle, x._handle, y, b._handle)
 
     def reify_x_le_y(self, x: IntVar, y: Union[IntVar, int], b: BoolVar):
         """
@@ -143,9 +143,9 @@ class ReificationFactory(ABC):
         :param b: A BoolVar.
         """
         if isinstance(y, IntVar):
-            backend.reify_x_le_y(self.handle, x.handle, y.handle, b.handle)
+            backend.reify_x_le_y(self._handle, x._handle, y._handle, b._handle)
         else:
-            backend.reify_x_lt_c(self.handle, x.handle, y + 1, b.handle)
+            backend.reify_x_lt_c(self._handle, x._handle, y + 1, b._handle)
 
     def reify_x_ge_y(self, x: IntVar, y: Union[IntVar, int], b: BoolVar):
         """
@@ -156,9 +156,9 @@ class ReificationFactory(ABC):
         :param b: A BoolVar.
         """
         if isinstance(y, IntVar):
-            backend.reify_x_ge_y(self.handle, x.handle, y.handle, b.handle)
+            backend.reify_x_ge_y(self._handle, x._handle, y._handle, b._handle)
         else:
-            backend.reify_x_gt_c(self.handle, x.handle, y - 1, b.handle)
+            backend.reify_x_gt_c(self._handle, x._handle, y - 1, b._handle)
 
     def reify_x_lt_yc(self, x: IntVar, y: IntVar, c: int, b: BoolVar):
         """
@@ -169,7 +169,7 @@ class ReificationFactory(ABC):
         :param c: An int.
         :param b: A BoolVar.
         """
-        backend.reify_x_lt_yc(self.handle, x.handle, y.handle, c, b.handle)
+        backend.reify_x_lt_yc(self._handle, x._handle, y._handle, c, b._handle)
 
     def reify_x_gt_yc(self, x: IntVar, y: IntVar, c: int, b: BoolVar):
         """
@@ -180,7 +180,7 @@ class ReificationFactory(ABC):
         :param c: An int.
         :param b: A BoolVar.
         """
-        backend.reify_x_gt_yc(self.handle, x.handle, y.handle, c, b.handle)
+        backend.reify_x_gt_yc(self._handle, x._handle, y._handle, c, b._handle)
 
     def reify_x_in_s(self, x: IntVar, s: List[int], b: BoolVar):
         """
@@ -191,7 +191,7 @@ class ReificationFactory(ABC):
         :param b: A BoolVar.
         """
         shandle = make_int_array(s)
-        backend.reify_x_in_s(self.handle, x.handle, shandle, b.handle)
+        backend.reify_x_in_s(self._handle, x._handle, shandle, b._handle)
 
     def reify_x_not_in_s(self, x: IntVar, s: List[int], b: BoolVar):
         """
@@ -202,4 +202,4 @@ class ReificationFactory(ABC):
         :param b: A BoolVar.
         """
         shandle = make_int_array(s)
-        backend.reify_x_not_in_s(self.handle, x.handle, shandle, b.handle)
+        backend.reify_x_not_in_s(self._handle, x._handle, shandle, b._handle)

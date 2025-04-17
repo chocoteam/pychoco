@@ -34,21 +34,21 @@ class FiniteAutomaton(_HandleWrapper):
         """
         :return: The number of states in this automaton.
         """
-        return backend.get_nb_states(self.handle)
+        return backend.get_nb_states(self._handle)
 
     @property
     def nb_symbols(self):
         """
         :return: The number of symbols in this automaton.
         """
-        return backend.get_nb_symbols(self.handle)
+        return backend.get_nb_symbols(self._handle)
 
     @property
     def initial_state(self):
         """
         :return: The initial state of this automaton.
         """
-        return backend.get_initial_state(self.handle)
+        return backend.get_initial_state(self._handle)
 
     def is_final(self, state: int):
         """
@@ -57,13 +57,13 @@ class FiniteAutomaton(_HandleWrapper):
         :param state: A state.
         :return True if state is final, False otherwise.
         """
-        return backend.is_final(self.handle, state)
+        return backend.is_final(self._handle, state)
 
     def add_state(self):
         """
         Add a state to this automaton.
         """
-        return backend.add_state(self.handle)
+        return backend.add_state(self._handle)
 
     def remove_symbol(self, symbol: int):
         """
@@ -71,7 +71,7 @@ class FiniteAutomaton(_HandleWrapper):
 
         :param symbol: A symbol (int).
         """
-        backend.remove_symbol(self.handle, symbol)
+        backend.remove_symbol(self._handle, symbol)
 
     def add_transition(self, source: int, destination: int, *symbols: List[int]):
         """
@@ -82,7 +82,7 @@ class FiniteAutomaton(_HandleWrapper):
         :param symbols: The symbols.
         """
         symbols_handle = make_int_array(symbols)
-        backend.add_transition(self.handle, source, destination, symbols_handle)
+        backend.add_transition(self._handle, source, destination, symbols_handle)
 
     def delete_transition(self, source: int, destination: int, symbol: int):
         """
@@ -92,7 +92,7 @@ class FiniteAutomaton(_HandleWrapper):
         :param destination: The destination state.
         :param symbol: The symbol.
         """
-        backend.delete_transition(self.handle, source, destination, symbol)
+        backend.delete_transition(self._handle, source, destination, symbol)
 
     def set_initial_state(self, state: int):
         """
@@ -100,7 +100,7 @@ class FiniteAutomaton(_HandleWrapper):
 
         :param state: The state to be defined as initial.
         """
-        backend.set_initial_state(self.handle, state)
+        backend.set_initial_state(self._handle, state)
 
     def set_final(self, *states: List[int]):
         """
@@ -109,7 +109,7 @@ class FiniteAutomaton(_HandleWrapper):
         :param states: One or several states.
         """
         states_handle = make_int_array(states)
-        backend.set_final(self.handle, states_handle)
+        backend.set_final(self._handle, states_handle)
 
     def set_non_final(self, *states: List[int]):
         """
@@ -118,23 +118,23 @@ class FiniteAutomaton(_HandleWrapper):
         :param states: One or several states.
         """
         states_handle = make_int_array(states)
-        backend.set_non_final(self.handle, states_handle)
+        backend.set_non_final(self._handle, states_handle)
 
     def minimize(self):
         """
         Minimize the automaton.
         """
-        return FiniteAutomaton(_handle=backend.fa_minimize(self.handle))
+        return FiniteAutomaton(_handle=backend.fa_minimize(self._handle))
 
     def union(self, other):
         """
         :param other Another automaton
         :return: The union of this and other.
         """
-        return FiniteAutomaton(_handle=backend.fa_union(self.handle, other.handle))
+        return FiniteAutomaton(_handle=backend.fa_union(self._handle, other._handle))
 
     def complement(self):
         """
         :return: The complement of this automaton.
         """
-        return FiniteAutomaton(_handle=backend.fa_complement(self.handle))
+        return FiniteAutomaton(_handle=backend.fa_complement(self._handle))

@@ -29,7 +29,7 @@ class Constraint(_HandleWrapper):
         """
         :return: The name of the constraint.
         """
-        return backend.get_constraint_name(self.handle)
+        return backend.get_constraint_name(self._handle)
 
     @property
     def model(self):
@@ -43,7 +43,7 @@ class Constraint(_HandleWrapper):
         """
         :return: Post the constraint.
         """
-        backend.post(self.handle)
+        backend.post(self._handle)
 
     @abstractmethod
     def reify(self):
@@ -53,7 +53,7 @@ class Constraint(_HandleWrapper):
 
         :return: A BoolVar.
         """
-        var_handle = backend.reify(self.handle)
+        var_handle = backend.reify(self._handle)
         return BoolVar(var_handle, self.model)
 
     @abstractmethod
@@ -62,7 +62,7 @@ class Constraint(_HandleWrapper):
         Reifies the constraint with a given boolvar whose instantiation in a solution
         correspond to the satisfaction state of the constraint in this solution.
         """
-        backend.reify_with(self.handle, boolvar.handle)
+        backend.reify_with(self._handle, boolvar._handle)
 
 
     @abstractmethod
@@ -71,7 +71,7 @@ class Constraint(_HandleWrapper):
         Encapsulate this constraint in an implication relationship.
         The truth value of this constraints implies the truth value of te boolvar.
         """
-        backend.implies(self.handle, boolvar.handle)
+        backend.implies(self._handle, boolvar._handle)
 
     @abstractmethod
     def implied_by(self, boolvar):
@@ -79,7 +79,7 @@ class Constraint(_HandleWrapper):
         Encapsulate this constraint in an implication relationship.
         Represents half-reification of the constraint.
         """
-        backend.implied_by(self.handle, boolvar.handle)
+        backend.implied_by(self._handle, boolvar._handle)
 
     @abstractmethod
     def is_satisfied(self):
@@ -90,7 +90,7 @@ class Constraint(_HandleWrapper):
         a constraint is satisfied (or not) regardless of the variables' instantiation.
         :return: The satisfaction state of the constraint.
         """
-        state = backend.is_satisfied(self.handle)
+        state = backend.is_satisfied(self._handle)
         if state == 0:
             return ESat.FALSE
         if state == 1:

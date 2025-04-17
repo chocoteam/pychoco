@@ -23,8 +23,8 @@ class Solver(SearchStrategies, _HandleWrapper):
         self._model = model
 
     @property
-    def handle(self):
-        return self._handle
+    def _handle(self):
+        return self._handle_
 
     def solve(self,
               time_limit: Union[None, str] = None,
@@ -50,15 +50,15 @@ class Solver(SearchStrategies, _HandleWrapper):
         if time_limit is not None:
             self.limit_time(time_limit)
         if node_limit is not None:
-            criterion.append(backend.node_counter(self.model.handle, node_limit))
+            criterion.append(backend.node_counter(self.model._handle, node_limit))
         if fail_limit is not None:
-            criterion.append(backend.fail_counter(self.model.handle, fail_limit))
+            criterion.append(backend.fail_counter(self.model._handle, fail_limit))
         if restart_limit is not None:
-            criterion.append(backend.restart_counter(self.handle, restart_limit))
+            criterion.append(backend.restart_counter(self._handle, restart_limit))
         if backtrack_limit is not None:
-            criterion.append(backend.backtrack_counter(self.handle, restart_limit))
+            criterion.append(backend.backtrack_counter(self._handle, restart_limit))
         stop = make_criterion_var_array(criterion)
-        return bool(backend.solve(self.handle, stop))
+        return bool(backend.solve(self._handle, stop))
 
     def find_solution(self,
                       time_limit: Union[None, str] = None,
@@ -79,15 +79,15 @@ class Solver(SearchStrategies, _HandleWrapper):
         if time_limit is not None:
             self.limit_time(time_limit)
         if node_limit is not None:
-            criterion.append(backend.node_counter(self.model.handle, node_limit))
+            criterion.append(backend.node_counter(self.model._handle, node_limit))
         if fail_limit is not None:
-            criterion.append(backend.fail_counter(self.model.handle, fail_limit))
+            criterion.append(backend.fail_counter(self.model._handle, fail_limit))
         if restart_limit is not None:
-            criterion.append(backend.restart_counter(self.handle, restart_limit))
+            criterion.append(backend.restart_counter(self._handle, restart_limit))
         if backtrack_limit is not None:
-            criterion.append(backend.backtrack_counter(self.handle, restart_limit))
+            criterion.append(backend.backtrack_counter(self._handle, restart_limit))
         stop = make_criterion_var_array(criterion)
-        solution_handle = backend.find_solution(self.handle, stop)
+        solution_handle = backend.find_solution(self._handle, stop)
         if solution_handle is None:
             return None
         return Solution(solution_handle)
@@ -113,17 +113,17 @@ class Solver(SearchStrategies, _HandleWrapper):
         if time_limit is not None:
             self.limit_time(time_limit)
         if solution_limit is not None:
-            criterion.append(backend.solution_counter(self.model.handle, solution_limit))
+            criterion.append(backend.solution_counter(self.model._handle, solution_limit))
         if node_limit is not None:
-            criterion.append(backend.node_counter(self.model.handle, node_limit))
+            criterion.append(backend.node_counter(self.model._handle, node_limit))
         if fail_limit is not None:
-            criterion.append(backend.fail_counter(self.model.handle, fail_limit))
+            criterion.append(backend.fail_counter(self.model._handle, fail_limit))
         if restart_limit is not None:
-            criterion.append(backend.restart_counter(self.handle, restart_limit))
+            criterion.append(backend.restart_counter(self._handle, restart_limit))
         if backtrack_limit is not None:
-            criterion.append(backend.backtrack_counter(self.handle, restart_limit))
+            criterion.append(backend.backtrack_counter(self._handle, restart_limit))
         stop = make_criterion_var_array(criterion)
-        solutions_list_handle = backend.find_all_solutions(self.handle, stop)
+        solutions_list_handle = backend.find_all_solutions(self._handle, stop)
         return extract_solutions(solutions_list_handle)
 
     def find_optimal_solution(self,
@@ -153,17 +153,17 @@ class Solver(SearchStrategies, _HandleWrapper):
         if time_limit is not None:
             self.limit_time(time_limit)
         if solution_limit is not None:
-            criterion.append(backend.solution_counter(self.model.handle, solution_limit))
+            criterion.append(backend.solution_counter(self.model._handle, solution_limit))
         if node_limit is not None:
-            criterion.append(backend.node_counter(self.model.handle, node_limit))
+            criterion.append(backend.node_counter(self.model._handle, node_limit))
         if fail_limit is not None:
-            criterion.append(backend.fail_counter(self.model.handle, fail_limit))
+            criterion.append(backend.fail_counter(self.model._handle, fail_limit))
         if restart_limit is not None:
-            criterion.append(backend.restart_counter(self.handle, restart_limit))
+            criterion.append(backend.restart_counter(self._handle, restart_limit))
         if backtrack_limit is not None:
-            criterion.append(backend.backtrack_counter(self.handle, restart_limit))
+            criterion.append(backend.backtrack_counter(self._handle, restart_limit))
         stop = make_criterion_var_array(criterion)
-        solution_handle = backend.find_optimal_solution(self.handle, objective.handle, maximize, stop)
+        solution_handle = backend.find_optimal_solution(self._handle, objective._handle, maximize, stop)
         if solution_handle is None:
             return None
         return Solution(solution_handle)
@@ -195,42 +195,42 @@ class Solver(SearchStrategies, _HandleWrapper):
         if time_limit is not None:
             self.limit_time(time_limit)
         if solution_limit is not None:
-            criterion.append(backend.solution_counter(self.model.handle, solution_limit))
+            criterion.append(backend.solution_counter(self.model._handle, solution_limit))
         if node_limit is not None:
-            criterion.append(backend.node_counter(self.model.handle, node_limit))
+            criterion.append(backend.node_counter(self.model._handle, node_limit))
         if fail_limit is not None:
-            criterion.append(backend.fail_counter(self.model.handle, fail_limit))
+            criterion.append(backend.fail_counter(self.model._handle, fail_limit))
         if restart_limit is not None:
-            criterion.append(backend.restart_counter(self.handle, restart_limit))
+            criterion.append(backend.restart_counter(self._handle, restart_limit))
         if backtrack_limit is not None:
-            criterion.append(backend.backtrack_counter(self.handle, restart_limit))
+            criterion.append(backend.backtrack_counter(self._handle, restart_limit))
         stop = make_criterion_var_array(criterion)
-        solutions_list_handle = backend.find_all_optimal_solutions(self.handle, objective.handle, maximize, stop)
+        solutions_list_handle = backend.find_all_optimal_solutions(self._handle, objective._handle, maximize, stop)
         return extract_solutions(solutions_list_handle)
 
     def show_statistics(self):
         """
         Configure the solver to show statistics during solving.
         """
-        backend.show_statistics(self.handle)
+        backend.show_statistics(self._handle)
 
     def show_short_statistics(self):
         """
         Configure the solver to show short statistics during solving.
         """
-        backend.show_short_statistics(self.handle)
+        backend.show_short_statistics(self._handle)
 
     def show_restarts(self):
         """
         Configure the solver to show the number of restarts during the search.
         """
-        backend.show_restarts(self.handle)
+        backend.show_restarts(self._handle)
 
     def get_solution_count(self) -> int:
         """
         :return: The number of solution found so far.
         """
-        return backend.get_solution_count(self.handle)
+        return backend.get_solution_count(self._handle)
 
     @property
     def model(self):
@@ -244,44 +244,44 @@ class Solver(SearchStrategies, _HandleWrapper):
         Limit the solving time.
         :param: String which states the duration like "WWd XXh YYm ZZs".
         """
-        backend.limit_time(self.handle, time_limit)
+        backend.limit_time(self._handle, time_limit)
 
     def get_time_count(self):
         """
         :return: the time count (in seconds)
         """
-        return backend.get_time_count(self.handle)
+        return backend.get_time_count(self._handle)
 
     def get_node_count(self):
         """
         :return: the time count (in seconds)
         """
-        return backend.get_time_count(self.handle)
+        return backend.get_time_count(self._handle)
     def get_backtrack_count(self):
         """
         :return: the backtrack count
         """
-        return backend.get_backtrack_count(self.handle)
+        return backend.get_backtrack_count(self._handle)
     def get_fail_count(self):
         """
         :return: the fail count (in seconds)
         """
-        return backend.get_fail_count(self.handle)
+        return backend.get_fail_count(self._handle)
     def get_restart_count(self):
         """
         :return: the restart count (in seconds)
         """
-        return backend.get_restart_count(self.handle)
+        return backend.get_restart_count(self._handle)
     def is_objective_optimal(self):
         """
         :return: true if the objective is optimal
         """
-        return backend.is_objective_optimal(self.handle)
+        return backend.is_objective_optimal(self._handle)
     def get_search_state(self):
         """
         :return: the search state
         """
-        return backend.get_search_state(self.handle)
+        return backend.get_search_state(self._handle)
 
     def _propagate(self):
         """
@@ -292,19 +292,19 @@ class Solver(SearchStrategies, _HandleWrapper):
         Indeed, if no contradiction occurs, a fix point is reached.
         Otherwise, a call to PropagationEngine#flush() is made.
         """
-        backend.propagate(self.handle)
+        backend.propagate(self._handle)
 
     def _push_state(self):
         """
         Starts a new branch in the search tree
         """
-        backend.push_state(self.handle)
+        backend.push_state(self._handle)
 
     def _pop_state(self):
         """
         Backtracks to the previous choice point in the search tree
         """
-        backend.pop_state(self.handle)
+        backend.pop_state(self._handle)
 
     def __repr__(self):
         return "Choco Solver"

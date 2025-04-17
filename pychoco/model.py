@@ -34,21 +34,21 @@ class Model(VariableFactory, ViewFactory, IntConstraintFactory, SetConstraintFac
             super(Model, self).__init__(handle)
 
     @property
-    def handle(self):
-        return self._handle
+    def _handle(self):
+        return self._handle_
 
     @property
     def name(self):
         """
         :return: The name of the model.
         """
-        return backend.get_model_name(self.handle)
+        return backend.get_model_name(self._handle)
 
     def get_solver(self):
         """
         :return: The solver associated with this model.
         """
-        solver_handler = backend.get_solver(self.handle)
+        solver_handler = backend.get_solver(self._handle)
         return Solver(solver_handler, self)
 
     def set_objective(self, objective: "Variable", maximize: bool = True):
@@ -57,7 +57,7 @@ class Model(VariableFactory, ViewFactory, IntConstraintFactory, SetConstraintFac
         :param objective: The optimization objective.
         :param maximize: if True, maximizes objective, otherwise minimizes it.
         """
-        backend.set_objective(self.handle, maximize, objective.handle)
+        backend.set_objective(self._handle, maximize, objective._handle)
 
     def __repr__(self):
         return "Choco Model ('" + self.name + "')"

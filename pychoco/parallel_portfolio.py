@@ -51,7 +51,7 @@ class ParallelPortfolio(_HandleWrapper):
         It is assumed that all models in this portfolio are equivalent (ie, each variable has the same ID in
         each worker).
         """
-        steal_nogoods_on_restarts(self.handle)
+        steal_nogoods_on_restarts(self._handle)
 
     def add_model(self, model: Model, reliable: bool = True):
         """
@@ -69,7 +69,7 @@ class ParallelPortfolio(_HandleWrapper):
         is considered unreliable. An unreliable model cannot share its no-goods and when it stops, cannot stop other
         models. There should be at least one reliable model in a portfolio. Otherwise, solving may be made incomplete.
         """
-        add_model(self.handle, model.handle, reliable)
+        add_model(self._handle, model._handle, reliable)
 
     def solve(self):
         """
@@ -77,7 +77,7 @@ class ParallelPortfolio(_HandleWrapper):
         Note that a call to get_best_model() returns a model which has found the best solution.
         :return True if and only if at least one new solution has been found.
         """
-        return pf_solve(self.handle)
+        return pf_solve(self._handle)
 
     def get_best_model(self):
         """
@@ -88,7 +88,7 @@ class ParallelPortfolio(_HandleWrapper):
         Note that there can be more than one "finder" in the list, yet, this method returns the index of the first one.
         :return the first model which finds a solution (or the best one) or None if no such model exists.
         """
-        handle = get_best_model(self.handle)
+        handle = get_best_model(self._handle)
         return Model(_handle=handle)
 
     def find_best_solution(self):
@@ -96,5 +96,5 @@ class ParallelPortfolio(_HandleWrapper):
         Start solve and returns the best solution found.
         :return The best solution found.
         """
-        handle = get_best_solution(self.handle)
+        handle = get_best_solution(self._handle)
         return Solution(handle)
