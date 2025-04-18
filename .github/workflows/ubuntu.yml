@@ -25,7 +25,6 @@ jobs:
       - name: Downgrade gcc
         run: |
           sudo apt-get install gcc-9
-          sudo update-alternatives --list gcc
       - name: Check out repository
         uses: actions/checkout@v3
       - name: Setup python
