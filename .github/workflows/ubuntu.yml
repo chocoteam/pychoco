@@ -22,11 +22,6 @@ jobs:
         run:
           echo "Skipping job for ${{ matrix.os }} ${{ matrix.python-version }}"
           exit 0
-      - name: Set gcc-9 as default gcc to avoid ABI problems
-        run: |
-          sudo apt-get install -y g++-9 gcc-9
-          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 9
-          sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 9
       - name: Check out repository
         uses: actions/checkout@v3
       - name: Setup python
@@ -58,7 +53,7 @@ jobs:
         env:
           CIBW_SKIP: "*-musllinux*"
           CIBW_BUILD_FRONTEND: build
-          CIBW_MANYLINUX_X86_64_IMAGE: "manylinux_2_28"
+          CIBW_MANYLINUX_X86_64_IMAGE: "quay.io/pypa/manylinux_2_34_x86_64"
           CIBW_ARCHS: x86_64
         with:
           output-dir: dist
