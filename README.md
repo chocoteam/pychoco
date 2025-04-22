@@ -36,6 +36,8 @@ If you do not have any knowledge about Constraint Programming (CP) and Choco-sol
 https://choco-solver.org/tutos/ for a quick introduction to CP and to Choco-solver features. For this Python API,
 we also provide an API documentation which is available online at https://pychoco.readthedocs.io/ .
 
+You can also have a look at the **pychoco Cheat Sheet** : [pychoco cheat sheet](./docs/pychoco-cheatsheet.pdf)
+
 ## Quickstart
 
 pychoco's API is quite close to Choco's Java API. The first thing to do is to import the
