@@ -1,3 +1,5 @@
+from typing import Any, Optional
+
 from pychoco import backend
 from pychoco._handle_wrapper import _HandleWrapper
 from pychoco.constraints.graph_constraint_factory import GraphConstraintFactory
@@ -18,7 +20,7 @@ class Model(VariableFactory, ViewFactory, IntConstraintFactory, SetConstraintFac
     pilot the propagation.
     """
 
-    def __init__(self, name=None, **kwargs):
+    def __init__(self, name: Optional[str] = None, **kwargs: Any) -> None:
         """
         Choco Model constructor.
 
@@ -44,7 +46,7 @@ class Model(VariableFactory, ViewFactory, IntConstraintFactory, SetConstraintFac
         """
         return backend.get_model_name(self._handle)
 
-    def get_solver(self):
+    def get_solver(self) -> Solver:
         """
         :return: The solver associated with this model.
         """
