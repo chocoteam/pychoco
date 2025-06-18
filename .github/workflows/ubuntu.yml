@@ -49,7 +49,7 @@ jobs:
           sh build.sh nowheel
           pip install pychoco -f dist/
       - name: Build wheels
-        uses: pypa/cibuildwheel@v2.23.3
+        uses: pypa/cibuildwheel@v3.0
         env:
           CIBW_SKIP: "*-musllinux*"
           CIBW_BUILD_FRONTEND: build
