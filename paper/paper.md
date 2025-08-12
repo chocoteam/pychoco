@@ -1,3 +1,4 @@
+---
 title: 'pychoco: all-inclusive Python bindings for the Choco-solver constraint programming library'
 tags:
   - Python
@@ -21,7 +22,7 @@ affiliations:
   - name: TASC, IMT-Atlantique, LS2N-CNRS, Nantes, France
     index: 2
 date: 23 April 2025
-bibliography: paper/paper.bib
+bibliography: paper.bib
 ---
 
 # Summary
