@@ -21,7 +21,7 @@ affiliations:
   - name: TASC, IMT-Atlantique, LS2N-CNRS, Nantes, France
     index: 2
 date: 23 April 2025
-bibliography: paper.bib
+bibliography: paper/paper.bib
 ---
 
 # Summary
