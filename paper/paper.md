@@ -42,7 +42,9 @@ Python. To make CP even more accessible to a wider audience, we developed pychoc
 a Python library that provides all-inclusive binding to the Java Choco-solver
 library [@prudhomme_2022]. By all-inclusive, we mean that pychoco has no external
 dependencies and does not require the installation of Choco-solver or Java on
-the user's system. The pychoco Python library supports almost all features of
+the user's system. The choice of Python was motivated by its widespread use in the
+data science and AI communities, as well as its extensive use in education. 
+The pychoco Python library supports almost all features of
 Choco-solver, is regularly updated, and is automatically built and distributed
 through PyPI for Linux, Windows, and MacOSX at each release. As a result, 
 pychoco can seamlessly integrate into high-level constraint modelling Python
