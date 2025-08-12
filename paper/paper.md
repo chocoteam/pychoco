@@ -101,7 +101,7 @@ Python 3.6 to Python 3.13.
 
 # Current usages and perspectives
 
-Since its first release in October 2022, pychoco has been downloaded more than 73k times
+Since its first release in October 2022, pychoco has been downloaded more than 91k times
 from PyPI. It is available as a backend solver in the [CPMpy](https://github.com/CPMpy/cpmpy)
 high-level modelling library. We also witness academic uses of pychoco that seem to be
 made possible or facilitated by the Python ecosystem. For example, the availability of
@@ -112,10 +112,11 @@ and the development of new tools based on CP
 (e.g. [pyagroplan](https://github.com/philippevismara/pyagroplan)). Finally, as Python
 is increasingly used in teaching and training, it seems natural to teach CP using Python,
 especially for non-computer-scientist audiences 
-(e.g. ['AI for ecologists' training course](https://ai-ecol.github.io/)).
+(e.g. [AI for ecologists' training course](https://ai-ecol.github.io/)).
 
 # Acknowledgement
 
-We acknowledge the developers of python-JGraphT, whose work inspired the development of
-pychoco. We also acknowledge xxxxx, who funded the implementation of the first pychoco
-version. Finally, we acknowledge contribution from Ignace Bleukx and Titouan Lorieul.
+We acknowledge the developers of Python-JGraphT, whose work inspired the development
+of pychoco, and all contributors to pychoco.
+
+# References
