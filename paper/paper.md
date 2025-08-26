@@ -98,11 +98,99 @@ We implemented pychoco with software quality standards: unit tests, code review,
 and continuous integration. We also rely on the 
 [cibuildwheel](https://github.com/pypa/cibuildwheel) Python library to automatically
 build and publish Python wheels on PyPI for Windows, MacOSX, and Linux, from 
-Python 3.6 to Python 3.13.
+Python 3.6 to Python 3.13. Finally, in addition to an comprehensive code documentation,
+we integrated pychoco code snippets in Choco-solver online documentation (https://choco-solver.org/)
+and we designed a Cheat Sheet to summarize the main features of pychoco's API \autoref{fig:cheatsheet}.
+
+![The pychoco Cheat Sheet provides a concise and user-friendly reference for discovering the API.\label{fig:cheatsheet}](pychoco_cheat_sheet.png)[]
+
+# A classical example: the Sudoku solver
+
+We illustrate the usage of pychoco with one of the most emblematic CP example: the Sudoku.
+In the following code, we instantiate a Sudoku instance.
+
+```python
+sudoku = [
+    [4, 0, 2, 0, 0, 0, 9, 7, 3],
+    [0, 0, 0, 7, 4, 0, 6, 0, 8],
+    [8, 0, 0, 0, 0, 9, 5, 1, 4],
+    [7, 0, 0, 0, 0, 8, 0, 0, 0],
+    [5, 9, 3, 0, 0, 6, 1, 8, 0],
+    [0, 2, 8, 0, 0, 0, 0, 5, 9],
+    [3, 1, 0, 0, 0, 2, 8, 9, 5],
+    [0, 0, 0, 0, 8, 0, 0, 4, 1],
+    [9, 0, 7, 1, 0, 4, 2, 0, 6]
+]
+```
+
+As a reminder, the goal of the Sudoku is to fill every empty cell (in our case zeros)
+with number comprised between 1 and 9 such that each row, each column, and each of the
+nine 3x3 subgrids contain the numbers from 1 to 9 without repetition. It is easy to model
+our Sudoku solver with pychoco.
+
+```python
+model = Model("Sudoku Solver") # Import pychoco
+
+# Define a function to instantiate the integer variables of the model:
+# - If the cell is empty (zero), create a variable with the domain [1, 9];
+# - Otherwise, create a constant variable.
+def make_var(row, col):
+    value = sudoku[row][col]
+    if value != 0:
+        return model.intvar(value)
+    return model.intvar(1, 9)
+
+# Instantiate the variables of the model
+intvars = [[make_var(row, col) for col in range(0, 9)] for row in range(0, 9)]
+
+# For each row, post an all_different constraint
+for row in range(0, 9):
+    var_line = intvars[row]
+    model.all_different(var_line).post()
+
+# For each column, post an all_different constraint
+for col in range(0, 9):
+    var_column = [row[col] for row in intvars]
+    model.all_different(var_column).post()
+
+# For each 3x3 subgrid, post an all_different constraint
+for i in range(0, 3):
+    line = intvars[i * 3 : i * 3 + 3]
+    for j in range(0, 3):
+        var_subgrid = sum([l[j * 3 : j * 3 + 3] for l in line], [])
+        model.all_different(var_subgrid).post()
+```
+
+We can now solve our Sudoku by calling the solver, and display the solution.
+
+```python
+solution = model.get_solver().find_solution()
+for row in range(0, 9):
+    line = [solution.get_int_val(v) for v in intvars[row]]
+    print(line)
+
+# Output: 
+#    [4, 5, 2, 8, 6, 1, 9, 7, 3]
+#    [1, 3, 9, 7, 4, 5, 6, 2, 8]
+#    [8, 7, 6, 2, 3, 9, 5, 1, 4]
+#    [7, 4, 1, 5, 9, 8, 3, 6, 2]
+#    [5, 9, 3, 4, 2, 6, 1, 8, 7]
+#    [6, 2, 8, 3, 1, 7, 4, 5, 9]
+#    [3, 1, 4, 6, 7, 2, 8, 9, 5]
+#    [2, 6, 5, 9, 8, 3, 7, 4, 1]
+#    [9, 8, 7, 1, 5, 4, 2, 3, 6]
+```
+
+Note that, although this problem is a constraint satisfaction with exactly one solution
+(by definition of the classic Sudoku), pychoco can also be used to solver constrained
+optimization problems, and to enumerate multiple solutions. Several search strategies
+are also available, as well as parallel portfolio search, as defined in Choco-solver.
+Other usage examples are available as Jupyter notebook in
+[pychoco's GitHub repository](https://github.com/chocoteam/pychoco/tree/master/docs/notebooks).
 
 # Current usages and perspectives
 
-Since its first release in October 2022, pychoco has been downloaded more than 91k times
+Since its first release in October 2022, pychoco has been downloaded more than 92k times
 from PyPI. It is available as a backend solver in the [CPMpy](https://github.com/CPMpy/cpmpy)
 high-level modelling library. We also witness academic uses of pychoco that seem to be
 made possible or facilitated by the Python ecosystem. For example, the availability of
