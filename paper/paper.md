@@ -106,9 +106,8 @@ and we designed a Cheat Sheet to summarize the main features of pychoco's API \a
 
 # A classical example: the Sudoku solver
 
-We illustrate the usage of pychoco with one of the most emblematic CP example: the Sudoku.
-In the following code, we instantiate a Sudoku instance.
-
+We illustrate the use of pychoco with one of the most emblematic CP examples: the Sudoku.
+In the following code, we instantiate a Sudoku instance. 
 ```python
 sudoku = [
     [4, 0, 2, 0, 0, 0, 9, 7, 3],
@@ -123,10 +122,9 @@ sudoku = [
 ]
 ```
 
-As a reminder, the goal of the Sudoku is to fill every empty cell (in our case zeros)
-with number comprised between 1 and 9 such that each row, each column, and each of the
-nine 3x3 subgrids contain the numbers from 1 to 9 without repetition. It is easy to model
-our Sudoku solver with pychoco.
+As a reminder, the goal of Sudoku is to fill every empty cell (in our case, zeros) with a number between
+1 and 9 such that each row, each column, and each of the nine 3x3 subgrids contains the numbers from 1 to 9
+without repetition. It is easy to model our Sudoku solver with pychoco. 
 
 ```python
 model = Model("Sudoku Solver") # Import pychoco
@@ -161,7 +159,7 @@ for i in range(0, 3):
         model.all_different(var_subgrid).post()
 ```
 
-We can now solve our Sudoku by calling the solver, and display the solution.
+We can now solve our Sudoku by calling the solver, and then we can display the solution.
 
 ```python
 solution = model.get_solver().find_solution()
@@ -181,12 +179,11 @@ for row in range(0, 9):
 #    [9, 8, 7, 1, 5, 4, 2, 3, 6]
 ```
 
-Note that, although this problem is a constraint satisfaction with exactly one solution
-(by definition of the classic Sudoku), pychoco can also be used to solver constrained
-optimization problems, and to enumerate multiple solutions. Several search strategies
-are also available, as well as parallel portfolio search, as defined in Choco-solver.
-Other usage examples are available as Jupyter notebook in
-[pychoco's GitHub repository](https://github.com/chocoteam/pychoco/tree/master/docs/notebooks).
+Note that, although this problem is a constraint satisfaction problem with exactly one solution 
+(by definition of the classic Sudoku), pychoco supports solving constrained optimisation problems, 
+and enumerating multiple solutions. Several search strategies are also available, as well as parallel
+portfolio search, as defined in Choco-solver. Other usage examples are available as a Jupyter notebook
+in [pychoco's GitHub repository](https://github.com/chocoteam/pychoco/tree/master/docs/notebooks).
 
 # Current usages and perspectives
 
