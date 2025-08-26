@@ -102,7 +102,7 @@ Python 3.6 to Python 3.13. Finally, in addition to an comprehensive code documen
 we integrated pychoco code snippets in Choco-solver online documentation (https://choco-solver.org/)
 and we designed a Cheat Sheet to summarize the main features of pychoco's API \autoref{fig1}.
 
-![The pychoco Cheat Sheet provides a concise and user-friendly reference for discovering the API.\label{fig1}](pychoco_cheat_sheet.png)[]
+![The pychoco Cheat Sheet provides a concise and user-friendly reference for discovering the API.\label{fig1}](pychoco_cheat_sheet.png)
 
 # A classical example: the Sudoku solver
 
