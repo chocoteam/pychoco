@@ -127,7 +127,9 @@ As a reminder, the goal of Sudoku is to fill every empty cell (in our case, zero
 without repetition. It is easy to model our Sudoku solver with pychoco. 
 
 ```python
-model = Model("Sudoku Solver") # Import pychoco
+from pychoco import * # Import pychoco
+
+model = Model("Sudoku Solver") # Instantiate a model object
 
 # Define a function to instantiate the integer variables of the model:
 # - If the cell is empty (zero), create a variable with the domain [1, 9];
@@ -162,7 +164,7 @@ for i in range(0, 3):
 We can now solve our Sudoku by calling the solver, and then we can display the solution.
 
 ```python
-solution = model.get_solver().find_solution()
+solution = model.get_solver().find_solution() # Call the solver to retrieve a solution
 for row in range(0, 9):
     line = [solution.get_int_val(v) for v in intvars[row]]
     print(line)
