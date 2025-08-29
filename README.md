@@ -7,7 +7,7 @@
 [![PyPI version](https://badge.fury.io/py/pychoco.svg)](https://pypi.org/project/pychoco/)
 [![Documentation Status](https://readthedocs.org/projects/pychoco/badge/?version=latest)](https://pychoco.readthedocs.io/en/latest/?badge=latest)
 [![PyPI Downloads](https://static.pepy.tech/badge/pychoco)](https://pepy.tech/projects/pychoco)
-[![License](https://img.shields.io/badge/License-BSD_4--Clause-blue.svg)](https://directory.fsf.org/wiki/License:BSD-4-Clause)
+[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/license/bsd-3-clause)
 
 *Current choco-solver version: 4.10.17*
 
