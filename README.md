@@ -34,10 +34,13 @@ MacOSX. They can be directly downloaded from PyPI (https://pypi.org/project/pych
 ## Documentation
 
 If you do not have any knowledge about Constraint Programming (CP) and Choco-solver, you can have a look at 
-https://choco-solver.org/tutos/ for a quick introduction to CP and to Choco-solver features. For this Python API,
-we also provide an API documentation which is available online at https://pychoco.readthedocs.io/ .
+https://choco-solver.org/tutos/ for a quick introduction to CP and to Choco-solver features.
+The tutorial in this website includes both Java and Python examples.
+For this Python API, we also provide an API documentation which is available online at https://pychoco.readthedocs.io/.
 
 You can also have a look at the **pychoco Cheat Sheet** : [pychoco cheat sheet](./docs/pychoco-cheatsheet.pdf)
+
+Finally, we designed a few **notebooks examples** that you can find in the `examples` directory.
 
 ## Quickstart
 
@@ -93,9 +96,72 @@ print("intvar[7] >= 7 ? {}".format(b7.get_value()))
 > intvar[7] >= 7 ? False
 ```
 
+## Configuring search
+
+### Generic search strategies
+
+Currently, the main limitation of pychoco is the customization of search strategies, which is not as
+advanced as the Java version. This is mainly due to the fact that pychoco's need to rely on a compiled C
+entrypoint to Choco-solver, which does not allow Python routines to be injected into the solving procedure.
+One possible solution would be to implement a parsing system to define custom search strategy in Choco-solver,
+and rely on this system in pychoco. However, this represents a considerable amount of work that we cannot commit to
+in the short term. **Note:** please do not hesitate to let us know, or open a pull request if you want to implement
+this feature, or suggest an alternative solution.
+
+However, it is possible to rely on the generic search heuristics available in Choco-solver, through the
+Solver object. Currently available search strategies are: `default_search`, `dom_over_w_deg_search`,
+`dom_over_w_deg_ref_search`, `activity_based_search`, `min_dom_lb_search`, `min_dom_ub_search`,
+`random_search`, `conflict_history_search`, `input_order_lb_search`, `input_order_ub_search`,
+`failure_length_based_search`, `failure_rate_based_search`, `pick_on_dom_search`, `pick_on_fil_search`.
+
+Example:
+
+```python
+solver.set_dom_over_w_deg_search(decision_variables)
+```
+
+### Hints
+
+Hints can improve the search procedure by defining a partial solution and drive the search
+toward a solution. Hints apply on integer variables, and consist of couples of (variable, value).
+
+Example:
+
+```python
+solver.add_hint(cost, min_cost)
+```
+
+### Parallel portfolio
+
+The parallel portfolio is a powerful feature of Choco-solver which allows to solve a problem
+in parallel with different search strategies. Each solving thread can inform other when he
+finds a solution, leading them to update their bounds in case of an optimization process.
+To set up a parallel portfolio, it is necessary to construct as many identical models as
+the number of threads. This feature can very efficient to boost the optimization procedure.
+
+Example:
+
+```python
+from pychoco.model import Model
+from pychoco.parallel_portfolio import ParallelPortfolio
+
+pf = ParallelPortfolio()
+pf.steal_nogoods_on_restarts()
+for i in range(0, 5):
+    m = Model()
+    vars = m.intvars(10, 0, 100)
+    nv = m.intvar(3, 4)
+    m.n_values(vars, nv).post()
+    s = m.intvar(0, 1000)
+    m.sum(vars, "=", s).post()
+    m.set_objective(s, True)
+    pf.add_model(m)
+sol = pf.find_best_solution()
+```
+
 ## Build from source
 
-The following system dependencies are required to build PyChco from sources:
+The following system dependencies are required to build pychoco from sources:
 
 - GraalVM >= 22 (see https://www.graalvm.org/)
 - Native Image component for GraalVM (see https://www.graalvm.org/22.1/reference-manual/native-image/)

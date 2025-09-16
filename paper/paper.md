@@ -131,22 +131,22 @@ from pychoco import * # Import pychoco
 
 model = Model("Sudoku Solver") # Instantiate a model object
 
-# Define a function to instantiate the integer variables of the model:
-# - If the cell is empty (zero), create a variable with the domain [1, 9];
-# - Otherwise, create a constant variable.
-def make_var(row, col):
-    value = sudoku[row][col]
-    if value != 0:
-        return model.intvar(value)
-    return model.intvar(1, 9)
-
 # Instantiate the variables of the model
-intvars = [[make_var(row, col) for col in range(0, 9)] for row in range(0, 9)]
+intvars = []
+for row in range(0, 9):
+    var_row = []
+    for col in range(0, 9):
+        value = sudoku[row][col]
+        # integer variable with a lower/bound or a fixed value
+        is_fixed = value != 0
+        intvar = model.intvar(value) if is_fixed else model.intvar(1, 9)
+        var_row.append(intvar)
+    intvars.append(var_row)
 
 # For each row, post an all_different constraint
 for row in range(0, 9):
-    var_line = intvars[row]
-    model.all_different(var_line).post()
+    var_row = intvars[row]
+    model.all_different(var_row).post()
 
 # For each column, post an all_different constraint
 for col in range(0, 9):
@@ -164,7 +164,8 @@ for i in range(0, 3):
 We can now solve our Sudoku by calling the solver, and then we can display the solution.
 
 ```python
-solution = model.get_solver().find_solution() # Call the solver to retrieve a solution
+solver = model.get_solver()
+solution = solver.find_solution() # Call the solver to retrieve a solution
 for row in range(0, 9):
     line = [solution.get_int_val(v) for v in intvars[row]]
     print(line)
@@ -189,7 +190,7 @@ in [pychoco's GitHub repository](https://github.com/chocoteam/pychoco/tree/maste
 
 # Current usages and perspectives
 
-Since its first release in October 2022, pychoco has been downloaded more than 92k times
+Since its first release in October 2022, pychoco has been downloaded more than 95k times
 from PyPI. It is available as a backend solver in the [CPMpy](https://github.com/CPMpy/cpmpy)
 high-level modelling library. We also witness academic uses of pychoco that seem to be
 made possible or facilitated by the Python ecosystem. For example, the availability of
