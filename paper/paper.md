@@ -186,7 +186,7 @@ Note that, although this problem is a constraint satisfaction problem with exact
 (by definition of the classic Sudoku), pychoco supports solving constrained optimisation problems, 
 and enumerating multiple solutions. Several search strategies are also available, as well as parallel
 portfolio search, as defined in Choco-solver. Other usage examples are available as a Jupyter notebook
-in [pychoco's GitHub repository](https://github.com/chocoteam/pychoco/tree/master/docs/notebooks).
+in [pychoco's GitHub repository](https://github.com/chocoteam/pychoco/tree/master/examples/notebooks).
 
 # Current usages and perspectives
 

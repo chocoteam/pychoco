@@ -9,7 +9,7 @@
 [![PyPI Downloads](https://static.pepy.tech/badge/pychoco)](https://pepy.tech/projects/pychoco)
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/license/bsd-3-clause)
 
-*Current choco-solver version: 4.10.17*
+*Current choco-solver version: 4.10.18*
 
 Python bindings for the Choco Constraint programming solver (https://choco-solver.org/).
 
