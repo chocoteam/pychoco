@@ -69,14 +69,16 @@ compiled programming languages such as Java or C++. As most data science and AI
 technologies are available in the Python ecosystem, it seems timely to make 
 CP technologies more easily accessible in Python. High-level Python modelling 
 libraries such as CPMpy [@guns_2019] and PyCSP³ [@lecoutre_2024] have opened up 
-many perspectives in this direction, but most backend solvers still require a 
-separate installation. For most Python users, this can be an obstacle. It also 
-limits direct solver access and the use of specific features and fine-tuning 
-options that may not be available in high-level modelling libraries. Making
-Choco-solver more accessible to Python users and facilitating its integration
-as a backend solver into high-level modelling libraries were the main motivations
-for the creation of pychoco. In addition, the widespread use of Python in 
-education was also an argument in favour of pychoco's implementation.
+many perspectives in this direction, but several solvers still require a 
+separate installation, especially commercial ones and those based on JVM
+(Java Virtual Machine) languages, such as Choco-solver. For most Python users,
+this can be an obstacle. It also limits direct solver access and the use of 
+specific features and fine-tuning options that may not be available in high-level
+modelling libraries. Making Choco-solver more accessible to Python users and
+facilitating its integration as a backend solver into high-level modelling 
+libraries were the main motivations for the creation of pychoco. In addition,
+the widespread use of Python in education was also an argument in favour of
+pychoco's implementation.
 
 # Design
 
@@ -190,7 +192,7 @@ in [pychoco's GitHub repository](https://github.com/chocoteam/pychoco/tree/maste
 
 # Current usages and perspectives
 
-Since its first release in October 2022, pychoco has been downloaded more than 95k times
+Since its first release in October 2022, pychoco has been downloaded more than 97k times
 from PyPI. It is available as a backend solver in the [CPMpy](https://github.com/CPMpy/cpmpy)
 high-level modelling library. We also witness academic uses of pychoco that seem to be
 made possible or facilitated by the Python ecosystem. For example, the availability of
