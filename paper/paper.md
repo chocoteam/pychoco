@@ -32,15 +32,15 @@ Intelligence (AI) paradigm for modelling and solving complex combinatorial
 problems [@rossi_2006]. Many CP solvers are currently available, and despite
 a generally shared common base, each solver exhibits specific features that make
 it more or less suited to certain types of problems and tasks. Performance and 
-flexibility are important features of CP solvers, this is why most state-of-the-art
+flexibility are important features of CP solvers, which is why most state-of-the-art
 solvers rely on statically typed and compiled programming languages, such as Java
 or C++. Because of this, CP has long remained a niche field that is difficult for
 non-specialists to access. Recently, the emergence of high-level, solver-independent
-modelling languages such as MiniZinc [@nethercote_2007], XCSP³ [@audemard_2020], or
+modelling languages such as MiniZinc [@nethercote_2007], XCSP³ [@audemard_2020], and
 CPMpy [@guns_2019] has made CP more accessible by allowing users to seamlessly
 use state-of-the-art solvers from user-friendly interpreted languages such as
 Python. To make CP even more accessible to a wider audience, we developed pychoco,
-a Python library that provides all-inclusive binding to the Java Choco-solver
+a Python library that provides an all-inclusive binding to the Java Choco-solver
 library [@prudhomme_2022]. By all-inclusive, we mean that pychoco has no external
 dependencies and does not require the installation of Choco-solver or Java on
 the user's system. The choice of Python was motivated by its widespread use in the
@@ -49,8 +49,8 @@ The pychoco Python library supports almost all features of
 Choco-solver, is regularly updated, and is automatically built and distributed
 through PyPI for Linux, Windows, and MacOSX at each release. As a result, 
 pychoco can seamlessly integrate into high-level constraint modelling Python
-libraries such as CPMpy [@guns_2019] or PyCSP³ [@lecoutre_2024]. Moreover, 
-users who need to use features specific to Choco-solver (e.g. graph variables 
+libraries such as CPMpy [@guns_2019] and PyCSP³ [@lecoutre_2024]. Moreover, 
+users who need to use features specific to Choco-solver (e.g., graph variables 
 and constraints) can now rely on pychoco without prior knowledge of Java 
 programming. We believe that along with initiatives such as CPMpy and PyCSP, the
 availability of CP technologies in the Python ecosystem will foster new uses and
@@ -87,7 +87,7 @@ Choco-solver was the necessity to set up communication between the Python
 interpreter and the Java Virtual Machine (JVM). Indeed, we believe that
 the main interest of such bindings was to offer Python users a way to use
 Choco-solver without installing the JVM. The [GraalVM](https://www.graalvm.org/)
-project has removed this obstacle with the ahead-of-time Native image Java
+project removed this obstacle with the ahead-of-time Native image Java
 compilation feature. Inspired by the work of [@michail_2020] to make Python
 bindings for the JGraphT Java library, we implemented
 [choco-solver-capi](https://github.com/chocoteam/choco-solver-capi),
@@ -200,10 +200,10 @@ pychoco in CPMpy seems to facilitate comparative analyses between different solv
 accessible from Python [@bleukx_2024]. The richness of Python's ecosystem also 
 fosters the integration of CP in workflows involving several AI techniques [@hotz_2024]
 and the development of new tools based on CP 
-(e.g. [pyagroplan](https://github.com/philippevismara/pyagroplan)). Finally, as Python
+(e.g., [pyagroplan](https://github.com/philippevismara/pyagroplan)). Finally, as Python
 is increasingly used in teaching and training, it seems natural to teach CP using Python,
 especially for non-computer-scientist audiences 
-(e.g. [AI for ecologists' training course](https://ai-ecol.github.io/)).
+(e.g., [AI for ecologists' training course](https://ai-ecol.github.io/)).
 
 # Acknowledgement
 
