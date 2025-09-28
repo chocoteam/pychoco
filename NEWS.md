@@ -1,3 +1,8 @@
+# pychoco 0.2.4
+
+- Update to choco-solver 4.10.18
+- Add JOSS paper
+
 # pychoco 0.2.3
 
 Rename `handle` property to `_handle` to avoid including it in autocompletion for IDE users.
