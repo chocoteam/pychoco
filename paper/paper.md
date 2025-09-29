@@ -100,7 +100,7 @@ We implemented pychoco with software quality standards: unit tests, code review,
 and continuous integration. We also rely on the 
 [cibuildwheel](https://github.com/pypa/cibuildwheel) Python library to automatically
 build and publish Python wheels on PyPI for Windows, MacOSX, and Linux, from 
-Python 3.6 to Python 3.13. Finally, in addition to a comprehensive code documentation,
+Python 3.6 to Python 3.13. Finally, in addition to comprehensive code documentation,
 we integrated pychoco code snippets in Choco-solver online documentation (https://choco-solver.org/)
 and we designed a Cheat Sheet to summarize the main features of pychoco's API \autoref{fig1}.
 
