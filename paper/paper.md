@@ -192,7 +192,7 @@ in [pychoco's GitHub repository](https://github.com/chocoteam/pychoco/tree/maste
 
 # Current usages and perspectives
 
-Since its first release in October 2022, pychoco has been downloaded more than 97k times
+Since its first release in October 2022, pychoco has been downloaded more than 100k times
 from PyPI. It is available as a backend solver in the [CPMpy](https://github.com/CPMpy/cpmpy)
 high-level modelling library. We also witness academic uses of pychoco that seem to be
 made possible or facilitated by the Python ecosystem. For example, the availability of
