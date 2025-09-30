@@ -7,7 +7,8 @@
 [![PyPI version](https://badge.fury.io/py/pychoco.svg)](https://pypi.org/project/pychoco/)
 [![Documentation Status](https://readthedocs.org/projects/pychoco/badge/?version=latest)](https://pychoco.readthedocs.io/en/latest/?badge=latest)
 [![PyPI Downloads](https://static.pepy.tech/badge/pychoco)](https://pepy.tech/projects/pychoco)
-[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/license/bsd-3-clause)
+[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/license/bsd-3-clause
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.08847/status.svg)](https://doi.org/10.21105/joss.08847)
 
 *Current choco-solver version: 4.10.18*
 
@@ -193,7 +194,7 @@ And voilà !
 
 ## Citation
 
-Coming soon.
+Justeau-Allaire D, Prud’homme C (2025). pychoco: all-inclusive Python bindings for the Choco-solver constraint programming library. Journal of Open Source Software, 10(113), 8847, https://doi.org/10.21105/joss.08847
 
 ## Getting help or contribute
 
