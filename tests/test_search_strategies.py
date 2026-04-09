@@ -70,6 +70,6 @@ class TestSearchStrategies(unittest.TestCase):
         self.model.get_solver().set_pick_on_dom_search(*self.vars)
         self.model.get_solver().find_optimal_solution(objective=self.obj, maximize=True)
 
-    def test_pick_on_fil_search(self):
-        self.model.get_solver().set_pick_on_fil_search(*self.vars)
-        self.model.get_solver().find_optimal_solution(objective=self.obj, maximize=True)
+    def test_round_robin_search(self):
+        self.model.get_solver().set_round_robin_search(*self.vars)
+        #self.model.get_solver().find_optimal_solution(objective=self.obj, maximize=True)

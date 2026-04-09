@@ -164,19 +164,31 @@ class SearchStrategies(ABC):
         """
         vars = _extract_star_arg(intvars)
         var_array_handle = make_intvar_array(vars)
-        backend.set_pick_on_fil_search(self._handle, var_array_handle)
+        backend.set_pick_on_dom_search(self._handle, var_array_handle)
 
-    def set_pick_on_fil_search(self, *intvars):
+    def set_round_robin_search(self, *intvars):
         """
-        Assignment strategy which selects a variable according to <code>PickOnDom</code> and assign.
-        This version is based on the constraints involved in the propagation.
-        Based on "Guiding Backtrack Search by Tracking Variables During Constraint Propagation", C. Lecoutre et al., CP 2023.
-        https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.CP.2023.9
+        Defines round-robin search strategy over the variables.
+        The strategy is composed of the following meta strategies:
+            - LastConflict-1
+            - LastConflict-0
+            - ConflictOrderingSearch
+        The strategy is composed of the following variable selectors:
+            - DomOverWDegRef
+            - DomOverWDeg
+            - PickOnDom
+            - FailureBased
+        The strategy is composed of the following value selectors:
+            - IntDomainMin
+            - IntDomainMax
+            - IntDomainRandom
+        In addition, the phase-saving mechanism is activated.
+        Note that this strategy must be combined with (fast) restarts to be useful.
         :param intvars: IntVars to use in the search strategy.
         """
         vars = _extract_star_arg(intvars)
         var_array_handle = make_intvar_array(vars)
-        backend.set_pick_on_fil_search(self._handle, var_array_handle)
+        backend.set_round_robin_search(self._handle, var_array_handle)
 
     def add_hint(self, intvar, value):
         """

@@ -194,7 +194,7 @@ void* circuit(void*, void*, int, char*);
 void* cost_regular(void*, void*, void*, void*);
 void* count_i(void*, int, void*, void*);
 void* count_iv(void*, void*, void*, void*);
-void* cumulative(void*, void*, void*, void*, int);
+void* cumulative(void*, void*, void*, void*);
 void* diff_n(void*, void*, void*, void*, void*, int);
 void* decreasing(void*, void*, int);
 void* increasing(void*, void*, int);
@@ -463,7 +463,7 @@ void set_input_order_ub_search(void*, void*);
 void set_failure_length_based_search(void*, void*);
 void set_failure_rate_based_search(void*, void*);
 void set_pick_on_dom_search(void*, void*);
-void set_pick_on_fil_search(void*, void*);
+void set_round_robin_search(void*, void*);
 void add_hint(void*, void*, int);
 void rem_hints(void*);
 
@@ -500,7 +500,6 @@ void* make_multi_resources_iiii(void*, void*, void*);
 void* create_task_iv_i(void*, int);
 void* create_task_iv_i_iv(void*, int, void*);
 void* create_task_iv_iv_iv(void*, void*, void*);
-void task_ensure_bound_consistency(void*);
 void* task_get_start(void*);
 void* task_get_end(void*);
 void* task_get_duration(void*);
@@ -591,9 +590,9 @@ int add_constructive_disjunction(void*, void*);
 
 // Parallel Portfolio API
 
-void* create_parallel_portfolio(int);
+void* create_parallel_portfolio();
 void steal_nogoods_on_restarts(void*);
-void add_model(void*, void*, int);
+void add_model(void*, void*);
 int pf_solve(void*);
 void* get_best_model(void*);
 void* get_best_solution(void*);

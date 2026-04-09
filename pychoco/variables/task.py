@@ -17,9 +17,6 @@ class Task(_HandleWrapper):
         Task constructor. Based on a starting time `start`, a duration `duration`, and
         optionally an ending time `end`, such that: `start` + `duration` = `end`.
 
-        A call to ensure_bound_consistency() is required before launching the resolution,
-        this will not be done automatically.
-
         Warning: it is recommended to instantiate variables through a Model object.
 
         :param model: A Choco Model.
@@ -69,10 +66,3 @@ class Task(_HandleWrapper):
         :return: The integer variable corresponding to the duration of this task.
         """
         return self._duration
-
-    def ensure_bound_consistency(self):
-        """
-        Apply supplementary filtering to ensure bound consistency.
-        """
-        if self._has_monitor:
-            backend.task_ensure_bound_consistency(self._handle)

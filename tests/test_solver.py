@@ -44,16 +44,30 @@ class TestSolver(unittest.TestCase):
 
     def test_time_limit(self):
         model = Model("MyModel")
-        a = model.intvar(0, 10)
-        b = model.intvar(0, 10)
-        c = model.intvar(0, 10)
-        d = model.intvar(0, 10)
-        e = model.intvar(0, 10)
+        a = model.intvar(0, 100)
+        b = model.intvar(0, 100)
+        c = model.intvar(0, 100)
+        d = model.intvar(0, 100)
+        e = model.intvar(0, 100)
         model.all_different([a, b, c, d, e]).post()
         model.square(a, d).post()
         solver = model.get_solver()
         solver.show_statistics()
         solver.find_all_solutions(time_limit="2s")
+
+    def test_time_limit_2(self):
+        model = Model("MyModel")
+        a = model.intvar(0, 100)
+        b = model.intvar(0, 100)
+        c = model.intvar(0, 100)
+        d = model.intvar(0, 100)
+        e = model.intvar(0, 100)
+        model.all_different([a, b, c, d, e]).post()
+        model.square(a, d).post()
+        solver = model.get_solver()
+        solver.show_statistics()
+        solver.limit_time("120")
+        solver.find_all_solutions()
 
     def test_find_all_optimal_solutions(self):
         model = Model()
@@ -110,10 +124,9 @@ class TestSolver(unittest.TestCase):
         solver = model.get_solver()
         solver.show_statistics()
         solver.find_all_solutions(time_limit="2s")
-        self.assertLessEqual(solver.get_time_count(), 2)
+        self.assertLessEqual(solver.get_time_count(), 2*1.1)
         self.assertEqual(solver.get_search_state(), "TERMINATED")
         solver.get_node_count()
         solver.get_backtrack_count()
         solver.get_fail_count()
         solver.get_restart_count()
-

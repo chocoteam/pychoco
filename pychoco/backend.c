@@ -765,15 +765,14 @@ void* count_iv(void* modelHandle, void* valueHandle, void* intVarArrayHandle, vo
         limitHandle
     );
 }
-void* cumulative(void* modelHandle, void* tasksHandle, void* heightsHandle, void* capacityHandle, int incr) {
+void* cumulative(void* modelHandle, void* tasksHandle, void* heightsHandle, void* capacityHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ConstraintApi_cumulative(
         thread,
         modelHandle,
         tasksHandle,
         heightsHandle,
-        capacityHandle,
-        incr
+        capacityHandle
     );
 }
 void* diff_n(void* modelHandle, void* XHandle, void* YHandle, void* widthHandle, void* heightHandle,
@@ -1808,9 +1807,9 @@ void set_pick_on_dom_search(void* solverHandle, void* intVarArrayHandle) {
     LAZY_THREAD_ATTACH
     Java_org_chocosolver_capi_SearchApi_set_pick_on_dom_search(thread, solverHandle, intVarArrayHandle);
 }
-void set_pick_on_fil_search(void* solverHandle, void* intVarArrayHandle) {
+void set_round_robin_search(void* solverHandle, void* intVarArrayHandle) {
     LAZY_THREAD_ATTACH
-    Java_org_chocosolver_capi_SearchApi_set_pick_on_fil_search(thread, solverHandle, intVarArrayHandle);
+    Java_org_chocosolver_capi_SearchApi_set_round_robin_search(thread, solverHandle, intVarArrayHandle);
 }
 void add_hint(void* solverHandle, void* intVarHandle, int value) {
     LAZY_THREAD_ATTACH
@@ -1947,10 +1946,6 @@ void* create_task_iv_i_iv(void* startHandle, int d, void* endHandle) {
 void* create_task_iv_iv_iv(void* startHandle, void* durationHandle, void* endHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_TaskApi_create_iv_iv_iv(thread, startHandle, durationHandle, endHandle);
-}
-void task_ensure_bound_consistency(void* taskHandle) {
-    LAZY_THREAD_ATTACH
-    Java_org_chocosolver_capi_TaskApi_ensure_bound_consistency(thread, taskHandle);
 }
 void* task_get_start(void* taskHandle) {
     LAZY_THREAD_ATTACH
@@ -2265,18 +2260,18 @@ int add_constructive_disjunction(void* modelHandle, void* cstrs) {
 
 // Parallel Portfolio API
 
-void* create_parallel_portfolio(int searchAutoConf) {
+void* create_parallel_portfolio() {
     LAZY_THREAD_ATTACH
-    return Java_org_chocosolver_capi_ParallelPortfolio_create_parallel_portfolio(thread, searchAutoConf);
+    return Java_org_chocosolver_capi_ParallelPortfolio_create_parallel_portfolio(thread);
 }
 void steal_nogoods_on_restarts(void* pfHandle) {
     LAZY_THREAD_ATTACH
     Java_org_chocosolver_capi_ParallelPortfolio_steal_nogoods_on_restarts(thread, pfHandle);
 
 }
-void add_model(void* pfHandle, void* modelHandle, int reliable) {
+void add_model(void* pfHandle, void* modelHandle) {
     LAZY_THREAD_ATTACH
-    Java_org_chocosolver_capi_ParallelPortfolio_add_model(thread, pfHandle, modelHandle, reliable);
+    Java_org_chocosolver_capi_ParallelPortfolio_add_model(thread, pfHandle, modelHandle);
 
 }
 int pf_solve(void* pfHandle) {

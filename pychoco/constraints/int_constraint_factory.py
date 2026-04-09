@@ -649,7 +649,7 @@ class IntConstraintFactory(ABC):
             constraint_handle = backend.count_iv(self._handle, value._handle, intvars_handle, limit._handle)
         return Constraint(constraint_handle, self)
 
-    def cumulative(self, tasks: List[Task], heights: List[IntVar], capacity: IntVar, incremental: bool = True):
+    def cumulative(self, tasks: List[Task], heights: List[IntVar], capacity: IntVar):
         """
         Creates a cumulative constraint: Enforces that at each point in time,
         the cumulated height of the set of tasks that overlap that point
@@ -661,12 +661,11 @@ class IntConstraintFactory(ABC):
         :param tasks: Task objects containing start, duration and end variables.
         :param heights: Integer variables representing the resource consumption of each task.
         :param capacity: Integer variable representing the resource capacity.
-        :param incremental: Specifies if an incremental propagation should be applied (True by default).
         :return: A cumulative constraint.
         """
         tasks_handle = make_task_array(tasks)
         vars_handle = make_intvar_array(heights)
-        constraint_handle = backend.cumulative(self._handle, tasks_handle, vars_handle, capacity._handle, incremental)
+        constraint_handle = backend.cumulative(self._handle, tasks_handle, vars_handle, capacity._handle)
         return Constraint(constraint_handle, self)
 
     def diff_n(self, x: List[IntVar], y: List[IntVar], width: List[IntVar], height: List[IntVar],

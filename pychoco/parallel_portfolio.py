@@ -32,15 +32,11 @@ class ParallelPortfolio(_HandleWrapper):
     (best) solution is internally stored.
     """
 
-    def __init__(self, search_auto_conf: bool = True):
+    def __init__(self):
         """
         Constructor.
-        :param search_auto_conf: Changes the search heuristics of the different solvers, except the first one
-                                 (true by default). Must be set to false if search heuristics of the different threads
-                                 are specified manually, so that they are not erased.
         """
-        self.search_auto_conf = search_auto_conf
-        handle = create_parallel_portfolio(search_auto_conf)
+        handle = create_parallel_portfolio()
         super(ParallelPortfolio, self).__init__(handle)
 
     def steal_nogoods_on_restarts(self):
@@ -53,7 +49,7 @@ class ParallelPortfolio(_HandleWrapper):
         """
         steal_nogoods_on_restarts(self._handle)
 
-    def add_model(self, model: Model, reliable: bool = True):
+    def add_model(self, model: Model):
         """
         Adds a model to the list of models to run in parallel. The model can either be a fresh one, ready for
         populating, or a populated one.
@@ -63,13 +59,8 @@ class ParallelPortfolio(_HandleWrapper):
 
         When dealing with optimization problems, the objective variables <b>HAVE</b> to be declared eagerly with
         model.set_objective(variable, boolean).
-
-        A reliable model is expected to prove the absence of a solution, improving one in the case of optimisation
-        problem. A model with non-redundant constraints posted to improve resolution at the expense of completeness
-        is considered unreliable. An unreliable model cannot share its no-goods and when it stops, cannot stop other
-        models. There should be at least one reliable model in a portfolio. Otherwise, solving may be made incomplete.
         """
-        add_model(self._handle, model._handle, reliable)
+        add_model(self._handle, model._handle)
 
     def solve(self):
         """
