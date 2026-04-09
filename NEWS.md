@@ -1,4 +1,4 @@
-# pychoco 0.2.5
+# pychoco 0.2.5 - 0.2.6
 
 - Nothing new, just compile wheels for Python 3.14 
 
