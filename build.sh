@@ -23,7 +23,8 @@ done
 if [ "$NO_CAPI_BUILD" != true ]; then
   cd choco-solver-capi
   git pull origin master
-  sh ./build.sh
+  #sh ./build.sh
+  mvn clean package -Pnative
   cd ..
 fi
 
