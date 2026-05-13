@@ -15,9 +15,28 @@ int chocosolver_is_initialized();
 
 void* create_model();
 void* create_model_s(char*);
+void* create_model_s_s(char*, void*);
 char* get_model_name(void*);
 void* get_solver(void*);
 void set_objective(void*, int, void*);
+
+// Settings API
+
+void* init_settings();
+void* set_lcg(void*, int);
+void* set_warn_user(void*, int);
+void* set_check_declared_constraints(void*, int);
+void* set_check_declared_views(void*, int);
+void* set_check_declared_monitors(void*, int);
+void* set_max_dom_size_for_enumerated(void*, int);
+void* set_min_cardinality_for_sum_decomposition(void*, int);
+void* set_enable_table_substitution(void*, int);
+void* set_max_tuple_size_for_substitution(void*, int);
+void* set_max_size_in_mb_to_use_compact_table(void*, int);
+void* set_enable_sat(void*, int);
+void* set_swap_on_passivate(void*, int);
+void* set_print_all_undeclared_constraints(void*, int);
+void* set_nb_max_learnt_clauses(void*, int);
 
 // Solver API
 
@@ -29,6 +48,9 @@ void* find_all_optimal_solutions(void*, void*, int, void*);
 void show_statistics(void*);
 void show_short_statistics(void*);
 void show_restarts(void*);
+void show_decisions(void*, int);
+void show_solutions(void*);
+void show_solutions_v(void*, void*);
 long get_solution_count(void*);
 void limit_time(void*, char*);
 int propagate(void*);
@@ -466,6 +488,11 @@ void set_pick_on_dom_search(void*, void*);
 void set_round_robin_search(void*, void*);
 void add_hint(void*, void*, int);
 void rem_hints(void*);
+void set_nogood_recording_from_solutions(void* , void* );
+void set_nogood_recording_from_restarts(void* , void* );
+void set_geometrical_restart(void* , void* , long , double , int );
+void set_luby_restart(void* , void* , int , int );
+void set_restart_on_solutions(void* );
 
 // Automaton API
 
@@ -507,6 +534,7 @@ void* task_get_duration(void*);
 // MDD API
 
 void* create_mdd_tuples(void*, void*, char*, int);
+void* create_mdd_tuples_u(void*, void*, char*, int, int);
 void* create_mdd_transitions(void*, void*);
 
 // Graph API
@@ -593,6 +621,7 @@ int add_constructive_disjunction(void*, void*);
 void* create_parallel_portfolio();
 void steal_nogoods_on_restarts(void*);
 void add_model(void*, void*);
+void add_model_b_b(void*, void*, int, int);
 int pf_solve(void*);
 void* get_best_model(void*);
 void* get_best_solution(void*);

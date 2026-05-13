@@ -226,11 +226,80 @@ class Solver(SearchStrategies, _HandleWrapper):
         """
         backend.show_restarts(self._handle)
 
+    def show_restarts(self):
+        """
+        Configure the solver to show restarts during solving.
+        """
+        backend.show_restarts(self._handle)
+
+    def show_decisions(self, nb_chars: int = 20):
+        """
+        Configure the solver to show decisions during solving.
+        :param nb_chars: Number of characters to show for variable and value names.
+        """
+        backend.show_decisions(self._handle, nb_chars)
+
+    def show_solutions(self):
+        """
+        Configure the solver to show solutions during solving.
+        """
+        backend.show_solutions(self._handle)
+
+    def show_solutions(self, intvars: List[IntVar]):
+        """
+        Configure the solver to show solutions during solving, with the specified variables and their values.
+        :param intvars: List of variables to show in solutions.
+        """
+        vars_array = make_intvar_array(intvars)
+        backend.show_solutions(self._handle, vars_array)
+
     def get_solution_count(self) -> int:
         """
         :return: The number of solution found so far.
         """
         return backend.get_solution_count(self._handle)
+    
+    def get_time_count(self) -> float:
+        """
+        :return: The time count in milliseconds.
+        """
+        return backend.get_time_count(self._handle)
+
+    def get_node_count(self) -> int:
+        """
+        :return: The node count.
+        """
+        return backend.get_node_count(self._handle)
+    
+    def get_backtrack_count(self) -> int:
+        """
+        :return: The backtrack count.
+        """
+        return backend.get_backtrack_count(self._handle)
+
+    def get_fail_count(self) -> int:
+        """
+        :return: The fail count.
+        """
+        return backend.get_fail_count(self._handle)
+    
+    def get_restart_count(self) -> int:
+        """
+        :return: The restart count.
+        """
+        return backend.get_restart_count(self._handle)
+    
+    def get_search_state(self) -> str:
+        """
+        :return: the search state as a string ('NEW', 'RUNNING', 'TERMINATED', 'STOPPED', 'KILLED').
+        """
+        return backend.get_search_state(self._handle)
+
+    def is_objective_optimal(self) -> bool:
+        """
+        :return: True if the objective is proven optimal, False otherwise.
+        """
+        return backend.is_objective_optimal(self._handle)
 
     @property
     def model(self):
@@ -308,3 +377,114 @@ class Solver(SearchStrategies, _HandleWrapper):
 
     def __repr__(self):
         return "Choco Solver"
+
+    def set_default_search(self):
+        backend.set_default_search(self._handle)
+
+    def set_dom_over_w_deg_search(self, *intvars):
+        assert len(intvars) > 0, "No variables were declared for the search"
+        print("before handle", intvars)
+        var_array_handle = make_intvar_array(intvars)
+        print("after handle")
+        backend.set_dom_over_w_deg_search(self._handle, var_array_handle)
+
+    def set_dom_over_w_deg_ref_search(self, *intvars):
+        assert len(intvars) > 0, "No variables were declared for the search"
+        print("before handle", intvars)
+        var_array_handle = make_intvar_array(intvars)
+        print("after handle")
+        backend.set_dom_over_w_deg_ref_search(self._handle, var_array_handle)
+
+    def set_activity_based_search(self, *intvars):
+        assert len(intvars) > 0, "No variables were declared for the search"
+        var_array_handle = make_intvar_array(intvars)
+        backend.set_activity_based_search(self._handle, var_array_handle)
+
+    def set_min_dom_lb_search(self, *intvars):
+        assert len(intvars) > 0, "No variables were declared for the search"
+        var_array_handle = make_intvar_array(intvars)
+        backend.set_min_dom_lb_search(self._handle, var_array_handle)
+
+    def set_min_dom_ub_search(self, *intvars):
+        assert len(intvars) > 0, "No variables were declared for the search"
+        var_array_handle = make_intvar_array(intvars)
+        backend.set_min_dom_ub_search(self._handle, var_array_handle)
+
+    def set_random_search(self, *intvars, seed: int = round(time.time())):
+        assert len(intvars) > 0, "No variables were declared for the search"
+        var_array_handle = make_intvar_array(intvars)
+        backend.set_random_search(self._handle, var_array_handle, seed)
+
+    def set_conflict_history_search(self, *intvars):
+        assert len(intvars) > 0, "No variables were declared for the search"
+        var_array_handle = make_intvar_array(intvars)
+        backend.set_conflict_history_search(self._handle, var_array_handle)
+
+    def set_input_order_lb_search(self, *intvars):
+        assert len(intvars) > 0, "No variables were declared for the search"
+        assert len(intvars) > 0, "No variables were declared for the search"
+        var_array_handle = make_intvar_array(intvars)
+        backend.set_input_order_lb_search(self._handle, var_array_handle)
+
+    def set_input_order_ub_search(self, *intvars):
+        assert len(intvars) > 0, "No variables were declared for the search"
+        var_array_handle = make_intvar_array(intvars)
+        backend.set_input_order_ub_search(self._handle, var_array_handle)
+
+    def set_failure_length_based_search(self, *intvars):
+        assert len(intvars) > 0, "No variables were declared for the search"
+        var_array_handle = make_intvar_array(intvars)
+        backend.set_failure_length_based_search(self._handle, var_array_handle)
+
+    def set_failure_rate_based_search(self, *intvars):
+        assert len(intvars) > 0, "No variables were declared for the search"
+        var_array_handle = make_intvar_array(intvars)
+        backend.set_failure_rate_based_search(self._handle, var_array_handle)
+
+    def set_pick_on_dom_search(self, *intvars):
+        assert len(intvars) > 0, "No variables were declared for the search"
+        var_array_handle = make_intvar_array(intvars)
+        backend.set_pick_on_dom_search(self._handle, var_array_handle)
+    
+    def set_round_robin_search(self, *intvars):
+        assert len(intvars) > 0, "No variables were declared for the search"
+        var_array_handle = make_intvar_array(intvars)
+        backend.set_round_robin_search(self._handle, var_array_handle)
+
+    def add_hint(self, intvar, value):
+        backend.add_hint(self._handle, intvar._handle, value)
+
+    def rem_hints(self):
+        backend.rem_hints(self._handle)
+
+    def set_nogood_recording_from_solutions(self, intvars: List[IntVar]):
+        """
+        Configure the solver to record nogoods from solutions.
+        :param intvars: List of variables to record in nogoods.
+        """
+        var_array_handle = make_intvar_array(intvars)
+        backend.set_nogood_recording_from_solutions(self._handle, var_array_handle)
+
+    def set_nogood_recording_from_restarts(self):
+        """
+        Configure the solver to record nogoods from restarts.
+        """
+        backend.set_nogood_recording_from_restarts(self._handle)
+
+    def set_geometrical_restart(self, base: int, inc: float):
+        """Configure the solver to use geometrical restarts with the given base and increment.
+        :param base: The base for the geometrical restart strategy.
+        :param inc: The increment for the geometrical restart strategy.
+        """
+        backend.set_geometrical_restart(self._handle, base, inc)
+
+    def set_luby_restart(self, base: int):
+        """Configure the solver to use Luby restarts with the given base.
+        :param base: The base for the Luby restart strategy.
+        """
+        backend.set_luby_restart(self._handle, base)
+    
+    def set_restart_on_solutions(self):
+        """Configure the solver to restart after each solution found.
+        """
+        backend.set_restart_on_solutions(self._handle)

@@ -4,6 +4,8 @@ from typing import Union, List
 
 from pychoco._utils import make_int_array
 from pychoco.constraints.constraint import Constraint
+from pychoco.variables.boolvar import BoolVar
+from pychoco.variables.intvar import IntVar
 from pychoco import backend
 from pychoco.variables.boolvar import BoolVar
 from pychoco.variables.intvar import IntVar

@@ -41,6 +41,6 @@ class TestTable(unittest.TestCase):
         tuples = [
             [-1, 1],
         ]
-        m.table([x, y], tuples, algo="CT+", universal_value=-1).post()
+        m.table([x, y], tuples, algo="CT+", uvalue=-1).post()
         m.get_solver().find_all_solutions()
         self.assertEqual(m.get_solver().get_solution_count(), 4)

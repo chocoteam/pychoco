@@ -266,39 +266,6 @@ class IntConstraintFactory(ABC):
         constraint_handle = backend.square(self._handle, x._handle, y._handle)
         return Constraint(constraint_handle, self)
 
-    def table(self, intvars: List[IntVar], tuples: List[List[int]], feasible: bool = True, algo: str = "GAC3rm",
-              universal_value: Union[None, int] = None):
-        """
-        Creates a table constraint, with the specified algorithm defined algo
-        - CT+: Compact-Table algorithm (AC),
-        - GAC2001: Arc Consistency version 2001 for tuples,
-        - GAC2001+: Arc Consistency version 2001 for allowed tuples,
-        - GAC3rm: Arc Consistency version AC3 rm for tuples,
-        - GAC3rm+ (default): Arc Consistency version 3rm for allowed tuples,
-        - GACSTR+: Arc Consistency version STR for allowed tuples,
-        - STR2+: Arc Consistency version STR2 for allowed tuples,
-        - FC: Forward Checking.
-        - MDD+: uses a multi-valued decision diagram for allowed tuples (see mddc constraint).
-
-        :param intvars: integer variables forming the tuples.
-        :param tuples: the relation between the variables (list of allowed/forbidden tuples)
-        :param feasible: if True, the tuples describe allowed tuples, otherwise forbidden tuples.
-        :param algo: filtering algorithm, to choose among: "CT+", "GAC3rm", "GAC2001", "GACSTR", "GAC2001+", "GAC3rm+",
-            "FC", "STR2+". Default is "GAC3rm".
-        :param universal_value If not None, set an universal value to the tuples.
-        :return: A table constraint.
-        """
-        assert algo in ["CT+", "GAC3rm", "GAC2001", "GACSTR", "GAC2001+", "GAC3rm+",
-                        "FC", "STR2+"], '[table] algo must be in ["CT+", "GAC3rm", "GAC2001", "GACSTR", "GAC2001+", ' \
-                                        '"GAC3rm+", "FC", "STR2+"]'
-        vars_handle = make_intvar_array(intvars)
-        tuples_handle = make_int_2d_array(tuples)
-        if universal_value is None:
-            constraint_handle = backend.table(self._handle, vars_handle, tuples_handle, feasible, algo)
-        else:
-            constraint_handle = backend.table_universal_value(self._handle, vars_handle, tuples_handle, feasible, algo, universal_value)
-        return Constraint(constraint_handle, self)
-
     def hybrid_table(self, intvars: List[IntVar], hybrid_tuples: List[List[Supportable]]):
         """
         Create a table constraint based on hybrid tuples.
@@ -310,6 +277,32 @@ class IntConstraintFactory(ABC):
         vars_handle = make_intvar_array(intvars)
         tuples_handles = make_supportable_2d_array(hybrid_tuples)
         constraint_handle = backend.hybrid_table(self._handle, vars_handle, tuples_handles)
+        return Constraint(constraint_handle, self)
+
+    def table(self, intvars: List[IntVar], tuples: List[List[int]], feasible: bool = True, algo: str = "CT+", 
+              uvalue: Union[None, int] = None):
+        """
+        Creates a table constraint, with the specified algorithm defined algo
+        - CT+: Compact-Table algorithm (AC),
+        - STR2+: Arc Consistency version STR2 for allowed tuples,
+        
+        :param intvars: integer variables forming the tuples.
+        :param tuples: the relation between the variables (list of allowed/forbidden tuples)
+        :param feasible: if True, the tuples describe allowed tuples, otherwise forbidden tuples.
+        :param algo: filtering algorithm, to choose among: "CT+", "STR2+". Default is "CT+".
+        :param uvalue: the value used to encode universal quantification in the tuples. This value must not be in the domain of any variable in intvars.
+
+        :return: A table constraint.
+        """
+        assert algo in ["CT+", "STR2+"], '[table] algo must be in ["CT+", "STR2+"]'
+        if not feasible:
+            algo = "CT"
+        vars_handle = make_intvar_array(intvars)
+        tuples_handle = make_int_2d_array(tuples)
+        if uvalue is None:
+            constraint_handle = backend.table(self._handle, vars_handle, tuples_handle, feasible, algo)
+        else:
+            constraint_handle = backend.table_universal_value(self._handle, vars_handle, tuples_handle, feasible, algo, uvalue)
         return Constraint(constraint_handle, self)
 
     def times(self, x: IntVar, y: Union[int, IntVar], z: Union[int, IntVar]):

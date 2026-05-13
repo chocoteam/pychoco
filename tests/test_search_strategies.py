@@ -18,11 +18,7 @@ class TestSearchStrategies(unittest.TestCase):
         self.model.get_solver().find_optimal_solution(objective=self.obj, maximize=True)
 
     def test_dom_over_w_deg_search(self):
-        self.model.get_solver().set_dom_over_w_deg_search(self.vars)
-        self.model.get_solver().find_optimal_solution(objective=self.obj, maximize=True)
-
-    def test_dom_over_w_deg_ref_search(self):
-        self.model.get_solver().set_dom_over_w_deg_ref_search(*self.vars)
+        self.model.get_solver().set_dom_over_w_deg_search(*self.vars)
         self.model.get_solver().find_optimal_solution(objective=self.obj, maximize=True)
 
     def test_dom_over_w_deg_ref_search(self):

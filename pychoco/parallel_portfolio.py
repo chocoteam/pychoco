@@ -1,6 +1,6 @@
 from pychoco import Model
 from pychoco._handle_wrapper import _HandleWrapper
-from pychoco.backend import create_parallel_portfolio, steal_nogoods_on_restarts, add_model, pf_solve, get_best_model, \
+from pychoco.backend import create_parallel_portfolio, steal_nogoods_on_restarts, add_model_b_b, pf_solve, get_best_model, \
     get_best_solution
 from pychoco.solution import Solution
 
@@ -49,7 +49,7 @@ class ParallelPortfolio(_HandleWrapper):
         """
         steal_nogoods_on_restarts(self._handle)
 
-    def add_model(self, model: Model):
+    def add_model(self, model: Model, unalterable: bool = False, reliable: bool = True):
         """
         Adds a model to the list of models to run in parallel. The model can either be a fresh one, ready for
         populating, or a populated one.
@@ -59,8 +59,16 @@ class ParallelPortfolio(_HandleWrapper):
 
         When dealing with optimization problems, the objective variables <b>HAVE</b> to be declared eagerly with
         model.set_objective(variable, boolean).
+
+        An alterable let the search strategy of the model to be changed by the parallel portfolio. 
+        This is useful when the search strategy is not considered as a core part of the model and can be changed to improve resolution.
+
+        A reliable model is expected to prove the absence of a solution, improving one in the case of optimisation
+        problem. A model with non-redundant constraints posted to improve resolution at the expense of completeness
+        is considered unreliable. An unreliable model cannot share its no-goods and when it stops, cannot stop other
+        models. There should be at least one reliable model in a portfolio. Otherwise, solving may be made incomplete.
         """
-        add_model(self._handle, model._handle)
+        add_model_b_b(self._handle, model._handle, unalterable, reliable)
 
     def solve(self):
         """

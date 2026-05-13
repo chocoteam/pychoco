@@ -1,6 +1,8 @@
 # NOTE: before launching, ensure that $JAVA_HOME points
 # to graalVM
 
+set -e
+
 # Parse command line arguments
 for i in "$@"; do
   case $i in
@@ -36,16 +38,15 @@ rm -f pychoco/*.so
 # Create C interface to python with SWIG
 swig -python pychoco/backend.i
 
-# Build extensions
-#pip install .
+# Build and install in development mode
+pip install -e .
 
-python setup.py develop -e -b .
 if [ "$NO_WHEEL" != true ]; then
-  pip install wheel
-  OS=`uname`
+  pip install wheel build
+  OS=$(uname)
   if [ "$OS" = "Linux" ]; then
-    python setup.py bdist_wheel --plat manylinux2014_x86_64
+    python -m build --wheel -C--plat-name=manylinux2014_x86_64
   else
-    python setup.py bdist_wheel
+    python -m build --wheel
   fi
 fi

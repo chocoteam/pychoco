@@ -53,6 +53,10 @@ int chocosolver_is_initialized() {
 
 // Model API
 
+void* create_model_s_s(char* name, void* settingsHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_ModelApi_createModel_s_s(thread, name, settingsHandle);
+}
 void* create_model_s(char* name) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ModelApi_createModel_s(thread, name);
@@ -72,6 +76,71 @@ void* get_solver(void* modelHandle) {
 void set_objective(void* modelHandle, int maximize, void* objectiveHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ModelApi_setObjective(thread, modelHandle, maximize, objectiveHandle);
+}
+
+
+// Settings API
+
+void* init_settings(){
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SettingsBuilderApi_init(thread);
+
+}
+void* set_lcg(void* settingsHandle, int lcg){
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SettingsBuilderApi_setLCG(thread, settingsHandle, lcg);
+}
+void* set_warn_user(void* settingsHandle, int warn){
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SettingsBuilderApi_setWarnUser(thread, settingsHandle, warn);
+}
+void* set_check_declared_constraints(void* settingsHandle, int check){
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SettingsBuilderApi_setCheckDeclaredConstraints(thread, settingsHandle, check);
+}
+void* set_check_declared_views(void* settingsHandle, int check){
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SettingsBuilderApi_setCheckDeclaredViews(thread, settingsHandle, check);
+}
+void* set_check_declared_monitors(void* settingsHandle, int check){
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SettingsBuilderApi_setCheckDeclaredMonitors(thread, settingsHandle, check);
+}
+void* set_max_dom_size_for_enumerated(void* settingsHandle, int max_size){
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SettingsBuilderApi_setEnumeratedDomainSizeThreshold(thread, settingsHandle, max_size);
+}
+void* set_min_cardinality_for_sum_decomposition(void* settingsHandle, int min_card){
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SettingsBuilderApi_setMinCardinalityForSumDecomposition(thread, settingsHandle, min_card);
+}
+void* set_enable_table_substitution(void* settingsHandle, int enable){
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SettingsBuilderApi_setEnableTableSubstitution(thread, settingsHandle, enable);
+}
+void* set_max_tuple_size_for_substitution(void* settingsHandle, int max_size){
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SettingsBuilderApi_setMaxTupleSizeForSubstitution(thread, settingsHandle, max_size);
+}
+void* set_max_size_in_mb_to_use_compact_table(void* settingsHandle, int max_size){
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SettingsBuilderApi_setMaxSizeInMBToUseCompactTable(thread, settingsHandle, max_size);
+}
+void* set_enable_sat(void* settingsHandle, int enable){
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SettingsBuilderApi_setEnableSAT(thread, settingsHandle, enable);
+}
+void* set_swap_on_passivate(void* settingsHandle, int swap){
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SettingsBuilderApi_setSwapOnPassivate(thread, settingsHandle, swap);
+}
+void* set_print_all_undeclared_constraints(void* settingsHandle, int print){
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SettingsBuilderApi_setPrintAllUndeclaredConstraints(thread, settingsHandle, print);
+}
+void* set_nb_max_learnt_clauses(void* settingsHandle, int nb_max){
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SettingsBuilderApi_setNbMaxLearntClauses(thread, settingsHandle, nb_max);
 }
 
 // Solver API
@@ -107,6 +176,18 @@ void show_short_statistics(void* solverHandle) {
 void show_restarts(void* solverHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_SolverApi_show_restarts(thread, solverHandle);
+}
+void show_decisions(void* solverHandle, int nb_char) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SolverApi_showDecisions(thread, solverHandle, nb_char);
+}
+void show_solutions(void* solverHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SolverApi_showSolutions(thread, solverHandle);
+}
+void show_solutions_v(void* solverHandle, void* intVarsHandle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_SolverApi_showSolutions_v(thread, solverHandle, intVarsHandle);
 }
 long get_solution_count(void* solverHandle) {
     LAZY_THREAD_ATTACH
@@ -156,7 +237,6 @@ char* get_search_state(void* solverHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_SolverApi_get_search_state(thread, solverHandle);
 }
-
 
 
 // Criterion API
@@ -1819,7 +1899,26 @@ void rem_hints(void* solverHandle) {
     LAZY_THREAD_ATTACH
     Java_org_chocosolver_capi_SearchApi_rem_hints(thread, solverHandle);
 }
-
+void set_nogood_recording_from_solutions(void* solverHandle, void* intVarArrayHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_SearchApi_setNoGoodRecordingFromSolutions(thread, solverHandle, intVarArrayHandle);
+}
+void set_nogood_recording_from_restarts(void* solverHandle, void* intVarArrayHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_SearchApi_setNoGoodRecordingFromRestarts(thread, solverHandle);
+}
+void set_geometrical_restart(void* solverHandle, void* intVarArrayHandle, long base, double factor, int limit) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_SearchApi_setGeometricalRestart(thread, solverHandle, base, factor, limit);
+}
+void set_luby_restart(void* solverHandle, void* intVarArrayHandle, int factor, int limit) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_SearchApi_setLubyRestart(thread, solverHandle, factor, limit);
+}
+void set_restart_on_solutions(void* solverHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_SearchApi_setRestartOnSolutions(thread, solverHandle);
+}
 // Automaton API
 
 void* create_fa() {
@@ -1971,6 +2070,17 @@ void* create_mdd_tuples(void* intVarsHandle, void* tuplesHandle, char* compact, 
         tuplesHandle,
         compact,
         sortTuples
+    );
+}
+void* create_mdd_tuples_u(void* intVarsHandle, void* tuplesHandle, char* compactOnce, int sortTuples, int uvalue) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_MDDApi_create_mdd_tuples_u(
+        thread,
+        intVarsHandle,
+        tuplesHandle,
+        compactOnce,
+        sortTuples,
+        uvalue
     );
 }
 void* create_mdd_transitions(void* intVarsHandle, void* transitionsHandle) {
@@ -2272,7 +2382,10 @@ void steal_nogoods_on_restarts(void* pfHandle) {
 void add_model(void* pfHandle, void* modelHandle) {
     LAZY_THREAD_ATTACH
     Java_org_chocosolver_capi_ParallelPortfolio_add_model(thread, pfHandle, modelHandle);
-
+}
+void add_model_b_b(void* pfHandle, void* modelHandle, int unalterable, int reliable) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ParallelPortfolio_add_model_b_b(thread, pfHandle, modelHandle, unalterable, reliable);
 }
 int pf_solve(void* pfHandle) {
     LAZY_THREAD_ATTACH
