@@ -1,6 +1,6 @@
 import os
 import sys
-from distutils.command.build import build
+from setuptools.command.build import build
 
 from setuptools import Extension, setup, find_packages, Command
 from setuptools.command.build_ext import build_ext
@@ -85,7 +85,7 @@ setup(
         'build_ext': CustomBuildExt,
         'build': CustomBuild,
     },
-    version='0.2.6',
+    version='0.3.0',
     author="Dimitri Justeau-Allaire, Charles Prud'homme",
     author_email="dimitri.justeau@gmail.com, charles.prudhomme@imt-atlantique.fr",
     description="Python bindings to the Choco Constraint Programming solver",
@@ -107,11 +107,10 @@ setup(
         'Programming Language :: Java',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
+        'Programming Language :: Python :: 3.13',
         'Topic :: Documentation :: Sphinx',
         'Topic :: Scientific/Engineering',
         'Topic :: Scientific/Engineering :: Mathematics',
@@ -121,7 +120,7 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules'
     ],
     keywords='constraint programming,optimization,graphs,artificial intelligence,combinatorics',
-    python_requires='>=3.6',
+    python_requires='>=3.10',
     packages=find_packages(),
     ext_modules=[lib_choco],
     package_data={
