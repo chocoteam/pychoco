@@ -12,14 +12,10 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: "macos-13"
-            arch: x86_64
-            python-version: "3.11"
-            CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=15.0
           - os: "macos-14"
             arch: arm64
             python-version: "3.11"
-            CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=15.0
+            CIBW_ENVIRONMENT: MACOSX_DEPLOYMENT_TARGET=14.0
           - os: "macos-15"
             arch: arm64
             python-version: "3.11"
@@ -79,9 +75,6 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: "macos-13"
-            arch: x86_64
-            python-version: "3.11"
           - os: "macos-14"
             arch: arm64
             python-version: "3.11"
