@@ -395,6 +395,10 @@ int instantiate_intvar(void* varHandle, int value) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_IntVarApi_instantiateTo(thread, varHandle, value);
 }
+int remove_intvar_value(void* varHandle, int value) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_IntVarApi_removeValue(thread, varHandle, value);
+}
 int has_enumerated_domain(void* varHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_IntVarApi_hasEnumeratedDomain(thread, varHandle);

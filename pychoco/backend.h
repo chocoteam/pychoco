@@ -101,6 +101,7 @@ int get_intvar_value(void*);
 int update_intvar_ub(void*, int);
 int update_intvar_lb(void*, int);
 int instantiate_intvar(void*, int);
+int remove_intvar_value(void*, int);
 int has_enumerated_domain(void*);
 void* get_domain_values(void*);
 
