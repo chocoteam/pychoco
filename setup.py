@@ -43,7 +43,14 @@ class CopySharedLibrary(Command):
         else:
             lib_target_path = os.path.join(self.build_lib, self.package_name)
             self.mkpath(lib_target_path)
-        self.copy_file(self.lib_source_path, os.path.join(lib_target_path, self.filename))
+        dest = os.path.join(lib_target_path, self.filename)
+        self.copy_file(self.lib_source_path, dest)
+        if sys.platform.startswith('darwin'):
+            # GraalVM native-image embeds an absolute install_name in the dylib.
+            # Fix it to @loader_path so the dynamic linker resolves it relative
+            # to _backend.so regardless of where the package is installed.
+            self.spawn(['install_name_tool', '-id',
+                        '@loader_path/' + self.filename, dest])
         if sys.platform.startswith('win32'):
             self.copy_file(self.lib_source_path, os.path.join(lib_target_path, "lib{}".format(self.filename)))
         os.environ["ORIGIN"] = os.path.abspath(lib_target_path)

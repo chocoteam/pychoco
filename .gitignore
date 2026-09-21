@@ -11,6 +11,11 @@ __pycache__/
 pychoco/backend_wrap.c
 pychoco/backend.py
 
+# Native libraries (platform-specific build artifacts, never commit)
+pychoco/*.dylib
+pychoco/*.dll
+pychoco/*.lib
+
 # Distribution / packaging
 .Python
 build/
