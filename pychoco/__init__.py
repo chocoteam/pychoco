@@ -5,6 +5,14 @@ pychoco - Python API for the Choco Constraint Programming solver
 # Implementation inspired by https://github.com/d-michail/python-jgrapht
 
 import atexit
+import os
+import sys
+
+# On Windows (Python 3.8+), DLL search paths are no longer inherited from the
+# loading module's directory. Register the package directory explicitly so that
+# choco_capi.dll can be found when _backend is imported.
+if sys.platform == 'win32':
+    os.add_dll_directory(os.path.dirname(os.path.abspath(__file__)))
 
 from . import backend
 
