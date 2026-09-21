@@ -98,6 +98,9 @@ char* get_intvar_name(void*);
 int get_intvar_lb(void*);
 int get_intvar_ub(void*);
 int get_intvar_value(void*);
+int update_intvar_ub(void*, int);
+int update_intvar_lb(void*, int);
+int instantiate_intvar(void*, int);
 int has_enumerated_domain(void*);
 void* get_domain_values(void*);
 
@@ -629,6 +632,30 @@ void* get_best_solution(void*);
 // Handle API
 
 void chocosolver_handles_destroy(void*);
+
+// Python Propagator API
+
+/* Signature of the Python callback (ctypes CFUNCTYPE).
+ * vars_handle : ObjectHandle (void*) pointing to Java IntVar[]
+ * nvars       : number of variables
+ * Returns     : 0 = OK, -1 = contradiction
+ */
+typedef int (*propagate_fn_t)(void* vars_handle, int nvars);
+
+/* Converts a raw pointer integer received from a ctypes callback into a
+ * SWIG void* object usable with intvar_array_get and other backend functions.
+ * The LONG_TO_FPTR typemap makes SWIG accept a Python integer as input.
+ * Returns : a SWIG void* handle wrapping the same pointer value.
+ */
+void* chocosolver_ptr_from_long(void *LONG_TO_FPTR);
+
+/* Creates a propagator whose propagation delegates to a Python callable.
+ * model        : Model handle
+ * vars         : IntVar[] Java handle
+ * LONG_TO_FPTR : Python function pointer (via ctypes) — uses LONG_TO_FPTR SWIG typemap
+ * Returns      : Constraint handle
+ */
+void* create_python_propagator(void* model, void* vars, void *LONG_TO_FPTR);
 
 #if defined(__cplusplus)
 }

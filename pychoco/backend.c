@@ -47,8 +47,49 @@ void chocosolver_cleanup() {
     // let the JVM cleanup for itself
 }
 
-int chocosolver_is_initialized() { 
+int chocosolver_is_initialized() {
     return thread != NULL && isolate != NULL;
+}
+
+// Python Propagator Bridge
+
+/* Local typedef matching propagate_fn_t in backend.h (not included from here). */
+typedef int (*propagate_fn_t)(void* vars_handle, int nvars);
+
+typedef struct {
+    propagate_fn_t python_fn;
+    int nvars;
+} PropEntry;
+
+#define MAX_PYTHON_PROPAGATORS 4096
+static PropEntry python_propagators[MAX_PYTHON_PROPAGATORS];
+static long next_prop_id = 0;
+
+/* Matches PythonPropagator.PropagateFn: int(IsolateThread*, long, void*) */
+typedef int (*GraalPropagateBridge)(graal_isolatethread_t*, long, void*);
+
+/* Static bridge called by Java via CFunctionPointer.
+ * ctypes CFUNCTYPE callbacks automatically acquire the Python GIL when invoked
+ * from a non-Python thread (such as the GraalVM thread).
+ */
+static int graal_propagate_bridge(graal_isolatethread_t* t, long prop_id, void* vars_handle) {
+    if (prop_id < 0 || prop_id >= next_prop_id) return -1;
+    PropEntry* e = &python_propagators[prop_id];
+    return e->python_fn(vars_handle, e->nvars);
+}
+
+void* chocosolver_ptr_from_long(void* p) {
+    return p;
+}
+
+void* create_python_propagator(void* modelHandle, void* varsHandle, void* python_fn) {
+    LAZY_THREAD_ATTACH
+    long id = next_prop_id++;
+    python_propagators[id].python_fn = (propagate_fn_t) python_fn;
+    python_propagators[id].nvars = (int) Java_org_chocosolver_capi_ArrayApi_intVar_length(thread, varsHandle);
+    return Java_org_chocosolver_capi_ConstraintApi_create_python_propagator(
+        thread, modelHandle, varsHandle, id, (GraalPropagateBridge) graal_propagate_bridge
+    );
 }
 
 // Model API
@@ -341,6 +382,18 @@ int get_intvar_ub(void* varHandle) {
 int get_intvar_value(void* varHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_IntVarApi_getValue(thread, varHandle);
+}
+int update_intvar_ub(void* varHandle, int value) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_IntVarApi_updateUpperBound(thread, varHandle, value);
+}
+int update_intvar_lb(void* varHandle, int value) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_IntVarApi_updateLowerBound(thread, varHandle, value);
+}
+int instantiate_intvar(void* varHandle, int value) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_IntVarApi_instantiateTo(thread, varHandle, value);
 }
 int has_enumerated_domain(void* varHandle) {
     LAZY_THREAD_ATTACH

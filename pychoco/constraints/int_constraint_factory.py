@@ -1,3 +1,4 @@
+import ctypes
 from abc import ABC, abstractmethod
 from typing import Union, List
 
@@ -1132,3 +1133,65 @@ class IntConstraintFactory(ABC):
         successors_handle = make_intvar_array(successors)
         constraint_handle = backend.tree(self._handle, successors_handle, nb_trees._handle, offset)
         return Constraint(constraint_handle, self)
+
+    # C type matching propagate_fn_t: int(void* vars_handle, int nvars)
+    # vars_handle arrives as a raw integer (ctypes c_void_p behaviour).
+    _PROPAGATE_FN = ctypes.CFUNCTYPE(ctypes.c_int, ctypes.c_void_p, ctypes.c_int)
+
+    def python_propagator(self, intvars: List[IntVar], propagate_fn):
+        """
+        Creates a constraint whose propagation is defined by a Python function.
+
+        :param intvars: list of IntVar variables the propagator operates on
+        :param propagate_fn: Python callable with signature
+                             fn(vars_handle, nvars: int) -> int
+
+                             Must return 0 if propagation succeeded, or -1 to
+                             signal a contradiction (triggers backtracking).
+
+                             ``vars_handle`` is a SWIG void* handle to the
+                             Java IntVar[].  Use
+                             ``backend.intvar_array_get(vars_handle, i)`` to
+                             retrieve individual IntVar handles, then
+                             ``backend.intvar_get_lb/ub`` and
+                             ``backend.intvar_update_lower/upper_bound`` to
+                             read and filter variable domains.
+        :return: Constraint
+
+        Example::
+
+            from pychoco import Model
+            from pychoco import backend
+
+            model = Model()
+            x = model.intvar(0, 10, "x")
+            y = model.intvar(0, 10, "y")
+
+            def my_propagator(vars_handle, nvars):
+                h_x = backend.intvar_array_get(vars_handle, 0)
+                h_y = backend.intvar_array_get(vars_handle, 1)
+                ub_y = backend.intvar_get_ub(h_y)
+                backend.intvar_update_upper_bound(h_x, ub_y, None)
+                return 0
+
+            model.python_propagator([x, y], my_propagator).post()
+        """
+        vars_array = make_intvar_array(intvars)
+
+        # ctypes delivers vars_handle as a raw Python integer (c_void_p).
+        # Wrap propagate_fn to convert it back to a SWIG void* object first.
+        def _adapter(vars_handle_int, nvars):
+            swig_vars = backend.chocosolver_ptr_from_long(vars_handle_int)
+            return propagate_fn(swig_vars, nvars)
+
+        c_fn = IntConstraintFactory._PROPAGATE_FN(_adapter)
+        # Keep a strong reference to the ctypes callback to prevent GC
+        if not hasattr(self, "_python_propagators"):
+            self._python_propagators = []
+        self._python_propagators.append(c_fn)
+        handle = backend.create_python_propagator(
+            self._handle,
+            vars_array,
+            ctypes.cast(c_fn, ctypes.c_void_p).value
+        )
+        return Constraint(handle, self)

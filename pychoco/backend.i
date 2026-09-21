@@ -4,9 +4,16 @@
 #define SWIG_FILE_WITH_INIT
 #include "backend.h"
 %}
-%include "backend.h"
 
 %include <typemaps.i>
+
+// convert a long to a void function pointer — must be declared BEFORE %include "backend.h"
+// so that SWIG applies it to create_python_propagator during header parsing.
+%typemap(in) void *LONG_TO_FPTR {
+    $1 = PyLong_AsVoidPtr($input);
+}
+
+%include "backend.h"
 
 // custom typemap to append void** types to the result
 %typemap(in,numinputs=0,noblock=1) void **OUTPUT ($*1_ltype temp) {
@@ -23,11 +30,6 @@
 
 %typemap(argout,noblock=1) char **OUTPUT {
     %append_output(SWIG_FromCharPtr(($*1_ltype)*$1));
-}
-
-// convert a long to a void function pointer
-%typemap(in) void *LONG_TO_FPTR { 
-    $1 = PyLong_AsVoidPtr($input);    
 }
 
 // convert bytearray to c-string
