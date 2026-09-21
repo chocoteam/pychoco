@@ -123,7 +123,7 @@ class IntConstraintFactory(ABC):
             constraint_handle = backend.not_member_iv_i_i(self._handle, x._handle, lb, ub)
         return Constraint(constraint_handle, self)
 
-    def all_different(self, intvars: List[IntVar]):
+    def all_different(self, intvars: List[IntVar], algo: str="AC"):
         """
         Creates an allDifferent constraint, which ensures that all variables from vars take a different value.
 
@@ -131,7 +131,7 @@ class IntConstraintFactory(ABC):
         :return: An allDifferent constraint.
         """
         vars_array = make_intvar_array(intvars)
-        constraint_handle = backend.all_different(self._handle, vars_array)
+        constraint_handle = backend.all_different(self._handle, vars_array, algo)
         return Constraint(constraint_handle, self)
 
     def all_different_except_0(self, intvars: List[IntVar]):

@@ -171,7 +171,7 @@ void* arithm_iv_iv_cst(void*, void*, char*, void*, char*, int);
 void* arithm_iv_iv_iv(void*, void*, char*, void*, char*, void*);
 void* member_iv_iarray(void*, void*, void*);
 void* member_iv_i_i(void*, void*, int, int);
-void* all_different(void*, void*);
+void* all_different(void*, void*, char*);
 void* all_different_except_0(void*, void*);
 void* all_different_prec_pred_succ(void*, void*, void*, void*);
 void* all_different_prec_prec(void*, void*, void*);

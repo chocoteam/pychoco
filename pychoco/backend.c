@@ -584,9 +584,9 @@ void* member_iv_i_i(void* modelHandle, void* intVarHandle, int lb, int ub) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ConstraintApi_member_iv_i_i(thread, modelHandle, intVarHandle, lb, ub);
 }
-void* all_different(void* modelHandle, void* intVarArrayHandle) {
+void* all_different(void* modelHandle, void* intVarArrayHandle, char* algo) {
     LAZY_THREAD_ATTACH
-    return Java_org_chocosolver_capi_ConstraintApi_allDifferent(thread, modelHandle, intVarArrayHandle);
+    return Java_org_chocosolver_capi_ConstraintApi_allDifferent(thread, modelHandle, intVarArrayHandle, algo);
 }
 void* all_different_except_0(void* modelHandle, void* intVarsHandle) {
     LAZY_THREAD_ATTACH

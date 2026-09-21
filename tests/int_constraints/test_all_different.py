@@ -16,6 +16,30 @@ class TestAllDifferent(unittest.TestCase):
             self.assertNotEqual(s.get_int_val(variables[0]), s.get_int_val(variables[2]))
             self.assertNotEqual(s.get_int_val(variables[1]), s.get_int_val(variables[2]))
 
+    def testAllDifferentAC(self):
+        m = Model()
+        x, y, z = m.intvar([0,1, 2], name="x"), m.intvar([0, 2], name= "y"), m.intvar([0, 2], name= "z"), 
+        variables = [x, y, z]
+        m.all_different(variables, "AC").post()
+        m.get_solver()._propagate()
+        self.assertEqual(x.get_domain_values(), [1])
+
+    def testAllDifferentBC1(self):
+        m = Model()
+        x, y, z = m.intvar([0, 1, 2], name="x"), m.intvar([0, 2], name= "y"), m.intvar([0, 2], name= "z"), 
+        variables = [x, y, z]
+        m.all_different(variables, "BC").post()
+        m.get_solver()._propagate()
+        self.assertEqual(x.get_domain_values(), [0,1,2])
+
+    def testAllDifferentBC2(self):
+        m = Model()
+        x, y, z = m.intvar([0, 1, 2], name="x"), m.intvar([1, 2], name= "y"), m.intvar([1, 2], name= "z"), 
+        variables = [x, y, z]
+        m.all_different(variables, "BC").post()
+        m.get_solver()._propagate()
+        self.assertEqual(x.get_domain_values(), [0])
+
     def testAllDifferentFail(self):
         m = Model()
         variables = m.intvars(3, 0, 1)
