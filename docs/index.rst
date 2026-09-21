@@ -23,6 +23,7 @@ Documentation
 
    installation
    quickstart
+   custom_propagators
    api/index
 
 Notebooks

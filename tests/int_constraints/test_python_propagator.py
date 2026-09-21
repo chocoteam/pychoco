@@ -1,23 +1,19 @@
 import unittest
 
 from pychoco import Model
-from pychoco import backend
+from pychoco.exceptions import Contradiction
 
 
 class TestPythonPropagator(unittest.TestCase):
 
     def test_upper_bound_filtering(self):
-        """Propagator filters UB of x according to UB of y."""
+        """Propagator enforces x <= y by filtering UB of x."""
         model = Model()
         x = model.intvar(0, 10, "x")
         y = model.intvar(0, 5, "y")
 
-        def prop(vars_handle, nvars):
-            h_x = backend.intvar_array_get(vars_handle, 0)
-            h_y = backend.intvar_array_get(vars_handle, 1)
-            ub_y = backend.get_intvar_ub(h_y)
-            result = backend.update_intvar_ub(h_x, ub_y)
-            return 0 if result >= 0 else -1
+        def prop(x, y):
+            x.update_ub(y.get_ub())
 
         model.python_propagator([x, y], prop).post()
         solutions = []
@@ -27,15 +23,55 @@ class TestPythonPropagator(unittest.TestCase):
         for vx, vy in solutions:
             self.assertLessEqual(vx, vy)
 
-    def test_contradiction(self):
-        """Returning -1 triggers backtracking — no solution found."""
+    def test_lower_bound_filtering(self):
+        """Propagator enforces x >= y by filtering LB of x."""
+        model = Model()
+        x = model.intvar(0, 10, "x")
+        y = model.intvar(5, 10, "y")
+
+        def prop(x, y):
+            x.update_lb(y.get_lb())
+
+        model.python_propagator([x, y], prop).post()
+        solutions = []
+        while model.get_solver().solve():
+            solutions.append((x.get_value(), y.get_value()))
+        self.assertTrue(len(solutions) > 0)
+        for vx, vy in solutions:
+            self.assertGreaterEqual(vx, vy)
+
+    def test_remove_value(self):
+        """Propagator removes a specific value from x's domain."""
         model = Model()
         x = model.intvar(0, 5, "x")
 
-        def always_fail(vars_handle, nvars):
-            return -1
+        def prop(x):
+            x.remove_value(3)
+
+        model.python_propagator([x], prop).post()
+        while model.get_solver().solve():
+            self.assertNotEqual(x.get_value(), 3)
+
+    def test_contradiction_explicit(self):
+        """Raising Contradiction inside propagator — no solution found."""
+        model = Model()
+        x = model.intvar(0, 5, "x")
+
+        def always_fail(x):
+            raise Contradiction()
 
         model.python_propagator([x], always_fail).post()
+        self.assertFalse(model.get_solver().solve())
+
+    def test_contradiction_via_empty_domain(self):
+        """Filtering that empties domain raises Contradiction automatically."""
+        model = Model()
+        x = model.intvar(3, 5, "x")
+
+        def prop(x):
+            x.update_ub(2)  # forces domain empty → raises Contradiction
+
+        model.python_propagator([x], prop).post()
         self.assertFalse(model.get_solver().solve())
 
     def test_multiple_propagators(self):
@@ -45,17 +81,11 @@ class TestPythonPropagator(unittest.TestCase):
         y = model.intvar(0, 10)
         z = model.intvar(0, 10)
 
-        def prop_xy(h, n):  # enforce x <= y
-            hx = backend.intvar_array_get(h, 0)
-            hy = backend.intvar_array_get(h, 1)
-            r = backend.update_intvar_ub(hx, backend.get_intvar_ub(hy))
-            return 0 if r >= 0 else -1
+        def prop_xy(x, y):
+            x.update_ub(y.get_ub())
 
-        def prop_yz(h, n):  # enforce y <= z
-            hy = backend.intvar_array_get(h, 0)
-            hz = backend.intvar_array_get(h, 1)
-            r = backend.update_intvar_ub(hy, backend.get_intvar_ub(hz))
-            return 0 if r >= 0 else -1
+        def prop_yz(y, z):
+            y.update_ub(z.get_ub())
 
         model.python_propagator([x, y], prop_xy).post()
         model.python_propagator([y, z], prop_yz).post()

@@ -307,6 +307,12 @@ pow
 .. autofunction:: pow
    :noindex:
 
+python_propagator
+^^^^^^^^^^^^^^^^^
+
+.. autofunction:: python_propagator
+   :noindex:
+
 regular
 ^^^^^^^
 
