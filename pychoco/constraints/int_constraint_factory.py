@@ -3,6 +3,7 @@ from abc import ABC, abstractmethod
 from typing import Union, List
 
 from pychoco import backend
+from pychoco.exceptions import Contradiction
 from pychoco._utils import make_int_array, make_intvar_array, make_int_2d_array, make_boolvar_array, \
     make_constraint_array, make_task_array, make_intvar_2d_array, make_supportable_2d_array
 from pychoco.constraints.constraint import Constraint
@@ -1143,46 +1144,45 @@ class IntConstraintFactory(ABC):
         Creates a constraint whose propagation is defined by a Python function.
 
         :param intvars: list of IntVar variables the propagator operates on
-        :param propagate_fn: Python callable with signature
-                             fn(vars_handle, nvars: int) -> int
+        :param propagate_fn: Python callable receiving the IntVar objects as
+                             positional arguments (same order as ``intvars``).
 
-                             Must return 0 if propagation succeeded, or -1 to
-                             signal a contradiction (triggers backtracking).
+                             Use the filtering methods on each IntVar to
+                             reduce domains: ``update_lb``, ``update_ub``,
+                             ``instantiate_to``, ``remove_value``.  These
+                             raise ``Contradiction`` automatically if the
+                             domain becomes empty.
 
-                             ``vars_handle`` is a SWIG void* handle to the
-                             Java IntVar[].  Use
-                             ``backend.intvar_array_get(vars_handle, i)`` to
-                             retrieve individual IntVar handles, then
-                             ``backend.intvar_get_lb/ub`` and
-                             ``backend.intvar_update_lower/upper_bound`` to
-                             read and filter variable domains.
+                             No return value is needed; raise
+                             ``Contradiction`` explicitly to signal a
+                             dead-end to the solver.
         :return: Constraint
 
         Example::
 
             from pychoco import Model
-            from pychoco import backend
 
             model = Model()
             x = model.intvar(0, 10, "x")
             y = model.intvar(0, 10, "y")
+            z = model.intvar(0, 20, "z")
 
-            def my_propagator(vars_handle, nvars):
-                h_x = backend.intvar_array_get(vars_handle, 0)
-                h_y = backend.intvar_array_get(vars_handle, 1)
-                ub_y = backend.intvar_get_ub(h_y)
-                backend.intvar_update_upper_bound(h_x, ub_y, None)
-                return 0
+            def sum_propagator(x, y, z):
+                z.update_ub(x.get_ub() + y.get_ub())
+                z.update_lb(x.get_lb() + y.get_lb())
 
-            model.python_propagator([x, y], my_propagator).post()
+            model.python_propagator([x, y, z], sum_propagator).post()
         """
         vars_array = make_intvar_array(intvars)
 
-        # ctypes delivers vars_handle as a raw Python integer (c_void_p).
-        # Wrap propagate_fn to convert it back to a SWIG void* object first.
-        def _adapter(vars_handle_int, nvars):
-            swig_vars = backend.chocosolver_ptr_from_long(vars_handle_int)
-            return propagate_fn(swig_vars, nvars)
+        # The adapter ignores the raw vars_handle from C and uses the
+        # original Python IntVar objects captured in the closure instead.
+        def _adapter(_vars_handle_int, _nvars):
+            try:
+                propagate_fn(*intvars)
+                return 0
+            except Contradiction:
+                return -1
 
         c_fn = IntConstraintFactory._PROPAGATE_FN(_adapter)
         # Keep a strong reference to the ctypes callback to prevent GC
