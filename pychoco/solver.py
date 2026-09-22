@@ -1,5 +1,6 @@
+import ctypes
 import time
-from typing import Union, List
+from typing import Callable, List, Union
 
 from pychoco import backend
 from pychoco._handle_wrapper import _HandleWrapper
@@ -7,6 +8,12 @@ from pychoco._utils import make_criterion_var_array, extract_solutions, make_int
 from pychoco.search.search_strategies import SearchStrategies
 from pychoco.solution import Solution
 from pychoco.variables.intvar import IntVar
+
+# ctypes function types for custom search callbacks.
+# _VAR_SEL_FN: takes no args, returns the index of the chosen variable (or -1).
+# _VAL_SEL_FN: takes the variable index (int), returns the value to assign.
+_VAR_SEL_FN = ctypes.CFUNCTYPE(ctypes.c_int)
+_VAL_SEL_FN = ctypes.CFUNCTYPE(ctypes.c_int, ctypes.c_int)
 
 
 class Solver(SearchStrategies, _HandleWrapper):
@@ -488,3 +495,73 @@ class Solver(SearchStrategies, _HandleWrapper):
         """Configure the solver to restart after each solution found.
         """
         backend.set_restart_on_solutions(self._handle)
+
+    def set_custom_search(
+        self,
+        intvars: List[IntVar],
+        var_selector: Callable[[List[IntVar]], IntVar],
+        val_selector: Callable[[IntVar], int],
+    ):
+        """
+        Installs a custom search strategy defined by two Python functions.
+
+        The solver calls ``var_selector`` to pick which variable to branch on next,
+        then calls ``val_selector`` to pick which value to try first.
+
+        :param intvars: Variables to branch on.
+        :param var_selector: ``fn(vars: List[IntVar]) -> IntVar`` — must return one
+            of the variables from ``intvars``, or ``None`` to let the solver choose.
+            Typically returns the first uninstantiated variable matching your criterion
+            (check ``x.get_lb() == x.get_ub()`` to test if a variable is fixed).
+        :param val_selector: ``fn(var: IntVar) -> int`` — returns the value to try
+            first for the chosen variable.
+
+        Example — smallest domain, lower bound::
+
+            from pychoco import Model
+
+            model = Model()
+            x = model.intvar(0, 5, "x")
+            y = model.intvar(0, 5, "y")
+
+            def smallest_domain(variables):
+                unfix = [v for v in variables if v.get_lb() != v.get_ub()]
+                return min(unfix, key=lambda v: v.get_ub() - v.get_lb()) if unfix else None
+
+            def lower_bound(var):
+                return var.get_lb()
+
+            solver = model.get_solver()
+            solver.set_custom_search([x, y], smallest_domain, lower_bound)
+            while solver.solve():
+                print(x.get_value(), y.get_value())
+        """
+        intvars = list(intvars)
+        vars_array = make_intvar_array(intvars)
+
+        def _var_adapter():
+            chosen = var_selector(intvars)
+            if chosen is None:
+                return -1
+            # Use identity comparison (not ==) because IntVar.__eq__ returns a BoolVar
+            for i, v in enumerate(intvars):
+                if v is chosen:
+                    return i
+            return -1
+
+        def _val_adapter(var_idx):
+            return val_selector(intvars[var_idx])
+
+        c_var_fn = _VAR_SEL_FN(_var_adapter)
+        c_val_fn = _VAL_SEL_FN(_val_adapter)
+
+        if not hasattr(self, "_python_search_callbacks"):
+            self._python_search_callbacks = []
+        self._python_search_callbacks.extend([c_var_fn, c_val_fn])
+
+        backend.set_custom_search(
+            self._handle,
+            vars_array,
+            ctypes.cast(c_var_fn, ctypes.c_void_p).value,
+            ctypes.cast(c_val_fn, ctypes.c_void_p).value,
+        )
