@@ -634,6 +634,17 @@ void* get_best_solution(void*);
 
 void chocosolver_handles_destroy(void*);
 
+// State API (backtrackable values)
+
+void* make_state_int(void* model, int initial_value);
+int state_int_get(void* state);
+void state_int_set(void* state, int value);
+int state_int_add(void* state, int delta);
+
+void* make_state_bool(void* model, int initial_value);
+int state_bool_get(void* state);
+void state_bool_set(void* state, int value);
+
 // Python Propagator API
 
 /* Signature of the Python callback (ctypes CFUNCTYPE).

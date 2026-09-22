@@ -51,6 +51,37 @@ int chocosolver_is_initialized() {
     return thread != NULL && isolate != NULL;
 }
 
+// State API (backtrackable values)
+
+void* make_state_int(void* modelHandle, int initial_value) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_StateApi_make_state_int(thread, modelHandle, initial_value);
+}
+int state_int_get(void* handle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_StateApi_state_int_get(thread, handle);
+}
+void state_int_set(void* handle, int value) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_StateApi_state_int_set(thread, handle, value);
+}
+int state_int_add(void* handle, int delta) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_StateApi_state_int_add(thread, handle, delta);
+}
+void* make_state_bool(void* modelHandle, int initial_value) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_StateApi_make_state_bool(thread, modelHandle, initial_value != 0);
+}
+int state_bool_get(void* handle) {
+    LAZY_THREAD_ATTACH
+    return Java_org_chocosolver_capi_StateApi_state_bool_get(thread, handle) ? 1 : 0;
+}
+void state_bool_set(void* handle, int value) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_StateApi_state_bool_set(thread, handle, value != 0);
+}
+
 // Python Propagator Bridge
 
 /* Local typedef matching propagate_fn_t in backend.h (not included from here). */
