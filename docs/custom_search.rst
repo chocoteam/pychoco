@@ -24,6 +24,13 @@ Custom search strategies are useful when:
    Each call to a Python selector crosses the Python/C/Java boundary.
    For performance-critical models, prefer built-in strategies.
 
+.. tip::
+
+   If your selectors need to maintain a counter or flag that is reset on
+   backtrack, use a :ref:`backtrackable state object <backtrackable_state>`
+   created with :meth:`~pychoco.model.Model.make_state_int` or
+   :meth:`~pychoco.model.Model.make_state_bool`.
+
 Basic usage
 -----------
 
@@ -99,16 +106,44 @@ The value selector has signature:
 Domain query methods on IntVar
 ------------------------------
 
-Both selectors can call the following read-only methods on any
+Both selectors can call the following methods on any
 :class:`~pychoco.variables.intvar.IntVar`:
 
-+------------------+----------------------------------------------+
-| Method           | Effect                                       |
-+==================+==============================================+
-| ``x.get_lb()``   | Returns the current lower bound of ``x``.   |
-+------------------+----------------------------------------------+
-| ``x.get_ub()``   | Returns the current upper bound of ``x``.   |
-+------------------+----------------------------------------------+
+**Read-only (domain inspection)**
+
++------------------------------+--------------------------------------------------------------+
+| Method                       | Description                                                  |
++==============================+==============================================================+
+| ``x.get_lb()``               | Current lower bound of ``x``.                                |
++------------------------------+--------------------------------------------------------------+
+| ``x.get_ub()``               | Current upper bound of ``x``.                                |
++------------------------------+--------------------------------------------------------------+
+| ``x.get_value()``            | Value of ``x`` — only call when ``x`` is instantiated        |
+|                              | (i.e. ``x.get_lb() == x.get_ub()``).                        |
++------------------------------+--------------------------------------------------------------+
+| ``x.has_enumerated_domain()``| ``True`` if the domain is stored as an enumeration.          |
++------------------------------+--------------------------------------------------------------+
+| ``x.get_domain_values()``    | List of all values in the domain (only for enumerated        |
+|                              | domains).                                                    |
++------------------------------+--------------------------------------------------------------+
+
+**Testing whether a variable is fixed**
+
+A variable is fixed when its lower bound equals its upper bound:
+
+.. code-block:: python
+
+    def is_fixed(v):
+        return v.get_lb() == v.get_ub()
+
+.. warning::
+
+   Do **not** use Python's ``==`` operator directly between two
+   :class:`~pychoco.variables.intvar.IntVar` objects — it returns a
+   :class:`~pychoco.variables.boolvar.BoolVar` (a reification of the
+   equality constraint), not a Python ``bool``.  Use ``is`` for
+   identity comparisons and ``get_lb()`` / ``get_ub()`` for domain
+   queries.
 
 Full example — n-queens with smallest-domain heuristic
 -------------------------------------------------------

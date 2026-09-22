@@ -121,6 +121,26 @@ The following propagator enforces ``z <= x + y`` and ``z >= x + y`` (i.e.
     if solver.solve():
         print(x.get_value(), "+", y.get_value(), "=", z.get_value())
 
+Maintaining state across the search tree
+-----------------------------------------
+
+A plain Python closure variable is **not** backtracked when the solver
+backtracks.  If your propagator needs a counter or flag that stays consistent
+with the current search node, use a
+:ref:`backtrackable state object <backtrackable_state>`:
+
+.. code-block:: python
+
+    counter = model.make_state_int(0)  # reset automatically on backtrack
+
+    def propagator(x, y):
+        counter.add(1)
+        x.update_ub(y.get_ub())
+
+    model.custom_constraint([x, y], propagator).post()
+
+See :doc:`backtrackable_state` for the full API.
+
 API reference
 -------------
 
