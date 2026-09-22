@@ -11,10 +11,14 @@ __pycache__/
 pychoco/backend_wrap.c
 pychoco/backend.py
 
-# Native libraries (platform-specific build artifacts, never commit)
+# Native libraries and GraalVM headers (platform-specific build artifacts, never commit)
 pychoco/*.dylib
 pychoco/*.dll
 pychoco/*.lib
+pychoco/libchoco_capi.h
+pychoco/graal_isolate.h
+pychoco/graal_isolate_dynamic.h
+pychoco/libchoco_capi_dynamic.h
 
 # Distribution / packaging
 .Python
