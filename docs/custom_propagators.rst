@@ -29,7 +29,7 @@ Basic usage
 A custom propagator is defined as a plain Python function whose parameters
 are the :class:`~pychoco.variables.intvar.IntVar` objects it operates on,
 in the same order as the list passed to
-:func:`~pychoco.constraints.int_constraint_factory.IntConstraintFactory.python_propagator`.
+:func:`~pychoco.constraints.int_constraint_factory.IntConstraintFactory.custom_constraint`.
 
 .. code-block:: python
 
@@ -43,7 +43,7 @@ in the same order as the list passed to
         # Enforce x <= y by filtering the upper bound of x
         x.update_ub(y.get_ub())
 
-    model.python_propagator([x, y], propagator).post()
+    model.custom_constraint([x, y], propagator).post()
 
     solver = model.get_solver()
     while solver.solve():
@@ -115,7 +115,7 @@ The following propagator enforces ``z <= x + y`` and ``z >= x + y`` (i.e.
         y.update_ub(z.get_ub() - x.get_lb())
         y.update_lb(z.get_lb() - x.get_ub())
 
-    model.python_propagator([x, y, z], sum_prop).post()
+    model.custom_constraint([x, y, z], sum_prop).post()
 
     solver = model.get_solver()
     if solver.solve():
@@ -126,7 +126,7 @@ API reference
 
 .. py:currentmodule:: pychoco.constraints.int_constraint_factory.IntConstraintFactory
 
-.. autofunction:: python_propagator
+.. autofunction:: custom_constraint
    :noindex:
 
 .. autoclass:: pychoco.exceptions.Contradiction

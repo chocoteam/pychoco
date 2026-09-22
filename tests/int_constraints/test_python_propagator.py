@@ -15,7 +15,7 @@ class TestPythonPropagator(unittest.TestCase):
         def prop(x, y):
             x.update_ub(y.get_ub())
 
-        model.python_propagator([x, y], prop).post()
+        model.custom_constraint([x, y], prop).post()
         solutions = []
         while model.get_solver().solve():
             solutions.append((x.get_value(), y.get_value()))
@@ -32,7 +32,7 @@ class TestPythonPropagator(unittest.TestCase):
         def prop(x, y):
             x.update_lb(y.get_lb())
 
-        model.python_propagator([x, y], prop).post()
+        model.custom_constraint([x, y], prop).post()
         solutions = []
         while model.get_solver().solve():
             solutions.append((x.get_value(), y.get_value()))
@@ -48,7 +48,7 @@ class TestPythonPropagator(unittest.TestCase):
         def prop(x):
             x.remove_value(3)
 
-        model.python_propagator([x], prop).post()
+        model.custom_constraint([x], prop).post()
         while model.get_solver().solve():
             self.assertNotEqual(x.get_value(), 3)
 
@@ -60,7 +60,7 @@ class TestPythonPropagator(unittest.TestCase):
         def always_fail(x):
             raise Contradiction()
 
-        model.python_propagator([x], always_fail).post()
+        model.custom_constraint([x], always_fail).post()
         self.assertFalse(model.get_solver().solve())
 
     def test_contradiction_via_empty_domain(self):
@@ -71,7 +71,7 @@ class TestPythonPropagator(unittest.TestCase):
         def prop(x):
             x.update_ub(2)  # forces domain empty → raises Contradiction
 
-        model.python_propagator([x], prop).post()
+        model.custom_constraint([x], prop).post()
         self.assertFalse(model.get_solver().solve())
 
     def test_multiple_propagators(self):
@@ -87,6 +87,6 @@ class TestPythonPropagator(unittest.TestCase):
         def prop_yz(y, z):
             y.update_ub(z.get_ub())
 
-        model.python_propagator([x, y], prop_xy).post()
-        model.python_propagator([y, z], prop_yz).post()
+        model.custom_constraint([x, y], prop_xy).post()
+        model.custom_constraint([y, z], prop_yz).post()
         self.assertTrue(model.get_solver().solve())

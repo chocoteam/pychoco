@@ -656,7 +656,15 @@ void* chocosolver_ptr_from_long(void *LONG_TO_FPTR);
  * LONG_TO_FPTR : Python function pointer (via ctypes) — uses LONG_TO_FPTR SWIG typemap
  * Returns      : Constraint handle
  */
-void* create_python_propagator(void* model, void* vars, void *LONG_TO_FPTR);
+void* create_custom_constraint(void* model, void* vars, void *LONG_TO_FPTR);
+
+/* Installs a custom search strategy backed by two Python callbacks.
+ * solver           : Solver handle
+ * vars             : IntVar[] handle — variables to branch on
+ * LONG_TO_FPTR     : Python var-selector function pointer (fn() -> int index)
+ * LONG_TO_FPTR2    : Python val-selector function pointer (fn(int idx) -> int value)
+ */
+void set_custom_search(void* solver, void* vars, void *LONG_TO_FPTR, void *LONG_TO_FPTR2);
 
 #if defined(__cplusplus)
 }

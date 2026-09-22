@@ -307,10 +307,10 @@ pow
 .. autofunction:: pow
    :noindex:
 
-python_propagator
+custom_constraint
 ^^^^^^^^^^^^^^^^^
 
-.. autofunction:: python_propagator
+.. autofunction:: custom_constraint
    :noindex:
 
 regular

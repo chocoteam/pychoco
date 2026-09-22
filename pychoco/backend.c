@@ -71,24 +71,89 @@ typedef int (*GraalPropagateBridge)(graal_isolatethread_t*, long, void*);
 /* Static bridge called by Java via CFunctionPointer.
  * ctypes CFUNCTYPE callbacks automatically acquire the Python GIL when invoked
  * from a non-Python thread (such as the GraalVM thread).
+ *
+ * We temporarily set the thread-local `thread` to `t` (the GraalVM solver thread)
+ * before invoking the Python callback.  This ensures that any re-entrant Java calls
+ * made from Python (e.g. x.get_lb()) use the *same* GraalVM thread context as the
+ * solver, so they see the correct (current-world) domain state rather than a stale
+ * snapshot from a separately-attached thread.
  */
 static int graal_propagate_bridge(graal_isolatethread_t* t, long prop_id, void* vars_handle) {
     if (prop_id < 0 || prop_id >= next_prop_id) return -1;
+    graal_isolatethread_t* saved = thread;
+    thread = t;
     PropEntry* e = &python_propagators[prop_id];
-    return e->python_fn(vars_handle, e->nvars);
+    int result = e->python_fn(vars_handle, e->nvars);
+    thread = saved;
+    return result;
 }
 
 void* chocosolver_ptr_from_long(void* p) {
     return p;
 }
 
-void* create_python_propagator(void* modelHandle, void* varsHandle, void* python_fn) {
+void* create_custom_constraint(void* modelHandle, void* varsHandle, void* python_fn) {
     LAZY_THREAD_ATTACH
     long id = next_prop_id++;
     python_propagators[id].python_fn = (propagate_fn_t) python_fn;
     python_propagators[id].nvars = (int) Java_org_chocosolver_capi_ArrayApi_intVar_length(thread, varsHandle);
-    return Java_org_chocosolver_capi_ConstraintApi_create_python_propagator(
+    return Java_org_chocosolver_capi_ConstraintApi_create_custom_constraint(
         thread, modelHandle, varsHandle, id, (GraalPropagateBridge) graal_propagate_bridge
+    );
+}
+
+// Python Search Bridge
+
+/* Python var selector: no args, returns index of chosen variable (or -1) */
+typedef int (*py_var_selector_fn_t)(void);
+/* Python val selector: receives var index, returns chosen value */
+typedef int (*py_val_selector_fn_t)(int);
+
+typedef struct { py_var_selector_fn_t fn; } VarSelEntry;
+typedef struct { py_val_selector_fn_t fn; } ValSelEntry;
+
+#define MAX_PYTHON_SELECTORS 1024
+static VarSelEntry var_selectors[MAX_PYTHON_SELECTORS];
+static ValSelEntry val_selectors[MAX_PYTHON_SELECTORS];
+static long next_var_sel_id = 0;
+static long next_val_sel_id = 0;
+
+/* Matches PythonSearch.VarSelectorFn: int(IsolateThread*, long) */
+typedef int (*GraalVarSelBridge)(graal_isolatethread_t*, long);
+/* Matches PythonSearch.ValSelectorFn: int(IsolateThread*, long, int) */
+typedef int (*GraalValSelBridge)(graal_isolatethread_t*, long, int);
+
+/* Both search bridges also save/restore `thread` so that re-entrant Java calls from
+ * the Python selectors (e.g. v.get_lb()) use the solver's own GraalVM thread context.
+ */
+static int graal_var_sel_bridge(graal_isolatethread_t* t, long id) {
+    if (id < 0 || id >= next_var_sel_id) return -1;
+    graal_isolatethread_t* saved = thread;
+    thread = t;
+    int result = var_selectors[id].fn();
+    thread = saved;
+    return result;
+}
+
+static int graal_val_sel_bridge(graal_isolatethread_t* t, long id, int var_idx) {
+    if (id < 0 || id >= next_val_sel_id) return 0;
+    graal_isolatethread_t* saved = thread;
+    thread = t;
+    int result = val_selectors[id].fn(var_idx);
+    thread = saved;
+    return result;
+}
+
+void set_custom_search(void* solverHandle, void* varsHandle, void* var_fn, void* val_fn) {
+    LAZY_THREAD_ATTACH
+    long var_id = next_var_sel_id++;
+    long val_id = next_val_sel_id++;
+    var_selectors[var_id].fn = (py_var_selector_fn_t) var_fn;
+    val_selectors[val_id].fn = (py_val_selector_fn_t) val_fn;
+    Java_org_chocosolver_capi_SearchApi_set_custom_search(
+        thread, solverHandle, varsHandle,
+        var_id, (GraalVarSelBridge) graal_var_sel_bridge,
+        val_id, (GraalValSelBridge) graal_val_sel_bridge
     );
 }
 

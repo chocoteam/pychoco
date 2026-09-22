@@ -1139,7 +1139,7 @@ class IntConstraintFactory(ABC):
     # vars_handle arrives as a raw integer (ctypes c_void_p behaviour).
     _PROPAGATE_FN = ctypes.CFUNCTYPE(ctypes.c_int, ctypes.c_void_p, ctypes.c_int)
 
-    def python_propagator(self, intvars: List[IntVar], propagate_fn):
+    def custom_constraint(self, intvars: List[IntVar], propagate_fn):
         """
         Creates a constraint whose propagation is defined by a Python function.
 
@@ -1171,7 +1171,7 @@ class IntConstraintFactory(ABC):
                 z.update_ub(x.get_ub() + y.get_ub())
                 z.update_lb(x.get_lb() + y.get_lb())
 
-            model.python_propagator([x, y, z], sum_propagator).post()
+            model.custom_constraint([x, y, z], sum_propagator).post()
         """
         vars_array = make_intvar_array(intvars)
 
@@ -1186,10 +1186,10 @@ class IntConstraintFactory(ABC):
 
         c_fn = IntConstraintFactory._PROPAGATE_FN(_adapter)
         # Keep a strong reference to the ctypes callback to prevent GC
-        if not hasattr(self, "_python_propagators"):
-            self._python_propagators = []
-        self._python_propagators.append(c_fn)
-        handle = backend.create_python_propagator(
+        if not hasattr(self, "_custom_constraints"):
+            self._custom_constraints = []
+        self._custom_constraints.append(c_fn)
+        handle = backend.create_custom_constraint(
             self._handle,
             vars_array,
             ctypes.cast(c_fn, ctypes.c_void_p).value

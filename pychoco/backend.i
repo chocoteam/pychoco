@@ -7,9 +7,13 @@
 
 %include <typemaps.i>
 
-// convert a long to a void function pointer — must be declared BEFORE %include "backend.h"
-// so that SWIG applies it to create_python_propagator during header parsing.
+// Convert a Python long (ctypes function pointer address) to a C void pointer.
+// Both typemaps must be declared BEFORE %include "backend.h" so SWIG applies them
+// to create_custom_constraint and set_custom_search during header parsing.
 %typemap(in) void *LONG_TO_FPTR {
+    $1 = PyLong_AsVoidPtr($input);
+}
+%typemap(in) void *LONG_TO_FPTR2 {
     $1 = PyLong_AsVoidPtr($input);
 }
 

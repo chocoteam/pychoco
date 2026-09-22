@@ -24,6 +24,7 @@ Documentation
    installation
    quickstart
    custom_propagators
+   custom_search
    api/index
 
 Notebooks
