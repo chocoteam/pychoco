@@ -661,13 +661,16 @@ typedef int (*propagate_fn_t)(void* vars_handle, int nvars);
  */
 void* chocosolver_ptr_from_long(void *LONG_TO_FPTR);
 
-/* Creates a propagator whose propagation delegates to a Python callable.
- * model        : Model handle
- * vars         : IntVar[] Java handle
- * LONG_TO_FPTR : Python function pointer (via ctypes) — uses LONG_TO_FPTR SWIG typemap
- * Returns      : Constraint handle
+/* Creates a propagator whose propagation and entailment delegate to Python callables.
+ * vars          : IntVar[] Java handle
+ * LONG_TO_FPTR  : propagate callback — fn(*intvars) -> None / raise Contradiction
+ * LONG_TO_FPTR2 : isEntailed callback — fn(*intvars) -> int (1=TRUE,0=UNDEFINED,-1=FALSE)
+ *                 Pass 0 to use the default behaviour (always return TRUE).
+ * priority      : propagator priority (1=UNARY,2=BINARY,3=TERNARY,4=LINEAR,
+ *                 5=QUADRATIC,6=CUBIC,7=VERY_SLOW); out-of-range defaults to LINEAR (4).
+ * Returns       : Constraint handle
  */
-void* create_custom_constraint(void* model, void* vars, void *LONG_TO_FPTR);
+void* create_custom_constraint(void* vars, void *LONG_TO_FPTR, void *LONG_TO_FPTR2, int priority);
 
 /* Installs a custom search strategy backed by two Python callbacks.
  * solver           : Solver handle

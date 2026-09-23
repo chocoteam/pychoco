@@ -1139,7 +1139,10 @@ class IntConstraintFactory(ABC):
     # vars_handle arrives as a raw integer (ctypes c_void_p behaviour).
     _PROPAGATE_FN = ctypes.CFUNCTYPE(ctypes.c_int, ctypes.c_void_p, ctypes.c_int)
 
-    def custom_constraint(self, intvars: List[IntVar], propagate_fn):
+    # C type for the isEntailed bridge: int()
+    _IS_ENTAILED_FN = ctypes.CFUNCTYPE(ctypes.c_int)
+
+    def custom_constraint(self, intvars: List[IntVar], propagate_fn, is_entailed_fn=None, priority: int = 4):
         """
         Creates a constraint whose propagation is defined by a Python function.
 
@@ -1156,6 +1159,42 @@ class IntConstraintFactory(ABC):
                              No return value is needed; raise
                              ``Contradiction`` explicitly to signal a
                              dead-end to the solver.
+        :param is_entailed_fn: Optional Python callable receiving the IntVar objects
+                               as positional arguments.  Must return an integer whose
+                               sign encodes the entailment state:
+
+                               * positive (e.g. ``1``, ``True``) — ``ESat.TRUE``: all
+                                 completions of the current domains satisfy the constraint;
+                                 the solver may deactivate the propagator for this branch.
+                               * zero (``0``, ``False``) — ``ESat.UNDEFINED``: cannot
+                                 determine yet; the propagator keeps being called.
+                               * negative (e.g. ``-1``) — ``ESat.FALSE``: no completion
+                                 of the current domains can satisfy the constraint.
+
+                               **Contract**: ``is_entailed_fn`` must be consistent with
+                               ``propagate_fn``.  Specifically, any assignment of domain
+                               values for which ``is_entailed_fn`` returns negative must
+                               have been ruled out by ``propagate_fn`` (which should have
+                               raised :class:`~pychoco.exceptions.Contradiction` for it).
+                               Returning negative for an assignment that ``propagate_fn``
+                               left reachable causes Choco's solution validator to throw
+                               an error.
+
+                               When omitted the propagator always reports ``ESat.TRUE``,
+                               which lets Choco deactivate it as soon as all variables
+                               are fixed.
+        :param priority: Propagator priority (int, default 4 = LINEAR).
+                         Controls when the propagator is scheduled relative to others:
+
+                         * ``1`` — UNARY
+                         * ``2`` — BINARY
+                         * ``3`` — TERNARY
+                         * ``4`` — LINEAR *(default)*
+                         * ``5`` — QUADRATIC
+                         * ``6`` — CUBIC
+                         * ``7`` — VERY_SLOW
+
+                         Out-of-range values silently fall back to LINEAR.
         :return: Constraint
 
         Example::
@@ -1171,7 +1210,16 @@ class IntConstraintFactory(ABC):
                 z.update_ub(x.get_ub() + y.get_ub())
                 z.update_lb(x.get_lb() + y.get_lb())
 
-            model.custom_constraint([x, y, z], sum_propagator).post()
+            def sum_entailed(x, y, z):
+                exact_sum_lb = x.get_lb() + y.get_lb()
+                exact_sum_ub = x.get_ub() + y.get_ub()
+                if z.get_lb() == z.get_ub() == exact_sum_lb == exact_sum_ub:
+                    return 1   # TRUE: z is fixed to the only possible sum
+                if z.get_ub() < exact_sum_lb or z.get_lb() > exact_sum_ub:
+                    return -1  # FALSE: z cannot equal x+y (propagate must have failed first)
+                return 0       # UNDEFINED
+
+            model.custom_constraint([x, y, z], sum_propagator, sum_entailed).post()
         """
         vars_array = make_intvar_array(intvars)
 
@@ -1185,13 +1233,24 @@ class IntConstraintFactory(ABC):
                 return -1
 
         c_fn = IntConstraintFactory._PROPAGATE_FN(_adapter)
-        # Keep a strong reference to the ctypes callback to prevent GC
+
+        c_entailed_fn = None
+        if is_entailed_fn is not None:
+            def _entailed_adapter():
+                return is_entailed_fn(*intvars)
+            c_entailed_fn = IntConstraintFactory._IS_ENTAILED_FN(_entailed_adapter)
+
+        # Keep strong references to ctypes callbacks to prevent GC
         if not hasattr(self, "_custom_constraints"):
             self._custom_constraints = []
         self._custom_constraints.append(c_fn)
+        if c_entailed_fn is not None:
+            self._custom_constraints.append(c_entailed_fn)
+
         handle = backend.create_custom_constraint(
-            self._handle,
             vars_array,
-            ctypes.cast(c_fn, ctypes.c_void_p).value
+            ctypes.cast(c_fn, ctypes.c_void_p).value,
+            ctypes.cast(c_entailed_fn, ctypes.c_void_p).value if c_entailed_fn else 0,
+            priority,
         )
         return Constraint(handle, self)

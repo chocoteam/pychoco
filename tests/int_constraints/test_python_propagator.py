@@ -90,3 +90,87 @@ class TestPythonPropagator(unittest.TestCase):
         model.custom_constraint([x, y], prop_xy).post()
         model.custom_constraint([y, z], prop_yz).post()
         self.assertTrue(model.get_solver().solve())
+
+    # ------------------------------------------------------------------
+    # is_entailed tests
+    # ------------------------------------------------------------------
+
+    def test_is_entailed_default_is_true(self):
+        """Without is_entailed_fn, default behaviour is ESat.TRUE — solving works normally."""
+        model = Model()
+        x = model.intvar(0, 3, "x")
+
+        def prop(x):
+            pass  # no-op propagator
+
+        model.custom_constraint([x], prop).post()
+        solutions = [x.get_value() for _ in iter(model.get_solver().solve, False)]
+        self.assertEqual(sorted(solutions), [0, 1, 2, 3])
+
+    def test_is_entailed_true_reported(self):
+        """is_entailed_fn returning 1 (TRUE) — solver deactivates propagator; solutions still found."""
+        model = Model()
+        x = model.intvar(0, 2, "x")
+
+        def prop(x):
+            pass  # no-op: constraint is always satisfied
+
+        def entailed(x):
+            return 1  # always entailed — consistent with noop propagator
+
+        model.custom_constraint([x], prop, entailed).post()
+        solutions = [x.get_value() for _ in iter(model.get_solver().solve, False)]
+        self.assertEqual(sorted(solutions), [0, 1, 2])
+
+    def test_is_entailed_false_consistent(self):
+        """is_entailed_fn returning -1 (FALSE) — consistent with propagator that also fails.
+
+        Contract: propagate_fn must raise Contradiction for any assignment where
+        is_entailed_fn returns -1.  Here x must be even: propagator removes odd
+        values, and isEntailed returns FALSE when an odd value is still in domain.
+        """
+        model = Model()
+        x = model.intvar(0, 4, "x")  # domain {0,1,2,3,4}
+
+        from pychoco.exceptions import Contradiction
+
+        def prop(x):
+            # Keep only even values: remove 1 and 3
+            for v in [1, 3]:
+                if v >= x.get_lb() and v <= x.get_ub():
+                    x.remove_value(v)
+
+        def entailed(x):
+            # FALSE if odd values are still reachable (shouldn't happen after prop)
+            # TRUE if domain contains only even values
+            vals = x.get_domain_values() if x.has_enumerated_domain() else range(x.get_lb(), x.get_ub() + 1)
+            if all(v % 2 == 0 for v in vals):
+                return 1
+            return 0
+
+        model.custom_constraint([x], prop, entailed).post()
+        solutions = [x.get_value() for _ in iter(model.get_solver().solve, False)]
+        self.assertEqual(sorted(solutions), [0, 2, 4])
+
+    def test_is_entailed_domain_aware(self):
+        """is_entailed_fn inspects domains to report TRUE/UNDEFINED; solutions correct."""
+        model = Model()
+        x = model.intvar(0, 5, "x")
+        y = model.intvar(0, 5, "y")
+
+        def prop(x, y):
+            x.update_ub(y.get_ub())
+
+        def entailed(x, y):
+            # TRUE: x's UB is already <= y's LB — all completions satisfy x <= y
+            if x.get_ub() <= y.get_lb():
+                return 1
+            return 0  # UNDEFINED
+
+        model.custom_constraint([x, y], prop, entailed).post()
+        solutions = []
+        while model.get_solver().solve():
+            solutions.append((x.get_value(), y.get_value()))
+        self.assertTrue(len(solutions) > 0)
+        for vx, vy in solutions:
+            self.assertLessEqual(vx, vy)

@@ -96,8 +96,18 @@ typedef struct {
 static PropEntry python_propagators[MAX_PYTHON_PROPAGATORS];
 static long next_prop_id = 0;
 
+/* Matches PythonPropagator.IsEntailedFn: int(IsolateThread*, long) */
+typedef int (*py_is_entailed_fn_t)(void);
+
+#define MAX_PYTHON_IS_ENTAILED 4096
+static py_is_entailed_fn_t python_is_entailed[MAX_PYTHON_IS_ENTAILED];
+static long next_is_entailed_id = 0;
+
 /* Matches PythonPropagator.PropagateFn: int(IsolateThread*, long, void*) */
 typedef int (*GraalPropagateBridge)(graal_isolatethread_t*, long, void*);
+
+/* Matches PythonPropagator.IsEntailedFn: int(IsolateThread*, long) */
+typedef int (*GraalIsEntailedBridge)(graal_isolatethread_t*, long);
 
 /* Static bridge called by Java via CFunctionPointer.
  * ctypes CFUNCTYPE callbacks automatically acquire the Python GIL when invoked
@@ -119,17 +129,37 @@ static int graal_propagate_bridge(graal_isolatethread_t* t, long prop_id, void* 
     return result;
 }
 
+static int graal_is_entailed_bridge(graal_isolatethread_t* t, long eid) {
+    if (eid < 0 || eid >= next_is_entailed_id) return 1; /* default: TRUE */
+    graal_isolatethread_t* saved = thread;
+    thread = t;
+    int result = python_is_entailed[eid]();
+    thread = saved;
+    return result;
+}
+
 void* chocosolver_ptr_from_long(void* p) {
     return p;
 }
 
-void* create_custom_constraint(void* modelHandle, void* varsHandle, void* python_fn) {
+void* create_custom_constraint(void* varsHandle,
+                               void* python_fn, void* is_entailed_fn, int priority) {
     LAZY_THREAD_ATTACH
     long id = next_prop_id++;
     python_propagators[id].python_fn = (propagate_fn_t) python_fn;
     python_propagators[id].nvars = (int) Java_org_chocosolver_capi_ArrayApi_intVar_length(thread, varsHandle);
+
+    long eid = -1;
+    if (is_entailed_fn != NULL) {
+        eid = next_is_entailed_id++;
+        python_is_entailed[eid] = (py_is_entailed_fn_t) is_entailed_fn;
+    }
+
     return Java_org_chocosolver_capi_ConstraintApi_create_custom_constraint(
-        thread, modelHandle, varsHandle, id, (GraalPropagateBridge) graal_propagate_bridge
+        thread, varsHandle,
+        id, (GraalPropagateBridge) graal_propagate_bridge,
+        eid, (GraalIsEntailedBridge) graal_is_entailed_bridge,
+        priority
     );
 }
 
