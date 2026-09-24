@@ -37,9 +37,14 @@ jobs:
         with:
           os: ${{ runner.os }}
           arch: ${{ matrix.arch }}
+      - name: Setup MSVC (x64)
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
       - name: Build pychoco
         env:
-          SETUPTOOLS_USE_DISTUTILS: local
+          DISTUTILS_USE_SDK: "1"
+          MSSdk: "1"
         run: |
           sh build.sh nocapibuild nowheel
       - name: Verify build artifacts
