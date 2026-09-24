@@ -41,6 +41,12 @@ jobs:
         run: |
           sh build.sh nocapibuild nowheel
           pip install pychoco -f dist/
+      - name: Verify build artifacts
+        run: |
+          echo "--- pychoco/ contents ---"
+          ls -la pychoco/ || dir pychoco
+          echo "--- _backend and choco_capi ---"
+          ls pychoco/_backend* pychoco/choco_capi* 2>/dev/null || echo "WARNING: expected files not found"
       - name: Test
         run: |
           pip install -U pytest
