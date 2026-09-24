@@ -12,7 +12,8 @@ import sys
 # loading module's directory. Register the package directory explicitly so that
 # choco_capi.dll can be found when _backend is imported.
 if sys.platform == 'win32':
-    os.add_dll_directory(os.path.dirname(os.path.abspath(__file__)))
+    # Store the handle: if it were GC'd the directory would leave the search path.
+    _dll_dir = os.add_dll_directory(os.path.dirname(os.path.abspath(__file__)))
 
 from . import backend
 
@@ -22,13 +23,14 @@ del backend
 
 def _module_cleanup_function():
     from . import backend
-    backend.chocosolver_init()
+    backend.chocosolver_cleanup()
 
 
 atexit.register(_module_cleanup_function)
 del atexit
 
 from .model import Model
+from .propagator import Propagator
 from .objects.graphs.undirected_graph import create_undirected_graph, create_complete_undirected_graph
 from .objects.graphs.directed_graph import create_directed_graph, create_complete_directed_graph
 from .objects.automaton.finite_automaton import FiniteAutomaton
