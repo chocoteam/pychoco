@@ -40,12 +40,14 @@ jobs:
       - name: Build pychoco
         run: |
           sh build.sh nocapibuild nowheel
-          pip install pychoco -f dist/
+          python setup.py build_ext --inplace
       - name: Verify build artifacts
         shell: pwsh
         run: |
           Write-Host "--- pychoco/ contents ---"
           Get-ChildItem pychoco/
+          Write-Host "--- _backend.pyd files anywhere ---"
+          Get-ChildItem -Recurse . -Filter "_backend*.pyd" -ErrorAction SilentlyContinue | Select-Object FullName
           Write-Host "--- site-packages pychoco ---"
           $sp = python -c "import site; print(site.getsitepackages()[0])"
           Get-ChildItem "$sp\pychoco\" -ErrorAction SilentlyContinue
