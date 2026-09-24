@@ -38,6 +38,8 @@ jobs:
           os: ${{ runner.os }}
           arch: ${{ matrix.arch }}
       - name: Build pychoco
+        env:
+          SETUPTOOLS_USE_DISTUTILS: local
         run: |
           sh build.sh nocapibuild nowheel
       - name: Verify build artifacts
