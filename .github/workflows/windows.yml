@@ -42,11 +42,13 @@ jobs:
           sh build.sh nocapibuild nowheel
           pip install pychoco -f dist/
       - name: Verify build artifacts
+        shell: pwsh
         run: |
-          echo "--- pychoco/ contents ---"
-          ls -la pychoco/ || dir pychoco
-          echo "--- _backend and choco_capi ---"
-          ls pychoco/_backend* pychoco/choco_capi* 2>/dev/null || echo "WARNING: expected files not found"
+          Write-Host "--- pychoco/ contents ---"
+          Get-ChildItem pychoco/
+          Write-Host "--- site-packages pychoco ---"
+          $sp = python -c "import site; print(site.getsitepackages()[0])"
+          Get-ChildItem "$sp\pychoco\" -ErrorAction SilentlyContinue
       - name: Test
         run: |
           pip install -U pytest
