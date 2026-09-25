@@ -9,6 +9,9 @@ jobs:
   build-windows:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 20
+    defaults:
+      run:
+        shell: bash  # with pwsh, a failing command is ignored unless it is the last one of the step
     strategy:
       matrix:
         os : [windows-2022]
@@ -37,25 +40,10 @@ jobs:
         with:
           os: ${{ runner.os }}
           arch: ${{ matrix.arch }}
-      - name: Setup MSVC (x64)
-        uses: ilammy/msvc-dev-cmd@v1
-        with:
-          arch: x64
       - name: Build pychoco
-        env:
-          DISTUTILS_USE_SDK: "1"
-          MSSdk: "1"
         run: |
           sh build.sh nocapibuild nowheel
-      - name: Verify build artifacts
-        shell: pwsh
-        run: |
-          Write-Host "--- pychoco/ contents ---"
-          Get-ChildItem pychoco/
-          Write-Host "--- _backend.pyd anywhere in repo ---"
-          Get-ChildItem -Recurse . -Filter "_backend*.pyd" -ErrorAction SilentlyContinue | Select-Object FullName
-          Write-Host "--- pychoco importable? ---"
-          python -c "import pychoco; print('OK')"
+          pip install pychoco -f dist/
       - name: Test
         run: |
           pip install -U pytest

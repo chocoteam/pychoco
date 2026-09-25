@@ -53,11 +53,6 @@ class CopySharedLibrary(Command):
                         '@loader_path/' + self.filename, dest])
         if sys.platform.startswith('win32'):
             self.copy_file(self.lib_source_path, os.path.join(lib_target_path, "lib{}".format(self.filename)))
-            # For non-inplace builds (e.g. newer setuptools editable modes),
-            # also copy to the source package dir.  os.add_dll_directory() in
-            # __init__.py points there, so choco_capi.dll must be present.
-            if not self.inplace:
-                self.copy_file(self.lib_source_path, os.path.join(self.package_name, self.filename))
         os.environ["ORIGIN"] = os.path.abspath(lib_target_path)
 
 

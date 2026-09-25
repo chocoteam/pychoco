@@ -36,11 +36,8 @@ runs:
       with:
         path: choco-solver-capi
         key: ${{ inputs.os }}-${{ inputs.arch }}-build-${{ env.cache-name }}-${{ env.CHOCO_CAPI_LATEST_HASH }}
-    - if: ${{ (inputs.cache != 'true') || (steps.cache-choco-solver-capi.outputs.cache-hit != 'true') }}
-      name: Set up Visual Studio shell (only for Windows)
-      uses: ilammy/msvc-dev-cmd@v1
-      with:
-        arch: x64
+    # No msvc-dev-cmd on Windows: native-image finds Visual Studio by itself, and exporting
+    # the MSVC environment to the job makes setuptools' own vcvarsall call overflow cmd.exe.
     - if: ${{ (inputs.cache != 'true') || (steps.cache-choco-solver-capi.outputs.cache-hit != 'true') }}
       name: Set up GraalVM Native Image toolchain
       uses: graalvm/setup-graalvm@v1
