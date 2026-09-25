@@ -98,6 +98,10 @@ char* get_intvar_name(void*);
 int get_intvar_lb(void*);
 int get_intvar_ub(void*);
 int get_intvar_value(void*);
+int update_intvar_ub(void*, int);
+int update_intvar_lb(void*, int);
+int instantiate_intvar(void*, int);
+int remove_intvar_value(void*, int);
 int has_enumerated_domain(void*);
 void* get_domain_values(void*);
 
@@ -629,6 +633,52 @@ void* get_best_solution(void*);
 // Handle API
 
 void chocosolver_handles_destroy(void*);
+
+// State API (backtrackable values)
+
+void* make_state_int(void* model, int initial_value);
+int state_int_get(void* state);
+void state_int_set(void* state, int value);
+int state_int_add(void* state, int delta);
+
+void* make_state_bool(void* model, int initial_value);
+int state_bool_get(void* state);
+void state_bool_set(void* state, int value);
+
+// Python Propagator API
+
+/* Signature of the Python callback (ctypes CFUNCTYPE).
+ * vars_handle : ObjectHandle (void*) pointing to Java IntVar[]
+ * nvars       : number of variables
+ * Returns     : 0 = OK, -1 = contradiction
+ */
+typedef int (*propagate_fn_t)(void* vars_handle, int nvars);
+
+/* Converts a raw pointer integer received from a ctypes callback into a
+ * SWIG void* object usable with intvar_array_get and other backend functions.
+ * The LONG_TO_FPTR typemap makes SWIG accept a Python integer as input.
+ * Returns : a SWIG void* handle wrapping the same pointer value.
+ */
+void* chocosolver_ptr_from_long(void *LONG_TO_FPTR);
+
+/* Creates a propagator whose propagation and entailment delegate to Python callables.
+ * vars          : IntVar[] Java handle
+ * LONG_TO_FPTR  : propagate callback — fn(*intvars) -> None / raise Contradiction
+ * LONG_TO_FPTR2 : isEntailed callback — fn(*intvars) -> int (1=TRUE,0=UNDEFINED,-1=FALSE)
+ *                 Pass 0 to use the default behaviour (always return TRUE).
+ * priority      : propagator priority (1=UNARY,2=BINARY,3=TERNARY,4=LINEAR,
+ *                 5=QUADRATIC,6=CUBIC,7=VERY_SLOW); out-of-range defaults to LINEAR (4).
+ * Returns       : Constraint handle
+ */
+void* create_custom_constraint(void* vars, void *LONG_TO_FPTR, void *LONG_TO_FPTR2, int priority);
+
+/* Installs a custom search strategy backed by two Python callbacks.
+ * solver           : Solver handle
+ * vars             : IntVar[] handle — variables to branch on
+ * LONG_TO_FPTR     : Python var-selector function pointer (fn() -> int index)
+ * LONG_TO_FPTR2    : Python val-selector function pointer (fn(int idx) -> int value)
+ */
+void set_custom_search(void* solver, void* vars, void *LONG_TO_FPTR, void *LONG_TO_FPTR2);
 
 #if defined(__cplusplus)
 }
