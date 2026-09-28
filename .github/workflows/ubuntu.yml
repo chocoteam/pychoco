@@ -2,7 +2,7 @@ name: Ubuntu
 
 on:
   push:
-    branches: [ "master", "dev_actions" ]
+    branches: [ "master", "dev_actions", "fix/*", "feat/*" ]
     tags: [ '**' ]
 
 jobs:
