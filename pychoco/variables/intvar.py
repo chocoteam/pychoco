@@ -1,5 +1,6 @@
 from pychoco import backend
 from pychoco._utils import get_int_array
+from pychoco.exceptions import Contradiction
 from pychoco.variables.variable import Variable
 
 
@@ -29,6 +30,46 @@ class IntVar(Variable):
         """
         assert self.is_instantiated(), "{} is not instantiated".format(self.name)
         return backend.get_intvar_value(self._handle)
+
+    def update_ub(self, value: int):
+        """
+        Updates the upper bound of this variable.
+        Raises Contradiction if the domain becomes empty.
+
+        :param value: new upper bound
+        """
+        if backend.update_intvar_ub(self._handle, value) < 0:
+            raise Contradiction()
+
+    def update_lb(self, value: int):
+        """
+        Updates the lower bound of this variable.
+        Raises Contradiction if the domain becomes empty.
+
+        :param value: new lower bound
+        """
+        if backend.update_intvar_lb(self._handle, value) < 0:
+            raise Contradiction()
+
+    def instantiate_to(self, value: int):
+        """
+        Instantiates this variable to a single value.
+        Raises Contradiction if the value is not in the domain.
+
+        :param value: value to assign
+        """
+        if backend.instantiate_intvar(self._handle, value) < 0:
+            raise Contradiction()
+
+    def remove_value(self, value: int):
+        """
+        Removes a value from the domain of this variable.
+        Raises Contradiction if the domain becomes empty.
+
+        :param value: value to remove
+        """
+        if backend.remove_intvar_value(self._handle, value) < 0:
+            raise Contradiction()
 
     def has_enumerated_domain(self):
         """

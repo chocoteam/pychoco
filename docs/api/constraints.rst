@@ -307,6 +307,12 @@ pow
 .. autofunction:: pow
    :noindex:
 
+custom_constraint
+^^^^^^^^^^^^^^^^^
+
+.. autofunction:: custom_constraint
+   :noindex:
+
 regular
 ^^^^^^^
 

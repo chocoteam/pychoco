@@ -23,6 +23,9 @@ Documentation
 
    installation
    quickstart
+   custom_propagators
+   custom_search
+   backtrackable_state
    api/index
 
 Notebooks

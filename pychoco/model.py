@@ -9,6 +9,7 @@ from pychoco.constraints.set_constraint_factory import SetConstraintFactory
 from pychoco.constraints.reification_factory import ReificationFactory
 from pychoco.settings import Settings
 from pychoco.solver import Solver
+from pychoco.state import StateBool, StateInt
 from pychoco.variables.variable_factory import VariableFactory
 from pychoco.variables.view_factory import ViewFactory
 
@@ -94,6 +95,32 @@ class Model(VariableFactory, ViewFactory, IntConstraintFactory, SetConstraintFac
         :param maximize: if True, maximizes objective, otherwise minimizes it.
         """
         backend.set_objective(self._handle, maximize, objective._handle)
+
+    def make_state_int(self, initial_value: int = 0) -> StateInt:
+        """
+        Create a backtrackable integer tied to this model's environment.
+
+        The value is automatically restored when the solver backtracks, making
+        it safe to use as a mutable counter or index inside custom propagators
+        and search strategies.
+
+        :param initial_value: Starting value (default 0).
+        :return: :class:`~pychoco.state.StateInt`
+        """
+        handle = backend.make_state_int(self._handle, initial_value)
+        return StateInt(handle, self)
+
+    def make_state_bool(self, initial_value: bool = False) -> StateBool:
+        """
+        Create a backtrackable boolean tied to this model's environment.
+
+        The value is automatically restored when the solver backtracks.
+
+        :param initial_value: Starting value (default ``False``).
+        :return: :class:`~pychoco.state.StateBool`
+        """
+        handle = backend.make_state_bool(self._handle, int(initial_value))
+        return StateBool(handle, self)
 
     def __repr__(self):
         return "Choco Model ('" + self.name + "')"
