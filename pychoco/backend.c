@@ -106,7 +106,8 @@ typedef struct {
 static PropEntry python_propagators[MAX_PYTHON_PROPAGATORS];
 static long next_prop_id = 0;
 
-/* Matches CPropagator.IsEntailedFn: int(IsolateThread*, long) */
+/* Python-side callback invoked by graal_is_entailed_bridge below, which is
+ * the one actually matching CPropagator.IsEntailedFn: int(IsolateThread*, long). */
 typedef int (*py_is_entailed_fn_t)(void);
 
 #define MAX_PYTHON_IS_ENTAILED 4096
@@ -127,7 +128,7 @@ static long next_is_entailed_id = 0;
  * solver, so they see the correct (current-world) domain state rather than a stale
  * snapshot from a separately-attached thread.
  */
-static int graal_propagate_bridge(graal_isolatethread_t* t, long prop_id, void* vars_handle) {
+static int graal_propagate_bridge(graal_isolatethread_t* t, long long int prop_id, void* vars_handle) {
     if (prop_id < 0 || prop_id >= next_prop_id) return -1;
     graal_isolatethread_t* saved = thread;
     thread = t;
@@ -137,7 +138,7 @@ static int graal_propagate_bridge(graal_isolatethread_t* t, long prop_id, void* 
     return result;
 }
 
-static int graal_is_entailed_bridge(graal_isolatethread_t* t, long eid) {
+static int graal_is_entailed_bridge(graal_isolatethread_t* t, long long int eid) {
     if (eid < 0 || eid >= next_is_entailed_id) return 1; /* default: TRUE */
     graal_isolatethread_t* saved = thread;
     thread = t;
@@ -194,7 +195,7 @@ static long next_val_sel_id = 0;
 /* Both search bridges also save/restore `thread` so that re-entrant Java calls from
  * the Python selectors (e.g. v.get_lb()) use the solver's own GraalVM thread context.
  */
-static int graal_var_sel_bridge(graal_isolatethread_t* t, long id) {
+static int graal_var_sel_bridge(graal_isolatethread_t* t, long long int id) {
     if (id < 0 || id >= next_var_sel_id) return -1;
     graal_isolatethread_t* saved = thread;
     thread = t;
@@ -203,7 +204,7 @@ static int graal_var_sel_bridge(graal_isolatethread_t* t, long id) {
     return result;
 }
 
-static int graal_val_sel_bridge(graal_isolatethread_t* t, long id, int var_idx) {
+static int graal_val_sel_bridge(graal_isolatethread_t* t, long long int id, int var_idx) {
     if (id < 0 || id >= next_val_sel_id) return 0;
     graal_isolatethread_t* saved = thread;
     thread = t;
