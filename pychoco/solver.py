@@ -555,9 +555,12 @@ class Solver(SearchStrategies, _HandleWrapper):
         c_var_fn = _VAR_SEL_FN(_var_adapter)
         c_val_fn = _VAL_SEL_FN(_val_adapter)
 
-        if not hasattr(self, "_python_search_callbacks"):
-            self._python_search_callbacks = []
-        self._python_search_callbacks.extend([c_var_fn, c_val_fn])
+        # Keep strong references on the model, not on this Solver: get_solver()
+        # returns a new wrapper each time, so callbacks stored here would be
+        # freed while the native solver still holds their addresses.
+        if not hasattr(self._model, "_python_search_callbacks"):
+            self._model._python_search_callbacks = []
+        self._model._python_search_callbacks.extend([c_var_fn, c_val_fn])
 
         backend.set_custom_search(
             self._handle,

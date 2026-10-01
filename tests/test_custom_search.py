@@ -1,6 +1,8 @@
+import gc
 import unittest
 
 from pychoco import Model
+from pychoco.solver import _VAR_SEL_FN, _VAL_SEL_FN
 
 
 class TestCustomSearch(unittest.TestCase):
@@ -77,6 +79,52 @@ class TestCustomSearch(unittest.TestCase):
             return count
 
         self.assertEqual(count_solutions(False), count_solutions(True))
+
+    def test_callbacks_outlive_temporary_solver(self):
+        """Selectors stay alive when set through a temporary Solver wrapper.
+
+        get_solver() returns a new wrapper each time: the native solver must
+        not be left with the addresses of freed ctypes callbacks.
+        """
+        def alive_callbacks():
+            gc.collect()
+            return sum(isinstance(o, (_VAR_SEL_FN, _VAL_SEL_FN)) for o in gc.get_objects())
+
+        model = Model()
+        x = model.intvar(0, 2, "x")
+        y = model.intvar(0, 2, "y")
+
+        def var_sel(variables):
+            unfix = [v for v in variables if v.get_lb() != v.get_ub()]
+            return unfix[0] if unfix else None
+
+        def val_sel(var):
+            return var.get_lb()
+
+        before = alive_callbacks()
+        model.get_solver().set_custom_search([x, y], var_sel, val_sel)
+        self.assertEqual(alive_callbacks(), before + 2)
+
+        # Callbacks that would take over the freed slots, were the selectors freed.
+        impostor_calls = []
+
+        def impostor_var():
+            impostor_calls.append("var")
+            return -1
+
+        def impostor_val(_idx):
+            impostor_calls.append("val")
+            return 0
+
+        impostors = [_VAR_SEL_FN(impostor_var) for _ in range(50)]
+        impostors += [_VAL_SEL_FN(impostor_val) for _ in range(50)]
+
+        count = 0
+        while model.get_solver().solve():
+            count += 1
+        self.assertEqual(count, 9)
+        self.assertEqual(impostor_calls, [])
+        del impostors
 
     def test_custom_search_with_constraint(self):
         """Custom search works alongside posted constraints."""
