@@ -10,7 +10,7 @@
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/license/bsd-3-clause)
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.08847/status.svg)](https://doi.org/10.21105/joss.08847)
 
-*Current choco-solver version: 4.10.18*
+*Current choco-solver version: 6.0.2*
 
 Python bindings for the Choco Constraint programming solver (https://choco-solver.org/).
 

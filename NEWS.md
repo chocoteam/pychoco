@@ -1,3 +1,32 @@
+# pychoco 0.4.0
+
+- Update to choco-solver 6.0.2
+- Add custom constraints defined in Python: `model.custom_constraint(intvars, propagate_fn, is_entailed_fn, priority)`
+  or by subclassing `Propagator`
+- Add filtering methods on intvars, to be used in custom propagators: `update_lb`, `update_ub`, `instantiate_to`
+  and `remove_value`
+- Add custom search strategies defined in Python: `solver.set_custom_search(intvars, var_selector, val_selector)`
+- Add backtrackable state objects: `model.make_state_int()` and `model.make_state_bool()`
+- Add `algo` option in `all_different`
+- Add `consistency` option in `global_cardinality` ("DEFAULT", "BC" or "AC"), bound-consistency is now the default
+
+# pychoco 0.3.0
+
+- Update to choco-solver 6.0.0
+- Require Python >= 3.10
+- Add solver settings as `Model` arguments (`lcg`, `enable_sat`, `table_substitution`, `max_learnt_clauses`...),
+  which gives access to Lazy Clause Generation with `Model(lcg=True)`
+- Add hints in solver: `add_hint` and `rem_hints`
+- Add restart policies in solver: `set_luby_restart`, `set_geometrical_restart` and `set_restart_on_solutions`
+- Add nogood recording in solver: `set_nogood_recording_from_restarts` and `set_nogood_recording_from_solutions`
+- Add `show_decisions` and `show_solutions` in solver
+- Add `set_round_robin_search` search strategy, remove `set_pick_on_fil_search`
+- Add `uvalue` option in `MultivaluedDecisionDiagram`
+- Add `unalterable` option in `ParallelPortfolio.add_model`, remove the `search_auto_conf` option of `ParallelPortfolio`
+- `table` constraint now uses the `CT+` algorithm by default
+- Remove the `incremental` option of `cumulative`
+- Remove `Task.ensure_bound_consistency`
+
 # pychoco 0.2.5 - 0.2.6
 
 - Nothing new, just compile wheels for Python 3.14 
