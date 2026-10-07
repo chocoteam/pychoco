@@ -169,21 +169,29 @@ class SearchStrategies(ABC):
     def set_round_robin_search(self, *intvars):
         """
         Defines round-robin search strategy over the variables.
+
         The strategy is composed of the following meta strategies:
-            - LastConflict-1
-            - LastConflict-0
-            - ConflictOrderingSearch
+
+        - LastConflict-1
+        - LastConflict-0
+        - ConflictOrderingSearch
+
         The strategy is composed of the following variable selectors:
-            - DomOverWDegRef
-            - DomOverWDeg
-            - PickOnDom
-            - FailureBased
+
+        - DomOverWDegRef
+        - DomOverWDeg
+        - PickOnDom
+        - FailureBased
+
         The strategy is composed of the following value selectors:
-            - IntDomainMin
-            - IntDomainMax
-            - IntDomainRandom
+
+        - IntDomainMin
+        - IntDomainMax
+        - IntDomainRandom
+
         In addition, the phase-saving mechanism is activated.
         Note that this strategy must be combined with (fast) restarts to be useful.
+
         :param intvars: IntVars to use in the search strategy.
         """
         vars = _extract_star_arg(intvars)

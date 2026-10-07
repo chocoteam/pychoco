@@ -1068,7 +1068,7 @@ void* increasing(void* modelHandle, void* intVarArrayHandle, int delta) {
     return Java_org_chocosolver_capi_ConstraintApi_increasing(thread, modelHandle, intVarArrayHandle, delta);
 }
 void* global_cardinality(void* modelHandle, void* intVarArrayHandle, void* valuesHandle,
-                         void* occurrencesHandle, int closed) {
+                         void* occurrencesHandle, int closed, char* consistency) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_ConstraintApi_globalCardinality(
         thread,
@@ -1076,7 +1076,8 @@ void* global_cardinality(void* modelHandle, void* intVarArrayHandle, void* value
         intVarArrayHandle,
         valuesHandle,
         occurrencesHandle,
-        closed
+        closed,
+        consistency
     );
 }
 void* inverse_channeling(void* modelHandle, void* intVarArrayHandle1, void* intVarArrayHandle2,

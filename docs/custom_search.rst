@@ -119,7 +119,7 @@ Both selectors can call the following methods on any
 | ``x.get_ub()``               | Current upper bound of ``x``.                                |
 +------------------------------+--------------------------------------------------------------+
 | ``x.get_value()``            | Value of ``x`` — only call when ``x`` is instantiated        |
-|                              | (i.e. ``x.get_lb() == x.get_ub()``).                        |
+|                              | (i.e. ``x.get_lb() == x.get_ub()``).                         |
 +------------------------------+--------------------------------------------------------------+
 | ``x.has_enumerated_domain()``| ``True`` if the domain is stored as an enumeration.          |
 +------------------------------+--------------------------------------------------------------+

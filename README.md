@@ -27,8 +27,8 @@ understand how such a thing could be achieved, so many thanks to JGraphT authors
 
 ## Installation
 
-We automatically build 64-bit wheels for Python versions >= 3.6 on Linux, Windows and
-MacOSX. They can be directly downloaded from PyPI (https://pypi.org/project/pychoco/) or using pip:
+We automatically build 64-bit wheels for Python versions >= 3.10 on Linux (x86_64), Windows (AMD64) and
+MacOSX (arm64). They can be directly downloaded from PyPI (https://pypi.org/project/pychoco/) or using pip:
 
     pip install pychoco
 
@@ -167,7 +167,7 @@ The following system dependencies are required to build pychoco from sources:
 - GraalVM >= 22 (see https://www.graalvm.org/)
 - Native Image component for GraalVM (see https://www.graalvm.org/22.1/reference-manual/native-image/)
 - Apache Maven (see https://maven.apache.org/)
-- Python >= 3.6 (see https://www.python.org/)
+- Python >= 3.10 (see https://www.python.org/)
 - SWIG >= 3 (see https://www.swig.org/)
 
 Once these dependencies are satisfied, clone the current repository:

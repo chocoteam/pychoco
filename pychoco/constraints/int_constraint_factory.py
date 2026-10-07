@@ -130,6 +130,9 @@ class IntConstraintFactory(ABC):
         Creates an allDifferent constraint, which ensures that all variables from vars take a different value.
 
         :param intvars: A list of integer variables.
+        :param algo: The consistency level, among "BC" (bound-consistency), "AC_REGIN" (arc-consistency, Regin
+            algorithm), "AC" or "AC_ZHANG" (arc-consistency, Zhang improvement of Regin algorithm, default) and
+            "DEFAULT" (BC plus a probabilistic AC propagator, a compromise between BC and AC).
         :return: An allDifferent constraint.
         """
         vars_array = make_intvar_array(intvars)
@@ -714,23 +717,25 @@ class IntConstraintFactory(ABC):
         return Constraint(constraint_handle, self)
 
     def global_cardinality(self, intvars: List[IntVar], values: List[int], occurrences: List[IntVar],
-                           closed: bool = False):
+                           closed: bool = False, consistency: str = "BC"):
         """
         Creates a global cardinality constraint (GCC):
         Each value values[i] should be taken by exactly occurrences[i] variables of intvars.
-        This constraint does not ensure any well-defined level of consistency, yet.
 
         :param intvars: A list of IntVars.
         :param values: A list of ints.
         :param occurrences: A list of IntVars.
         :param closed: If True, restricts domains of intvars to values.
+        :param consistency: The consistency level, among "DEFAULT" (fast filtering, without any well-defined level
+            of consistency), "BC" (bound-consistency, default) and "AC" (arc-consistency). "BC" and "AC" are posted
+            in addition to the "DEFAULT" filtering.
         :return: A global_cardinality constraint.
         """
         intvars_handle = make_intvar_array(intvars)
         values_handle = make_int_array(values)
         occurrences_handle = make_intvar_array(occurrences)
         constraint_handle = backend.global_cardinality(self._handle, intvars_handle, values_handle, occurrences_handle,
-                                                       closed)
+                                                       closed, consistency)
         return Constraint(constraint_handle, self)
 
     def inverse_channeling(self, intvars1: List[IntVar], intvars2: List[IntVar], offset1: int = 0,

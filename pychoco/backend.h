@@ -224,7 +224,7 @@ void* cumulative(void*, void*, void*, void*);
 void* diff_n(void*, void*, void*, void*, void*, int);
 void* decreasing(void*, void*, int);
 void* increasing(void*, void*, int);
-void* global_cardinality(void*, void*, void*, void*, int);
+void* global_cardinality(void*, void*, void*, void*, int, char*);
 void* inverse_channeling(void*, void*, void*, int, int, int);
 void* int_value_precede_chain(void*, void*, void*);
 void* keysort(void*, void*, void*, void*, int);
