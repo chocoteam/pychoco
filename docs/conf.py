@@ -14,7 +14,7 @@ sys.path.insert(0, os.path.abspath('../pychoco'))
 project = 'pychoco'
 copyright = "2022, Dimitri Justeau-Allaire & Charles Prud'homme"
 author = "Dimitri Justeau-Allaire, Charles Prud'homme"
-release = '0.1.1'
+release = '0.4.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
