@@ -1,0 +1,19 @@
+# Read the Docs configuration file
+# See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
+
+version: 2
+
+build:
+  os: ubuntu-24.04
+  tools:
+    python: "3.12"
+
+sphinx:
+  configuration: docs/conf.py
+
+# pychoco itself is installed from PyPI (see requirements_docs.txt): the native
+# library cannot be built on Read the Docs, so the API pages document the latest
+# published release.
+python:
+  install:
+    - requirements: requirements_docs.txt
