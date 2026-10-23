@@ -32,11 +32,10 @@ else
   exit 1
 fi
 
-# Build choco-solver-capi
+# Build choco-solver-capi at the checked-out commit, with the same script as the CI
 if [ "$NO_CAPI_BUILD" != true ]; then
   cd choco-solver-capi
-  git pull origin master
-  mvn clean package -Pnative
+  sh build.sh
   cd ..
 fi
 
