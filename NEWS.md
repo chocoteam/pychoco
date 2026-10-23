@@ -4,6 +4,8 @@
   (`CTypedef` not found, chocoteam/choco-solver-capi#12)
 - `build.sh` builds choco-solver-capi with its own script at the checked-out commit (it no longer pulls),
   and installs with `uv pip` when the Python environment has no pip
+- The native library is built with Oracle GraalVM 25 and profile-guided optimizations: search is 3 to 17 %
+  faster, and the library is smaller. `sh pgo/train.sh` records a new profile from the test suite
 
 # pychoco 0.4.0
 

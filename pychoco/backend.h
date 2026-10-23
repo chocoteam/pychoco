@@ -10,6 +10,7 @@ extern "C" {
 void chocosolver_init();
 void chocosolver_cleanup();
 int chocosolver_is_initialized();
+void chocosolver_exit_for_profiling();
 
 // Model API
 
