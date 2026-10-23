@@ -21,6 +21,17 @@ for i in "$@"; do
   esac
 done
 
+# Pick the installer before cleaning anything: virtualenvs created by uv
+# ship without pip, so fall back to uv when pip is missing
+if python -m pip --version > /dev/null 2>&1; then
+  PIP="python -m pip"
+elif command -v uv > /dev/null 2>&1; then
+  PIP="uv pip"
+else
+  echo "Neither pip nor uv is available"
+  exit 1
+fi
+
 # Build choco-solver-capi
 if [ "$NO_CAPI_BUILD" != true ]; then
   cd choco-solver-capi
@@ -39,10 +50,10 @@ rm -f pychoco/*.so
 swig -python pychoco/backend.i
 
 # Build and install in development mode
-pip install -e .
+$PIP install -e .
 
 if [ "$NO_WHEEL" != true ]; then
-  pip install wheel build
+  $PIP install wheel build
   OS=$(uname)
   if [ "$OS" = "Linux" ]; then
     python -m build --wheel -C--plat-name=manylinux2014_x86_64
