@@ -1,7 +1,9 @@
 # pychoco (unreleased)
 
-- Update to choco-solver-capi 2.0.1: fix the compilation of the native library with a non-GraalVM JDK
+- Update to choco-solver-capi 2.0.2: fix the compilation of the native library with a non-GraalVM JDK
   (`CTypedef` not found, chocoteam/choco-solver-capi#12)
+- `build.sh` builds choco-solver-capi with its own script at the checked-out commit (it no longer pulls),
+  and installs with `uv pip` when the Python environment has no pip
 
 # pychoco 0.4.0
 
