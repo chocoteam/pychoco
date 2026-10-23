@@ -1,3 +1,8 @@
+# pychoco (unreleased)
+
+- Update to choco-solver-capi 2.0.1: fix the compilation of the native library with a non-GraalVM JDK
+  (`CTypedef` not found, chocoteam/choco-solver-capi#12)
+
 # pychoco 0.4.0
 
 - Update to choco-solver 6.0.2
