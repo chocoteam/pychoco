@@ -42,7 +42,7 @@ runs:
       name: Set up GraalVM Native Image toolchain
       uses: graalvm/setup-graalvm@v1
       with:
-        java-version: '22'
+        java-version: '25'
         distribution: 'graalvm'
         cache: 'maven'
     - if: ${{ (inputs.cache != 'true') || (steps.cache-choco-solver-capi.outputs.cache-hit != 'true') }}
