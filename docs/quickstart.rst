@@ -55,3 +55,16 @@ And retrieve the solution:
     > "sum = 45"
     > "intvar[6] >= 6 ? False"
     > "intvar[7] >= 7 ? False"
+
+Note that the solver keeps its search state between two resolutions: a new call to ``solve()``
+or to one of the ``find_*()`` methods resumes the search where the previous one stopped (for
+instance, a second ``find_optimal_solution()`` returns ``None``). Call ``reset()`` to run an
+independent resolution, or ``hard_reset()`` to also discard the search strategy, the restart policy,
+the hints and the search monitors:
+
+.. code-block:: python
+
+    solver = model.get_solver()
+    s1 = solver.find_optimal_solution(sum_var, False)
+    solver.reset()
+    s2 = solver.find_optimal_solution(sum_var, False)  # same optimum as s1

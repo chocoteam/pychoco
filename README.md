@@ -164,8 +164,8 @@ sol = pf.find_best_solution()
 
 The following system dependencies are required to build pychoco from sources:
 
-- GraalVM >= 22 (see https://www.graalvm.org/)
-- Native Image component for GraalVM (see https://www.graalvm.org/22.1/reference-manual/native-image/)
+- Oracle GraalVM >= 25 (see https://www.graalvm.org/); the Community Edition lacks the profile-guided optimizations used by the build
+- Native Image, included in Oracle GraalVM (see https://www.graalvm.org/latest/reference-manual/native-image/)
 - Apache Maven (see https://maven.apache.org/)
 - Python >= 3.10 (see https://www.python.org/)
 - SWIG >= 3 (see https://www.swig.org/)

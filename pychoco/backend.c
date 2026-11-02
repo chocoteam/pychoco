@@ -61,6 +61,13 @@ int chocosolver_is_initialized() {
     return thread != NULL && isolate != NULL;
 }
 
+// PGO training only (pgo/train.py): dumps the profile of an instrumented library, then
+// terminates the process
+void chocosolver_exit_for_profiling() {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_ProfilingApi_exit(thread);
+}
+
 // State API (backtrackable values)
 
 void* make_state_int(void* modelHandle, int initial_value) {
@@ -383,6 +390,14 @@ void push_state(void* solverHandle) {
 void pop_state(void* solverHandle) {
     LAZY_THREAD_ATTACH
     Java_org_chocosolver_capi_SolverApi_pop_state(thread, solverHandle);
+}
+void solver_reset(void* solverHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_SolverApi_reset(thread, solverHandle);
+}
+void solver_hard_reset(void* solverHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_SolverApi_hard_reset(thread, solverHandle);
 }
 float get_time_count(void* solverHandle) {
     LAZY_THREAD_ATTACH

@@ -10,6 +10,7 @@ extern "C" {
 void chocosolver_init();
 void chocosolver_cleanup();
 int chocosolver_is_initialized();
+void chocosolver_exit_for_profiling();
 
 // Model API
 
@@ -56,6 +57,8 @@ void limit_time(void*, char*);
 int propagate(void*);
 void push_state(void*);
 void pop_state(void*);
+void solver_reset(void*);
+void solver_hard_reset(void*);
 float get_time_count(void*);
 long get_node_count(void*);
 long get_backtrack_count(void*);

@@ -130,3 +130,17 @@ class TestSolver(unittest.TestCase):
         solver.get_backtrack_count()
         solver.get_fail_count()
         solver.get_restart_count()
+
+    def test_get_node_count(self):
+        # 3 unconstrained binary variables, enumerated in input order:
+        # the search tree is a complete binary tree with 8 leaves, hence 15 nodes.
+        model = Model()
+        x = model.intvars(3, 0, 1)
+        solver = model.get_solver()
+        solver.set_input_order_lb_search(*x)
+        solutions = solver.find_all_solutions()
+        self.assertEqual(len(solutions), 8)
+        node_count = solver.get_node_count()
+        self.assertIsInstance(node_count, int)
+        self.assertEqual(node_count, 15)
+        self.assertEqual(node_count, solver.get_backtrack_count())

@@ -4,6 +4,14 @@
   (`CTypedef` not found, chocoteam/choco-solver-capi#12)
 - `build.sh` builds choco-solver-capi with its own script at the checked-out commit (it no longer pulls),
   and installs with `uv pip` when the Python environment has no pip
+- The native library is built with Oracle GraalVM 25 and profile-guided optimizations: search is 3 to 17 %
+  faster, and the library is smaller. `sh pgo/train.sh` records a new profile from the test suite
+- Add `reset` and `hard_reset` in solver, to run independent resolutions on the same model: successive
+  calls to `solve` or `find_*` resume the search where the previous one stopped (#47)
+- Fix a fatal crash of the Python process when `restart_limit` or `backtrack_limit` is passed to `solve`
+  or `find_*`: the limit was built on the solver instead of the model. `backtrack_limit` was also given the
+  value of `restart_limit` (a `TypeError` when `restart_limit` was not set): it now limits the backtracks
+- Fix `get_node_count` in solver, which returned the resolution time instead of the number of nodes
 
 # pychoco 0.4.0
 
