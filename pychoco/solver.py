@@ -63,9 +63,9 @@ class Solver(SearchStrategies, _HandleWrapper):
         if fail_limit is not None:
             criterion.append(backend.fail_counter(self.model._handle, fail_limit))
         if restart_limit is not None:
-            criterion.append(backend.restart_counter(self._handle, restart_limit))
+            criterion.append(backend.restart_counter(self.model._handle, restart_limit))
         if backtrack_limit is not None:
-            criterion.append(backend.backtrack_counter(self._handle, restart_limit))
+            criterion.append(backend.backtrack_counter(self.model._handle, backtrack_limit))
         stop = make_criterion_var_array(criterion)
         return bool(backend.solve(self._handle, stop))
 
@@ -94,9 +94,9 @@ class Solver(SearchStrategies, _HandleWrapper):
         if fail_limit is not None:
             criterion.append(backend.fail_counter(self.model._handle, fail_limit))
         if restart_limit is not None:
-            criterion.append(backend.restart_counter(self._handle, restart_limit))
+            criterion.append(backend.restart_counter(self.model._handle, restart_limit))
         if backtrack_limit is not None:
-            criterion.append(backend.backtrack_counter(self._handle, restart_limit))
+            criterion.append(backend.backtrack_counter(self.model._handle, backtrack_limit))
         stop = make_criterion_var_array(criterion)
         solution_handle = backend.find_solution(self._handle, stop)
         if solution_handle is None:
@@ -132,9 +132,9 @@ class Solver(SearchStrategies, _HandleWrapper):
         if fail_limit is not None:
             criterion.append(backend.fail_counter(self.model._handle, fail_limit))
         if restart_limit is not None:
-            criterion.append(backend.restart_counter(self._handle, restart_limit))
+            criterion.append(backend.restart_counter(self.model._handle, restart_limit))
         if backtrack_limit is not None:
-            criterion.append(backend.backtrack_counter(self._handle, restart_limit))
+            criterion.append(backend.backtrack_counter(self.model._handle, backtrack_limit))
         stop = make_criterion_var_array(criterion)
         solutions_list_handle = backend.find_all_solutions(self._handle, stop)
         return extract_solutions(solutions_list_handle)
@@ -174,9 +174,9 @@ class Solver(SearchStrategies, _HandleWrapper):
         if fail_limit is not None:
             criterion.append(backend.fail_counter(self.model._handle, fail_limit))
         if restart_limit is not None:
-            criterion.append(backend.restart_counter(self._handle, restart_limit))
+            criterion.append(backend.restart_counter(self.model._handle, restart_limit))
         if backtrack_limit is not None:
-            criterion.append(backend.backtrack_counter(self._handle, restart_limit))
+            criterion.append(backend.backtrack_counter(self.model._handle, backtrack_limit))
         stop = make_criterion_var_array(criterion)
         solution_handle = backend.find_optimal_solution(self._handle, objective._handle, maximize, stop)
         if solution_handle is None:
@@ -218,9 +218,9 @@ class Solver(SearchStrategies, _HandleWrapper):
         if fail_limit is not None:
             criterion.append(backend.fail_counter(self.model._handle, fail_limit))
         if restart_limit is not None:
-            criterion.append(backend.restart_counter(self._handle, restart_limit))
+            criterion.append(backend.restart_counter(self.model._handle, restart_limit))
         if backtrack_limit is not None:
-            criterion.append(backend.backtrack_counter(self._handle, restart_limit))
+            criterion.append(backend.backtrack_counter(self.model._handle, backtrack_limit))
         stop = make_criterion_var_array(criterion)
         solutions_list_handle = backend.find_all_optimal_solutions(self._handle, objective._handle, maximize, stop)
         return extract_solutions(solutions_list_handle)

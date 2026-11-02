@@ -8,6 +8,9 @@
   faster, and the library is smaller. `sh pgo/train.sh` records a new profile from the test suite
 - Add `reset` and `hard_reset` in solver, to run independent resolutions on the same model: successive
   calls to `solve` or `find_*` resume the search where the previous one stopped (#47)
+- Fix a fatal crash of the Python process when `restart_limit` or `backtrack_limit` is passed to `solve`
+  or `find_*`: the limit was built on the solver instead of the model. `backtrack_limit` was also given the
+  value of `restart_limit` (a `TypeError` when `restart_limit` was not set): it now limits the backtracks
 
 # pychoco 0.4.0
 
