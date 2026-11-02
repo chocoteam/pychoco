@@ -46,6 +46,8 @@ class Solver(SearchStrategies, _HandleWrapper):
         - OPTIMISATION : Computes a feasible solution, wrt to the objective defined. Use while solve(): to find the
         optimal solution. Indeed, each new solution improves the objective. If no new solution is
         found (and no stop criterion encountered), the last one is guaranteed to be the optimal one.
+        Successive calls on the same solver resume the search where the previous one stopped; call reset() first
+        to run an independent resolution.
         :param time_limit: Time limit for search (e.g. "10s", "2m"), None => no time limit.
         :param node_limit: Number of nodes limit for search, None => no node limit.
         :param fail_limit: Number of fails limit for search, None => no fail limit.
@@ -75,6 +77,8 @@ class Solver(SearchStrategies, _HandleWrapper):
                       backtrack_limit: Union[None, int] = None) -> Solution:
         """
         Finds a solution and retrieve it.
+        Successive calls on the same solver resume the search where the previous one stopped; call reset() first
+        to run an independent resolution.
         :param time_limit: Time limit for search (e.g. "10s", "2m"), None => no time limit.
         :param node_limit: Number of nodes limit for search, None => no node limit.
         :param fail_limit: Number of fails limit for search, None => no fail limit.
@@ -108,6 +112,8 @@ class Solver(SearchStrategies, _HandleWrapper):
                            backtrack_limit: Union[None, int] = None) -> List[Solution]:
         """
         Finds all the solutions to a problem, eventually with respect to search limits.
+        Successive calls on the same solver resume the search where the previous one stopped; call reset() first
+        to run an independent resolution.
         :param time_limit: Time limit for search (e.g. "10s", "2m"), None => no time limit.
         :param solution_limit: Number of solutions limit for search, None => no solution limit.
         :param node_limit: Number of nodes limit for search, None => no node limit.
@@ -146,6 +152,8 @@ class Solver(SearchStrategies, _HandleWrapper):
         Finds the optimal solution (minimum or maximum) solution according to an objective variable.
         Note that if search limits were defined, the returned solution might not be the optimal, but the
         best found so far.
+        Successive calls on the same solver resume the search where the previous one stopped; call reset() first
+        to run an independent resolution.
         :param objective: Objective variable.
         :param maximize: if True, maximizes the objective variable, otherwise minimizes it.
         :param time_limit: Time limit for search (e.g. "10s", "2m"), None => no time limit.
@@ -188,6 +196,8 @@ class Solver(SearchStrategies, _HandleWrapper):
         Finds all optimal solutions (minimum or maximum) solution according to an objective variable.
         Note that if search limits were defined, the returned solutions might not be optimal, but the
         best found so far.
+        Successive calls on the same solver resume the search where the previous one stopped; call reset() first
+        to run an independent resolution.
         :param objective: Objective variable.
         :param maximize: if True, maximizes the objective variable, otherwise minimizes it.
         :param time_limit: Time limit for search (e.g. "10s", "2m"), None => no time limit.
@@ -381,6 +391,29 @@ class Solver(SearchStrategies, _HandleWrapper):
         Backtracks to the previous choice point in the search tree
         """
         backend.pop_state(self._handle)
+
+    def reset(self):
+        """
+        Resets the solver, so that the next resolution starts from scratch.
+        Without a reset, successive calls to solve() or find_*() resume the search where the previous call
+        stopped: for instance, a second find_optimal_solution() call returns None, and successive
+        find_solution() calls enumerate the solutions one after the other. Calling reset() between the calls
+        makes them independent.
+        In details, this backtracks to the root of the search tree, resets the measures (node count, time
+        count...) and the bounds of the objective, clears learnt clauses, if any, and removes all stop
+        criteria (including a time limit set with limit_time()).
+        The search strategy, restart policy, hints and other solver configurations are kept: see
+        hard_reset() to also discard them.
+        """
+        backend.solver_reset(self._handle)
+
+    def hard_reset(self):
+        """
+        Resets the solver to its creation state.
+        Calls reset() (see its documentation), then also removes the declared search strategy (the default
+        one is used again), learning, the restart policy, the search hints and the search monitors.
+        """
+        backend.solver_hard_reset(self._handle)
 
     def __repr__(self):
         return "Choco Solver"

@@ -6,6 +6,8 @@
   and installs with `uv pip` when the Python environment has no pip
 - The native library is built with Oracle GraalVM 25 and profile-guided optimizations: search is 3 to 17 %
   faster, and the library is smaller. `sh pgo/train.sh` records a new profile from the test suite
+- Add `reset` and `hard_reset` in solver, to run independent resolutions on the same model: successive
+  calls to `solve` or `find_*` resume the search where the previous one stopped (#47)
 
 # pychoco 0.4.0
 

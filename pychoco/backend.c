@@ -391,6 +391,14 @@ void pop_state(void* solverHandle) {
     LAZY_THREAD_ATTACH
     Java_org_chocosolver_capi_SolverApi_pop_state(thread, solverHandle);
 }
+void solver_reset(void* solverHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_SolverApi_reset(thread, solverHandle);
+}
+void solver_hard_reset(void* solverHandle) {
+    LAZY_THREAD_ATTACH
+    Java_org_chocosolver_capi_SolverApi_hard_reset(thread, solverHandle);
+}
 float get_time_count(void* solverHandle) {
     LAZY_THREAD_ATTACH
     return Java_org_chocosolver_capi_SolverApi_get_time_count(thread, solverHandle);
