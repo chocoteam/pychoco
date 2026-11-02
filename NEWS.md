@@ -11,6 +11,7 @@
 - Fix a fatal crash of the Python process when `restart_limit` or `backtrack_limit` is passed to `solve`
   or `find_*`: the limit was built on the solver instead of the model. `backtrack_limit` was also given the
   value of `restart_limit` (a `TypeError` when `restart_limit` was not set): it now limits the backtracks
+- Fix `get_node_count` in solver, which returned the resolution time instead of the number of nodes
 
 # pychoco 0.4.0
 

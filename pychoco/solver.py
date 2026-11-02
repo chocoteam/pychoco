@@ -338,11 +338,6 @@ class Solver(SearchStrategies, _HandleWrapper):
         """
         return backend.get_time_count(self._handle)
 
-    def get_node_count(self):
-        """
-        :return: the time count (in seconds)
-        """
-        return backend.get_time_count(self._handle)
     def get_backtrack_count(self):
         """
         :return: the backtrack count
